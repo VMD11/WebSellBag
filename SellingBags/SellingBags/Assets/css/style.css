@@ -543,17 +543,20 @@
          border-top: solid 1px #222;
     }
 }
- .arrow::before{
-     font-family: 'FontAwesome';
-     content: "\f0d7";
-     margin-left: 5px;
-     margin-top: 2px;
-     border: none;
-     display: inline-block;
-     vertical-align: inherit;
-     position: absolute;
-     right: 10px;
-     top: 28px;
+
+
+.arrow::before {
+    content: "\f0d7";
+    font-family: FontAwesome;
+    margin-left: 5px;
+    margin-top: 2px;
+    border: none;
+    display: inline-block;
+    text-decoration: inherit;
+    position: absolute;
+    right: 10px;
+    top: 28px;
+    
 }
  .dropdown-toggle::after{
      display: none;

@@ -6,7 +6,7 @@ select.selectpicker {
 
 /* line 32, bootstrap-select.scss */
 .bootstrap-select {
-  width: 220px \0;
+  width: 220px 0;
   /*IE9 and below*/
 }
 /* line 37, bootstrap-select.scss */
