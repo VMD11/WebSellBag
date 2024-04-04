@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="~/Assets/css/style.css">
     <!-- Responsive CSS -->
     <link rel="stylesheet" href="~/Assets/css/responsive.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/Assets/css/custom.css">
     <!-- Font CSS -->
     <link rel="stylesheet" href="~/Assets/fonts/fontawesome-free-6.5.2/css/all.css">
 
@@ -76,7 +78,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                     <div class="right-phone-box">
-                        <p>Call  : <a href="tel:+84362226617">+84 362 226 617</a></p>
+                        <p>Call  : <a href="tel:2020605565">2020605565</a></p>
                     </div>
                     <div class="our-link">
                         <ul>
@@ -109,7 +111,7 @@
                         <li class="nav-item active"><a class="nav-link" href="@Url.Action("Index","Home")">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
                         <li class="dropdown megamenu-fw">
-                            <a href="@Url.Action("Index", "Product")" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">Product </a>
+                            <a href="@Url.Action("Product", "Product")" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">Product </a>
                             <ul class="dropdown-menu megamenu-content" role="menu">
                                 <li>
                                     <div class="row">
@@ -117,10 +119,10 @@
                                             <h6 class="title">Top</h6>
                                             <div class="content">
                                                 <ul class="menu-col">
-                                                    <li><a href="@Url.Action("Index","Product")">Jackets</a></li>
-                                                    <li><a href="@Url.Action("Index","Product")">Shirts</a></li>
-                                                    <li><a href="@Url.Action("Index","Product")">Sweaters & Cardigans</a></li>
-                                                    <li><a href="@Url.Action("Index","Product")">T-shirts</a></li>
+                                                    <li><a href="@Url.Action("Product","Product")">Jackets</a></li>
+                                                    <li><a href="@Url.Action("Product","Product")">Shirts</a></li>
+                                                    <li><a href="@Url.Action("Product","Product")">Sweaters & Cardigans</a></li>
+                                                    <li><a href="@Url.Action("Product","Product")">T-shirts</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -129,10 +131,10 @@
                                             <h6 class="title">Bottom</h6>
                                             <div class="content">
                                                 <ul class="menu-col">
-                                                    <li><a href="@Url.Action("Index","Product")">Swimwear</a></li>
-                                                    <li><a href="@Url.Action("Index","Product")">Skirts</a></li>
-                                                    <li><a href="@Url.Action("Index","Product")">Jeans</a></li>
-                                                    <li><a href="@Url.Action("Index","Product")">Trousers</a></li>
+                                                    <li><a href="@Url.Action("Product","Product")">Swimwear</a></li>
+                                                    <li><a href="@Url.Action("Product","Product")">Skirts</a></li>
+                                                    <li><a href="@Url.Action("Product","Product")">Jeans</a></li>
+                                                    <li><a href="@Url.Action("Product","Product")">Trousers</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -141,10 +143,10 @@
                                             <h6 class="title">Clothing</h6>
                                             <div class="content">
                                                 <ul class="menu-col">
-                                                    <li><a href="@Url.Action("Index","Product")">Top Wear</a></li>
-                                                    <li><a href="@Url.Action("Index","Product")">Party wear</a></li>
-                                                    <li><a href="@Url.Action("Index","Product")">Bottom Wear</a></li>
-                                                    <li><a href="@Url.Action("Index","Product")">Indian Wear</a></li>
+                                                    <li><a href="@Url.Action("Product","Product")">Top Wear</a></li>
+                                                    <li><a href="@Url.Action("Product","Product")">Party wear</a></li>
+                                                    <li><a href="@Url.Action("Product","Product")">Bottom Wear</a></li>
+                                                    <li><a href="@Url.Action("Product","Product")">Indian Wear</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -152,10 +154,10 @@
                                             <h6 class="title">Accessories</h6>
                                             <div class="content">
                                                 <ul class="menu-col">
-                                                    <li><a href="@Url.Action("Index","Product")">Bags</a></li>
-                                                    <li><a href="@Url.Action("Index","Product")">Sunglasses</a></li>
-                                                    <li><a href="@Url.Action("Index","Product")">Fragrances</a></li>
-                                                    <li><a href="@Url.Action("Index","Product")">Wallets</a></li>
+                                                    <li><a href="@Url.Action("Product","Product")">Bags</a></li>
+                                                    <li><a href="@Url.Action("Product","Product")">Sunglasses</a></li>
+                                                    <li><a href="@Url.Action("Product","Product")">Fragrances</a></li>
+                                                    <li><a href="@Url.Action("Product","Product")">Wallets</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -171,7 +173,7 @@
                                 <li>@Html.ActionLink("Cart", "Index", "Cart")</li>
                                 <li>@Html.ActionLink("Checkout", "Index", "Checkout")</li>
                                 <li>@Html.ActionLink("My Account", "Index", "Account")</li>
-                                <li><a href="wishlist.html">Wishlist</a></li>
+                                <li>@Html.ActionLink("Wishlist", "WishList", "Product")</li>
                                 <li><a href="shop-detail.html">Shop Detail</a></li>
                             </ul>
                         </li>
@@ -185,7 +187,7 @@
                     <ul>
                         <li class="search"><a href="#"><i class="fa fa-search"></i></a></li>
                         <li class="side-menu">
-                            
+
                             <a href="@Url.Action("Index","Cart")">
                                 <i class="fa fa-shopping-bag"></i>
                                 <span class="badge">3</span>
@@ -216,7 +218,7 @@
                             <p>1x - <span class="price">$40.00</span></p>
                         </li>
                         <li class="total">
-                            @Html.ActionLink("VIEW CART", "Index", "Cart",null, new { @class="btn btn-default hvr-hover btn-cart"})
+                            @Html.ActionLink("VIEW CART", "Index", "Cart", null, new { @class = "btn btn-default hvr-hover btn-cart" })
                             <span class="float-right"><strong>Total</strong>: $180.00</span>
                         </li>
                     </ul>
@@ -238,7 +240,7 @@
         </div>
     </div>
     <!-- End Top Search -->
-    
+
     @RenderBody()
 
     <!-- Start Footer  -->
@@ -281,13 +283,13 @@
                             <h4>Contact Us</h4>
                             <ul>
                                 <li>
-                                    <p><i class="fas fa-map-marker-alt"></i>Address: Michael I. Days 3756 <br>Preston Street Wichita,<br> KS 67213 </p>
+                                    <p><i class="fas fa-map-marker-alt"></i>Address: Phuxuyen, Hanoi, Vietnam.</p>
                                 </li>
                                 <li>
-                                    <p><i class="fas fa-phone-square"></i>Phone: <a href="tel:+1-888705770">+1-888 705 770</a></p>
+                                    <p><i class="fas fa-phone-square"></i>Phone: <a href="tel:2020605565">2020605565</a></p>
                                 </li>
                                 <li>
-                                    <p><i class="fas fa-envelope"></i>Email: <a href="mailto:contactinfo@gmail.com">contactinfo@gmail.com</a></p>
+                                    <p><i class="fas fa-envelope"></i>Email: <a href="mailto:email@gmail.com">email@gmail.com</a></p>
                                 </li>
                             </ul>
                         </div>
@@ -300,7 +302,7 @@
     <!-- Start copyright  -->
     <div class="footer-copyright">
         <p class="footer-company">
-            All Rights Reserved. &copy; 2018 <a href="#">ThewayShop</a> Design By :
+            All Rights Reserved. &copy; 2024 <a href="#">ThewayShop</a> Design By :
             <a href="https://html.design/">html design</a>
         </p>
     </div>
@@ -321,6 +323,8 @@
     <script src="~/Assets/js/isotope.min.js"></script>
     <script src="~/Assets/js/owl.carousel.min.js"></script>
     <script src="~/Assets/js/baguetteBox.min.js"></script>
+    <script src="~/Assets/js/jquery-ui.js"></script>
+    <script src="~/Assets/js/jquery.nicescroll.min.js"></script>
     <script src="~/Assets/js/form-validator.min.js"></script>
     <script src="~/Assets/js/contact-form-script.js"></script>
     <script src="~/Assets/js/custom.js"></script>

@@ -9,7 +9,17 @@ namespace SellingBags.Controllers
     public class ProductController : Controller
     {
         // GET: Product
-        public ActionResult Index()
+        public ActionResult Product()
+        {
+            return View();
+        }
+
+        public ActionResult Detail()
+        {
+            return View();
+        }
+
+        public ActionResult WishList()
         {
             return View();
         }
