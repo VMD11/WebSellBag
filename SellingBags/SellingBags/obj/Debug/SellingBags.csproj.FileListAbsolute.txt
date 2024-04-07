@@ -77,3 +77,7 @@ D:\Visual Studio 22\ĐATN\WebSellBag\SellingBags\SellingBags\obj\Debug\SellingBa
 D:\Visual Studio 22\ĐATN\WebSellBag\SellingBags\SellingBags\obj\Debug\SellingBags.csproj.CopyComplete
 D:\Visual Studio 22\ĐATN\WebSellBag\SellingBags\SellingBags\obj\Debug\SellingBags.dll
 D:\Visual Studio 22\ĐATN\WebSellBag\SellingBags\SellingBags\obj\Debug\SellingBags.pdb
+D:\Visual Studio 22\ĐATN\WebSellBag\SellingBags\SellingBags\bin\EntityFramework.dll
+D:\Visual Studio 22\ĐATN\WebSellBag\SellingBags\SellingBags\bin\EntityFramework.SqlServer.dll
+D:\Visual Studio 22\ĐATN\WebSellBag\SellingBags\SellingBags\bin\EntityFramework.xml
+D:\Visual Studio 22\ĐATN\WebSellBag\SellingBags\SellingBags\bin\EntityFramework.SqlServer.xml
