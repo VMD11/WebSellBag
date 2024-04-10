@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fdea131796934b5882d02c1f7ddaf9aa" Name="Diagram1">
+        <EntityTypeShape EntityType="SellingBagsModel.Account" Width="1.5" PointX="1.5" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SellingBagsModel.Brand" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SellingBagsModel.Customer" Width="1.5" PointX="3.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SellingBagsModel.Discount" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SellingBagsModel.Order" Width="1.5" PointX="6" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SellingBagsModel.OrderDetail" Width="1.5" PointX="8.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SellingBagsModel.Product" Width="1.5" PointX="3" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SellingBagsModel.ProductType" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SellingBagsModel.Role" Width="1.5" PointX="1.5" PointY="11.875" IsExpanded="true" />
+        <AssociationConnector Association="SellingBagsModel.FK_Account_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="SellingBagsModel.FK_Customer_Account" ManuallyRouted="false" />
+        <AssociationConnector Association="SellingBagsModel.FK_Product_Brand" ManuallyRouted="false" />
+        <AssociationConnector Association="SellingBagsModel.FK_Order_Customer" ManuallyRouted="false" />
+        <AssociationConnector Association="SellingBagsModel.FK_Discount_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="SellingBagsModel.FK_OrderDetail_Order" ManuallyRouted="false" />
+        <AssociationConnector Association="SellingBagsModel.FK_OrderDetail_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="SellingBagsModel.FK_Product_ProductType" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,5 +1,13 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@using DB = SellingBags.Models
+@{ 
+    DB.SellingBagsEntities db = new DB.SellingBagsEntities();
+    List<DB.Brand> ListBrand = db.Brands.ToList();
+    List<DB.ProductType> ListProdTpye = db.ProductTypes.ToList();
+    
+}
+
+<!DOCTYPE html>
+<html lang="vi">
 <!-- Basic -->
 
 <head>

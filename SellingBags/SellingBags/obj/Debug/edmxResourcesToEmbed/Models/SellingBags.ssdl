@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SellingBagsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="ID_Account" />
+    </Key>
+    <Property Name="ID_Account" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="UserName" Type="nchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="ID_Role" Type="char" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Brand">
+    <Key>
+      <PropertyRef Name="ID_Brand" />
+    </Key>
+    <Property Name="ID_Brand" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="ImageURL" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="ID_Customer" />
+    </Key>
+    <Property Name="ID_Customer" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="nchar" MaxLength="30" />
+    <Property Name="PhoneNumber" Type="nchar" MaxLength="20" />
+    <Property Name="Address" Type="nvarchar(max)" />
+    <Property Name="City" Type="nvarchar" MaxLength="50" />
+    <Property Name="Country" Type="nvarchar" MaxLength="50" />
+    <Property Name="ID_Account" Type="char" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Discount">
+    <Key>
+      <PropertyRef Name="ID_Discount" />
+    </Key>
+    <Property Name="ID_Discount" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="StartDate" Type="datetime" />
+    <Property Name="EndDate" Type="datetime" />
+    <Property Name="Percents" Type="float" />
+    <Property Name="ID_Product" Type="char" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="ID_Order" />
+    </Key>
+    <Property Name="ID_Order" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+    <Property Name="OrderDate" Type="datetime" />
+    <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="ID_Customer" Type="char" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderDetail">
+    <Key>
+      <PropertyRef Name="ID_OrderDetail" />
+    </Key>
+    <Property Name="ID_OrderDetail" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="ID_Order" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="ID_Product" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ID_Product" />
+    </Key>
+    <Property Name="ID_Product" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Size" Type="nchar" MaxLength="10" />
+    <Property Name="Color" Type="nchar" MaxLength="30" />
+    <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="ID_Type" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="ID_Brand" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="ImageURL" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="ProductType">
+    <Key>
+      <PropertyRef Name="ID_Type" />
+    </Key>
+    <Property Name="ID_Type" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="30" />
+    <Property Name="ImageURL" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="ID_Role" />
+    </Key>
+    <Property Name="ID_Role" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="Name" Type="nchar" MaxLength="20" />
+  </EntityType>
+  <Association Name="FK_Account_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="Account" Type="Self.Account" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="ID_Role" />
+      </Principal>
+      <Dependent Role="Account">
+        <PropertyRef Name="ID_Role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Customer_Account">
+    <End Role="Account" Type="Self.Account" Multiplicity="1" />
+    <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="ID_Account" />
+      </Principal>
+      <Dependent Role="Customer">
+        <PropertyRef Name="ID_Account" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Discount_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="Discount" Type="Self.Discount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ID_Product" />
+      </Principal>
+      <Dependent Role="Discount">
+        <PropertyRef Name="ID_Product" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="ID_Customer" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="ID_Customer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetail_Order">
+    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="ID_Order" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="ID_Order" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetail_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ID_Product" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="ID_Product" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Brand">
+    <End Role="Brand" Type="Self.Brand" Multiplicity="1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Brand">
+        <PropertyRef Name="ID_Brand" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="ID_Brand" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_ProductType">
+    <End Role="ProductType" Type="Self.ProductType" Multiplicity="1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductType">
+        <PropertyRef Name="ID_Type" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="ID_Type" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="spLoadAllBrand" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="SellingBagsModelStoreContainer">
+    <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Brand" EntityType="Self.Brand" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Discount" EntityType="Self.Discount" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductType" EntityType="Self.ProductType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Account_Role" Association="Self.FK_Account_Role">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="Account" EntitySet="Account" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customer_Account" Association="Self.FK_Customer_Account">
+      <End Role="Account" EntitySet="Account" />
+      <End Role="Customer" EntitySet="Customer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Discount_Product" Association="Self.FK_Discount_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="Discount" EntitySet="Discount" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Customer" Association="Self.FK_Order_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetail_Order" Association="Self.FK_OrderDetail_Order">
+      <End Role="Order" EntitySet="Order" />
+      <End Role="OrderDetail" EntitySet="OrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetail_Product" Association="Self.FK_OrderDetail_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="OrderDetail" EntitySet="OrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Brand" Association="Self.FK_Product_Brand">
+      <End Role="Brand" EntitySet="Brand" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_ProductType" Association="Self.FK_Product_ProductType">
+      <End Role="ProductType" EntitySet="ProductType" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

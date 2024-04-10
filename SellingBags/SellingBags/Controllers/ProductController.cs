@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SellingBags.Models;
+using SellingBags.Models.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +13,12 @@ namespace SellingBags.Controllers
         // GET: Product
         public ActionResult Product()
         {
-            return View();
+            SellingBagsEntities db = new SellingBagsEntities();
+            ProductVM productVM = new ProductVM();
+            productVM.Brands = db.Brands;
+            productVM.Products = db.Products;
+            productVM.ProductTypes = db.ProductTypes;
+            return View(productVM);
         }
 
         public ActionResult Detail()

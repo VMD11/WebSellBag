@@ -128,6 +128,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CheckoutController.cs" />
@@ -136,16 +137,53 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Model\Account.cs" />
-    <Compile Include="Models\Model\Brand.cs" />
-    <Compile Include="Models\Model\Customer.cs" />
-    <Compile Include="Models\Model\Discount.cs" />
-    <Compile Include="Models\Model\Order.cs" />
-    <Compile Include="Models\Model\OrderDetail.cs" />
-    <Compile Include="Models\Model\Product.cs" />
-    <Compile Include="Models\Model\ProductType.cs" />
-    <Compile Include="Models\Model\Role.cs" />
-    <Compile Include="Models\Model\SellingBagsDB.cs" />
+    <Compile Include="Models\Account.cs">
+      <DependentUpon>SellingBags.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Brand.cs">
+      <DependentUpon>SellingBags.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Customer.cs">
+      <DependentUpon>SellingBags.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Discount.cs">
+      <DependentUpon>SellingBags.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Order.cs">
+      <DependentUpon>SellingBags.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrderDetail.cs">
+      <DependentUpon>SellingBags.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Product.cs">
+      <DependentUpon>SellingBags.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductType.cs">
+      <DependentUpon>SellingBags.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Role.cs">
+      <DependentUpon>SellingBags.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SellingBags.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SellingBags.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SellingBags.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SellingBags.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SellingBags.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SellingBags.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\spLoadAllBrand_Result.cs">
+      <DependentUpon>SellingBags.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ViewModel\HomeVM.cs" />
+    <Compile Include="Models\ViewModel\ProductVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -2255,14 +2293,13 @@
     <Content Include="Assets\images\blog-img-01.jpg" />
     <Content Include="Assets\images\blog-img-02.jpg" />
     <Content Include="Assets\images\blog-img.jpg" />
+    <Content Include="Assets\images\brands\CHAUTFIFTH.jpg" />
+    <Content Include="Assets\images\brands\JUNO.jpg" />
+    <Content Include="Assets\images\brands\LEE_TEE.jpg" />
+    <Content Include="Assets\images\brands\NEYUH_Leather.jpg" />
+    <Content Include="Assets\images\brands\ROGER_FANK.jpg" />
+    <Content Include="Assets\images\brands\Vascara.jpg" />
     <Content Include="Assets\images\favicon.ico" />
-    <Content Include="Assets\images\img-1.jpg" />
-    <Content Include="Assets\images\img-2.jpg" />
-    <Content Include="Assets\images\img-3.jpg" />
-    <Content Include="Assets\images\img-pro-01.jpg" />
-    <Content Include="Assets\images\img-pro-02.jpg" />
-    <Content Include="Assets\images\img-pro-03.jpg" />
-    <Content Include="Assets\images\img-pro-04.jpg" />
     <Content Include="Assets\images\ins-bg.jpg" />
     <Content Include="Assets\images\instagram-img-01.jpg" />
     <Content Include="Assets\images\instagram-img-02.jpg" />
@@ -2279,15 +2316,28 @@
     <Content Include="Assets\images\payment-icon\3.png" />
     <Content Include="Assets\images\payment-icon\5.png" />
     <Content Include="Assets\images\payment-icon\7.png" />
-    <Content Include="Assets\images\shirt-img.jpg" />
-    <Content Include="Assets\images\shoes-img.jpg" />
-    <Content Include="Assets\images\smp-img-01.jpg" />
-    <Content Include="Assets\images\smp-img-02.jpg" />
-    <Content Include="Assets\images\smp-img-03.jpg" />
-    <Content Include="Assets\images\t-shirts-img.jpg" />
-    <Content Include="Assets\images\wallet-img.jpg" />
-    <Content Include="Assets\images\women-bag-img.jpg" />
-    <Content Include="Assets\images\women-shoes-img.jpg" />
+    <Content Include="Assets\images\prodtypes\tuidathat.jpg" />
+    <Content Include="Assets\images\prodtypes\tuideocheo.jpg" />
+    <Content Include="Assets\images\prodtypes\tuideovai.jpg" />
+    <Content Include="Assets\images\prodtypes\tuixachlon.jpg" />
+    <Content Include="Assets\images\prodtypes\tuixachnho.jpg" />
+    <Content Include="Assets\images\prodtypes\tuixachtay.jpg" />
+    <Content Include="Assets\images\prodtypes\tuixachvua.jpg" />
+    <Content Include="Assets\images\products\tuidathatP01T06.jpg" />
+    <Content Include="Assets\images\products\tuidathatP02T06.jpg" />
+    <Content Include="Assets\images\products\tuidathatP03T06.jpg" />
+    <Content Include="Assets\images\products\tuideocheoP01T05.jpg" />
+    <Content Include="Assets\images\products\tuideocheoP02T05.jpg" />
+    <Content Include="Assets\images\products\tuideovaiP01T07.jpg" />
+    <Content Include="Assets\images\products\tuideovaiP02T07.jpg" />
+    <Content Include="Assets\images\products\tuilonP01T01.jpg" />
+    <Content Include="Assets\images\products\tuilonP02T01.jpg" />
+    <Content Include="Assets\images\products\tuinhoP01T03.jpg" />
+    <Content Include="Assets\images\products\tuinhoP02T03.jpg" />
+    <Content Include="Assets\images\products\tuivuaP01T02.jpg" />
+    <Content Include="Assets\images\products\tuivuaP02T02.jpg" />
+    <Content Include="Assets\images\products\tuixachtayP01T04.jpg" />
+    <Content Include="Assets\images\products\tuixachtayP02T04.jpg" />
     <Content Include="Assets\js\baguetteBox.min.js" />
     <Content Include="Assets\js\bootsnav.js" />
     <Content Include="Assets\js\bootstrap-select.js" />
@@ -2326,6 +2376,16 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\SellingBags.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SellingBags.edmx</DependentUpon>
+      <LastGenOutput>SellingBags.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\SellingBags.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SellingBags.edmx</DependentUpon>
+      <LastGenOutput>SellingBags.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -2397,6 +2457,14 @@
     <Content Include="Assets\fonts\fontawesome-free-6.5.2\webfonts\fa-solid-900.woff2" />
     <Content Include="Assets\fonts\fontawesome-free-6.5.2\webfonts\fa-v4compatibility.ttf" />
     <Content Include="Assets\fonts\fontawesome-free-6.5.2\webfonts\fa-v4compatibility.woff2" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <EntityDeploy Include="Models\SellingBags.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SellingBags.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\SellingBags.edmx.diagram">
+      <DependentUpon>SellingBags.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2429,6 +2497,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Controllers\" />
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SellingBagsModelStoreContainer" CdmEntityContainer="SellingBagsEntities">
+    <EntitySetMapping Name="Accounts">
+      <EntityTypeMapping TypeName="SellingBagsModel.Account">
+        <MappingFragment StoreEntitySet="Account">
+          <ScalarProperty Name="ID_Account" ColumnName="ID_Account" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="ID_Role" ColumnName="ID_Role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Brands">
+      <EntityTypeMapping TypeName="SellingBagsModel.Brand">
+        <MappingFragment StoreEntitySet="Brand">
+          <ScalarProperty Name="ID_Brand" ColumnName="ID_Brand" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="SellingBagsModel.Customer">
+        <MappingFragment StoreEntitySet="Customer">
+          <ScalarProperty Name="ID_Customer" ColumnName="ID_Customer" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="ID_Account" ColumnName="ID_Account" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Discounts">
+      <EntityTypeMapping TypeName="SellingBagsModel.Discount">
+        <MappingFragment StoreEntitySet="Discount">
+          <ScalarProperty Name="ID_Discount" ColumnName="ID_Discount" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="Percents" ColumnName="Percents" />
+          <ScalarProperty Name="ID_Product" ColumnName="ID_Product" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="SellingBagsModel.Order">
+        <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="ID_Order" ColumnName="ID_Order" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+          <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+          <ScalarProperty Name="ID_Customer" ColumnName="ID_Customer" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OrderDetails">
+      <EntityTypeMapping TypeName="SellingBagsModel.OrderDetail">
+        <MappingFragment StoreEntitySet="OrderDetail">
+          <ScalarProperty Name="ID_OrderDetail" ColumnName="ID_OrderDetail" />
+          <ScalarProperty Name="ID_Order" ColumnName="ID_Order" />
+          <ScalarProperty Name="ID_Product" ColumnName="ID_Product" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="SellingBagsModel.Product">
+        <MappingFragment StoreEntitySet="Product">
+          <ScalarProperty Name="ID_Product" ColumnName="ID_Product" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Size" ColumnName="Size" />
+          <ScalarProperty Name="Color" ColumnName="Color" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ID_Type" ColumnName="ID_Type" />
+          <ScalarProperty Name="ID_Brand" ColumnName="ID_Brand" />
+          <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductTypes">
+      <EntityTypeMapping TypeName="SellingBagsModel.ProductType">
+        <MappingFragment StoreEntitySet="ProductType">
+          <ScalarProperty Name="ID_Type" ColumnName="ID_Type" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Roles">
+      <EntityTypeMapping TypeName="SellingBagsModel.Role">
+        <MappingFragment StoreEntitySet="Role">
+          <ScalarProperty Name="ID_Role" ColumnName="ID_Role" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="spLoadAllBrand" FunctionName="SellingBagsModel.Store.spLoadAllBrand">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SellingBagsModel.spLoadAllBrand_Result">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

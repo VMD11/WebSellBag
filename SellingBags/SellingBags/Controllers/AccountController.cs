@@ -13,5 +13,17 @@ namespace SellingBags.Controllers
         {
             return View();
         }
+
+        public ActionResult Login(string username, string password)
+        {
+            try
+            {
+
+            }catch (Exception ex)
+            {
+                
+            }
+            return View();
+        }
     }
 }
