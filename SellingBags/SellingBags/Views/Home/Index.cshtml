@@ -44,10 +44,10 @@
             </div>
         </li>
     </ul>
-    <div class="slides-navigation">
+    @*<div class="slides-navigation">
         <a href="#" class="next"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
         <a href="#" class="prev"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
-    </div>
+    </div>*@
 </div>
 <!-- End Slider -->
 
@@ -69,7 +69,7 @@
                     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                         <div class="shop-cat-box">
                             <img class="img-fluid" src="~/Assets/images/brands/@item.ImageURL" alt="" />
-                            <a class="btn hvr-hover" href="#">@item.Name</a>
+                            <a class="btn hvr-hover" href="@Url.Action("ProductsByBrand", "Product", new {ID_Brand = item.ID_Brand})">@item.Name</a>
                         </div>
                     </div>
                 }

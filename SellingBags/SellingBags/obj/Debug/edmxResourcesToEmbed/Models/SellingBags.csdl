@@ -98,6 +98,8 @@
     <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
     <Property Name="ImageURL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Products" Relationship="Self.FK_Product_ProductType" FromRole="ProductType" ToRole="Product" />
+    <Property Name="ID_Category" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="Category" Relationship="SellingBagsModel.FK_ProductType_Category" FromRole="ProductType" ToRole="Category" />
   </EntityType>
   <EntityType Name="Role">
     <Key>
@@ -246,9 +248,53 @@
       <End Role="Product" EntitySet="Products" />
     </AssociationSet>
     <FunctionImport Name="spLoadAllBrand" ReturnType="Collection(SellingBagsModel.spLoadAllBrand_Result)" />
+    <EntitySet Name="Categories" EntityType="SellingBagsModel.Category" />
+    <AssociationSet Name="FK_ProductType_Category" Association="SellingBagsModel.FK_ProductType_Category">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="ProductType" EntitySet="ProductTypes" />
+    </AssociationSet>
+    <FunctionImport Name="spProductsByType" ReturnType="Collection(SellingBagsModel.spProductsByType_Result)">
+      <Parameter Name="ID_Category" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="spLastCustomer" ReturnType="Collection(String)" />
   </EntityContainer>
   <ComplexType Name="spLoadAllBrand_Result">
     <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
     <Property Type="String" Name="ImageURL" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="ID_Category" />
+    </Key>
+    <Property Name="ID_Category" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ProductTypes" Relationship="SellingBagsModel.FK_ProductType_Category" FromRole="Category" ToRole="ProductType" />
+  </EntityType>
+  <Association Name="FK_ProductType_Category">
+    <End Type="SellingBagsModel.Category" Role="Category" Multiplicity="0..1" />
+    <End Type="SellingBagsModel.ProductType" Role="ProductType" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="ID_Category" />
+      </Principal>
+      <Dependent Role="ProductType">
+        <PropertyRef Name="ID_Category" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="spProductsByType_Result">
+    <Property Type="String" Name="ID_Product" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Size" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="Color" Nullable="true" MaxLength="30" />
+    <Property Type="Decimal" Name="Price" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="String" Name="Description" Nullable="true" />
+    <Property Type="String" Name="ID_Type" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="ID_Brand" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="ImageURL" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="ID_Type1" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="Name1" Nullable="true" MaxLength="30" />
+    <Property Type="String" Name="ImageURL1" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="ID_Category" Nullable="true" MaxLength="10" />
   </ComplexType>
 </Schema>

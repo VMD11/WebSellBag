@@ -129,11 +129,16 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Common\LoginAccount.cs" />
+    <Compile Include="Common\RegexAccount.cs" />
+    <Compile Include="Common\Sessions.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CheckoutController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
+    <Compile Include="Converter\ConvertVND.cs" />
+    <Compile Include="Converter\Encryptor.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -143,9 +148,14 @@
     <Compile Include="Models\Brand.cs">
       <DependentUpon>SellingBags.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Category.cs">
+      <DependentUpon>SellingBags.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Customer.cs">
       <DependentUpon>SellingBags.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DataContext\LoginContext.cs" />
+    <Compile Include="Models\DataContext\RegisterContext.cs" />
     <Compile Include="Models\Discount.cs">
       <DependentUpon>SellingBags.tt</DependentUpon>
     </Compile>
@@ -182,8 +192,13 @@
     <Compile Include="Models\spLoadAllBrand_Result.cs">
       <DependentUpon>SellingBags.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\spProductsByType_Result.cs">
+      <DependentUpon>SellingBags.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ViewModel\HomeVM.cs" />
+    <Compile Include="Models\ViewModel\LoginVM.cs" />
     <Compile Include="Models\ViewModel\ProductVM.cs" />
+    <Compile Include="Models\ViewModel\RegisterVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -2281,6 +2296,7 @@
     <Content Include="Assets\fonts\fontawesome-free-6.5.2\svgs\solid\yen-sign.svg" />
     <Content Include="Assets\fonts\fontawesome-free-6.5.2\svgs\solid\yin-yang.svg" />
     <Content Include="Assets\fonts\fontawesome-free-6.5.2\svgs\solid\z.svg" />
+    <Content Include="Assets\fonts\fontrubik\SIL Open Font License.txt" />
     <Content Include="Assets\images\about-img.jpg" />
     <Content Include="Assets\images\all-bg-title.jpg" />
     <Content Include="Assets\images\apple-touch-icon.png" />
@@ -2300,6 +2316,7 @@
     <Content Include="Assets\images\brands\ROGER_FANK.jpg" />
     <Content Include="Assets\images\brands\Vascara.jpg" />
     <Content Include="Assets\images\favicon.ico" />
+    <Content Include="Assets\images\icon.png" />
     <Content Include="Assets\images\ins-bg.jpg" />
     <Content Include="Assets\images\instagram-img-01.jpg" />
     <Content Include="Assets\images\instagram-img-02.jpg" />
@@ -2311,6 +2328,9 @@
     <Content Include="Assets\images\instagram-img-08.jpg" />
     <Content Include="Assets\images\instagram-img-09.jpg" />
     <Content Include="Assets\images\logo.png" />
+    <Content Include="Assets\images\logo1.png" />
+    <Content Include="Assets\images\logo2.png" />
+    <Content Include="Assets\images\logo3.jpg" />
     <Content Include="Assets\images\payment-icon\1.png" />
     <Content Include="Assets\images\payment-icon\2.png" />
     <Content Include="Assets\images\payment-icon\3.png" />
@@ -2338,6 +2358,7 @@
     <Content Include="Assets\images\products\tuivuaP02T02.jpg" />
     <Content Include="Assets\images\products\tuixachtayP01T04.jpg" />
     <Content Include="Assets\images\products\tuixachtayP02T04.jpg" />
+    <Content Include="Assets\images\ziara.png" />
     <Content Include="Assets\js\baguetteBox.min.js" />
     <Content Include="Assets\js\bootsnav.js" />
     <Content Include="Assets\js\bootstrap-select.js" />
@@ -2465,6 +2486,16 @@
     <Content Include="Models\SellingBags.edmx.diagram">
       <DependentUpon>SellingBags.edmx</DependentUpon>
     </Content>
+    <Content Include="Assets\fonts\fontrubik\Rubik-Black.ttf" />
+    <Content Include="Assets\fonts\fontrubik\Rubik-BlackItalic.ttf" />
+    <Content Include="Assets\fonts\fontrubik\Rubik-Bold.ttf" />
+    <Content Include="Assets\fonts\fontrubik\Rubik-BoldItalic.ttf" />
+    <Content Include="Assets\fonts\fontrubik\Rubik-Italic.ttf" />
+    <Content Include="Assets\fonts\fontrubik\Rubik-Light.ttf" />
+    <Content Include="Assets\fonts\fontrubik\Rubik-LightItalic.ttf" />
+    <Content Include="Assets\fonts\fontrubik\Rubik-Medium.ttf" />
+    <Content Include="Assets\fonts\fontrubik\Rubik-MediumItalic.ttf" />
+    <Content Include="Assets\fonts\fontrubik\Rubik-Regular.ttf" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -2494,6 +2525,10 @@
     <Content Include="Views\Checkout\Index.cshtml" />
     <Content Include="Views\Product\WishList.cshtml" />
     <Content Include="Views\Product\Detail.cshtml" />
+    <Content Include="Views\Product\ProductsByType.cshtml" />
+    <Content Include="Views\Product\ProductsByBrand.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

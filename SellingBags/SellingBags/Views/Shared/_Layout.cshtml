@@ -1,13 +1,14 @@
-﻿@using DB = SellingBags.Models
-@{ 
+﻿@using System.Globalization;
+@using DB = SellingBags.Models;
+
+@{
     DB.SellingBagsEntities db = new DB.SellingBagsEntities();
-    List<DB.Brand> ListBrand = db.Brands.ToList();
-    List<DB.ProductType> ListProdTpye = db.ProductTypes.ToList();
-    
+    List<DB.Category> Categories = db.Categories.ToList();
+
 }
 
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <!-- Basic -->
 
 <head>
@@ -18,13 +19,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Site Metas -->
-    <title>ThewayShop - Ecommerce Bootstrap 4 HTML Template</title>
+    <title>Ziara</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
 
     <!-- Site Icons -->
-    <link rel="shortcut icon" href="~/Assets//images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="~/Assets/images/icon.png" type="image/x-icon">
     <link rel="apple-touch-icon" href="~/Assets/images/apple-touch-icon.png">
 
     <!-- Bootstrap CSS -->
@@ -43,146 +44,70 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+    
 </head>
 
 <body>
-
-    <!-- Start Main Top -->
-    <div class="main-top">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <div class="text-slid-box">
-                        <div id="offer-box" class="carouselTicker">
-                            <ul class="offer-box">
-                                <li>
-                                    <i class="fab fa-opencart"></i> Off 10%! Shop Now Man
-                                </li>
-                                <li>
-                                    <i class="fab fa-opencart"></i> 50% - 80% off on Fashion
-                                </li>
-                                <li>
-                                    <i class="fab fa-opencart"></i> 20% off Entire Purchase Promo code: offT20
-                                </li>
-                                <li>
-                                    <i class="fab fa-opencart"></i> Off 50%! Shop Now
-                                </li>
-                                <li>
-                                    <i class="fab fa-opencart"></i> Off 10%! Shop Now Man
-                                </li>
-                                <li>
-                                    <i class="fab fa-opencart"></i> 50% - 80% off on Fashion
-                                </li>
-                                <li>
-                                    <i class="fab fa-opencart"></i> 20% off Entire Purchase Promo code: offT20
-                                </li>
-                                <li>
-                                    <i class="fab fa-opencart"></i> Off 50%! Shop Now
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                    <div class="right-phone-box">
-                        <p>Call  : <a href="tel:2020605565">2020605565</a></p>
-                    </div>
-                    <div class="our-link">
-                        <ul>
-                            <li>@Html.ActionLink("My Account", "Index", "Account")</li>
-                            <li><a href="#">Our location</a></li>
-                            <li><a href="#">Contact Us</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Main Top -->
     <!-- Start Main Top -->
     <header class="main-header">
         <!-- Start Navigation -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-default bootsnav">
-            <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light navbar-default bootsnav">
+            <div class="container-fluid">
                 <!-- Start Header Navigation -->
                 <div class="navbar-header">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fa fa-bars"></i>
                     </button>
-                    <a class="navbar-brand" href="@Url.Action("Index","Home")"><img src="~/Assets/images/logo.png" class="logo" alt=""></a>
+                    <a class="navbar-brand" href="@Url.Action("Index","Home")"><img src="~/Assets/images/ziara.png" class="logo" alt=""></a>
                 </div>
                 <!-- End Header Navigation -->
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="navbar-menu">
-                    <ul class="nav navbar-nav ml-auto" data-in="fadeInDown" data-out="fadeOutUp">
-                        <li class="nav-item active"><a class="nav-link" href="@Url.Action("Index","Home")">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+                    <ul class="nav navbar-nav ml-auto mr-auto" data-in="fadeInDown" data-out="fadeOutUp">
+                        <li class="nav-item"><a class="nav-link" href="about.html">Hàng mới</a></li>
                         <li class="dropdown megamenu-fw">
-                            <a href="@Url.Action("Product", "Product")" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">Product </a>
+                            <a class="nav-link dropdown-toggle arrow" data-toggle="dropdown">Sản phẩm </a>
                             <ul class="dropdown-menu megamenu-content" role="menu">
                                 <li>
                                     <div class="row">
-                                        <div class="col-menu col-md-3">
-                                            <h6 class="title">Top</h6>
-                                            <div class="content">
-                                                <ul class="menu-col">
-                                                    <li><a href="@Url.Action("Product","Product")">Jackets</a></li>
-                                                    <li><a href="@Url.Action("Product","Product")">Shirts</a></li>
-                                                    <li><a href="@Url.Action("Product","Product")">Sweaters & Cardigans</a></li>
-                                                    <li><a href="@Url.Action("Product","Product")">T-shirts</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <!-- end col-3 -->
-                                        <div class="col-menu col-md-3">
-                                            <h6 class="title">Bottom</h6>
-                                            <div class="content">
-                                                <ul class="menu-col">
-                                                    <li><a href="@Url.Action("Product","Product")">Swimwear</a></li>
-                                                    <li><a href="@Url.Action("Product","Product")">Skirts</a></li>
-                                                    <li><a href="@Url.Action("Product","Product")">Jeans</a></li>
-                                                    <li><a href="@Url.Action("Product","Product")">Trousers</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <!-- end col-3 -->
-                                        <div class="col-menu col-md-3">
-                                            <h6 class="title">Clothing</h6>
-                                            <div class="content">
-                                                <ul class="menu-col">
-                                                    <li><a href="@Url.Action("Product","Product")">Top Wear</a></li>
-                                                    <li><a href="@Url.Action("Product","Product")">Party wear</a></li>
-                                                    <li><a href="@Url.Action("Product","Product")">Bottom Wear</a></li>
-                                                    <li><a href="@Url.Action("Product","Product")">Indian Wear</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="col-menu col-md-3">
-                                            <h6 class="title">Accessories</h6>
-                                            <div class="content">
-                                                <ul class="menu-col">
-                                                    <li><a href="@Url.Action("Product","Product")">Bags</a></li>
-                                                    <li><a href="@Url.Action("Product","Product")">Sunglasses</a></li>
-                                                    <li><a href="@Url.Action("Product","Product")">Fragrances</a></li>
-                                                    <li><a href="@Url.Action("Product","Product")">Wallets</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <!-- end col-3 -->
+                                        @{
+                                            foreach (var item in Categories)
+                                            {
+                                                var ProdTypes = db.ProductTypes.Where(p => p.ID_Category.Equals(item.ID_Category)).ToList();
+
+                                                <div class="col-menu col-sm-3 col-md-3">
+                                                    <h6 class="title">@item.Name</h6>
+                                                    <div class="content">
+                                                        <ul class="menu-col">
+                                                            <li><a href="@Url.Action("ProductsByType","Product",new { ID_ProductType = item.ID_Category.Trim() })">Xem tất cả @item.Name.ToLower()</a></li>
+                                                            @{
+                                                                foreach (var navItem in ProdTypes)
+                                                                {
+                                                                    <li><a href="@Url.Action("ProductsByType","Product",new { ID_ProductType = navItem.ID_Type.Trim() })">@navItem.Name </a></li>
+                                                                }
+                                                            }
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
                                     </div>
-                                    <!-- end row -->
                                 </li>
                             </ul>
                         </li>
-                        <li class="dropdown">
-                            <a href="#" class="nav-link dropdown-toggle arrow" data-toggle="dropdown">SHOP</a>
+                        <li class="dropdown ">
+                            <a class="nav-link dropdown-toggle arrow" data-toggle="dropdown">Shop</a>
                             <ul class="dropdown-menu">
                                 <li>@Html.ActionLink("Cart", "Index", "Cart")</li>
                                 <li>@Html.ActionLink("Checkout", "Index", "Checkout")</li>
                                 <li>@Html.ActionLink("My Account", "Index", "Account")</li>
                                 <li>@Html.ActionLink("Wishlist", "WishList", "Product")</li>
-                                <li><a href="shop-detail.html">Shop Detail</a></li>
+                                <li>@Html.ActionLink("Product", "Product", "Product")</li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="nav-link dropdown-toggle arrow" data-toggle="dropdown">Bộ sưu tập</a>
+                            <ul class="dropdown-menu">
                             </ul>
                         </li>
                         <li class="nav-item"><a class="nav-link" href="service.html">Our Service</a></li>
@@ -194,8 +119,14 @@
                 <div class="attr-nav">
                     <ul>
                         <li class="search"><a href="#"><i class="fa fa-search"></i></a></li>
+                        <li class="wishlist">
+                            <a href="@Url.Action("WishList","Product")">
+                                <i class="fa fa-heart"></i>
+                                <span class="badge">3</span>
+                            </a>
+                        </li>
+                        <li class="user"><a href="@Url.Action("Login","Account")"><i class="fa fa-user"></i></a></li>
                         <li class="side-menu">
-
                             <a href="@Url.Action("Index","Cart")">
                                 <i class="fa fa-shopping-bag"></i>
                                 <span class="badge">3</span>

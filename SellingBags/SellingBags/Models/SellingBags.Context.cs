@@ -36,10 +36,25 @@ namespace SellingBags.Models
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductType> ProductTypes { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
     
         public virtual ObjectResult<spLoadAllBrand_Result> spLoadAllBrand()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spLoadAllBrand_Result>("spLoadAllBrand");
+        }
+    
+        public virtual ObjectResult<spProductsByType_Result> spProductsByType(string iD_Category)
+        {
+            var iD_CategoryParameter = iD_Category != null ?
+                new ObjectParameter("ID_Category", iD_Category) :
+                new ObjectParameter("ID_Category", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spProductsByType_Result>("spProductsByType", iD_CategoryParameter);
+        }
+    
+        public virtual ObjectResult<string> spLastCustomer()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("spLastCustomer");
         }
     }
 }

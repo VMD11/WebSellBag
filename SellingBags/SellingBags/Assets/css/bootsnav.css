@@ -500,8 +500,8 @@ nav.navbar.bootsnav ul.dropdown-menu.megamenu-content .content ul.menu-col li a:
 @media (min-width: 1024px) and (max-width:1400px) {
     body.wrap-nav-sidebar .wrapper .container{
         width: 100%;
-        padding-left: 30px;
-        padding-right: 30px;
+        padding-left: 20px;
+        padding-right: 20px;
     }
 }
 
@@ -624,7 +624,7 @@ nav.navbar.bootsnav ul.dropdown-menu.megamenu-content .content ul.menu-col li a:
         width: 100%;
         margin-bottom: 0;
         border-bottom: none;
-        color: #6f6f6f;
+        color: #000000;
     }
     
     nav.navbar.bootsnav.on ul.dropdown-menu.megamenu-content .content{
@@ -1039,6 +1039,7 @@ nav.navbar.bootsnav ul.dropdown-menu.megamenu-content .content ul.menu-col li a:
         margin-left: 10px;
 		position: absolute;
 		top: 0;
+
     }
     
     nav.navbar.bootsnav li.dropdown.on > a.dropdown-toggle:before{

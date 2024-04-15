@@ -22,6 +22,8 @@
         <AssociationConnector Association="SellingBagsModel.FK_OrderDetail_Order" ManuallyRouted="false" />
         <AssociationConnector Association="SellingBagsModel.FK_OrderDetail_Product" ManuallyRouted="false" />
         <AssociationConnector Association="SellingBagsModel.FK_Product_ProductType" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SellingBagsModel.Category" Width="1.5" PointX="5.125" PointY="0.875" />
+        <AssociationConnector Association="SellingBagsModel.FK_ProductType_Category" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

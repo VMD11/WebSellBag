@@ -1,0 +1,79 @@
+﻿@model SellingBags.Models.ViewModel.RegisterVM
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="login-res">
+    <div class="page-wapper">
+        <div class="container">
+            <div class="login-res-wapper ct-wapper">
+                <ul class="top-page">
+                    <li class="nav-item">
+                        @Html.ActionLink("Đăng nhập", "Login", "Account", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="active">
+                        <a class="nav-link active" href="" role="tab">Đăng ký</a>
+                    </li>
+                </ul>
+                <div class="ct-form">
+                    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form" }))
+                    {
+
+                        <div class="results-error">
+                            <div class="error">
+                                <span>@ViewBag.Error_Text</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-input col-6">
+                                <label>Họ đệm</label>
+                                <input placeholder="Nguyễn Văn" name="LastName" class="lastname" value="@Model.LastName" />
+                            </div>
+                            <div class="form-input col-6 " style="margin-bottom:-1rem">
+                                <label>Tên</label>
+                                <input placeholder=" A" name="FirstName" class="firstname" value="@Model.FirstName" />
+                            </div>
+                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger col-12 mt-0", @style = "color: red" })
+                        </div>
+                        <!-- Email input -->
+                        <div class="form-input">
+                            <label>Số điện thoại hoặc Email</label>
+                            <input placeholder="0123456789" name="UserName" class="username" value="@Model.UserName" />
+                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger", @style = "color: red" })
+                            <div class="error">
+                                <span>@ViewBag.Error_Username</span>
+                            </div>
+                        </div>
+                        <!-- Password input -->
+                        <div class="form-input mb-4">
+                            <label>Mật khẩu</label>
+                            <div class="input-icon">
+                                <input type="password" placeholder="**********" id="passwordInput" name="Password" class="password" value="@Model.Password" />
+                                <div id="icon-showpass" class="icon-showpass" onclick="showPass()">
+                                    <i class="fa fa-eye-slash" id="eyeIcon"></i>
+                                </div>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger", @style = "color: red" })
+                            <div class="error">
+                                <span>@ViewBag.Error_Password</span>
+                            </div>
+
+                        </div>
+
+                        <div class="g-action">
+                            <button type="submit" class="btn hvr-hover">Đăng ký</button>
+                        </div>
+
+
+                        <div class="g-register mb-lg-5">
+                            <span>Bạn đã có tài khoản? </span>
+                            @Html.ActionLink("Đăng nhập ngay", "Login", "Account", null, new { @class = "linkdirect" })
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

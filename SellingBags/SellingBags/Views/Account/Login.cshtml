@@ -1,0 +1,66 @@
+﻿@model SellingBags.Models.ViewModel.LoginVM
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+
+<div class="login-res">
+    <div class="page-wapper">
+        <div class="container">
+            <div class="login-res-wapper ct-wapper">
+                <ul class="top-page">
+                    <li class="active">
+                        <a class="nav-link active" href="" role="tab">Đăng nhập</a>
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Đăng ký", "Register", "Account", null, new { @class = "nav-link" })
+                    </li>
+                </ul>
+                <div class="ct-form">
+                    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="results-error">
+                            <div class="error">
+                                <span>@ViewBag.Error_Text</span>
+                            </div>
+                        </div>
+                        <!-- Email input -->
+                        <div class="form-input">
+                            <label>Số điện thoại hoặc Email</label>
+                            <input placeholder="Vd: 0123456789" name="UserName" class="username form-input" value="@Model.UserName" />
+                            <div class="error">
+                                <span><i class="fa fa-exclamation-circle"></i> @ViewBag.Eror_Text</span>
+                            </div>
+                        </div>
+
+                        <!-- Password input -->
+                        <div class="form-input mb-0">
+                            <label>Mật khẩu</label>
+                            <div class="input-icon">
+                                <input type="password" placeholder="**********" id="passwordInput" name="Password" class="password" value="@Model.Password" />
+                                <div id="icon-showpass" class="icon-showpass" onclick="showPass()">
+                                    <i class="fa fa-eye-slash" id="eyeIcon"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#!" class="forgotpassword">Bạn quên mật khẩu?</a>
+
+                        <div class="g-action">
+                            <button type="submit" class="btn hvr-hover">Đăng nhập</button>
+                        </div>
+
+
+                        <div class="g-register mb-lg-5">
+                            <span>Bạn chưa có tài khoản? </span>
+                            @Html.ActionLink("Đăng ký ngay", "Register", "Account", null, new { @class = "linkdirect" })
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

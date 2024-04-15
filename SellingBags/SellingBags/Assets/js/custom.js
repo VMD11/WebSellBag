@@ -214,3 +214,35 @@
 	
 	
 }(jQuery));
+
+
+/* ..............................................
+	   Show Error
+	   ................................................. */
+document.addEventListener("DOMContentLoaded", function () {
+	var errorDiv = document.querySelector(".error");
+	if (errorDiv && "@ViewBag.Error_Text" !== null && "@ViewBag.Error_Text" !== undefined) {
+		if ("@ViewBag.Error_Text".trim() !== "") {
+			errorDiv.style.display = "block";
+		}
+	}
+});
+
+
+/* ..............................................
+	   ShowPassword
+	   ................................................. */
+function showPass() {
+	var passwordInput = document.getElementById("passwordInput");
+	var eyeIcon = document.getElementById("eyeIcon");
+
+	if (passwordInput.type === "password") {
+		passwordInput.type = "text";
+		eyeIcon.classList.remove("fa-eye");
+		eyeIcon.classList.add("fa-eye-slash");
+	} else {
+		passwordInput.type = "password";
+		eyeIcon.classList.remove("fa-eye-slash");
+		eyeIcon.classList.add("fa-eye");
+	}
+}
