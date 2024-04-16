@@ -18,7 +18,7 @@ namespace SellingBags.Models
         public string Name { get; set; }
         public Nullable<System.DateTime> StartDate { get; set; }
         public Nullable<System.DateTime> EndDate { get; set; }
-        public Nullable<double> Percents { get; set; }
+        public Nullable<int> Percents { get; set; }
         public string ID_Product { get; set; }
     
         public virtual Product Product { get; set; }

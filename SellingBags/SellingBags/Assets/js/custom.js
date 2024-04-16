@@ -1,4 +1,4 @@
-(function($) {
+﻿(function($) {
     "use strict";
 	
 	/* ..............................................
@@ -230,6 +230,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 /* ..............................................
+	   Show Success
+	   ................................................. */
+document.addEventListener("DOMContentLoaded", function () {
+	var successDiv = document.querySelector(".success");
+	if (successDiv && "@ViewBag.Success_Text" !== null && "@ViewBag.Success_Text" !== undefined) {
+		if ("@ViewBag.Success_Text".trim() !== "") {
+			successDiv.style.display = "block";
+		}
+	}
+});
+
+
+/* ..............................................
 	   ShowPassword
 	   ................................................. */
 function showPass() {
@@ -246,3 +259,32 @@ function showPass() {
 		eyeIcon.classList.add("fa-eye");
 	}
 }
+
+
+//document.addEventListener("DOMContentLoaded", function () {
+//	var userIcon = document.querySelector(".user");
+//	var userDropdown = document.querySelector(".user-dropdown");
+
+//	// Ngăn chặn sự kiện click trên icon user
+//	userIcon.addEventListener("click", function (event) {
+//		event.stopPropagation(); // Ngăn chặn sự lan truyền của sự kiện click
+//	});
+
+//	// Xử lý sự kiện khi di chuột ra khỏi dropdown để ẩn nó
+//	userDropdown.addEventListener("mouseleave", function () {
+//		this.style.display = "none";
+//	});
+//});
+
+//document.addEventListener("DOMContentLoaded", function () {
+//	var userIcon = document.getElementById("userIcon");
+//	var userDropdown = document.getElementById("userDropdown");
+
+//	userIcon.addEventListener("click", function (event) {
+//		event.stopPropagation(); 
+//	});
+
+//	userDropdown.addEventListener("mouseleave", function () {
+//		this.style.display = "none";
+//	});
+//});

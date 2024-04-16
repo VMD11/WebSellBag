@@ -154,11 +154,14 @@
     <Compile Include="Models\Customer.cs">
       <DependentUpon>SellingBags.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DataContext\CartContext.cs" />
     <Compile Include="Models\DataContext\LoginContext.cs" />
+    <Compile Include="Models\DataContext\ProductContext.cs" />
     <Compile Include="Models\DataContext\RegisterContext.cs" />
     <Compile Include="Models\Discount.cs">
       <DependentUpon>SellingBags.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Model\Cart.cs" />
     <Compile Include="Models\Order.cs">
       <DependentUpon>SellingBags.tt</DependentUpon>
     </Compile>
@@ -195,6 +198,7 @@
     <Compile Include="Models\spProductsByType_Result.cs">
       <DependentUpon>SellingBags.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModel\CartVM.cs" />
     <Compile Include="Models\ViewModel\HomeVM.cs" />
     <Compile Include="Models\ViewModel\LoginVM.cs" />
     <Compile Include="Models\ViewModel\ProductVM.cs" />
@@ -2519,7 +2523,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Cart\Cart.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Product\Product.cshtml" />
     <Content Include="Views\Checkout\Index.cshtml" />

@@ -1,10 +1,22 @@
-﻿@using System.Globalization;
-@using DB = SellingBags.Models;
+﻿@using DB = SellingBags.Models;
+@using SellingBags.Models.DataContext
+@using SellingBags.Common
+@using SellingBags.Converter
 
 @{
     DB.SellingBagsEntities db = new DB.SellingBagsEntities();
     List<DB.Category> Categories = db.Categories.ToList();
+    var cart = (CartContext)Session[Sessions.CART];
 
+    var count = 0;
+    if(cart != null)
+    {
+        foreach(var item in cart.GetList())
+        {
+            count += item.Quantity;
+            
+        }
+    }
 }
 
 <!DOCTYPE html>
@@ -97,7 +109,7 @@
                         </li>
                         <li class="dropdown ">
                             <a class="nav-link dropdown-toggle arrow" data-toggle="dropdown">Shop</a>
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown-menu left-auto">
                                 <li>@Html.ActionLink("Cart", "Index", "Cart")</li>
                                 <li>@Html.ActionLink("Checkout", "Index", "Checkout")</li>
                                 <li>@Html.ActionLink("My Account", "Index", "Account")</li>
@@ -119,17 +131,38 @@
                 <div class="attr-nav">
                     <ul>
                         <li class="search"><a href="#"><i class="fa fa-search"></i></a></li>
+                        @{
+                            if (Session[Sessions.USER_SESSION] != null)
+                            {
+                                <li class="user dropdown">
+                                    <a href="" class="nav-link dropdown-toggle arrow" data-toggle="dropdown"><i class="fa fa-user"></i></a>
+                                    <ul class="dropdown-menu  border-bottom">
+                                        <li class="pt-3 pb-3">@Html.ActionLink("Thông tin tài khoản", "", "Account")</li>
+                                        <li class="pb-3">@Html.ActionLink("Lịch sử mua hàng", "", "")</li>
+                                        <li class="pb-2">@Html.ActionLink("Đăng xuất", "Logout", "Account")</li>
+                                    </ul>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="user">
+                                    <a href="@Url.Action("Login","Account")"><i class="fa fa-user"></i></a>
+                                </li>
+                            }
+
+                        }
                         <li class="wishlist">
                             <a href="@Url.Action("WishList","Product")">
                                 <i class="fa fa-heart"></i>
-                                <span class="badge">3</span>
+                                <span class="badge">0</span>
                             </a>
                         </li>
-                        <li class="user"><a href="@Url.Action("Login","Account")"><i class="fa fa-user"></i></a></li>
+
+
                         <li class="side-menu">
                             <a href="@Url.Action("Index","Cart")">
                                 <i class="fa fa-shopping-bag"></i>
-                                <span class="badge">3</span>
+                                <span class="badge">@count</span>
                             </a>
                         </li>
                     </ul>
@@ -141,28 +174,54 @@
                 <a href="#" class="close-side"><i class="fa fa-times"></i></a>
                 <li class="cart-box">
                     <ul class="cart-list">
+                        @{
+                            decimal? sumMoney = 0;
+                            if(cart != null)
+                            {
+                                foreach (var item in cart.GetList())
+                                {
+                                    <li>
+                                        <a href="#" class="photo"><img src="~/Assets/images/products/@item.Product.ImageURL" class="cart-thumb" alt="" /></a>
+                                        <h6><a href="#">@item.Product.Name</a></h6>
+                                        <p>@item.Quantity x - <span class="price">@ConvertVND.convertVND(item.Product.Price)</span></p>
+                                    </li>
+                                    sumMoney += item.Product.Price*item.Quantity;
+                                }
+                                <li class="pb-3"><span class="float-right"><strong>Thành tiền</strong>: @ConvertVND.convertVND(sumMoney)</span></li>
+                            }
+                            else
+                            {
+                                <li>Chưa có sản phẩm nào</li>
+                            }
+                        }
                         <li>
-                            <a href="#" class="photo"><img src="~/Assets/images/img-pro-01.jpg" class="cart-thumb" alt="" /></a>
-                            <h6><a href="#">Delica omtantur </a></h6>
-                            <p>1x - <span class="price">$80.00</span></p>
-                        </li>
-                        <li>
-                            <a href="#" class="photo"><img src="~/Assets/images/img-pro-02.jpg" class="cart-thumb" alt="" /></a>
-                            <h6><a href="#">Omnes ocurreret</a></h6>
-                            <p>1x - <span class="price">$60.00</span></p>
-                        </li>
-                        <li>
-                            <a href="#" class="photo"><img src="~/Assets/images/img-pro-03.jpg" class="cart-thumb" alt="" /></a>
-                            <h6><a href="#">Agam facilisis</a></h6>
-                            <p>1x - <span class="price">$40.00</span></p>
-                        </li>
-                        <li class="total">
-                            @Html.ActionLink("VIEW CART", "Index", "Cart", null, new { @class = "btn btn-default hvr-hover btn-cart" })
-                            <span class="float-right"><strong>Total</strong>: $180.00</span>
+                            @Html.ActionLink("Xem giỏ hàng", "Cart", "Cart", null, new { @class = "btn hvr-hover text-white" })
                         </li>
                     </ul>
                 </li>
             </div>
+            <!--<div class="side">
+        <a href="#" class="close-side"><i class="fa fa-times"></i></a>
+        <li class="cart-box">
+            <ul class="cart-list">
+                <li>
+                    <a href="#" class="photo"><img src="~/Assets/images/img-pro-01.jpg" class="cart-thumb" alt="" /></a>
+                    <h6><a href="#">Delica omtantur </a></h6>
+                    <p>1x - <span class="price">$80.00</span></p>
+                </li>
+                <li>
+                    <a href="#" class="photo"><img src="~/Assets/images/img-pro-02.jpg" class="cart-thumb" alt="" /></a>
+                    <h6><a href="#">Omnes ocurreret</a></h6>
+                    <p>1x - <span class="price">$60.00</span></p>
+                </li>
+                <li>
+                    <a href="#" class="photo"><img src="~/Assets/images/img-pro-03.jpg" class="cart-thumb" alt="" /></a>
+                    <h6><a href="#">Agam facilisis</a></h6>
+                    <p>1x - <span class="price">$40.00</span></p>
+                </li>
+            </ul>
+        </li>
+    </div>-->
             <!-- End Side Menu -->
         </nav>
         <!-- End Navigation -->

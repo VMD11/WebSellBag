@@ -27,7 +27,7 @@ namespace SellingBags.Models.DataContext
             }
             else
             {
-                return -1;
+                return 1;
             }
         }
     }

@@ -2,6 +2,7 @@
 using SellingBags.Models.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
@@ -43,8 +44,15 @@ namespace SellingBags.Models.DataContext
         public void Register(RegisterVM registerVM)
         {
             string ID_Customer = "C0";
-            string lastCustomer = db.spLastCustomer().ToString().Trim();
-            if(lastCustomer == null)
+            string lastCustomer = db.spLastCustomer().Last().Trim();
+            List<string> test = db.spLastCustomer().ToList();
+
+            Debug.WriteLine(lastCustomer);
+            foreach(string s in test)
+            {
+                Debug.WriteLine(s);
+            }
+            if(string.IsNullOrEmpty(lastCustomer))
             {
                 ID_Customer += 1.ToString();
             }
@@ -53,6 +61,7 @@ namespace SellingBags.Models.DataContext
                 int number = int.Parse(lastCustomer.Substring(2));
                 number++;
                 ID_Customer += number.ToString();
+                
             }
 
             Account account = new Account { ID_Account = GenerateRandomID(), UserName = registerVM.UserName, Password = Encryptor.MD5Hash(registerVM.Password), ID_Role = "R02" };
@@ -61,14 +70,37 @@ namespace SellingBags.Models.DataContext
             Customer customer = null;
             if(registerVM.UserName.Contains("@"))
             {
-                customer = new Customer { ID_Customer = ID_Customer, FirstName = registerVM.FirstName, LastName = registerVM.LastName, Email = registerVM.UserName, ID_Account = account.ID_Account };
+                customer = new Customer
+                {
+                    ID_Customer = ID_Customer,
+                    FirstName = registerVM.FirstName,
+                    LastName = registerVM.LastName,
+                    Email = registerVM.UserName,
+                    PhoneNumber = null,
+                    Address = null,
+                    City = null,
+                    Country = null,
+                    ID_Account = account.ID_Account
+                };
             }
             else
             {
-                customer = new Customer { ID_Customer = ID_Customer, FirstName = registerVM.FirstName, LastName = registerVM.LastName, PhoneNumber = registerVM.UserName, ID_Account = account.ID_Account };
+                customer = new Customer
+                {
+                    ID_Customer = ID_Customer,
+                    FirstName = registerVM.FirstName,
+                    LastName = registerVM.LastName,
+                    Email = null,
+                    PhoneNumber = registerVM.UserName,
+                    Address = null,
+                    City = null,
+                    Country = null,
+                    ID_Account = account.ID_Account,
+                    
+                };
             }
-            db.Customers.Add(customer);
 
+            db.Customers.Add(customer);
             db.SaveChanges();
         }
 

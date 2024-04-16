@@ -22,7 +22,6 @@ namespace SellingBags.Controllers
             return View(productVM);
         }
 
-        [HttpGet]
         public ActionResult Detail(string ID_Product)
         {
             var product = db.Products.FirstOrDefault(p => p.ID_Product.Equals(ID_Product));

@@ -9,5 +9,6 @@ namespace SellingBags.Common
     {
         public static string USER_SESSION = "USER_SESSION";
         public static string ADMIN_SESSION = "ADMIN_SESSION";
+        public static string CART = "CART";
     }
 }

@@ -47,17 +47,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Orders">
-      <EntityTypeMapping TypeName="SellingBagsModel.Order">
-        <MappingFragment StoreEntitySet="Order">
-          <ScalarProperty Name="ID_Order" ColumnName="ID_Order" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
-          <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
-          <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
-          <ScalarProperty Name="ID_Customer" ColumnName="ID_Customer" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="OrderDetails">
       <EntityTypeMapping TypeName="SellingBagsModel.OrderDetail">
         <MappingFragment StoreEntitySet="OrderDetail">
@@ -72,6 +61,7 @@
     <EntitySetMapping Name="Products">
       <EntityTypeMapping TypeName="SellingBagsModel.Product">
         <MappingFragment StoreEntitySet="Product">
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
           <ScalarProperty Name="ID_Product" ColumnName="ID_Product" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Size" ColumnName="Size" />
@@ -138,5 +128,16 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="spLastCustomer" FunctionName="SellingBagsModel.Store.spLastCustomer" />
+    <EntitySetMapping Name="Orders">
+      <EntityTypeMapping TypeName="SellingBagsModel.Order">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="ID_Customer" ColumnName="ID_Customer" />
+          <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+          <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ID_Order" ColumnName="ID_Order" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

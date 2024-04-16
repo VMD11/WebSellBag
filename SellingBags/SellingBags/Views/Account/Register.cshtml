@@ -25,6 +25,11 @@
                                 <span>@ViewBag.Error_Text</span>
                             </div>
                         </div>
+                        <div class="results-error">
+                            <div class="success">
+                                <span>@ViewBag.Success_Text</span>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="form-input col-6">
                                 <label>Họ đệm</label>
@@ -41,9 +46,7 @@
                             <label>Số điện thoại hoặc Email</label>
                             <input placeholder="0123456789" name="UserName" class="username" value="@Model.UserName" />
                             @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger", @style = "color: red" })
-                            <div class="error">
-                                <span>@ViewBag.Error_Username</span>
-                            </div>
+                            
                         </div>
                         <!-- Password input -->
                         <div class="form-input mb-4">
@@ -55,9 +58,7 @@
                                 </div>
                             </div>
                             @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger", @style = "color: red" })
-                            <div class="error">
-                                <span>@ViewBag.Error_Password</span>
-                            </div>
+                            
 
                         </div>
 
@@ -76,4 +77,19 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    function showPass() {
+        var passwordInput = document.getElementById("passwordInput");
+        var eyeIcon = document.getElementById("eyeIcon");
 
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+            eyeIcon.classList.remove("fa-eye-slash");
+            eyeIcon.classList.add("fa-eye");
+        } else {
+            passwordInput.type = "password";
+            eyeIcon.classList.remove("fa-eye");
+            eyeIcon.classList.add("fa-eye-slash");
+        }
+    }
+</script>

@@ -38,7 +38,7 @@ namespace SellingBags.Controllers
             if (isPhoneOrEmail)
             {
                 LoginContext loginContext = new LoginContext();
-                var result = loginContext.Login(loginVM.UserName, (loginVM.Password));
+                var result = loginContext.Login(loginVM.UserName, Encryptor.MD5Hash(loginVM.Password));
                 if(result == 1)
                 {
                     var account = loginContext.GetByName(loginVM.UserName);
@@ -46,7 +46,6 @@ namespace SellingBags.Controllers
                     user_session.ID_Account = account.ID_Account;
                     user_session.UserName = account.UserName;
                     Session.Add(Sessions.USER_SESSION, user_session);
-                    FormsAuthentication.SetAuthCookie(loginVM.UserName, false);
                     return RedirectToAction("Index","Home");
                 }
                 else
@@ -64,7 +63,6 @@ namespace SellingBags.Controllers
 
         public ActionResult Logout()
         {
-            FormsAuthentication.SignOut();
             Session[Sessions.USER_SESSION] = null;
             return RedirectToAction("Index","Home");
         }
@@ -80,6 +78,7 @@ namespace SellingBags.Controllers
         [HttpPost]
         public ActionResult Register(RegisterVM registerVM) 
         {
+            ViewBag.Error_Text = "";
             RegisterContext context = new RegisterContext();
             if(ModelState.IsValid)
             {
@@ -89,7 +88,7 @@ namespace SellingBags.Controllers
                     {
                         if (context.IsRegistered(registerVM.UserName))
                         {
-                            ViewBag.Error_Text = "Số điện thoại đã đăng ký tài khoản";
+                            ViewBag.Error_Text += "Số điện thoại đã đăng ký tài khoản";
                         }
                         else
                         {
@@ -99,12 +98,12 @@ namespace SellingBags.Controllers
                     }
                     else
                     {
-                        ViewBag.Error_Password = "Mật khẩu ít nhất 8 kí tự bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt";
+                        ViewBag.Error_Text += "Mật khẩu ít nhất 8 kí tự bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt";
                     }
                 }
                 else
                 {
-                    ViewBag.Error_Username += "Số điện thoại không đúng định dạng, vui lòng nhập lại";
+                    ViewBag.Error_Text += "Số điện thoại không đúng định dạng, vui lòng nhập lại";
                 }
             }
             return View(registerVM);

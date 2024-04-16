@@ -6,7 +6,7 @@
     </Key>
     <Property Name="ID_Account" Type="char" MaxLength="10" Nullable="false" />
     <Property Name="UserName" Type="nchar" MaxLength="50" Nullable="false" />
-    <Property Name="Password" Type="nchar" MaxLength="20" Nullable="false" />
+    <Property Name="Password" Type="nchar" MaxLength="50" Nullable="false" />
     <Property Name="ID_Role" Type="char" MaxLength="10" Nullable="false" />
   </EntityType>
   <EntityType Name="Brand">
@@ -46,18 +46,8 @@
     <Property Name="Name" Type="nvarchar" MaxLength="50" />
     <Property Name="StartDate" Type="datetime" />
     <Property Name="EndDate" Type="datetime" />
-    <Property Name="Percents" Type="float" />
+    <Property Name="Percents" Type="int" />
     <Property Name="ID_Product" Type="char" MaxLength="10" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Order">
-    <Key>
-      <PropertyRef Name="ID_Order" />
-    </Key>
-    <Property Name="ID_Order" Type="char" MaxLength="10" Nullable="false" />
-    <Property Name="Status" Type="nvarchar" MaxLength="50" />
-    <Property Name="OrderDate" Type="datetime" />
-    <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="2" />
-    <Property Name="ID_Customer" Type="char" MaxLength="10" Nullable="false" />
   </EntityType>
   <EntityType Name="OrderDetail">
     <Key>
@@ -68,6 +58,16 @@
     <Property Name="ID_Product" Type="char" MaxLength="10" Nullable="false" />
     <Property Name="Quantity" Type="int" />
     <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="ID_Order" />
+    </Key>
+    <Property Name="ID_Order" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+    <Property Name="OrderDate" Type="datetime" />
+    <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="ID_Customer" Type="char" MaxLength="10" Nullable="false" />
   </EntityType>
   <EntityType Name="Product">
     <Key>
@@ -82,6 +82,7 @@
     <Property Name="ID_Type" Type="char" MaxLength="10" Nullable="false" />
     <Property Name="ID_Brand" Type="char" MaxLength="10" Nullable="false" />
     <Property Name="ImageURL" Type="nvarchar" MaxLength="100" />
+    <Property Name="Quantity" Type="int" />
   </EntityType>
   <EntityType Name="ProductType">
     <Key>
@@ -137,21 +138,21 @@
   </Association>
   <Association Name="FK_Order_Customer">
     <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
-    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Customer">
         <PropertyRef Name="ID_Customer" />
       </Principal>
-      <Dependent Role="Order">
+      <Dependent Role="Orders">
         <PropertyRef Name="ID_Customer" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_OrderDetail_Order">
-    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
     <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Order">
+      <Principal Role="Orders">
         <PropertyRef Name="ID_Order" />
       </Principal>
       <Dependent Role="OrderDetail">
@@ -218,8 +219,8 @@
     <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Discount" EntityType="Self.Discount" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProductType" EntityType="Self.ProductType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
@@ -237,10 +238,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_Order_Customer" Association="Self.FK_Order_Customer">
       <End Role="Customer" EntitySet="Customer" />
-      <End Role="Order" EntitySet="Order" />
+      <End Role="Orders" EntitySet="Orders" />
     </AssociationSet>
     <AssociationSet Name="FK_OrderDetail_Order" Association="Self.FK_OrderDetail_Order">
-      <End Role="Order" EntitySet="Order" />
+      <End Role="Orders" EntitySet="Orders" />
       <End Role="OrderDetail" EntitySet="OrderDetail" />
     </AssociationSet>
     <AssociationSet Name="FK_OrderDetail_Product" Association="Self.FK_OrderDetail_Product">
