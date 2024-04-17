@@ -24,6 +24,12 @@
         <EntityTypeShape EntityType="SellingBagsModel.Order" Width="1.5" PointX="6" PointY="8.5" />
         <AssociationConnector Association="SellingBagsModel.FK_Order_Customer" />
         <AssociationConnector Association="SellingBagsModel.FK_OrderDetail_Order" />
+        <EntityTypeShape EntityType="SellingBagsModel.Cart" Width="1.5" PointX="8.5" PointY="7.125" />
+        <EntityTypeShape EntityType="SellingBagsModel.WishList" Width="1.5" PointX="8.25" PointY="11" />
+        <AssociationConnector Association="SellingBagsModel.FK_Cart_Account" />
+        <AssociationConnector Association="SellingBagsModel.FK_WishList_Account" />
+        <AssociationConnector Association="SellingBagsModel.FK_Cart_Discount" />
+        <AssociationConnector Association="SellingBagsModel.FK_WishList_Product" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

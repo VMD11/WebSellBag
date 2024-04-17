@@ -6,9 +6,9 @@ using System.Web;
 
 namespace SellingBags.Models.ViewModel
 {
-    public class CartVM
+    public class VirtualCartVM
     {
         public string ID_Account { get; set; }
-        public Cart cart { get; set; }
+        public VirtualCart cart { get; set; }
     }
 }

@@ -148,20 +148,24 @@
     <Compile Include="Models\Brand.cs">
       <DependentUpon>SellingBags.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Cart.cs">
+      <DependentUpon>SellingBags.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Category.cs">
       <DependentUpon>SellingBags.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Customer.cs">
       <DependentUpon>SellingBags.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DataContext\CartContext.cs" />
+    <Compile Include="Models\DataContext\VirtualCartContext.cs" />
+    <Compile Include="Models\DataContext\HomeContext.cs" />
     <Compile Include="Models\DataContext\LoginContext.cs" />
     <Compile Include="Models\DataContext\ProductContext.cs" />
     <Compile Include="Models\DataContext\RegisterContext.cs" />
     <Compile Include="Models\Discount.cs">
       <DependentUpon>SellingBags.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Model\Cart.cs" />
+    <Compile Include="Models\Model\VirtualCart.cs" />
     <Compile Include="Models\Order.cs">
       <DependentUpon>SellingBags.tt</DependentUpon>
     </Compile>
@@ -198,11 +202,14 @@
     <Compile Include="Models\spProductsByType_Result.cs">
       <DependentUpon>SellingBags.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ViewModel\CartVM.cs" />
+    <Compile Include="Models\ViewModel\VirtualCartVM.cs" />
     <Compile Include="Models\ViewModel\HomeVM.cs" />
     <Compile Include="Models\ViewModel\LoginVM.cs" />
     <Compile Include="Models\ViewModel\ProductVM.cs" />
     <Compile Include="Models\ViewModel\RegisterVM.cs" />
+    <Compile Include="Models\WishList.cs">
+      <DependentUpon>SellingBags.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

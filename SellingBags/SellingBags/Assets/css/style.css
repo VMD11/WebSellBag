@@ -193,6 +193,8 @@ p {
     padding: 10px 0px;
 }
 
+
+
 .custom-select-box {
     float: right;
     width: 95px;
@@ -815,13 +817,18 @@ ul.cart-list > li.total > .btn:hover {
     border-radius: 0;
 }
 
-.top-search .input-group-addon {
-    line-height: 40px;
+
+
+
+/*.top-search .input-group-addon {
+    line-height: 105px;
 }
 
 .top-search input.form-control {
     color: #ffffff;
-}
+    line-height: 105px;
+
+}*/
 /*------------------------------------------------------------------ Slider -------------------------------------------------------------------*/
 .cover-slides {
     height: 100vh;

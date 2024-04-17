@@ -6,7 +6,7 @@ using System.Web;
 
 namespace SellingBags.Models.Model
 {
-    public class Cart
+    public class VirtualCart
     {
         public Product Product { get; set; }
         public int Quantity { get; set; }

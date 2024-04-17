@@ -1,5 +1,5 @@
-﻿@using SellingBags.Converter
-@model SellingBags.Models.ViewModel.ProductVM
+﻿@model SellingBags.Models.ViewModel.ProductVM
+@using SellingBags.Converter
 @{
     ViewBag.Title = "Product";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -139,7 +139,7 @@
                             <div role="tabpanel" class="tab-pane fade show active" id="grid-view">
                                 <div class="row">
                                     @{
-                                        foreach (var item in Model.Products)
+                                        foreach (var item in Model.ProductsAll)
                                         {
 
                                             <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
@@ -151,8 +151,8 @@
                                                         <img src="~/Assets/images/products/@item.ImageURL" class="img-fluid" alt="@item.Name">
                                                         <div class="mask-icon">
                                                             <ul>
-                                                                <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                                <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
+                                                                <li><a href="@Url.Action("Detail", "Product", new {ID_Product = item.ID_Product.Trim()})" data-toggle="tooltip" data-placement="right" title="Xem ngay"><i class="fas fa-eye"></i></a></li>
+                                                                <li><a href="#" data-toggle="tooltip" data-placement="right" title="Thêm vào danh sách yêu thích"><i class="far fa-heart"></i></a></li>
                                                             </ul>
                                                             <a class="cart" href="@Url.Action("Add","Cart",new { ID_Product = item.ID_Product, Quantity = 1 })">Thêm vào giỏ hàng</a>
                                                         </div>

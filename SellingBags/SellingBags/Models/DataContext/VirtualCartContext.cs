@@ -6,18 +6,18 @@ using System.Web;
 
 namespace SellingBags.Models.DataContext
 {
-    public class CartContext
+    public class VirtualCartContext
     {
         private SellingBagsEntities db;
-        private List<Cart> CartList = new List<Cart>();
-        public CartContext()
+        private List<VirtualCart> VirtualCartList = new List<VirtualCart>();
+        public VirtualCartContext()
         {
             db = new SellingBagsEntities();
         }
 
-        public List<Cart> GetList()
+        public List<VirtualCart> GetList()
         {
-            return CartList;
+            return VirtualCartList;
         }
 
         public void AddProduct(string ID_Product, int Quantity)
@@ -28,7 +28,7 @@ namespace SellingBags.Models.DataContext
                 return;
             }
 
-            var existProduct = CartList.FirstOrDefault(p => p.Product.ID_Product == newProduct.ID_Product);
+            var existProduct = VirtualCartList.FirstOrDefault(p => p.Product.ID_Product == newProduct.ID_Product);
             if (existProduct != null) 
             {
                 existProduct.Quantity += Quantity;
@@ -36,7 +36,7 @@ namespace SellingBags.Models.DataContext
             else
             {
                 double? Discount = 0;
-                CartList.Add(new Cart { Product = newProduct, Quantity = Quantity, Discount = Discount});
+                VirtualCartList.Add(new VirtualCart { Product = newProduct, Quantity = Quantity, Discount = Discount});
             }
         }
 
@@ -48,7 +48,7 @@ namespace SellingBags.Models.DataContext
                 return;
             }
 
-            var existProduct = CartList.FirstOrDefault(p => p.Product.ID_Product == newProduct.ID_Product);
+            var existProduct = VirtualCartList.FirstOrDefault(p => p.Product.ID_Product == newProduct.ID_Product);
             if (existProduct != null)
             {
                 existProduct.Quantity = Quantity;
@@ -62,16 +62,16 @@ namespace SellingBags.Models.DataContext
                 return;
             }
 
-            var existProduct = CartList.FirstOrDefault(p => p.Product.ID_Product == newProduct.ID_Product);
+            var existProduct = VirtualCartList.FirstOrDefault(p => p.Product.ID_Product == newProduct.ID_Product);
             if (existProduct != null)
             {
-                CartList.Remove(existProduct);
+                VirtualCartList.Remove(existProduct);
             }
         }
         
         public decimal TotalMoney()
         {
-            return (decimal) CartList.Sum(t => ((float)t.Product.Price*(float)(100-t.Discount)/100)*t.Quantity);
+            return (decimal) VirtualCartList.Sum(t => ((float)t.Product.Price*(float)(100-t.Discount)/100)*t.Quantity);
         }
 
         private Product Product(string ID_Product)

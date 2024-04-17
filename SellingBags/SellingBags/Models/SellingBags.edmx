@@ -22,6 +22,16 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="ImageURL" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="ID_Cart" />
+          </Key>
+          <Property Name="ID_Cart" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="Quantity" Type="int" />
+          <Property Name="ID_Account" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="ID_Product" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="ID_Discount" Type="char" MaxLength="10" />
+        </EntityType>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="ID_Category" />
@@ -105,6 +115,14 @@
           <Property Name="ID_Role" Type="char" MaxLength="10" Nullable="false" />
           <Property Name="Name" Type="nchar" MaxLength="20" />
         </EntityType>
+        <EntityType Name="WishList">
+          <Key>
+            <PropertyRef Name="ID_WishList" />
+          </Key>
+          <Property Name="ID_WishList" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="ID_Account" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="ID_Product" Type="char" MaxLength="10" Nullable="false" />
+        </EntityType>
         <Association Name="FK_Account_Role">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="Account" Type="Self.Account" Multiplicity="*" />
@@ -114,6 +132,30 @@
             </Principal>
             <Dependent Role="Account">
               <PropertyRef Name="ID_Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cart_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="ID_Account" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="ID_Account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cart_Discount">
+          <End Role="Discount" Type="Self.Discount" Multiplicity="0..1" />
+          <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Discount">
+              <PropertyRef Name="ID_Discount" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="ID_Discount" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -213,6 +255,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_WishList_Account">
+          <End Role="Account" Type="Self.Account" Multiplicity="1" />
+          <End Role="WishList" Type="Self.WishList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="ID_Account" />
+            </Principal>
+            <Dependent Role="WishList">
+              <PropertyRef Name="ID_Account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WishList_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="WishList" Type="Self.WishList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID_Product" />
+            </Principal>
+            <Dependent Role="WishList">
+              <PropertyRef Name="ID_Product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="spLastCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="spLoadAllBrand" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="spProductsByType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -221,6 +287,7 @@
         <EntityContainer Name="SellingBagsModelStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Brand" EntityType="Self.Brand" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Discount" EntityType="Self.Discount" Schema="dbo" store:Type="Tables" />
@@ -229,9 +296,18 @@
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductType" EntityType="Self.ProductType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WishList" EntityType="Self.WishList" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Account_Role" Association="Self.FK_Account_Role">
             <End Role="Role" EntitySet="Role" />
             <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cart_Account" Association="Self.FK_Cart_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="Cart" EntitySet="Cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cart_Discount" Association="Self.FK_Cart_Discount">
+            <End Role="Discount" EntitySet="Discount" />
+            <End Role="Cart" EntitySet="Cart" />
           </AssociationSet>
           <AssociationSet Name="FK_Customer_Account" Association="Self.FK_Customer_Account">
             <End Role="Account" EntitySet="Account" />
@@ -265,6 +341,14 @@
             <End Role="Category" EntitySet="Category" />
             <End Role="ProductType" EntitySet="ProductType" />
           </AssociationSet>
+          <AssociationSet Name="FK_WishList_Account" Association="Self.FK_WishList_Account">
+            <End Role="Account" EntitySet="Account" />
+            <End Role="WishList" EntitySet="WishList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WishList_Product" Association="Self.FK_WishList_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="WishList" EntitySet="WishList" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -280,6 +364,8 @@
           <Property Name="ID_Role" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Role" Relationship="Self.FK_Account_Role" FromRole="Account" ToRole="Role" />
           <NavigationProperty Name="Customers" Relationship="Self.FK_Customer_Account" FromRole="Account" ToRole="Customer" />
+          <NavigationProperty Name="Carts" Relationship="SellingBagsModel.FK_Cart_Account" FromRole="Account" ToRole="Cart" />
+          <NavigationProperty Name="WishLists" Relationship="SellingBagsModel.FK_WishList_Account" FromRole="Account" ToRole="WishList" />
         </EntityType>
         <EntityType Name="Brand">
           <Key>
@@ -317,6 +403,7 @@
           <Property Name="Percents" Type="Int32" />
           <Property Name="ID_Product" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Product" Relationship="Self.FK_Discount_Product" FromRole="Discount" ToRole="Product" />
+          <NavigationProperty Name="Carts" Relationship="SellingBagsModel.FK_Cart_Discount" FromRole="Discount" ToRole="Cart" />
         </EntityType>
         <EntityType Name="OrderDetail">
           <Key>
@@ -348,6 +435,7 @@
           <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetail_Product" FromRole="Product" ToRole="OrderDetail" />
           <NavigationProperty Name="ProductType" Relationship="Self.FK_Product_ProductType" FromRole="Product" ToRole="ProductType" />
           <Property Name="Quantity" Type="Int32" />
+          <NavigationProperty Name="WishLists" Relationship="SellingBagsModel.FK_WishList_Product" FromRole="Product" ToRole="WishList" />
         </EntityType>
         <EntityType Name="ProductType">
           <Key>
@@ -492,6 +580,24 @@
             <End Role="Order" EntitySet="Orders" />
             <End Role="OrderDetail" EntitySet="OrderDetails" />
           </AssociationSet>
+          <EntitySet Name="Carts" EntityType="SellingBagsModel.Cart" />
+          <EntitySet Name="WishLists" EntityType="SellingBagsModel.WishList" />
+          <AssociationSet Name="FK_Cart_Account" Association="SellingBagsModel.FK_Cart_Account">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WishList_Account" Association="SellingBagsModel.FK_WishList_Account">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="WishList" EntitySet="WishLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Cart_Discount" Association="SellingBagsModel.FK_Cart_Discount">
+            <End Role="Discount" EntitySet="Discounts" />
+            <End Role="Cart" EntitySet="Carts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WishList_Product" Association="SellingBagsModel.FK_WishList_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="WishList" EntitySet="WishLists" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="spLoadAllBrand_Result">
           <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
@@ -565,6 +671,76 @@
             </Principal>
             <Dependent Role="OrderDetail">
               <PropertyRef Name="ID_Order" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Cart">
+          <Key>
+            <PropertyRef Name="ID_Cart" />
+          </Key>
+          <Property Name="ID_Cart" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="ID_Account" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="ID_Product" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="ID_Discount" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Account" Relationship="SellingBagsModel.FK_Cart_Account" FromRole="Cart" ToRole="Account" />
+          <NavigationProperty Name="Discount" Relationship="SellingBagsModel.FK_Cart_Discount" FromRole="Cart" ToRole="Discount" />
+        </EntityType>
+        <EntityType Name="WishList">
+          <Key>
+            <PropertyRef Name="ID_WishList" />
+          </Key>
+          <Property Name="ID_WishList" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="ID_Account" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="ID_Product" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Account" Relationship="SellingBagsModel.FK_WishList_Account" FromRole="WishList" ToRole="Account" />
+          <NavigationProperty Name="Product" Relationship="SellingBagsModel.FK_WishList_Product" FromRole="WishList" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK_Cart_Account">
+          <End Type="SellingBagsModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="SellingBagsModel.Cart" Role="Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="ID_Account" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="ID_Account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WishList_Account">
+          <End Type="SellingBagsModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="SellingBagsModel.WishList" Role="WishList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="ID_Account" />
+            </Principal>
+            <Dependent Role="WishList">
+              <PropertyRef Name="ID_Account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Cart_Discount">
+          <End Type="SellingBagsModel.Discount" Role="Discount" Multiplicity="0..1" />
+          <End Type="SellingBagsModel.Cart" Role="Cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Discount">
+              <PropertyRef Name="ID_Discount" />
+            </Principal>
+            <Dependent Role="Cart">
+              <PropertyRef Name="ID_Discount" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WishList_Product">
+          <End Type="SellingBagsModel.Product" Role="Product" Multiplicity="1" />
+          <End Type="SellingBagsModel.WishList" Role="WishList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID_Product" />
+            </Principal>
+            <Dependent Role="WishList">
+              <PropertyRef Name="ID_Product" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -709,6 +885,26 @@
                 <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="ID_Order" ColumnName="ID_Order" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Carts">
+            <EntityTypeMapping TypeName="SellingBagsModel.Cart">
+              <MappingFragment StoreEntitySet="Cart">
+                <ScalarProperty Name="ID_Discount" ColumnName="ID_Discount" />
+                <ScalarProperty Name="ID_Product" ColumnName="ID_Product" />
+                <ScalarProperty Name="ID_Account" ColumnName="ID_Account" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ID_Cart" ColumnName="ID_Cart" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WishLists">
+            <EntityTypeMapping TypeName="SellingBagsModel.WishList">
+              <MappingFragment StoreEntitySet="WishList">
+                <ScalarProperty Name="ID_Product" ColumnName="ID_Product" />
+                <ScalarProperty Name="ID_Account" ColumnName="ID_Account" />
+                <ScalarProperty Name="ID_WishList" ColumnName="ID_WishList" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

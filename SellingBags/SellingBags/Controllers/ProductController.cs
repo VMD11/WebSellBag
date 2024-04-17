@@ -1,4 +1,5 @@
 ﻿using SellingBags.Models;
+using SellingBags.Models.DataContext;
 using SellingBags.Models.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -11,21 +12,22 @@ namespace SellingBags.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly SellingBagsEntities db = new SellingBagsEntities();
+        private readonly ProductVM productVM = new ProductVM();
+        private readonly ProductContext productContext = new ProductContext();
         // GET: Product
         public ActionResult Product()
         {
-            ProductVM productVM = new ProductVM();
-            productVM.Brands = db.Brands;
-            productVM.Products = db.Products;
-            productVM.ProductTypes = db.ProductTypes;
+            productVM.ProductsAll = productContext.GetProductsAll();
             return View(productVM);
         }
 
         public ActionResult Detail(string ID_Product)
         {
-            var product = db.Products.FirstOrDefault(p => p.ID_Product.Equals(ID_Product));
-            return View(product);
+            productVM.Product = productContext.GetProduct(ID_Product);
+            productVM.Brand = productContext.GetBrand(ID_Product);
+            productVM.Type = productContext.GetBrand(ID_Product);
+            productVM.RelativeProductsList = productContext.GetRelatedProductsList(ID_Product);
+            return View(productVM);
         }
 
         public ActionResult WishList()
@@ -36,25 +38,16 @@ namespace SellingBags.Controllers
         [HttpGet]
         public ActionResult ProductsByBrand(string ID_Brand)
         {
-            var products = db.Products.Where(p => p.ID_Brand.Equals(ID_Brand)).ToList();
-            return View(products);
+            productVM.ProductsByBrand = productContext.GetProductsByBrand(ID_Brand);
+            return View(productVM);
         }
 
         [HttpGet]
         public ActionResult ProductsByType(string ID_ProductType)
         {
-            if(!ID_ProductType.Contains("C"))
-            {
-                var products = db.Products.Where(p => p.ID_Type.Equals(ID_ProductType)).ToList();
-                return View(products);
-            }
-            else
-            {
-                //var products = db.spProductsByType(ID_ProductType).ToList();
-                var products = db.Database.SqlQuery<Product>("exec spProductsByType @ID_Category", new SqlParameter("ID_Category", ID_ProductType)).ToList();
-
-                return View(products);
-            }
+            
+            productVM.ProductsByType = productContext.GetProductsByType(ID_ProductType);
+            return View(productVM);
         }
     }
 }

@@ -19,6 +19,7 @@ namespace SellingBags.Models
         {
             this.Discounts = new HashSet<Discount>();
             this.OrderDetails = new HashSet<OrderDetail>();
+            this.WishLists = new HashSet<WishList>();
         }
     
         public string ID_Product { get; set; }
@@ -38,5 +39,7 @@ namespace SellingBags.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         public virtual ProductType ProductType { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WishList> WishLists { get; set; }
     }
 }

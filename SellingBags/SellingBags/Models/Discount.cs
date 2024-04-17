@@ -14,6 +14,12 @@ namespace SellingBags.Models
     
     public partial class Discount
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Discount()
+        {
+            this.Carts = new HashSet<Cart>();
+        }
+    
         public string ID_Discount { get; set; }
         public string Name { get; set; }
         public Nullable<System.DateTime> StartDate { get; set; }
@@ -22,5 +28,7 @@ namespace SellingBags.Models
         public string ID_Product { get; set; }
     
         public virtual Product Product { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Cart> Carts { get; set; }
     }
 }

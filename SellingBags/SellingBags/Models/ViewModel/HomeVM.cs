@@ -8,7 +8,7 @@ namespace SellingBags.Models.ViewModel
 {
     public class HomeVM
     {
-        public  IEnumerable<Brand> Brands { get; set; }
-        public IEnumerable<ProductType> ProductTypes { get; set; }
+        public  IEnumerable<Brand> BrandsAll { get; set; }
+        public IEnumerable<ProductType> ProductTypesAll { get; set; }
     }
 }

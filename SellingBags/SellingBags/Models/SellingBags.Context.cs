@@ -37,6 +37,8 @@ namespace SellingBags.Models
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<Cart> Carts { get; set; }
+        public virtual DbSet<WishList> WishLists { get; set; }
     
         public virtual ObjectResult<spLoadAllBrand_Result> spLoadAllBrand()
         {

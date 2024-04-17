@@ -15,7 +15,6 @@ namespace SellingBags.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly SellingBagsEntities db = new SellingBagsEntities();
         // GET: Account
         public ActionResult Index()
         {

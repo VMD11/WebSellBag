@@ -15,13 +15,72 @@ namespace SellingBags.Models.DataContext
             db = new SellingBagsEntities();
         }
 
-        public Product Find(string ID_Product)
+        public Product GetProduct(string ID_Product)
         {
             return db.Products.Find(ID_Product);
         }
 
-        public List<ProductVM> RelatedProductList(string ID_Brand) {
-            return null;
+        public IEnumerable<Product> GetProductsAll()
+        {
+            return db.Products.ToList();
+        }
+
+        public IEnumerable<Product> GetRelatedProductsList(string ID_Product)
+        {
+            var results = new List<Product>();
+            var ID_Brand = GetProduct(ID_Product).ID_Brand;
+            var ProductsList = from p in db.Products
+                               where p.ID_Brand == ID_Brand
+                               orderby p.ID_Product
+                               select p;
+            foreach (var product in ProductsList)
+            {
+                results.Add(product);
+            }
+            results.Remove(GetProduct(ID_Product));
+            return results;
+        }
+
+        public IEnumerable<Product> SearchProductsByName(string KeyName)
+        {
+            return db.Products.Where(p => p.Name.Contains(KeyName));
+        }
+
+        public string GetBrand(string ID_Product)
+        {
+            var ID_Brand = GetProduct(ID_Product).ID_Brand;
+            return db.Brands.Find(ID_Brand).Name;
+        }
+
+        public string GetType(string ID_Product)
+        {
+            var ID_Type = GetProduct(ID_Product).ID_Type;
+            return db.ProductTypes.Find(ID_Type).Name;
+        }
+
+        public IEnumerable<Product> GetProductsByType(string ID_ProductType)
+        {
+            if(!ID_ProductType.Contains("C"))
+                return db.Products.Where(p => p.ID_Type == ID_ProductType);
+            var results = (from product in db.Products
+                          join type in db.ProductTypes on product.ID_Type equals type.ID_Type
+                          where type.ID_Category == ID_ProductType
+                          select product).ToList();
+            return results;
+        }
+        public IEnumerable<Product> GetProductsByBrand(string ID_Brand)
+        {
+            return db.Products.Where(p => p.ID_Brand == ID_Brand);
+        }
+
+        public IEnumerable<Category> GetCategories()
+        {
+            return db.Categories.ToList();
+        }
+
+        public IEnumerable<ProductType> GetProductTypes(string ID_Category)
+        {
+            return db.ProductTypes.Where(p => p.ID_Category == ID_Category);
         }
     }
 }

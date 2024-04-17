@@ -13,22 +13,22 @@ namespace SellingBags.Controllers
         // GET: Cart
         public ActionResult Cart()
         {
-            CartContext cart = Session[Sessions.CART] as CartContext;
+            VirtualCartContext cart = Session[Sessions.CART] as VirtualCartContext;
             if (cart == null)
             {
-                cart = new CartContext();
+                cart = new VirtualCartContext();
             }
 
             Session[Sessions.CART] = cart;
-            return View(Session[Sessions.CART] as CartContext);
+            return View(Session[Sessions.CART] as VirtualCartContext);
         }
 
         public ActionResult Add(string ID_Product, int Quantity)
         {
-            CartContext cart = Session[Sessions.CART] as CartContext;
+            VirtualCartContext cart = Session[Sessions.CART] as VirtualCartContext;
             if (cart == null)
             {
-                cart = new CartContext();
+                cart = new VirtualCartContext();
             }
 
             cart.AddProduct(ID_Product, Quantity);
@@ -39,7 +39,7 @@ namespace SellingBags.Controllers
 
         public decimal Update(string ID_Product, int Quantity)
         {
-            CartContext cart = Session[Sessions.CART] as CartContext;
+            VirtualCartContext cart = Session[Sessions.CART] as VirtualCartContext;
             if (cart == null)
             {
                 return 0;
@@ -52,7 +52,7 @@ namespace SellingBags.Controllers
 
         public decimal Delete(string ID_Product)
         {
-            CartContext cart = Session[Sessions.CART] as CartContext;
+            VirtualCartContext cart = Session[Sessions.CART] as VirtualCartContext;
             if (cart == null)
             {
                 return 0;
