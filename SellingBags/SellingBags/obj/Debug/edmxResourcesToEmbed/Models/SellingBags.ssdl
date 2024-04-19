@@ -23,9 +23,8 @@
     </Key>
     <Property Name="ID_Cart" Type="char" MaxLength="10" Nullable="false" />
     <Property Name="Quantity" Type="int" />
-    <Property Name="ID_Account" Type="char" MaxLength="10" Nullable="false" />
     <Property Name="ID_Product" Type="char" MaxLength="10" Nullable="false" />
-    <Property Name="ID_Discount" Type="char" MaxLength="10" />
+    <Property Name="ID_Account" Type="char" MaxLength="10" />
   </EntityType>
   <EntityType Name="Category">
     <Key>
@@ -115,8 +114,8 @@
       <PropertyRef Name="ID_WishList" />
     </Key>
     <Property Name="ID_WishList" Type="char" MaxLength="10" Nullable="false" />
-    <Property Name="ID_Account" Type="char" MaxLength="10" Nullable="false" />
     <Property Name="ID_Product" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="ID_Account" Type="char" MaxLength="10" />
   </EntityType>
   <Association Name="FK_Account_Role">
     <End Role="Role" Type="Self.Role" Multiplicity="1" />
@@ -131,7 +130,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Cart_Account">
-    <End Role="Account" Type="Self.Account" Multiplicity="1" />
+    <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
     <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Account">
@@ -142,15 +141,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Cart_Discount">
-    <End Role="Discount" Type="Self.Discount" Multiplicity="0..1" />
+  <Association Name="FK_Cart_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
     <End Role="Cart" Type="Self.Cart" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Discount">
-        <PropertyRef Name="ID_Discount" />
+      <Principal Role="Product">
+        <PropertyRef Name="ID_Product" />
       </Principal>
       <Dependent Role="Cart">
-        <PropertyRef Name="ID_Discount" />
+        <PropertyRef Name="ID_Product" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -251,7 +250,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_WishList_Account">
-    <End Role="Account" Type="Self.Account" Multiplicity="1" />
+    <End Role="Account" Type="Self.Account" Multiplicity="0..1" />
     <End Role="WishList" Type="Self.WishList" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Account">
@@ -300,8 +299,8 @@
       <End Role="Account" EntitySet="Account" />
       <End Role="Cart" EntitySet="Cart" />
     </AssociationSet>
-    <AssociationSet Name="FK_Cart_Discount" Association="Self.FK_Cart_Discount">
-      <End Role="Discount" EntitySet="Discount" />
+    <AssociationSet Name="FK_Cart_Product" Association="Self.FK_Cart_Product">
+      <End Role="Product" EntitySet="Product" />
       <End Role="Cart" EntitySet="Cart" />
     </AssociationSet>
     <AssociationSet Name="FK_Customer_Account" Association="Self.FK_Customer_Account">

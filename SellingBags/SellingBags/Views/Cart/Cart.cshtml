@@ -38,20 +38,19 @@
                                     <th>Tên sản phẩm</th>
                                     <th>Giá</th>
                                     <th>Số lượng</th>
-                                    <th>Tổng tiền</th>
                                     <th>Xóa</th>
                                 </tr>
                             </thead>
                             <tbody>
 
                                 @{
-                                    decimal? grandTotal = 0;
-                                    int sumQuantity = 0;
+                                    decimal? TotalMoney = 0;
+                                    int TotalQuantity = 0;
                                     foreach (var item in Model.GetList())
                                     {
                                         var data_id = item.Product.ID_Product;
-                                        grandTotal += item.Product.Price;
-                                        sumQuantity += item.Quantity;
+                                        TotalMoney += item.Product.Price;
+                                        TotalQuantity += item.Quantity;
                                         <tr id="@data_id">
                                             <td class="thumbnail-img">
                                                 <img class="img-fluid" src="~/Assets/images/products/@item.Product.ImageURL" alt="" />
@@ -64,12 +63,10 @@
                                             <td class="price-pr">
                                                 <p>@ConvertVND.convertVND(item.Product.Price)</p>
                                             </td>
-                                            <td class="quantity-box"><input type="number" name="Quantity" size="4" value="@item.Quantity" min="1" step="1" data-id="@data_id" class="c-input-text qty text number"></td>
-                                            <td class="total-pr">
-                                                <p></p>
-                                            </td>
+                                            <td class="quantity-box"><input type="number" name="Quantity" size="4" value="@item.Quantity" min="1" step="1" data-id="@data_id" class="c-input-text qty text"></td>
+                                            
                                             <td class="remove-pr delete">
-                                                <a data-id="@data_id" class="delete">
+                                                <a href="@Url.Action("Delete","Cart",new {ID_Product = item.Product.ID_Product})">
                                                     <i class="fas fa-times"></i>
                                                 </a>
                                             </td>
@@ -110,11 +107,11 @@
                         @*<h3>Order summary</h3>*@
                         <div class="d-flex">
                             <h4>Giá trị đơn hàng</h4>
-                            <div class="ml-auto font-weight-bold">@ConvertVND.convertVND(grandTotal)</div>
+                            <div class="ml-auto font-weight-bold" id="grandTotal">@ConvertVND.convertVND(TotalMoney)</div>
                         </div>
                         <div class="d-flex">
                             <h4>Số lượng</h4>
-                            <div class="ml-auto font-weight-bold" id="quantity">@sumQuantity</div>
+                            <div class="ml-auto font-weight-bold" id="TotalQuantity">@TotalQuantity</div>
                         </div>
                         <div class="d-flex">
                             <h4>Giảm tiền</h4>
@@ -123,7 +120,7 @@
                         <hr>
                         <div class="d-flex gr-total">
                             <h5>Thành tiền</h5>
-                            <div class="ml-auto h5" id="total">@ConvertVND.convertVND(grandTotal)</div>
+                            <div class="ml-auto h5" id="TotalMoney">@ConvertVND.convertVND(TotalMoney)</div>
                         </div>
                         <hr>
                     </div>
@@ -150,45 +147,33 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+    $('.qty').on('change', function () {
+        var productId = $(this).attr('data-id');
+        var newQuantity = parseInt($(this).val());
 
-        // viết ajax ở đây
+        $.ajax({
+            url: '@Url.Action("Update", "Cart")',
+            type: 'POST',
+            data: {
+                id: productId,
+                quantity: newQuantity
+            },
+            success: function (data) {
+                // Kiểm tra console để xem dữ liệu trả về từ server
+                console.log(data);
 
-
-        $('.delete').click(function () {
-            var Id = $(this).attr('data-id');
-
-            // dùng ajax ở đây
-            $.ajax({
-                url: 'Cart/Delete/',
-                type: 'POST',
-                dataType: 'html',
-                data: {
-                    id: Id
-                }
-            }).done(function (ketqua) {
-                $('#total').html(ketqua);
-            });
-            $('#' + Id).fadeOut('slow', function (c) {
-                $('#' + Id).remove();
-            });
-
-        });
-
-        $('.number').on('change mouseup keyup', function ()
-        {
-            var Id = $(this).attr('data-id');
-            // dùng ajax ở đây
-            $.ajax({
-                url: 'Cart/Update/',
-                type: 'POST',
-                dataType: 'html',
-                data: {
-                    id: Id,
-                    sl:$(this).val()
-                }
-            }).done(function (ketqua) {
-                $('#total').html(ketqua);
-            });
+                // Cập nhật lại giao diện
+                $('#grandTotal').text(ConvertVND.convertVND(data.TotalMoney));
+                $('#TotalQuantity').text(data.TotalQuantity);
+                $('#TotalMoney').text(ConvertVND.convertVND(data.TotalMoney)); // Thành tiền = giá trị đơn hàng
+            },
+            error: function () {
+                alert('Có lỗi xảy ra khi cập nhật số lượng.');
+            }
         });
     });
+});
+
+
+
 </script>

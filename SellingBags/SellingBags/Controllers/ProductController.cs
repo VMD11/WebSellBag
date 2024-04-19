@@ -1,4 +1,5 @@
-﻿using SellingBags.Models;
+﻿using SellingBags.Common;
+using SellingBags.Models;
 using SellingBags.Models.DataContext;
 using SellingBags.Models.ViewModel;
 using System;
@@ -14,8 +15,9 @@ namespace SellingBags.Controllers
     {
         private readonly ProductVM productVM = new ProductVM();
         private readonly ProductContext productContext = new ProductContext();
+
         // GET: Product
-        public ActionResult Product()
+        public ActionResult Index()
         {
             productVM.ProductsAll = productContext.GetProductsAll();
             return View(productVM);
@@ -49,5 +51,8 @@ namespace SellingBags.Controllers
             productVM.ProductsByType = productContext.GetProductsByType(ID_ProductType);
             return View(productVM);
         }
+
+
+        
     }
 }

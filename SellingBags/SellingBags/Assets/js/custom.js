@@ -260,31 +260,17 @@ function showPass() {
 	}
 }
 
+$(document).ready(function () {
+	$('.product-name').each(function () {
+		var maxLength = 30; // Độ dài tối đa của tên sản phẩm
+		var text = $(this).text();
 
-//document.addEventListener("DOMContentLoaded", function () {
-//	var userIcon = document.querySelector(".user");
-//	var userDropdown = document.querySelector(".user-dropdown");
+		if (text.length > maxLength) {
+			var trimmedText = text.substring(0, maxLength - 3) + '...';
+			$(this).text(trimmedText);
+		}
+	});
+});
 
-//	// Ngăn chặn sự kiện click trên icon user
-//	userIcon.addEventListener("click", function (event) {
-//		event.stopPropagation(); // Ngăn chặn sự lan truyền của sự kiện click
-//	});
 
-//	// Xử lý sự kiện khi di chuột ra khỏi dropdown để ẩn nó
-//	userDropdown.addEventListener("mouseleave", function () {
-//		this.style.display = "none";
-//	});
-//});
 
-//document.addEventListener("DOMContentLoaded", function () {
-//	var userIcon = document.getElementById("userIcon");
-//	var userDropdown = document.getElementById("userDropdown");
-
-//	userIcon.addEventListener("click", function (event) {
-//		event.stopPropagation(); 
-//	});
-
-//	userDropdown.addEventListener("mouseleave", function () {
-//		this.style.display = "none";
-//	});
-//});

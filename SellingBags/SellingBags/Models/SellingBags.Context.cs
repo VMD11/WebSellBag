@@ -27,7 +27,6 @@ namespace SellingBags.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Account> Accounts { get; set; }
         public virtual DbSet<Brand> Brands { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Discount> Discounts { get; set; }
@@ -39,6 +38,7 @@ namespace SellingBags.Models
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Cart> Carts { get; set; }
         public virtual DbSet<WishList> WishLists { get; set; }
+        public virtual DbSet<Account> Accounts { get; set; }
     
         public virtual ObjectResult<spLoadAllBrand_Result> spLoadAllBrand()
         {

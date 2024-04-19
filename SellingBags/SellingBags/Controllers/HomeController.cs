@@ -18,8 +18,7 @@ namespace SellingBags.Controllers
         {
             homeVM.BrandsAll = homeContext.GetBrandsAll();
             homeVM.ProductTypesAll = homeContext.GetProductTypesAll();
-
-
+            homeVM.ProductsAll = homeContext.GetProductsAll();
             return View(homeVM);
         }
 

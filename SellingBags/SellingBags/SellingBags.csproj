@@ -129,6 +129,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Common\GenarateRandomID.cs" />
+    <Compile Include="Common\GetID.cs" />
     <Compile Include="Common\LoginAccount.cs" />
     <Compile Include="Common\RegexAccount.cs" />
     <Compile Include="Common\Sessions.cs" />
@@ -162,6 +164,7 @@
     <Compile Include="Models\DataContext\LoginContext.cs" />
     <Compile Include="Models\DataContext\ProductContext.cs" />
     <Compile Include="Models\DataContext\RegisterContext.cs" />
+    <Compile Include="Models\DataContext\WishListContext.cs" />
     <Compile Include="Models\Discount.cs">
       <DependentUpon>SellingBags.tt</DependentUpon>
     </Compile>
@@ -207,6 +210,7 @@
     <Compile Include="Models\ViewModel\LoginVM.cs" />
     <Compile Include="Models\ViewModel\ProductVM.cs" />
     <Compile Include="Models\ViewModel\RegisterVM.cs" />
+    <Compile Include="Models\ViewModel\WishListVM.cs" />
     <Compile Include="Models\WishList.cs">
       <DependentUpon>SellingBags.tt</DependentUpon>
     </Compile>
@@ -2307,7 +2311,6 @@
     <Content Include="Assets\fonts\fontawesome-free-6.5.2\svgs\solid\yen-sign.svg" />
     <Content Include="Assets\fonts\fontawesome-free-6.5.2\svgs\solid\yin-yang.svg" />
     <Content Include="Assets\fonts\fontawesome-free-6.5.2\svgs\solid\z.svg" />
-    <Content Include="Assets\fonts\fontrubik\SIL Open Font License.txt" />
     <Content Include="Assets\images\about-img.jpg" />
     <Content Include="Assets\images\all-bg-title.jpg" />
     <Content Include="Assets\images\apple-touch-icon.png" />
@@ -2389,25 +2392,8 @@
     <Content Include="Assets\webfonts\fa-brands-400.svg" />
     <Content Include="Assets\webfonts\fa-regular-400.svg" />
     <Content Include="Assets\webfonts\fa-solid-900.svg" />
-    <Content Include="Content\bootstrap-grid.css" />
-    <Content Include="Content\bootstrap-grid.min.css" />
-    <Content Include="Content\bootstrap-grid.rtl.css" />
-    <Content Include="Content\bootstrap-grid.rtl.min.css" />
-    <Content Include="Content\bootstrap-reboot.css" />
-    <Content Include="Content\bootstrap-reboot.min.css" />
-    <Content Include="Content\bootstrap-reboot.rtl.css" />
-    <Content Include="Content\bootstrap-reboot.rtl.min.css" />
-    <Content Include="Content\bootstrap-utilities.css" />
-    <Content Include="Content\bootstrap-utilities.min.css" />
-    <Content Include="Content\bootstrap-utilities.rtl.css" />
-    <Content Include="Content\bootstrap-utilities.rtl.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\bootstrap.rtl.css" />
-    <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Models\SellingBags.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>SellingBags.edmx</DependentUpon>
@@ -2418,12 +2404,6 @@
       <DependentUpon>SellingBags.edmx</DependentUpon>
       <LastGenOutput>SellingBags.cs</LastGenOutput>
     </Content>
-    <Content Include="Scripts\bootstrap.bundle.js" />
-    <Content Include="Scripts\bootstrap.bundle.min.js" />
-    <Content Include="Scripts\bootstrap.esm.js" />
-    <Content Include="Scripts\bootstrap.esm.min.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Assets\webfonts\fa-brands-400.eot" />
     <Content Include="Assets\webfonts\fa-brands-400.ttf" />
     <Content Include="Assets\webfonts\fa-brands-400.woff" />
@@ -2497,27 +2477,6 @@
     <Content Include="Models\SellingBags.edmx.diagram">
       <DependentUpon>SellingBags.edmx</DependentUpon>
     </Content>
-    <Content Include="Assets\fonts\fontrubik\Rubik-Black.ttf" />
-    <Content Include="Assets\fonts\fontrubik\Rubik-BlackItalic.ttf" />
-    <Content Include="Assets\fonts\fontrubik\Rubik-Bold.ttf" />
-    <Content Include="Assets\fonts\fontrubik\Rubik-BoldItalic.ttf" />
-    <Content Include="Assets\fonts\fontrubik\Rubik-Italic.ttf" />
-    <Content Include="Assets\fonts\fontrubik\Rubik-Light.ttf" />
-    <Content Include="Assets\fonts\fontrubik\Rubik-LightItalic.ttf" />
-    <Content Include="Assets\fonts\fontrubik\Rubik-Medium.ttf" />
-    <Content Include="Assets\fonts\fontrubik\Rubik-MediumItalic.ttf" />
-    <Content Include="Assets\fonts\fontrubik\Rubik-Regular.ttf" />
-    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.4.1.js" />
-    <Content Include="Scripts\jquery-3.4.1.min.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.js" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -2532,7 +2491,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Cart\Cart.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
-    <Content Include="Views\Product\Product.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
     <Content Include="Views\Checkout\Index.cshtml" />
     <Content Include="Views\Product\WishList.cshtml" />
     <Content Include="Views\Product\Detail.cshtml" />
@@ -2540,6 +2499,7 @@
     <Content Include="Views\Product\ProductsByBrand.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\WishList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2548,31 +2508,7 @@
     <Folder Include="Areas\Admin\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap.rtl.min.css.map" />
-    <Content Include="Content\bootstrap.rtl.css.map" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-utilities.rtl.min.css.map" />
-    <Content Include="Content\bootstrap-utilities.rtl.css.map" />
-    <Content Include="Content\bootstrap-utilities.min.css.map" />
-    <Content Include="Content\bootstrap-utilities.css.map" />
-    <Content Include="Content\bootstrap-reboot.rtl.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.rtl.css.map" />
-    <Content Include="Content\bootstrap-reboot.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.css.map" />
-    <Content Include="Content\bootstrap-grid.rtl.min.css.map" />
-    <Content Include="Content\bootstrap-grid.rtl.css.map" />
-    <Content Include="Content\bootstrap-grid.min.css.map" />
-    <Content Include="Content\bootstrap-grid.css.map" />
     <None Include="packages.config" />
-    <Content Include="Scripts\bootstrap.min.js.map" />
-    <Content Include="Scripts\bootstrap.js.map" />
-    <Content Include="Scripts\bootstrap.esm.min.js.map" />
-    <Content Include="Scripts\bootstrap.esm.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
-    <Content Include="Scripts\bootstrap.bundle.js.map" />
-    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

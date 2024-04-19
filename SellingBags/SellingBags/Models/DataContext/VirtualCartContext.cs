@@ -74,6 +74,16 @@ namespace SellingBags.Models.DataContext
             return (decimal) VirtualCartList.Sum(t => ((float)t.Product.Price*(float)(100-t.Discount)/100)*t.Quantity);
         }
 
+        public int TotaQuantity()
+        {
+            int result = 0;
+            foreach(var item in VirtualCartList)
+            {
+                result += item.Quantity;
+            }
+            return result;
+        }
+
         private Product Product(string ID_Product)
         {
             return db.Products.FirstOrDefault(p => p.ID_Product == ID_Product);

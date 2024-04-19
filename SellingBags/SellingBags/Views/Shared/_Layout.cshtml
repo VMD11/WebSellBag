@@ -7,13 +7,21 @@
     ProductContext productContext = new ProductContext();
     ProductVM productVM = new ProductVM();
     var cart = (VirtualCartContext)Session[Sessions.CART];
+    WishListContext wishListContext = new WishListContext();
+    var account = (LoginAccount)Session[Sessions.USER_SESSION];
+    var countWishList = 0;
+    if(account != null)
+    {
+        countWishList = wishListContext.GetWishLists(account.ID_Account).Count();
+        
+    }
 
-    var count = 0;
+    var countCart = 0;
     if(cart != null)
     {
         foreach(var item in cart.GetList())
         {
-            count += item.Quantity;
+            countCart += item.Quantity;
 
         }
     }
@@ -111,11 +119,11 @@
                         <li class="dropdown ">
                             <a class="nav-link dropdown-toggle arrow" data-toggle="dropdown">Shop</a>
                             <ul class="dropdown-menu left-auto">
-                                <li>@Html.ActionLink("Cart", "Index", "Cart")</li>
-                                <li>@Html.ActionLink("Checkout", "Index", "Checkout")</li>
-                                <li>@Html.ActionLink("My Account", "Index", "Account")</li>
-                                <li>@Html.ActionLink("Wishlist", "WishList", "Product")</li>
-                                <li>@Html.ActionLink("Product", "Product", "Product")</li>
+                                <li>@Html.ActionLink("Giỏ hàng", "Index", "Cart")</li>
+                                <li>@Html.ActionLink("Thanh toán", "Index", "Checkout")</li>
+                                <li>@Html.ActionLink("Tài khoản của tôi", "Index", "Account")</li>
+                                <li>@Html.ActionLink("Danh sách yêu thích", "WishList", "Account")</li>
+                                <li>@Html.ActionLink("Sản phẩm", "Index", "Product")</li>
                             </ul>
                         </li>
                         <li class="dropdown">
@@ -151,9 +159,9 @@
 
                         }
                         <li class="wishlist">
-                            <a href="@Url.Action("WishList","Product")">
+                            <a href="@Url.Action("WishList","Account")">
                                 <i class="fa fa-heart"></i>
-                                <span class="badge">0</span>
+                                <span class="badge">@countWishList</span>
                             </a>
                         </li>
 
@@ -161,7 +169,7 @@
                         <li class="side-menu">
                             <a href="@Url.Action("Index","Cart")">
                                 <i class="fa fa-shopping-bag"></i>
-                                <span class="badge">@count</span>
+                                <span class="badge">@countCart</span>
                             </a>
                         </li>
                     </ul>

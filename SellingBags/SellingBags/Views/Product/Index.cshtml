@@ -1,8 +1,10 @@
 ﻿@model SellingBags.Models.ViewModel.ProductVM
 @using SellingBags.Converter
+@using SellingBags.Common
 @{
-    ViewBag.Title = "Product";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 
 <!-- Start All Title Box -->
@@ -106,7 +108,7 @@
 
                 </div>
             </div>*@
-            <div class="col-xl-12 col-lg-12 col-sm-12 col-xs-12 "> @*shop-content-right*@
+            <div class="col-xl-12 col-lg-12 col-sm-12 col-xs-12 ">
                 <div class="right-product-box">
                     <div class="product-item-filter row">
                         <div class="col-12 col-sm-8 text-center text-sm-left">
@@ -122,16 +124,6 @@
                             </div>
                             <p>Showing all 4 results</p>
                         </div>
-                        @*<div class="col-12 col-sm-4 text-center text-sm-right">
-                    <ul class="nav nav-tabs ml-auto">
-                        <li>
-                            <a class="nav-link active" href="#grid-view" data-toggle="tab"> <i class="fa fa-th"></i> </a>
-                        </li>
-                        <li>
-                            <a class="nav-link" href="#list-view" data-toggle="tab"> <i class="fa fa-list-ul"></i> </a>
-                        </li>
-                    </ul>
-                </div>*@
                     </div>
 
                     <div class="row product-categorie-box">
@@ -139,10 +131,16 @@
                             <div role="tabpanel" class="tab-pane fade show active" id="grid-view">
                                 <div class="row">
                                     @{
+                                        var ID_Account = "";
+                                        if(Session[Sessions.USER_SESSION] != null)
+                                        {
+                                            ID_Account = (Session[Sessions.USER_SESSION] as LoginAccount).ID_Account;
+                                        }
+                                        SellingBags.Models.DataContext.WishListContext context = new SellingBags.Models.DataContext.WishListContext();
                                         foreach (var item in Model.ProductsAll)
                                         {
 
-                                            <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                                            <div class="col-lg-3 col-md-6">
                                                 <div class="products-single fix">
                                                     <div class="box-img-hover">
                                                         <div class="type-lb">
@@ -152,14 +150,24 @@
                                                         <div class="mask-icon">
                                                             <ul>
                                                                 <li><a href="@Url.Action("Detail", "Product", new {ID_Product = item.ID_Product.Trim()})" data-toggle="tooltip" data-placement="right" title="Xem ngay"><i class="fas fa-eye"></i></a></li>
-                                                                <li><a href="#" data-toggle="tooltip" data-placement="right" title="Thêm vào danh sách yêu thích"><i class="far fa-heart"></i></a></li>
+                                                                @{ 
+                                                                    if (context.IsWishListed(ID_Account, item.ID_Product))
+                                                                    {
+                                                                        <li><a href="@Url.Action("RemoveToWishList", "Account", new {ID_Product = item.ID_Product.Trim()})" data-toggle="tooltip" data-placement="right" title="Xóa khỏi yêu thích"><i class=" fa fa-heart"></i></a></li>
+
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <li><a href="@Url.Action("AddToWishList", "Account", new {ID_Product = item.ID_Product.Trim()})" data-toggle="tooltip" data-placement="right" title="Thêm vào yêu thích"><i class="far fa-heart"></i></a></li>
+                                                                    }
+                                                                }
                                                             </ul>
-                                                            <a class="cart" href="@Url.Action("Add","Cart",new { ID_Product = item.ID_Product, Quantity = 1 })">Thêm vào giỏ hàng</a>
+                                                            <a class="cart" href="@Url.Action("Add","Cart",new { ID_Product = item.ID_Product.Trim(), Quantity = 1 })">Thêm vào giỏ hàng</a>
                                                         </div>
                                                     </div>
                                                     <div class="why-text">
                                                         <a href="@Url.Action("Detail", "Product", new {ID_Product = item.ID_Product.Trim()})">
-                                                            <h4>@item.Name</h4>
+                                                            <h4 class="product-name">@item.Name</h4>
                                                             <h5>@ConvertVND.convertVND(item.Price) <del>@ConvertVND.convertVND(item.Price)</del> </h5>
                                                         </a>
                                                     </div>
@@ -171,44 +179,6 @@
 
                                 </div>
                             </div>
-                            @*<div role="tabpanel" class="tab-pane fade" id="list-view">
-                        @{
-                            foreach(var item in Model.Products)
-                            {
-                                <div class="list-view-box">
-                                    <div class="row">
-                                        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
-                                            <div class="products-single fix">
-                                                <div class="box-img-hover">
-                                                    <div class="type-lb">
-                                                        <p class="new">New</p>
-                                                    </div>
-                                                    <img src="~/Assets/images/products/@item.ImageURL" class="img-fluid" alt="@item.ImageURL">
-                                                    <div class="mask-icon">
-                                                        <ul>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
-                                                            <li><a href="#" data-toggle="tooltip" data-placement="right" title="Add to Wishlist"><i class="far fa-heart"></i></a></li>
-                                                        </ul>
-                                                        <a class="cart" href="#">Xem nhanh</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6 col-md-6 col-lg-8 col-xl-8">
-                                            <div class="why-text full-width">
-                                                <a href="@Url.Action("Detail","Product")">
-                                                    <h4>@item.Name</h4>
-                                                    <p class="text-color">@item.Description</p>
-                                                </a>
-                                                <a class="btn hvr-hover" href="#">Add to Cart</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            }
-                        }
-                    </div>*@
                         </div>
                     </div>
 

@@ -107,5 +107,46 @@ namespace SellingBags.Controllers
             }
             return View(registerVM);
         }
+
+        private WishListContext wishListContext = new WishListContext();
+        public ActionResult WishList(WishListVM wishListVM)
+        {
+            if (Account() != null)
+            {
+                wishListVM.WishLists = wishListContext.GetWishLists(Account().ID_Account);
+                return View(wishListVM);
+            }
+            else
+            {
+                return RedirectToAction("Login");
+                
+            }
+        }
+
+        public ActionResult AddToWishList(string ID_Product)
+        {
+            if(Account() != null)
+            {
+                wishListContext.AddToWishList(Account().ID_Account, ID_Product);
+                return RedirectToAction("WishList");
+            }
+            return RedirectToAction("Login");
+        }
+        public ActionResult RemoveToWishList(string ID_Product)
+        {
+            if (Account() != null)
+            {
+                wishListContext.RemoveToWishList(Account().ID_Account, ID_Product);
+                return RedirectToAction("WishList");
+            }
+            return RedirectToAction("Login");
+
+        }
+        private LoginAccount Account()
+        {
+            return Session[Sessions.USER_SESSION] as LoginAccount;
+             
+        }
+
     }
 }

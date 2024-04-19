@@ -15,10 +15,10 @@ namespace SellingBags.Models
     public partial class WishList
     {
         public string ID_WishList { get; set; }
-        public string ID_Account { get; set; }
         public string ID_Product { get; set; }
+        public string ID_Account { get; set; }
     
-        public virtual Account Account { get; set; }
         public virtual Product Product { get; set; }
+        public virtual Account Account { get; set; }
     }
 }

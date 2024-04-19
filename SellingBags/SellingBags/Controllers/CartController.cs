@@ -37,30 +37,24 @@ namespace SellingBags.Controllers
             return RedirectToAction("Cart");
         }
 
-        public decimal Update(string ID_Product, int Quantity)
+        [HttpPost]
+        public ActionResult Update(string ID_Product, int Quantity)
         {
             VirtualCartContext cart = Session[Sessions.CART] as VirtualCartContext;
-            if (cart == null)
-            {
-                return 0;
-            }
+            
             cart.UpdateProduct(ID_Product, Quantity);
             Session[Sessions.CART] = cart;
-
-            return cart.TotalMoney();
+            
+            return Json(new { TotalMoney = cart.TotalMoney(), TotalQuantity = cart.TotaQuantity() });
         }
 
-        public decimal Delete(string ID_Product)
+        public ActionResult Delete(string ID_Product)
         {
             VirtualCartContext cart = Session[Sessions.CART] as VirtualCartContext;
-            if (cart == null)
-            {
-                return 0;
-            }
             cart.DeleteProduct(ID_Product);
             Session[Sessions.CART] = cart;
 
-            return cart.TotalMoney();
+            return RedirectToAction("Cart");
         }
 
     }

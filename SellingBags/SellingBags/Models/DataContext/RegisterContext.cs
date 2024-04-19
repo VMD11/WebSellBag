@@ -1,5 +1,6 @@
-﻿using SellingBags.Converter;
-using SellingBags.Models.ViewModel;
+﻿using SellingBags.Models.ViewModel;
+using SellingBags.Converter;
+using SellingBags.Common;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -26,21 +27,6 @@ namespace SellingBags.Models.DataContext
             }
             return true;
         }
-
-        public static string GenerateRandomID()
-        {
-            int byteLength = 5; // Số lượng byte cần sinh ra (tương đương với 10 ký tự hex)
-            byte[] randomBytes = new byte[byteLength];
-
-            // Sinh byte ngẫu nhiên
-            new Random().NextBytes(randomBytes);
-
-            // Chuyển đổi sang chuỗi hex
-            string randomHex = BitConverter.ToString(randomBytes).Replace("-", "");
-
-            return randomHex;
-        }
-
         public void Register(RegisterVM registerVM)
         {
             string ID_Customer = "C0";
@@ -64,7 +50,7 @@ namespace SellingBags.Models.DataContext
                 
             }
 
-            Account account = new Account { ID_Account = GenerateRandomID(), UserName = registerVM.UserName, Password = Encryptor.MD5Hash(registerVM.Password), ID_Role = "R02" };
+            Account account = new Account { ID_Account = GenarateRandomID.Execute(), UserName = registerVM.UserName, Password = Encryptor.MD5Hash(registerVM.Password), ID_Role = "R02" };
             db.Accounts.Add(account);
 
             Customer customer = null;

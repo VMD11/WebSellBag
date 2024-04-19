@@ -82,5 +82,10 @@ namespace SellingBags.Models.DataContext
         {
             return db.ProductTypes.Where(p => p.ID_Category == ID_Category);
         }
+        public bool IsWishListed(string ID_Account, string ID_Product)
+        {
+            var result = db.WishLists.FirstOrDefault(r => r.ID_Account == ID_Account && r.ID_Product == ID_Product);
+            return result != null;
+        }
     }
 }

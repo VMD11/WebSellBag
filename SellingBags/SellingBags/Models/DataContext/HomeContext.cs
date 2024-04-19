@@ -21,5 +21,10 @@ namespace SellingBags.Models.DataContext
             return db.ProductTypes;
         }
 
+        public IEnumerable<Product> GetProductsAll()
+        {
+            return db.Products;
+        }
+
     }
 }

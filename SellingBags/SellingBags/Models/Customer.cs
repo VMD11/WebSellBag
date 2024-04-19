@@ -30,8 +30,8 @@ namespace SellingBags.Models
         public string Country { get; set; }
         public string ID_Account { get; set; }
     
-        public virtual Account Account { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
+        public virtual Account Account { get; set; }
     }
 }

@@ -1,16 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="SellingBagsModelStoreContainer" CdmEntityContainer="SellingBagsEntities">
-    <EntitySetMapping Name="Accounts">
-      <EntityTypeMapping TypeName="SellingBagsModel.Account">
-        <MappingFragment StoreEntitySet="Account">
-          <ScalarProperty Name="ID_Account" ColumnName="ID_Account" />
-          <ScalarProperty Name="UserName" ColumnName="UserName" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
-          <ScalarProperty Name="ID_Role" ColumnName="ID_Role" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="Brands">
       <EntityTypeMapping TypeName="SellingBagsModel.Brand">
         <MappingFragment StoreEntitySet="Brand">
@@ -142,9 +132,8 @@
     <EntitySetMapping Name="Carts">
       <EntityTypeMapping TypeName="SellingBagsModel.Cart">
         <MappingFragment StoreEntitySet="Cart">
-          <ScalarProperty Name="ID_Discount" ColumnName="ID_Discount" />
-          <ScalarProperty Name="ID_Product" ColumnName="ID_Product" />
           <ScalarProperty Name="ID_Account" ColumnName="ID_Account" />
+          <ScalarProperty Name="ID_Product" ColumnName="ID_Product" />
           <ScalarProperty Name="Quantity" ColumnName="Quantity" />
           <ScalarProperty Name="ID_Cart" ColumnName="ID_Cart" />
         </MappingFragment>
@@ -153,9 +142,19 @@
     <EntitySetMapping Name="WishLists">
       <EntityTypeMapping TypeName="SellingBagsModel.WishList">
         <MappingFragment StoreEntitySet="WishList">
-          <ScalarProperty Name="ID_Product" ColumnName="ID_Product" />
           <ScalarProperty Name="ID_Account" ColumnName="ID_Account" />
+          <ScalarProperty Name="ID_Product" ColumnName="ID_Product" />
           <ScalarProperty Name="ID_WishList" ColumnName="ID_WishList" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Accounts">
+      <EntityTypeMapping TypeName="SellingBagsModel.Account">
+        <MappingFragment StoreEntitySet="Account">
+          <ScalarProperty Name="ID_Role" ColumnName="ID_Role" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="ID_Account" ColumnName="ID_Account" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

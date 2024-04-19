@@ -16,11 +16,10 @@ namespace SellingBags.Models
     {
         public string ID_Cart { get; set; }
         public Nullable<int> Quantity { get; set; }
-        public string ID_Account { get; set; }
         public string ID_Product { get; set; }
-        public string ID_Discount { get; set; }
+        public string ID_Account { get; set; }
     
+        public virtual Product Product { get; set; }
         public virtual Account Account { get; set; }
-        public virtual Discount Discount { get; set; }
     }
 }

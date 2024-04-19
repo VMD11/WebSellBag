@@ -1,18 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="SellingBagsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-  <EntityType Name="Account">
-    <Key>
-      <PropertyRef Name="ID_Account" />
-    </Key>
-    <Property Name="ID_Account" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
-    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
-    <Property Name="Password" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
-    <Property Name="ID_Role" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="Role" Relationship="Self.FK_Account_Role" FromRole="Account" ToRole="Role" />
-    <NavigationProperty Name="Customers" Relationship="Self.FK_Customer_Account" FromRole="Account" ToRole="Customer" />
-    <NavigationProperty Name="Carts" Relationship="SellingBagsModel.FK_Cart_Account" FromRole="Account" ToRole="Cart" />
-    <NavigationProperty Name="WishLists" Relationship="SellingBagsModel.FK_WishList_Account" FromRole="Account" ToRole="WishList" />
-  </EntityType>
   <EntityType Name="Brand">
     <Key>
       <PropertyRef Name="ID_Brand" />
@@ -35,8 +22,8 @@
     <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ID_Account" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
-    <NavigationProperty Name="Account" Relationship="Self.FK_Customer_Account" FromRole="Customer" ToRole="Account" />
     <NavigationProperty Name="Orders" Relationship="SellingBagsModel.FK_Order_Customer" FromRole="Customer" ToRole="Order" />
+    <NavigationProperty Name="Account" Relationship="SellingBagsModel.FK_Customer_Account" FromRole="Customer" ToRole="Account" />
   </EntityType>
   <EntityType Name="Discount">
     <Key>
@@ -49,7 +36,6 @@
     <Property Name="Percents" Type="Int32" />
     <Property Name="ID_Product" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
     <NavigationProperty Name="Product" Relationship="Self.FK_Discount_Product" FromRole="Discount" ToRole="Product" />
-    <NavigationProperty Name="Carts" Relationship="SellingBagsModel.FK_Cart_Discount" FromRole="Discount" ToRole="Cart" />
   </EntityType>
   <EntityType Name="OrderDetail">
     <Key>
@@ -81,6 +67,7 @@
     <NavigationProperty Name="OrderDetails" Relationship="Self.FK_OrderDetail_Product" FromRole="Product" ToRole="OrderDetail" />
     <NavigationProperty Name="ProductType" Relationship="Self.FK_Product_ProductType" FromRole="Product" ToRole="ProductType" />
     <Property Name="Quantity" Type="Int32" />
+    <NavigationProperty Name="Carts" Relationship="SellingBagsModel.FK_Cart_Product" FromRole="Product" ToRole="Cart" />
     <NavigationProperty Name="WishLists" Relationship="SellingBagsModel.FK_WishList_Product" FromRole="Product" ToRole="WishList" />
   </EntityType>
   <EntityType Name="ProductType">
@@ -100,32 +87,8 @@
     </Key>
     <Property Name="ID_Role" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
     <Property Name="Name" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
-    <NavigationProperty Name="Accounts" Relationship="Self.FK_Account_Role" FromRole="Role" ToRole="Account" />
+    <NavigationProperty Name="Accounts" Relationship="SellingBagsModel.FK_Account_Role" FromRole="Role" ToRole="Account" />
   </EntityType>
-  <Association Name="FK_Account_Role">
-    <End Role="Role" Type="Self.Role" Multiplicity="1" />
-    <End Role="Account" Type="Self.Account" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Role">
-        <PropertyRef Name="ID_Role" />
-      </Principal>
-      <Dependent Role="Account">
-        <PropertyRef Name="ID_Role" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Customer_Account">
-    <End Role="Account" Type="Self.Account" Multiplicity="1" />
-    <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Account">
-        <PropertyRef Name="ID_Account" />
-      </Principal>
-      <Dependent Role="Customer">
-        <PropertyRef Name="ID_Account" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Product_Brand">
     <End Role="Brand" Type="Self.Brand" Multiplicity="1" />
     <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -175,7 +138,6 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="SellingBagsEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="Accounts" EntityType="Self.Account" />
     <EntitySet Name="Brands" EntityType="Self.Brand" />
     <EntitySet Name="Customers" EntityType="Self.Customer" />
     <EntitySet Name="Discounts" EntityType="Self.Discount" />
@@ -183,14 +145,6 @@
     <EntitySet Name="Products" EntityType="Self.Product" />
     <EntitySet Name="ProductTypes" EntityType="Self.ProductType" />
     <EntitySet Name="Roles" EntityType="Self.Role" />
-    <AssociationSet Name="FK_Account_Role" Association="Self.FK_Account_Role">
-      <End Role="Role" EntitySet="Roles" />
-      <End Role="Account" EntitySet="Accounts" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Customer_Account" Association="Self.FK_Customer_Account">
-      <End Role="Account" EntitySet="Accounts" />
-      <End Role="Customer" EntitySet="Customers" />
-    </AssociationSet>
     <AssociationSet Name="FK_Product_Brand" Association="Self.FK_Product_Brand">
       <End Role="Brand" EntitySet="Brands" />
       <End Role="Product" EntitySet="Products" />
@@ -228,20 +182,29 @@
     </AssociationSet>
     <EntitySet Name="Carts" EntityType="SellingBagsModel.Cart" />
     <EntitySet Name="WishLists" EntityType="SellingBagsModel.WishList" />
-    <AssociationSet Name="FK_Cart_Account" Association="SellingBagsModel.FK_Cart_Account">
-      <End Role="Account" EntitySet="Accounts" />
-      <End Role="Cart" EntitySet="Carts" />
-    </AssociationSet>
-    <AssociationSet Name="FK_WishList_Account" Association="SellingBagsModel.FK_WishList_Account">
-      <End Role="Account" EntitySet="Accounts" />
-      <End Role="WishList" EntitySet="WishLists" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Cart_Discount" Association="SellingBagsModel.FK_Cart_Discount">
-      <End Role="Discount" EntitySet="Discounts" />
+    <AssociationSet Name="FK_Cart_Product" Association="SellingBagsModel.FK_Cart_Product">
+      <End Role="Product" EntitySet="Products" />
       <End Role="Cart" EntitySet="Carts" />
     </AssociationSet>
     <AssociationSet Name="FK_WishList_Product" Association="SellingBagsModel.FK_WishList_Product">
       <End Role="Product" EntitySet="Products" />
+      <End Role="WishList" EntitySet="WishLists" />
+    </AssociationSet>
+    <EntitySet Name="Accounts" EntityType="SellingBagsModel.Account" />
+    <AssociationSet Name="FK_Account_Role" Association="SellingBagsModel.FK_Account_Role">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="Account" EntitySet="Accounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cart_Account" Association="SellingBagsModel.FK_Cart_Account">
+      <End Role="Account" EntitySet="Accounts" />
+      <End Role="Cart" EntitySet="Carts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customer_Account" Association="SellingBagsModel.FK_Customer_Account">
+      <End Role="Account" EntitySet="Accounts" />
+      <End Role="Customer" EntitySet="Customers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WishList_Account" Association="SellingBagsModel.FK_WishList_Account">
+      <End Role="Account" EntitySet="Accounts" />
       <End Role="WishList" EntitySet="WishLists" />
     </AssociationSet>
   </EntityContainer>
@@ -326,55 +289,30 @@
     </Key>
     <Property Name="ID_Cart" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
     <Property Name="Quantity" Type="Int32" />
-    <Property Name="ID_Account" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
     <Property Name="ID_Product" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
-    <Property Name="ID_Discount" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="Product" Relationship="SellingBagsModel.FK_Cart_Product" FromRole="Cart" ToRole="Product" />
+    <Property Name="ID_Account" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
     <NavigationProperty Name="Account" Relationship="SellingBagsModel.FK_Cart_Account" FromRole="Cart" ToRole="Account" />
-    <NavigationProperty Name="Discount" Relationship="SellingBagsModel.FK_Cart_Discount" FromRole="Cart" ToRole="Discount" />
   </EntityType>
   <EntityType Name="WishList">
     <Key>
       <PropertyRef Name="ID_WishList" />
     </Key>
     <Property Name="ID_WishList" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
-    <Property Name="ID_Account" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
     <Property Name="ID_Product" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
-    <NavigationProperty Name="Account" Relationship="SellingBagsModel.FK_WishList_Account" FromRole="WishList" ToRole="Account" />
     <NavigationProperty Name="Product" Relationship="SellingBagsModel.FK_WishList_Product" FromRole="WishList" ToRole="Product" />
+    <Property Name="ID_Account" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="Account" Relationship="SellingBagsModel.FK_WishList_Account" FromRole="WishList" ToRole="Account" />
   </EntityType>
-  <Association Name="FK_Cart_Account">
-    <End Type="SellingBagsModel.Account" Role="Account" Multiplicity="1" />
+  <Association Name="FK_Cart_Product">
+    <End Type="SellingBagsModel.Product" Role="Product" Multiplicity="1" />
     <End Type="SellingBagsModel.Cart" Role="Cart" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Account">
-        <PropertyRef Name="ID_Account" />
+      <Principal Role="Product">
+        <PropertyRef Name="ID_Product" />
       </Principal>
       <Dependent Role="Cart">
-        <PropertyRef Name="ID_Account" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_WishList_Account">
-    <End Type="SellingBagsModel.Account" Role="Account" Multiplicity="1" />
-    <End Type="SellingBagsModel.WishList" Role="WishList" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Account">
-        <PropertyRef Name="ID_Account" />
-      </Principal>
-      <Dependent Role="WishList">
-        <PropertyRef Name="ID_Account" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Cart_Discount">
-    <End Type="SellingBagsModel.Discount" Role="Discount" Multiplicity="0..1" />
-    <End Type="SellingBagsModel.Cart" Role="Cart" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Discount">
-        <PropertyRef Name="ID_Discount" />
-      </Principal>
-      <Dependent Role="Cart">
-        <PropertyRef Name="ID_Discount" />
+        <PropertyRef Name="ID_Product" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -387,6 +325,67 @@
       </Principal>
       <Dependent Role="WishList">
         <PropertyRef Name="ID_Product" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="ID_Account" />
+    </Key>
+    <Property Name="ID_Account" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="ID_Role" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="Role" Relationship="SellingBagsModel.FK_Account_Role" FromRole="Account" ToRole="Role" />
+    <NavigationProperty Name="Carts" Relationship="SellingBagsModel.FK_Cart_Account" FromRole="Account" ToRole="Cart" />
+    <NavigationProperty Name="Customers" Relationship="SellingBagsModel.FK_Customer_Account" FromRole="Account" ToRole="Customer" />
+    <NavigationProperty Name="WishLists" Relationship="SellingBagsModel.FK_WishList_Account" FromRole="Account" ToRole="WishList" />
+  </EntityType>
+  <Association Name="FK_Account_Role">
+    <End Type="SellingBagsModel.Role" Role="Role" Multiplicity="1" />
+    <End Type="SellingBagsModel.Account" Role="Account" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="ID_Role" />
+      </Principal>
+      <Dependent Role="Account">
+        <PropertyRef Name="ID_Role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cart_Account">
+    <End Type="SellingBagsModel.Account" Role="Account" Multiplicity="0..1" />
+    <End Type="SellingBagsModel.Cart" Role="Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="ID_Account" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="ID_Account" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Customer_Account">
+    <End Type="SellingBagsModel.Account" Role="Account" Multiplicity="1" />
+    <End Type="SellingBagsModel.Customer" Role="Customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="ID_Account" />
+      </Principal>
+      <Dependent Role="Customer">
+        <PropertyRef Name="ID_Account" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WishList_Account">
+    <End Type="SellingBagsModel.Account" Role="Account" Multiplicity="0..1" />
+    <End Type="SellingBagsModel.WishList" Role="WishList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="ID_Account" />
+      </Principal>
+      <Dependent Role="WishList">
+        <PropertyRef Name="ID_Account" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

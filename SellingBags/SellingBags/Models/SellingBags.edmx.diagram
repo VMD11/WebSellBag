@@ -5,31 +5,32 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="fdea131796934b5882d02c1f7ddaf9aa" Name="Diagram1">
-        <EntityTypeShape EntityType="SellingBagsModel.Account" Width="1.5" PointX="1.5" PointY="8.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SellingBagsModel.Brand" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SellingBagsModel.Customer" Width="1.5" PointX="3.75" PointY="8.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SellingBagsModel.Discount" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SellingBagsModel.OrderDetail" Width="1.5" PointX="8.25" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SellingBagsModel.Product" Width="1.5" PointX="3" PointY="2.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="SellingBagsModel.ProductType" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SellingBagsModel.Role" Width="1.5" PointX="1.5" PointY="11.875" IsExpanded="true" />
-        <AssociationConnector Association="SellingBagsModel.FK_Account_Role" ManuallyRouted="false" />
-        <AssociationConnector Association="SellingBagsModel.FK_Customer_Account" ManuallyRouted="false" />
-        <AssociationConnector Association="SellingBagsModel.FK_Product_Brand" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SellingBagsModel.Brand" Width="1.5" PointX="9.5" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SellingBagsModel.Customer" Width="1.5" PointX="1.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SellingBagsModel.Discount" Width="1.5" PointX="9.5" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SellingBagsModel.OrderDetail" Width="1.5" PointX="3.625" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SellingBagsModel.Product" Width="1.5" PointX="6.125" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SellingBagsModel.ProductType" Width="1.5" PointX="5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SellingBagsModel.Role" Width="1.5" PointX="5.25" PointY="11.25" IsExpanded="true" />
+        <AssociationConnector Association="SellingBagsModel.FK_Product_Brand" ManuallyRouted="false" >
+        </AssociationConnector>
         <AssociationConnector Association="SellingBagsModel.FK_Discount_Product" ManuallyRouted="false" />
         <AssociationConnector Association="SellingBagsModel.FK_OrderDetail_Product" ManuallyRouted="false" />
         <AssociationConnector Association="SellingBagsModel.FK_Product_ProductType" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="SellingBagsModel.Category" Width="1.5" PointX="5.125" PointY="0.875" />
+        <EntityTypeShape EntityType="SellingBagsModel.Category" Width="1.5" PointX="1.875" PointY="1.25" IsExpanded="true" />
         <AssociationConnector Association="SellingBagsModel.FK_ProductType_Category" />
-        <EntityTypeShape EntityType="SellingBagsModel.Order" Width="1.5" PointX="6" PointY="8.5" />
+        <EntityTypeShape EntityType="SellingBagsModel.Order" Width="1.5" PointX="0.875" PointY="4.375" />
         <AssociationConnector Association="SellingBagsModel.FK_Order_Customer" />
         <AssociationConnector Association="SellingBagsModel.FK_OrderDetail_Order" />
-        <EntityTypeShape EntityType="SellingBagsModel.Cart" Width="1.5" PointX="8.5" PointY="7.125" />
-        <EntityTypeShape EntityType="SellingBagsModel.WishList" Width="1.5" PointX="8.25" PointY="11" />
-        <AssociationConnector Association="SellingBagsModel.FK_Cart_Account" />
-        <AssociationConnector Association="SellingBagsModel.FK_WishList_Account" />
-        <AssociationConnector Association="SellingBagsModel.FK_Cart_Discount" />
+        <EntityTypeShape EntityType="SellingBagsModel.Cart" Width="1.5" PointX="9.625" PointY="6.875" />
+        <EntityTypeShape EntityType="SellingBagsModel.WishList" Width="1.5" PointX="5.75" PointY="8.25" />
+        <AssociationConnector Association="SellingBagsModel.FK_Cart_Product" />
         <AssociationConnector Association="SellingBagsModel.FK_WishList_Product" />
+        <EntityTypeShape EntityType="SellingBagsModel.Account" Width="1.5" PointX="9" PointY="10" />
+        <AssociationConnector Association="SellingBagsModel.FK_Account_Role" />
+        <AssociationConnector Association="SellingBagsModel.FK_Cart_Account" />
+        <AssociationConnector Association="SellingBagsModel.FK_Customer_Account" />
+        <AssociationConnector Association="SellingBagsModel.FK_WishList_Account" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
