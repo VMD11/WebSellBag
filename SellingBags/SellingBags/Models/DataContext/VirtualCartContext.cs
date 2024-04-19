@@ -83,7 +83,6 @@ namespace SellingBags.Models.DataContext
             }
             return result;
         }
-
         private Product Product(string ID_Product)
         {
             return db.Products.FirstOrDefault(p => p.ID_Product == ID_Product);

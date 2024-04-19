@@ -2426,15 +2426,89 @@ form {
     font-size: 16px;
 }
 
-.quantity-box input {
-    width: 60px;
-    border: 2px solid #010101;
-    text-align: center;
+
+.quantity-box .book-number {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    margin-bottom: 1.25rem;
+    width: 5.5625rem;
 }
 
-    .quantity-box input:focus {
-        border-color: #d33b33;
+    .quantity-box .book-number .minus {
+        border-left: 1px solid #E7E4E4;
     }
+
+    .quantity-box .book-number .plus {
+        border-right: 1px solid #E7E4E4;
+    }
+    .quantity-box .book-number .minus, .quantity-box .book-number .plus {
+        width: 2rem;
+        height: 2rem;
+        text-align: center;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+    .quantity-box .book-number .minus, .quantity-box .book-number .plus, .quantity-box .book-number .input-number {
+        border-top: 1px solid #E7E4E4;
+        border-bottom: 1px solid #E7E4E4;
+    }
+
+    .quantity-box .book-number .input-number {
+        width: calc(5.5625rem - 4rem);
+        height: 2rem;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+
+        .quantity-box .book-number .input-number input {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            padding: 0;
+            text-align: center;
+            font-size: .875rem;
+            line-height: 1.375rem;
+            letter-spacing: .0063rem;
+        }
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
+}
 
 .name-pr a {
     font-weight: 700;
@@ -2470,7 +2544,7 @@ form {
     .coupon-box .input-group .input-group-append .btn-theme:hover {
         background: #d33b33;
     }
-
+.shopping-box input[type="submit"],
 .update-box input[type="submit"] {
     background: #010101;
     border: medium none;
@@ -2485,7 +2559,6 @@ form {
     font-weight: 500;
     height: 50px;
     line-height: 40px;
-    margin-right: 15px;
     padding: 0 20px;
     text-shadow: none;
     text-transform: uppercase;
@@ -2494,7 +2567,7 @@ form {
     white-space: nowrap;
     width: inherit;
 }
-
+    .shopping-box input[type="submit"]:hover,
     .update-box input[type="submit"]:hover {
         background: #d33b33;
     }
@@ -2991,20 +3064,17 @@ form {
 }
 
 
-.quantity-box input {
-    width: 100px;
-}
 
 .price-box-bar {
     margin-bottom: 30px;
 }
 
-    .price-box-bar a {
-        padding: 10px 20px;
-        font-weight: 700;
-        color: #ffffff;
-        border: none;
-    }
+.price-box-bar a {
+    padding: 10px 20px;
+    font-weight: 700;
+    color: #ffffff;
+    border: none;
+}
 
 .add-to-btn .add-comp {
     float: left;

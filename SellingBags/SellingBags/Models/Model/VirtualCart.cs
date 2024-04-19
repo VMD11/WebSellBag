@@ -10,6 +10,7 @@ namespace SellingBags.Models.Model
     {
         public Product Product { get; set; }
         public int Quantity { get; set; }
+        public int TotalMoney { get; set; }
         public double? Discount { get; set; }
     }
 }

@@ -11,7 +11,7 @@ namespace SellingBags.Controllers
     public class CartController : Controller
     {
         // GET: Cart
-        public ActionResult Cart()
+        public ActionResult Index()
         {
             VirtualCartContext cart = Session[Sessions.CART] as VirtualCartContext;
             if (cart == null)
@@ -30,11 +30,10 @@ namespace SellingBags.Controllers
             {
                 cart = new VirtualCartContext();
             }
-
             cart.AddProduct(ID_Product, Quantity);
             Session[Sessions.CART] = cart;
 
-            return RedirectToAction("Cart");
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
@@ -54,7 +53,7 @@ namespace SellingBags.Controllers
             cart.DeleteProduct(ID_Product);
             Session[Sessions.CART] = cart;
 
-            return RedirectToAction("Cart");
+            return RedirectToAction("Index");
         }
 
     }

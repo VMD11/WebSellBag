@@ -101,12 +101,12 @@
                                                     <div class="content">
                                                         <ul class="menu-col">
                                                             <li><a href="@Url.Action("ProductsByType","Product",new { ID_ProductType = item.ID_Category.Trim() })">Xem tất cả @item.Name.ToLower()</a></li>
-                                                           
-                                                                @foreach (var navItem in productVM.ProductTypes)
-                                                                {
-                                                                    <li><a href="@Url.Action("ProductsByType","Product",new { ID_ProductType = navItem.ID_Type.Trim() })">@navItem.Name </a></li>
-                                                                }
-                                            
+
+                                                            @foreach (var navItem in productVM.ProductTypes)
+                                                            {
+                                                                <li><a href="@Url.Action("ProductsByType","Product",new { ID_ProductType = navItem.ID_Type.Trim() })">@navItem.Name </a></li>
+                                                            }
+
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -169,7 +169,7 @@
                         <li class="side-menu">
                             <a href="@Url.Action("Index","Cart")">
                                 <i class="fa fa-shopping-bag"></i>
-                                <span class="badge">@countCart</span>
+                                <span class="badge" id="countCart">@countCart</span>
                             </a>
                         </li>
                     </ul>
@@ -182,21 +182,26 @@
                 <li class="cart-box">
                     <ul class="cart-list">
                         @{
-                            decimal? sumMoney = 0;
-                            if(cart != null)
+                            if (countCart != 0)
                             {
                                 foreach (var item in cart.GetList())
                                 {
                                     <li>
-                                        <a href="#" class="photo"><img src="~/Assets/images/products/@item.Product.ImageURL" class="cart-thumb" alt="" /></a>
-                                        <h6><a href="#">@item.Product.Name</a></h6>
-                                        <p>@item.Quantity x - <span class="price">@ConvertVND.convertVND(item.Product.Price)</span></p>
+                                        <div class="row">
+                                            <div class="col-3">
+                                                <a href="#" class="photo"><img src="~/Assets/images/products/@item.Product.ImageURL" class="cart-thumb" alt="" /></a>
+
+                                            </div>
+                                            <div class="col-9">
+                                                <h6><a href="#">@item.Product.Name</a></h6>
+                                                <p>@item.Quantity x - <span class="price">@ConvertVND.convertVND(item.Product.Price)</span></p>
+                                            </div>
+                                        </div>
                                     </li>
-                                    sumMoney += item.Product.Price*item.Quantity;
                                 }
-                                <li class="pb-3"><span class="float-right"><strong>Thành tiền</strong>: @ConvertVND.convertVND(sumMoney)</span></li>
+                                <li class="mb-4 pb-4"><span class="float-right"><strong>Tạm tính</strong>: @ConvertVND.convertVND(cart.TotalMoney())</span></li>
                                 <li>
-                                    @Html.ActionLink("Xem giỏ hàng", "Cart", "Cart", null, new { @class = "btn hvr-hover text-white" })
+                                    @Html.ActionLink("Xem giỏ hàng", "Index", "Cart", null, new { @class = "btn hvr-hover text-white" })
                                 </li>
                             }
                             else
@@ -214,18 +219,18 @@
     </header>
     <!-- End Main Top -->
     <!-- Start Top Search -->
-    @using (Html.BeginForm("Search","Product",FormMethod.Post))
-    { 
+    @using (Html.BeginForm("Search", "Product", FormMethod.Post))
+    {
         <div class="top-search fixed-top">
             <div class="container">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Bạn muốn tìm gì hôm nay?">
-                    <button type="submit" class="input-group-addon" ><i class="fa fa-search"></i></button>
+                    <button type="submit" class="input-group-addon"><i class="fa fa-search"></i></button>
                     <span class="input-group-addon close-search"><i class="fa fa-times"></i></span>
                 </div>
             </div>
         </div>
-    
+
     }
     <!-- End Top Search -->
 
@@ -300,6 +305,7 @@
     <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
 
     <!-- ALL JS FILES -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="~/Assets/js/jquery-3.2.1.min.js"></script>
     <script src="~/Assets/js/popper.min.js"></script>
     <script src="~/Assets/js/bootstrap.min.js"></script>

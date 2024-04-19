@@ -1,4 +1,4 @@
-﻿(function($) {
+﻿(function ($) {
     "use strict";
 	
 	/* ..............................................
@@ -211,8 +211,62 @@
 	$(".brand-box").niceScroll({
 		cursorcolor: "#9b9b9c",
 	});
+
 	
+	/* ..............................................
+	   Update Cart
+	   ................................................. */
+	//$(document).ready(function () {
+	//	// Xử lý sự kiện click cho nút minus
+	//	$('.minus').on('click', function () {
+	//		var input = $(this).next('.input-number').find('.quantity');
+	//		var currentValue = parseInt(input.val());
+	//		if (currentValue > 1) {
+	//			input.val(currentValue - 1);
+	//			updateCart(input.val());
+	//		}
+	//	});
+
+	//	// Xử lý sự kiện click cho nút plus
+	//	$('.plus').on('click', function () {
+	//		var input = $(this).prev('.input-number').find('.quantity');
+	//		var currentValue = parseInt(input.val());
+	//		input.val(currentValue + 1);
+	//		updateCart(input.val());
+	//	});
+
+	//	// Hàm gửi yêu cầu Ajax khi giá trị thay đổi
+	//	function updateCart(quantity) {
+	//		$.ajax({
+	//			url: '@Url.Action("Update","Cart")', // Đường dẫn đến action xử lý cập nhật giỏ hàng
+	//			type: 'POST',
+	//			data: { quantity: quantity }, // Dữ liệu gửi đi (số lượng mới)
+	//			success: function (response) {
+	//				// Cập nhật số lượng và tổng tiền từ kết quả trả về
+	//				$('#TotalQuantity').text(response.totalQuantity);
+	//				$('#TotalMoney').text('$' + response.totalMoney);
+	//			},
+	//			error: function () {
+	//				alert('Có lỗi xảy ra khi cập nhật giỏ hàng.');
+	//			}
+	//		});
+	//	}
+	//});
 	
+	/* ..............................................
+	   Fix product name
+	   ................................................. */
+	$(document).ready(function () {
+		$('.product-name').each(function () {
+			var maxLength = 30; // Độ dài tối đa của tên sản phẩm
+			var text = $(this).text();
+
+			if (text.length > maxLength) {
+				var trimmedText = text.substring(0, maxLength - 3) + '...';
+				$(this).text(trimmedText);
+			}
+		});
+	});
 }(jQuery));
 
 
@@ -241,9 +295,23 @@ document.addEventListener("DOMContentLoaded", function () {
 	}
 });
 
+/* ..............................................
+	   Add cart
+	   ................................................. */
+document.addEventListener('DOMContentLoaded', function () {
+	var addToCartButton = document.getElementById('addToCartButton');
+
+	addToCartButton.addEventListener('click', function () {
+		var id_product = document.getElementById('id_product').value;
+		var quantity = document.getElementById('quantityInput').value;
+		var url = '@Url.Action("Add", "Cart")' + '?ID_Product=' + id_product + '&quantity=' + quantity;
+
+		window.location.href = url;
+	});
+});
 
 /* ..............................................
-	   ShowPassword
+	   Show Password
 	   ................................................. */
 function showPass() {
 	var passwordInput = document.getElementById("passwordInput");
@@ -260,17 +328,7 @@ function showPass() {
 	}
 }
 
-$(document).ready(function () {
-	$('.product-name').each(function () {
-		var maxLength = 30; // Độ dài tối đa của tên sản phẩm
-		var text = $(this).text();
 
-		if (text.length > maxLength) {
-			var trimmedText = text.substring(0, maxLength - 3) + '...';
-			$(this).text(trimmedText);
-		}
-	});
-});
 
 
 
