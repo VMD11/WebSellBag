@@ -45,7 +45,7 @@
     <meta name="author" content="">
 
     <!-- Site Icons -->
-    <link rel="shortcut icon" href="~/Assets/images/icon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="~/Assets/images/logo/icon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="~/Assets/images/apple-touch-icon.png">
 
     <!-- Bootstrap CSS -->
@@ -60,10 +60,6 @@
     <link rel="stylesheet" href="~/Assets/fonts/fontawesome-free-6.5.2/css/all.css">
 
 
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
     
 </head>
 
@@ -78,13 +74,13 @@
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fa fa-bars"></i>
                     </button>
-                    <a class="navbar-brand" href="@Url.Action("Index","Home")"><img src="~/Assets/images/ziara.png" class="logo" alt=""></a>
+                    <a class="navbar-brand" href="@Url.Action("Index","Home")"><img src="~/Assets/images/logo/ziara.png" class="logo" alt=""></a>
                 </div>
                 <!-- End Header Navigation -->
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="navbar-menu">
                     <ul class="nav navbar-nav ml-auto mr-auto" data-in="fadeInDown" data-out="fadeOutUp">
-                        <li class="nav-item"><a class="nav-link" href="about.html">Hàng mới</a></li>
+                        <li class="nav-item"><a class="nav-link" href="">Hàng mới</a></li>
                         <li class="dropdown megamenu-fw">
                             <a class="nav-link dropdown-toggle arrow" data-toggle="dropdown">Sản phẩm </a>
                             <ul class="dropdown-menu megamenu-content" role="menu">
@@ -100,7 +96,7 @@
                                                     <h6 class="title">@item.Name</h6>
                                                     <div class="content">
                                                         <ul class="menu-col">
-                                                            <li><a href="@Url.Action("ProductsByType","Product",new { ID_ProductType = item.ID_Category.Trim() })">Xem tất cả @item.Name.ToLower()</a></li>
+                                                            <li><a href="@Url.Action("ProductsByCategory","Product",new { ID_Category = item.ID_Category.Trim() })">Xem tất cả @item.Name.ToLower()</a></li>
 
                                                             @foreach (var navItem in productVM.ProductTypes)
                                                             {
@@ -138,6 +134,7 @@
                 <div class="attr-nav">
                     <ul>
                         <li class="search"><a href="#"><i class="fa fa-search"></i></a></li>
+                        
                         @{
                             if (Session[Sessions.USER_SESSION] != null)
                             {
@@ -180,7 +177,7 @@
             <div class="side">
                 <a class="close-side"><i class="fa fa-times"></i></a>
                 <li class="cart-box">
-                    <ul class="cart-list">
+                    <ul class="cart-list my-5">
                         @{
                             if (countCart != 0)
                             {
@@ -189,11 +186,11 @@
                                     <li>
                                         <div class="row">
                                             <div class="col-3">
-                                                <a href="#" class="photo"><img src="~/Assets/images/products/@item.Product.ImageURL" class="cart-thumb" alt="" /></a>
+                                                <a href="@Url.Action("Detail","Product",new {ID_Product = item.Product.ID_Product.Trim()})" class="photo"><img src="~/Assets/images/products/@item.Product.ImageURL" class="cart-thumb" alt="" /></a>
 
                                             </div>
                                             <div class="col-9">
-                                                <h6><a href="#">@item.Product.Name</a></h6>
+                                                <h6><a href="@Url.Action("Detail","Product",new {ID_Product = item.Product.ID_Product.Trim()})">@item.Product.Name</a></h6>
                                                 <p>@item.Quantity x - <span class="price">@ConvertVND.convertVND(item.Product.Price)</span></p>
                                             </div>
                                         </div>
@@ -207,7 +204,7 @@
                             else
                             {
                                 <li>Chưa có sản phẩm nào</li>
-                                <li><button class="btn hvr-hover close-side">Tiếp tục mua sắm</button></li>
+                                <li class="my-5"><a class="btn hvr-hover close-side float-left border-0 text-white">Tiếp tục mua sắm</a></li>
                             }
                         }
                     </ul>

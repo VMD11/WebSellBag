@@ -63,7 +63,7 @@
             </div>
             <div class="col-xl-7 col-lg-7 col-md-6">
                 <div class="single-product-details">
-                    <input id="id_product" style="display: none" value="@Model.Product.ID_Product">
+                    <input id="id_product" hidden value="@Model.Product.ID_Product">
                     <h2>@Model.Product.Name</h2>
                     <h5>@ConvertVND.convertVND(Model.Product.Price) <del>@ConvertVND.convertVND(Model.Product.Price)</del></h5>
                     <p class="available-stock"><span> @Model.Product.Quantity sản phẩm / <a href="">18 đã bán </a></span></p>
@@ -76,9 +76,9 @@
                         <div class="form-group quantity-box">
                             <strong>Số lượng</strong>
                             <div class="book-number">
-                                <div class="minus"><i class="fa fa-minus"></i></div>
+                                <div class="minus" id="minus"><i class="fa fa-minus"></i></div>
                                 <div class="input-number"><input type="number" name="Quantity" value="1" min="1" class="quantity" id="quantityInput"></div>
-                                <div class="plus"><i class="fa fa-plus"></i></div>
+                                <div class="plus" id="plus"><i class="fa fa-plus"></i></div>
                             </div>
                         </div>
                     </div>
@@ -159,22 +159,22 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('.minus').on('click', function () {
-            var input = $('#quantityInput');
-            var currentValue = parseInt(input.val());
-            if (currentValue > 1) {
-                input.val(currentValue - 1);
-            }
-        });
+    //$(document).ready(function () {
+    //    $('#minus').on('click', function () {
+    //        var input = $('#quantityInput');
+    //        var currentValue = parseInt(input.val());
+    //        if (currentValue > 1) {
+    //            input.val(currentValue - 1);
+    //        }
+    //    });
 
-        $('.plus').on('click', function () {
-            var input = $('#quantityInput');
-            var currentValue = parseInt(input.val());
-            input.val(currentValue + 1);
+    //    $('#plus').on('click', function () {
+    //        var input = $('#quantityInput');
+    //        var currentValue = parseInt(input.val());
+    //        input.val(currentValue + 1);
 
-        });
-    });
+    //    });
+    //});
 
     document.addEventListener('DOMContentLoaded', function() {
         var addToCartButton = document.getElementById('addToCartButton');
@@ -182,11 +182,11 @@
         addToCartButton.addEventListener('click', function () {
             var id_product = document.getElementById('id_product').value;
             var quantity = document.getElementById('quantityInput').value;
-            var url = '@Url.Action("Add","Cart")' + '?ID_Product=' + id_product + '&Quantity=' + quantity;
+            var url = '@Url.Action("Add", "Cart")' + '?ID_Product=' + id_product + '&Quantity=' + quantity;
 
             window.location.href = url;
         });
-    });
+    }); 
 
 
 

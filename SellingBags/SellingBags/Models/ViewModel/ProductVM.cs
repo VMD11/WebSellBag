@@ -17,6 +17,7 @@ namespace SellingBags.Models.ViewModel
         public IEnumerable<ProductType> ProductTypes { get; set; }
         public IEnumerable<Product> ProductsByType { get; set; }
         public IEnumerable<Product> ProductsByBrand { get; set; }
+        public IEnumerable<Product> ProductsByCategory { get; set; }
         public IEnumerable<Product> SearchProductsByName { get; set; }
         public IEnumerable<Product> RelativeProductsList { get; set; }
         public IEnumerable<Product> WishList { get; set; }

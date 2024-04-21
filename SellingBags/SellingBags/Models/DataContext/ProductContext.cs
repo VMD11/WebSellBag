@@ -60,17 +60,19 @@ namespace SellingBags.Models.DataContext
 
         public IEnumerable<Product> GetProductsByType(string ID_ProductType)
         {
-            if(!ID_ProductType.Contains("C"))
-                return db.Products.Where(p => p.ID_Type == ID_ProductType);
-            var results = (from product in db.Products
-                          join type in db.ProductTypes on product.ID_Type equals type.ID_Type
-                          where type.ID_Category == ID_ProductType
-                          select product).ToList();
-            return results;
+            return db.Products.Where(p => p.ID_Type == ID_ProductType);
         }
         public IEnumerable<Product> GetProductsByBrand(string ID_Brand)
         {
             return db.Products.Where(p => p.ID_Brand == ID_Brand);
+        }
+        public IEnumerable<Product> GetProductsByCategory(string ID_Category)
+        {
+            return  (from product in db.Products
+                     join type in db.ProductTypes on product.ID_Type equals type.ID_Type
+                     where type.ID_Category == ID_Category
+                     select product).ToList();
+             
         }
 
         public IEnumerable<Category> GetCategories()

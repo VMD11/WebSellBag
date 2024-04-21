@@ -18,7 +18,7 @@
                         @Html.ActionLink("Đăng ký", "Register", "Account", null, new { @class = "nav-link" })
                     </li>
                 </ul>
-                <div class="ct-form">
+                <div class="ct-form mb-5">
                     @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form" }))
                     {
                         @Html.AntiForgeryToken()
@@ -27,33 +27,28 @@
                                 <span>@ViewBag.Error_Text</span>
                             </div>
                         </div>
-                        <!-- Email input -->
                         <div class="form-input">
                             <label>Số điện thoại hoặc Email</label>
-                            <input placeholder="Vd: 0123456789" name="UserName" class="username form-input" value="@Model.UserName" />
-                            <div class="error">
-                                <span><i class="fa fa-exclamation-circle"></i> @ViewBag.Eror_Text</span>
+                            <div class="mb-0">
+                                <input placeholder="Vd: 0123456789" name="UserName" class="username" value="@Model.UserName" />
                             </div>
+                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger", @style = "color: red; font-weight:600" })
                         </div>
-
-                        <!-- Password input -->
                         <div class="form-input mb-0">
                             <label>Mật khẩu</label>
                             <div class="input-icon">
                                 <input type="password" placeholder="**********" id="passwordInput" name="Password" class="password" value="@Model.Password" />
-                                <div id="icon-showpass" class="icon-showpass" onclick="showPass()">
+                                <div id="icon-showpass" class="icon-showpass p-2" onclick="showPass()">
                                     <i class="fa fa-eye-slash" id="eyeIcon"></i>
                                 </div>
                             </div>
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger", @style = "color: red;font-weight:600" })
                         </div>
                         <a href="#!" class="forgotpassword">Bạn quên mật khẩu?</a>
-
                         <div class="g-action">
                             <button type="submit" class="btn hvr-hover">Đăng nhập</button>
                         </div>
-
-
-                        <div class="g-register mb-lg-5">
+                        <div class="g-register mb-5">
                             <span>Bạn chưa có tài khoản? </span>
                             @Html.ActionLink("Đăng ký ngay", "Register", "Account", null, new { @class = "linkdirect" })
                         </div>
@@ -64,19 +59,19 @@
     </div>
 </div>
 <script type="text/javascript">
-    function showPass() {
-        var passwordInput = document.getElementById("passwordInput");
-        var eyeIcon = document.getElementById("eyeIcon");
+    //function showPass() {
+    //    var passwordInput = document.getElementById("passwordInput");
+    //    var eyeIcon = document.getElementById("eyeIcon");
 
-        if (passwordInput.type === "password") {
-            passwordInput.type = "text";
-            eyeIcon.classList.remove("fa-eye-slash");
-            eyeIcon.classList.add("fa-eye");
-        } else {
-            passwordInput.type = "password";
-            eyeIcon.classList.remove("fa-eye");
-            eyeIcon.classList.add("fa-eye-slash");
-        }
-    }
+    //    if (passwordInput.type === "password") {
+    //        passwordInput.type = "text";
+    //        eyeIcon.classList.remove("fa-eye-slash");
+    //        eyeIcon.classList.add("fa-eye");
+    //    } else {
+    //        passwordInput.type = "password";
+    //        eyeIcon.classList.remove("fa-eye");
+    //        eyeIcon.classList.add("fa-eye-slash");
+    //    }
+    //}
 </script>
 

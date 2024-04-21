@@ -31,33 +31,31 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="form-input col-6">
+                            <div class="form-input col-6 mb-0">
                                 <label>Họ đệm</label>
                                 <input placeholder="Nguyễn Văn" name="LastName" class="lastname" value="@Model.LastName" />
                             </div>
-                            <div class="form-input col-6 " style="margin-bottom:-1rem">
+                            <div class="form-input col-6 mb-0">
                                 <label>Tên</label>
                                 <input placeholder=" A" name="FirstName" class="firstname" value="@Model.FirstName" />
                             </div>
-                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger col-12 mt-0", @style = "color: red" })
+                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger col-12 mt-0", @style = "color: red;font-weight:600" })
                         </div>
-                        <!-- Email input -->
-                        <div class="form-input">
+                        <div class="form-input mt-3">
                             <label>Số điện thoại hoặc Email</label>
                             <input placeholder="0123456789" name="UserName" class="username" value="@Model.UserName" />
-                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger", @style = "color: red" })
+                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger", @style = "color: red;font-weight:600" })
                             
                         </div>
-                        <!-- Password input -->
                         <div class="form-input mb-4">
                             <label>Mật khẩu</label>
                             <div class="input-icon">
                                 <input type="password" placeholder="**********" id="passwordInput" name="Password" class="password" value="@Model.Password" />
-                                <div id="icon-showpass" class="icon-showpass" onclick="showPass()">
+                                <div id="icon-showpass" class="icon-showpass p-2" onclick="showPass()">
                                     <i class="fa fa-eye-slash" id="eyeIcon"></i>
                                 </div>
                             </div>
-                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger", @style = "color: red" })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger", @style = "color: red;font-weight:600" })
                             
 
                         </div>
@@ -78,18 +76,18 @@
     </div>
 </div>
 <script type="text/javascript">
-    function showPass() {
-        var passwordInput = document.getElementById("passwordInput");
-        var eyeIcon = document.getElementById("eyeIcon");
+    //function showPass() {
+    //    var passwordInput = document.getElementById("passwordInput");
+    //    var eyeIcon = document.getElementById("eyeIcon");
 
-        if (passwordInput.type === "password") {
-            passwordInput.type = "text";
-            eyeIcon.classList.remove("fa-eye-slash");
-            eyeIcon.classList.add("fa-eye");
-        } else {
-            passwordInput.type = "password";
-            eyeIcon.classList.remove("fa-eye");
-            eyeIcon.classList.add("fa-eye-slash");
-        }
-    }
+    //    if (passwordInput.type === "password") {
+    //        passwordInput.type = "text";
+    //        eyeIcon.classList.remove("fa-eye-slash");
+    //        eyeIcon.classList.add("fa-eye");
+    //    } else {
+    //        passwordInput.type = "password";
+    //        eyeIcon.classList.remove("fa-eye");
+    //        eyeIcon.classList.add("fa-eye-slash");
+    //    }
+    //}
 </script>

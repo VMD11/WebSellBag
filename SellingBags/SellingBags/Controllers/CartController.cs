@@ -1,5 +1,6 @@
 ﻿using SellingBags.Common;
 using SellingBags.Models.DataContext;
+using SellingBags.Models.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,5 +57,14 @@ namespace SellingBags.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Checkout()
+        {
+            CheckoutVM checkoutVM = new CheckoutVM();
+            CheckoutContext checkoutContext = new CheckoutContext();
+            checkoutVM.Cart = Session[Sessions.CART] as VirtualCartContext;
+            checkoutVM.ShippingCost = checkoutContext.GetShippingCost();
+            checkoutVM.PaymentMethods = checkoutContext.GetPaymentMethods();
+            return View(checkoutVM);
+        }
     }
 }

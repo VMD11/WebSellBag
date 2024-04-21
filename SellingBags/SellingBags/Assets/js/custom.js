@@ -207,58 +207,56 @@
 	/* ..............................................
 	   NiceScroll
 	   ................................................. */
-
 	$(".brand-box").niceScroll({
 		cursorcolor: "#9b9b9c",
 	});
 
+	/* ..............................................
+	   Update quantityInput
+	   ................................................. */
+	$(document).ready(function () {
+		$('.minus').on('click', function () {
+			var input = $('#quantityInput');
+			var currentValue = parseInt(input.val());
+			if (currentValue > 1) {
+				input.val(currentValue - 1);
+			}
+		});
+		$('.plus').on('click', function () {
+			var input = $('#quantityInput');
+			var currentValue = parseInt(input.val());
+			input.val(currentValue + 1);
+
+		});
+	});
 	
 	/* ..............................................
-	   Update Cart
+	   Update Shipping Cost
 	   ................................................. */
-	//$(document).ready(function () {
-	//	// Xử lý sự kiện click cho nút minus
-	//	$('.minus').on('click', function () {
-	//		var input = $(this).next('.input-number').find('.quantity');
-	//		var currentValue = parseInt(input.val());
-	//		if (currentValue > 1) {
-	//			input.val(currentValue - 1);
-	//			updateCart(input.val());
-	//		}
-	//	});
+	$(document).ready(function () {
+		// Xử lý sự kiện khi click vào các radio button
+		$('input[name="shipping-option"]').on('change', function () {
+			// Lấy phí vận chuyển từ thuộc tính data của radio button đã chọn
+			var shippingCost = $(this).data('shipping-cost');
+			var totalMoney = $(this).data('total-money');
+			var result = parseInt(shippingCost) + parseInt(totalMoney);
+			// Hiển thị phí vận chuyển tương ứng
+			$('#shippingCost').text(convertVND(shippingCost));
+			$('#totalMoney').text(convertVND(result));
+		});
 
-	//	// Xử lý sự kiện click cho nút plus
-	//	$('.plus').on('click', function () {
-	//		var input = $(this).prev('.input-number').find('.quantity');
-	//		var currentValue = parseInt(input.val());
-	//		input.val(currentValue + 1);
-	//		updateCart(input.val());
-	//	});
+		function convertVND(amount) {
+			return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+		}
+	});
 
-	//	// Hàm gửi yêu cầu Ajax khi giá trị thay đổi
-	//	function updateCart(quantity) {
-	//		$.ajax({
-	//			url: '@Url.Action("Update","Cart")', // Đường dẫn đến action xử lý cập nhật giỏ hàng
-	//			type: 'POST',
-	//			data: { quantity: quantity }, // Dữ liệu gửi đi (số lượng mới)
-	//			success: function (response) {
-	//				// Cập nhật số lượng và tổng tiền từ kết quả trả về
-	//				$('#TotalQuantity').text(response.totalQuantity);
-	//				$('#TotalMoney').text('$' + response.totalMoney);
-	//			},
-	//			error: function () {
-	//				alert('Có lỗi xảy ra khi cập nhật giỏ hàng.');
-	//			}
-	//		});
-	//	}
-	//});
 	
 	/* ..............................................
 	   Fix product name
 	   ................................................. */
 	$(document).ready(function () {
 		$('.product-name').each(function () {
-			var maxLength = 30; // Độ dài tối đa của tên sản phẩm
+			var maxLength = 32; // Độ dài tối đa của tên sản phẩm
 			var text = $(this).text();
 
 			if (text.length > maxLength) {
@@ -267,6 +265,39 @@
 			}
 		});
 	});
+
+	$(document).ready(function () {
+		// Xử lý sự kiện khi form đăng nhập được gửi đi
+		$('#loginForm').submit(function (e) {
+			e.preventDefault(); // Ngăn chặn hành động mặc định của form
+
+			// Gửi Ajax request đến action Login
+			$.ajax({
+				url: $(this).attr('action'),
+				type: 'POST',
+				data: $(this).serialize(), // Serialize form data để gửi đi
+				success: function (response) {
+					// Xử lý khi đăng nhập thành công
+					location.reload();
+					
+				},
+				error: function () {
+					// Xử lý khi có lỗi trong quá trình đăng nhập
+					alert('Đăng nhập thất bại. Vui lòng thử lại!');
+				}
+			});
+		});
+	});
+
+	$(document).ready(function () {
+		$('#submitInfoAddress').click(function () {
+			$('#formInfo').removeClass('show');
+			$('#shippingBox').removeClass('frozen');
+			$('#order').addClass('show');
+			$('#placeOrder').removeClass('d-none');
+		})
+	})
+
 }(jQuery));
 
 
@@ -296,39 +327,20 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 /* ..............................................
-	   Add cart
-	   ................................................. */
-document.addEventListener('DOMContentLoaded', function () {
-	var addToCartButton = document.getElementById('addToCartButton');
-
-	addToCartButton.addEventListener('click', function () {
-		var id_product = document.getElementById('id_product').value;
-		var quantity = document.getElementById('quantityInput').value;
-		var url = '@Url.Action("Add", "Cart")' + '?ID_Product=' + id_product + '&quantity=' + quantity;
-
-		window.location.href = url;
-	});
-});
-
-/* ..............................................
-	   Show Password
-	   ................................................. */
+	Show Password
+	................................................. */
 function showPass() {
 	var passwordInput = document.getElementById("passwordInput");
 	var eyeIcon = document.getElementById("eyeIcon");
 
 	if (passwordInput.type === "password") {
 		passwordInput.type = "text";
-		eyeIcon.classList.remove("fa-eye");
-		eyeIcon.classList.add("fa-eye-slash");
-	} else {
-		passwordInput.type = "password";
 		eyeIcon.classList.remove("fa-eye-slash");
 		eyeIcon.classList.add("fa-eye");
+	} else {
+		passwordInput.type = "password";
+		eyeIcon.classList.remove("fa-eye");
+		eyeIcon.classList.add("fa-eye-slash");
 	}
 }
-
-
-
-
 

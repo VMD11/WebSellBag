@@ -33,29 +33,31 @@ namespace SellingBags.Controllers
         public ActionResult Login(LoginVM loginVM)
         {
             ViewBag.Error_Text = "";
-            bool isPhoneOrEmail = Regex.IsMatch(loginVM.UserName, RegexAccount.phoneRegex) || Regex.IsMatch(loginVM.UserName, RegexAccount.emailRegex);
-            if (isPhoneOrEmail)
-            {
-                LoginContext loginContext = new LoginContext();
-                var result = loginContext.Login(loginVM.UserName, Encryptor.MD5Hash(loginVM.Password));
-                if(result == 1)
+            if (ModelState.IsValid) { 
+                bool isPhoneOrEmail = Regex.IsMatch(loginVM.UserName, RegexAccount.phoneRegex) || Regex.IsMatch(loginVM.UserName, RegexAccount.emailRegex);
+                if (isPhoneOrEmail)
                 {
-                    var account = loginContext.GetByName(loginVM.UserName);
-                    var user_session = new LoginAccount();
-                    user_session.ID_Account = account.ID_Account;
-                    user_session.UserName = account.UserName;
-                    Session.Add(Sessions.USER_SESSION, user_session);
-                    return RedirectToAction("Index","Home");
+                    LoginContext loginContext = new LoginContext();
+                    var result = loginContext.Login(loginVM.UserName, Encryptor.MD5Hash(loginVM.Password));
+                    if(result == 1)
+                    {
+                        var account = loginContext.GetByName(loginVM.UserName);
+                        var user_session = new LoginAccount();
+                        user_session.ID_Account = account.ID_Account;
+                        user_session.UserName = account.UserName;
+                        Session.Add(Sessions.USER_SESSION, user_session);
+                        return RedirectToAction("Index","Home");
+                    }
+                    else
+                    {
+                        ViewBag.Error_Text += "Thông tin đăng nhập không chính xác, vui lòng thử lại";
+                    
+                    }
                 }
                 else
                 {
-                    ViewBag.Error_Text += "Thông tin đăng nhập không chính xác, vui lòng thử lại";
-                    
+                    ViewBag.Error_Text += "Số điện thoại không đúng định dạng, vui lòng nhập lại";
                 }
-            }
-            else
-            {
-                ViewBag.Error_Text += "Số điện thoại không đúng định dạng, vui lòng nhập lại";
             }
             return View(loginVM);
         }

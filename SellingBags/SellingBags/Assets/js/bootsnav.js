@@ -207,7 +207,7 @@
                 e.preventDefault();
                 $("nav.navbar.bootsnav > .side").removeClass("on");
                 $("body").removeClass("on-side");
-            });  
+            }); 
             
             
             

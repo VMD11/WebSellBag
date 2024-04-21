@@ -32,23 +32,31 @@ namespace SellingBags.Controllers
             return View(productVM);
         }
 
-        public ActionResult WishList()
+        public ActionResult Product()
         {
             return View();
         }
 
-        [HttpGet]
+        
         public ActionResult ProductsByBrand(string ID_Brand)
         {
             productVM.ProductsByBrand = productContext.GetProductsByBrand(ID_Brand);
             return View(productVM);
         }
 
-        [HttpGet]
+        
         public ActionResult ProductsByType(string ID_ProductType)
         {
-            
+
             productVM.ProductsByType = productContext.GetProductsByType(ID_ProductType);
+            return View(productVM);
+        }
+
+        
+        public ActionResult ProductsByCategory(string ID_Category)
+        {
+            
+            productVM.ProductsByCategory = productContext.GetProductsByCategory(ID_Category);
             return View(productVM);
         }
 

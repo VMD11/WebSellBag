@@ -24,9 +24,9 @@
 @import url(bootsnav.css);
 @import url(owl.carousel.min.css);
 @import url(jquery-ui.css);
-@import url(nice-select.css);
 @import url(baguetteBox.min.css);
-@import url(~/Assets/fonts/fontawesome-free-6.5.2/css/fontawesome.min.css);
+@import url(../fonts/fontawesome-free-6.5.2/css/fontawesome.min.css);
+@import url(custom.css);
 
 /*------------------------------------------------------------------
     SKELETON
@@ -168,6 +168,10 @@ p {
 }
 
 
+.frozen {
+    pointer-events: none;
+    opacity: 0.5;
+}
 
 /*------------------------------------------------------------------ LOADER -------------------------------------------------------------------*/
 #back-to-top {
@@ -1673,6 +1677,7 @@ a:hover {
 }
 
 form {
+    font-size: 15px;
     display: block;
     margin-top: 0em;
     unicode-bidi: isolate;
@@ -1688,7 +1693,6 @@ form {
         width:100%;
     }
 .form .error {
-    font-size: .75rem;
     line-height: 1rem;
     letter-spacing: .0125rem;
     color: #CC2A18;
@@ -1702,7 +1706,6 @@ form {
     margin-bottom: 1rem;
 }
     .form .form-input label {
-        font-size: .875rem;
         font-weight: 600;
         color:#000;
     }
@@ -1738,26 +1741,23 @@ form {
         border: 1px solid #ADADAD;
     }
     .form .form-input .error {
-        font-size: 0.7rem;
         letter-spacing: .0063rem;
         display: none;
     }
-        .form .form-input input.error-input {
+        .form .form-input input.error-input::after {
             border-color: #CC2A18;
         }
 .form .results-error {
     padding-bottom: 1rem;
+    text-align:center;
 }
     .form .results-error .error{
-        font-size: .875rem;
         font-weight: 600;
         line-height: 1.375rem;
         letter-spacing: .0063rem;
-        justify-content: center !important;
     }
     .form .results-error .success {
         color: #03bd00;
-        font-size: .875rem;
         font-weight: 600;
         line-height: 1.375rem;
         letter-spacing: .0063rem;
@@ -1774,7 +1774,7 @@ form {
 }
 
 #eyeIcon {
-    font-size: 1.2em;
+    font-size: 1.2rem;
     color: #777;
 }
 
@@ -2125,7 +2125,7 @@ form {
     margin-bottom: 20px;
 }
 
-    .title-left h3 {
+    .title-left h2 {
         font-weight: 700;
     }
 
@@ -2607,7 +2607,7 @@ input[type="number"] {
     padding: 70px 0px;
 }
 
-.shopping-box a {
+.shopping-box a, .shopping-box button {
     font-size: 18px;
     color: #ffffff;
     border: none;
@@ -2625,17 +2625,20 @@ input[type="number"] {
     }
 
 .needs-validation label {
-    font-size: 16px;
+    color: #000;
+    font-size: 15px;
     margin-bottom: 0px;
     line-height: 24px;
+    font-weight: 700;
 }
 
 .needs-validation .form-control {
     min-height: 40px;
     border-radius: 0px;
-    border: 1px solid #e8e8e8;
+    border: 1px solid #ADADAD;
     box-shadow: none !important;
     font-size: 14px;
+    font-weight: 700;
 }
 
     .needs-validation .form-control:focus {

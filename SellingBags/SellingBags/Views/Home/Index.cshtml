@@ -11,46 +11,37 @@
 <div id="slides-shop" class="cover-slides">
     <ul class="slides-container">
         <li class="text-left">
-            <img src="~/Assets/images/banner-01.jpg" alt="">
+            <img src="~/Assets/images/banner/aokang.jpg" alt="">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <h1 class="m-b-20"><strong>Welcome To <br> Thewayshop</strong></h1>
-                        <p class="m-b-40">See how your users experience your website in realtime or view <br> trends to see any changes in performance over time.</p>
-                        <p>@Html.ActionLink("Shop New", "Product", "Product", null, new { @class = "btn hvr-hover" })</p>
+                        <p style="margin-top:300px">@Html.ActionLink("Xem thêm", "Index", "Product", null, new { @class = "btn hvr-hover" })</p>
                     </div>
                 </div>
             </div>
         </li>
         <li class="text-center">
-            <img src="~/Assets/images/banner-02.jpg" alt="">
+            <img src="~/Assets/images/banner/best_seller.jpg" alt="">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <h1 class="m-b-20"><strong>Welcome To <br> Thewayshop</strong></h1>
-                        <p class="m-b-40">See how your users experience your website in realtime or view <br> trends to see any changes in performance over time.</p>
-                        <p>@Html.ActionLink("Shop New", "Product", "Product", null, new { @class = "btn hvr-hover" })</p>
+                        <p style="margin-top:350px">@Html.ActionLink("Xem thêm", "Index", "Product", null, new { @class = "btn hvr-hover" })</p>
                     </div>
                 </div>
             </div>
         </li>
         <li class="text-right">
-            <img src="~/Assets/images/banner-03.jpg" alt="">
+            <img src="~/Assets/images/banner/new_arrival.jpg" alt="">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12">
-                        <h1 class="m-b-20"><strong>Welcome To <br> Thewayshop</strong></h1>
-                        <p class="m-b-40">See how your users experience your website in realtime or view <br> trends to see any changes in performance over time.</p>
-                        <p>@Html.ActionLink("Shop New", "Product", "Product", null, new { @class = "btn hvr-hover" })</p>
+                    <div class="col-md-12 ">
+                        <p style="margin: 6rem 6rem 0 0; ">@Html.ActionLink("Xem thêm", "Index", "Product", null, new { @class = "btn hvr-hover pl-5 pr-5" })</p>
                     </div>
                 </div>
             </div>
         </li>
+        
     </ul>
-    @*<div class="slides-navigation">
-        <a href="#" class="next"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
-        <a href="#" class="prev"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
-    </div>*@
 </div>
 <!-- End Slider -->
 
@@ -71,7 +62,7 @@
                     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                         <div class="shop-cat-box">
                             <img class="img-fluid" src="~/Assets/images/brands/@item.ImageURL" alt="" />
-                            <a class="btn hvr-hover" href="@Url.Action("ProductsByBrand", "Product", new {ID_Brand = item.ID_Brand})">@item.Name</a>
+                            <a class="btn hvr-hover" href="@Url.Action("ProductsByBrand", "Product", new {ID_Brand = item.ID_Brand.Trim()})">@item.Name</a>
                         </div>
                     </div>
                 }
@@ -124,7 +115,7 @@
                                 <img src="~/Assets/images/products/@item.ImageURL" class="img-fluid" alt="@item.Name">
                                 <div class="mask-icon">
                                     <ul>
-                                        <li><a href="@Url.Action("Detail","Product",new {ID_Product = item.ID_Product.Trim()})" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                        <li><a href="@Url.Action("Detail","Product",new {ID_Product = item.ID_Product.Trim()})" data-toggle="tooltip" data-placement="right" title="Xem chi tiết"><i class="fas fa-eye"></i></a></li>
                                         @if (context.IsWishListed(ID_Account, item.ID_Product))
                                         {
                                         <li><a href="@Url.Action("RemoveToWishList", "Account", new {ID_Product = item.ID_Product.Trim()})" data-toggle="tooltip" data-placement="right" title="Xóa khỏi yêu thích"><i class=" fa fa-heart"></i></a></li>
@@ -224,16 +215,3 @@
 </div>
 <!-- End Blog  -->
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('.product-name').each(function () {
-            var maxLength = 30; // Độ dài tối đa của tên sản phẩm
-            var text = $(this).text();
-
-            if (text.length > maxLength) {
-                var trimmedText = text.substring(0, maxLength - 3) + '...';
-                $(this).text(trimmedText);
-            }
-        });
-    });
-</script>
