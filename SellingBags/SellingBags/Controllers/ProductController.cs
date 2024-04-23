@@ -32,9 +32,10 @@ namespace SellingBags.Controllers
             return View(productVM);
         }
 
-        public ActionResult Product()
+        public ActionResult Search(string keyword)
         {
-            return View();
+            productVM.SearchProductsByName = productContext.SearchProductsByName(keyword);
+            return View(productVM);
         }
 
         

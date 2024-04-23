@@ -7,148 +7,149 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-<!-- Start All Title Box -->
-<div class="all-title-box">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <h2>Cart</h2>
-                <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Shop</a></li>
-                    <li class="breadcrumb-item active">Cart</li>
-                </ul>
+<div class="container-fluid">
+    <!-- Start All Title Box -->
+    <div class="all-title-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Cart</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                        <li class="breadcrumb-item active">Cart</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<!-- End All Title Box -->
-<!-- Start Cart  -->
-<div class="cart-box-main">
-    <div class="container">
-        @if (Model.GetList().Count != 0)
-        {
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="table-main table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Ảnh</th>
-                                    <th>Tên sản phẩm</th>
-                                    <th>Màu / Size</th>
-                                    <th>Giá</th>
-                                    <th>Số lượng</th>
-                                    <th>Xóa</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+    <!-- End All Title Box -->
+    <!-- Start Cart  -->
+    <div class="cart-box-main">
+        <div class="container">
+            @if (Model.GetList().Count != 0)
+            {
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="table-main table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Ảnh</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Màu / Size</th>
+                                        <th>Giá</th>
+                                        <th>Số lượng</th>
+                                        <th>Xóa</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
 
-                                @{
-                                    int TotalQuantity = 0;
-                                    foreach (var item in Model.GetList())
-                                    {
-                                        var data_id = item.Product.ID_Product;
-                                        TotalQuantity += item.Quantity;
-                                        <tr>
-                                            <td class="thumbnail-img">
-                                                <img class="img-fluid" src="~/Assets/images/products/@item.Product.ImageURL" alt="" />
-                                            </td>
-                                            <td class="name-pr">
-                                                <a href="@Url.Action("Detail", "Product", new { ID_Product = item.Product.ID_Product.Trim() })">
-                                                    @item.Product.Name
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <p>Màu: @item.Product.Color</p>
-                                                <p>Size: @item.Product.Size</p>
-                                            </td>
-                                            <td class="price-pr">
-                                                <p>@ConvertVND.convertVND(item.Product.Price)</p>
-                                            </td>
-                                            <td>
-                                                <div class="quantity-box mt-3">
-                                                    <div class="book-number">
-                                                        <div class="minus" data-id="@data_id"><i class="fa-solid fa-minus"></i></div>
-                                                        <div class="input-number"><input type="number" name="Quantity" value="@item.Quantity" min="1" class="quantity"></div>
-                                                        <div class="plus" data-id="@data_id"><i class="fa-solid fa-plus"></i></div>
+                                    @{
+                                        int TotalQuantity = 0;
+                                        foreach (var item in Model.GetList())
+                                        {
+                                            var data_id = item.Product.ID_Product;
+                                            TotalQuantity += item.Quantity;
+                                            <tr>
+                                                <td class="thumbnail-img">
+                                                    <img class="img-fluid" src="~/Assets/images/products/@item.Product.ImageURL" alt="" />
+                                                </td>
+                                                <td class="name-pr">
+                                                    <a href="@Url.Action("Detail", "Product", new { ID_Product = item.Product.ID_Product.Trim() })">
+                                                        @item.Product.Name
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <p>Màu: @item.Product.Color</p>
+                                                    <p>Size: @item.Product.Size</p>
+                                                </td>
+                                                <td class="price-pr">
+                                                    <p>@ConvertVND.convertVND(item.Product.Price)</p>
+                                                </td>
+                                                <td>
+                                                    <div class="quantity-box mt-3">
+                                                        <div class="book-number">
+                                                            <div class="minus" data-id="@data_id"><i class="fa-solid fa-minus"></i></div>
+                                                            <div class="input-number"><input type="number" name="Quantity" value="@item.Quantity" min="1" class="quantity"></div>
+                                                            <div class="plus" data-id="@data_id"><i class="fa-solid fa-plus"></i></div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                            <td class="remove-pr delete">
-                                                <a href="@Url.Action("Delete","Cart",new {ID_Product = item.Product.ID_Product.Trim()})">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
+                                                </td>
+                                                <td class="remove-pr delete">
+                                                    <a href="@Url.Action("Delete","Cart",new {ID_Product = item.Product.ID_Product.Trim()})">
+                                                        <i class="fa fa-times"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
 
 
+                                        }
                                     }
-                                }
 
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="row my-5">
-                <div class="col-lg-6 col-sm-12">
-                    <div class="coupon-box mb-5">
-                        <div class="input-group input-group-sm">
-                            <input class="form-control" placeholder="Enter your coupon code" aria-label="Coupon code" type="text">
-                            <div class="input-group-append">
-                                <button class="btn btn-theme" type="button">Apply Coupon</button>
+                <div class="row my-5">
+                    <div class="col-lg-6 col-sm-12">
+                        <div class="coupon-box mb-5">
+                            <div class="input-group input-group-sm">
+                                <input class="form-control" placeholder="Enter your coupon code" aria-label="Coupon code" type="text">
+                                <div class="input-group-append">
+                                    <button class="btn btn-theme" type="button">Apply Coupon</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                </div>
-                <div class="col-lg-6 col-sm-12">
-                    <div class="order-box">
-                        @*<h3>Order summary</h3>*@
-                        <div class="d-flex">
-                            <h4>Giá trị đơn hàng</h4>
-                            <div class="ml-auto font-weight-bold" id="GrandTotal">@ConvertVND.convertVND(Model.TotalMoney())</div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12">
+                        <div class="order-box">
+                            @*<h3>Order summary</h3>*@
+                            <div class="d-flex">
+                                <h4>Giá trị đơn hàng</h4>
+                                <div class="ml-auto font-weight-bold" id="GrandTotal">@ConvertVND.convertVND(Model.TotalMoney())</div>
+                            </div>
+                            <div class="d-flex">
+                                <h4>Số lượng</h4>
+                                <div class="ml-auto font-weight-bold" id="TotalQuantity">@TotalQuantity</div>
+                            </div>
+                            <div class="d-flex">
+                                <h4>Giảm tiền</h4>
+                                <div class="ml-auto font-weight-bold">0</div>
+                            </div>
+                            <hr>
+                            <div class="d-flex gr-total">
+                                <h5>Thành tiền</h5>
+                                <div class="ml-auto h5" id="TotalMoney">@ConvertVND.convertVND(Model.TotalMoney())</div>
+                            </div>
+                            <hr>
                         </div>
-                        <div class="d-flex">
-                            <h4>Số lượng</h4>
-                            <div class="ml-auto font-weight-bold" id="TotalQuantity">@TotalQuantity</div>
-                        </div>
-                        <div class="d-flex">
-                            <h4>Giảm tiền</h4>
-                            <div class="ml-auto font-weight-bold">0</div>
-                        </div>
-                        <hr>
-                        <div class="d-flex gr-total">
-                            <h5>Thành tiền</h5>
-                            <div class="ml-auto h5" id="TotalMoney">@ConvertVND.convertVND(Model.TotalMoney())</div>
-                        </div>
-                        <hr>
+                    </div>
+                    <div class="col-lg-9 col-sm-12"></div>
+                    <div class="col-lg-3 col-sm-12 shopping-box d-flex">
+                        @Html.ActionLink("Đi đến thanh toán", "Checkout", "Cart", null, new { @class = "ml-auto btn hvr-hover text-white" })
                     </div>
                 </div>
-                <div class="col-lg-9 col-sm-12"></div>
-                <div class="col-lg-3 col-sm-12 shopping-box d-flex">
-                    @Html.ActionLink("Đi đến thanh toán", "Checkout", "Cart", null, new {@class="ml-auto btn hvr-hover text-white"})
+            }
+            else
+            {
+                <div class="row mb-5">
+                    <div class="col-12 mb-4">
+                        <h1>Bạn chưa có sản phẩm nào trong giỏ hàng</h1>
+                        <h5>Có nhiều sản phẩm mới đợi bạn thêm sản phẩm vào giỏ hàng</h5>
+                    </div>
+                    <div class="col-12 mb-5">
+                        @Html.ActionLink("Dạo một vòng", "Index", "Home", null, new { @class = "btn hvr-hover text-white", @style = "height: 50px; line-height:36.4px" })
+                    </div>
                 </div>
-            </div>
-        }
-        else
-        {
-            <div class="row mb-5">
-                <div class="col-12 mb-4">
-                    <h1>Bạn chưa có sản phẩm nào trong giỏ hàng</h1>
-                    <h5>Có nhiều sản phẩm mới đợi bạn thêm sản phẩm vào giỏ hàng</h5>
-                </div>
-                <div class="col-12 mb-5">
-                    @Html.ActionLink("Dạo một vòng", "Index", "Home", null, new { @class = "btn hvr-hover text-white", @style = "height: 50px; line-height:36.4px" })
-                </div>
-            </div>
-        }
+            }
 
+        </div>
     </div>
+    <!-- End Cart -->
 </div>
-<!-- End Cart -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script type="text/javascript">

@@ -173,6 +173,15 @@ p {
     opacity: 0.5;
 }
 
+.responsive-image {
+    width: 100%; 
+    height: auto; 
+    display: block; 
+    max-height: 400px; 
+    object-fit: contain;
+}
+
+
 /*------------------------------------------------------------------ LOADER -------------------------------------------------------------------*/
 #back-to-top {
     position: fixed;

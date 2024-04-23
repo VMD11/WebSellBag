@@ -69,6 +69,7 @@
     <Property Name="Quantity" Type="Int32" />
     <NavigationProperty Name="Carts" Relationship="SellingBagsModel.FK_Cart_Product" FromRole="Product" ToRole="Cart" />
     <NavigationProperty Name="WishLists" Relationship="SellingBagsModel.FK_WishList_Product" FromRole="Product" ToRole="WishList" />
+    <Property Name="DateCreated" Type="DateTime" Precision="0" />
   </EntityType>
   <EntityType Name="ProductType">
     <Key>

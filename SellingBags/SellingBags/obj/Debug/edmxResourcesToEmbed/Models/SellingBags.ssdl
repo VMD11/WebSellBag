@@ -92,6 +92,7 @@
     <Property Name="ID_Brand" Type="char" MaxLength="10" Nullable="false" />
     <Property Name="ImageURL" Type="nvarchar" MaxLength="100" />
     <Property Name="Quantity" Type="int" />
+    <Property Name="DateCreated" Type="date" />
   </EntityType>
   <EntityType Name="ProductType">
     <Key>

@@ -51,6 +51,7 @@
     <EntitySetMapping Name="Products">
       <EntityTypeMapping TypeName="SellingBagsModel.Product">
         <MappingFragment StoreEntitySet="Product">
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
           <ScalarProperty Name="Quantity" ColumnName="Quantity" />
           <ScalarProperty Name="ID_Product" ColumnName="ID_Product" />
           <ScalarProperty Name="Name" ColumnName="Name" />

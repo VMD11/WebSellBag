@@ -97,6 +97,7 @@
           <Property Name="ID_Brand" Type="char" MaxLength="10" Nullable="false" />
           <Property Name="ImageURL" Type="nvarchar" MaxLength="100" />
           <Property Name="Quantity" Type="int" />
+          <Property Name="DateCreated" Type="date" />
         </EntityType>
         <EntityType Name="ProductType">
           <Key>
@@ -422,6 +423,7 @@
           <Property Name="Quantity" Type="Int32" />
           <NavigationProperty Name="Carts" Relationship="SellingBagsModel.FK_Cart_Product" FromRole="Product" ToRole="Cart" />
           <NavigationProperty Name="WishLists" Relationship="SellingBagsModel.FK_WishList_Product" FromRole="Product" ToRole="WishList" />
+          <Property Name="DateCreated" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="ProductType">
           <Key>
@@ -798,6 +800,7 @@
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="SellingBagsModel.Product">
               <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="Quantity" ColumnName="Quantity" />
                 <ScalarProperty Name="ID_Product" ColumnName="ID_Product" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

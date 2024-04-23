@@ -1,0 +1,78 @@
+﻿@model SellingBags.Areas.Admin.Models.ViewModel.ProductTypeVM
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <h1 class="h3 text-gray-800">Thêm mới</h1>
+    <div class="row">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <div>
+                <h4 class="text-success justify-content-center d-flex">@ViewBag.Success</h4>
+                <h4 class="text-danger justify-content-center d-flex">@ViewBag.Error</h4>
+            </div>
+        </div>
+    </div>
+    <form id="CreateTypeForm" method="post" enctype="multipart/form-data">
+
+        @*@using (Html.BeginForm("Create", "TypeManage", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+        {*@
+        <div id="formInfo" class="">
+
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <label for="Name">Tên loại sản phẩm:</label>
+                        <input type="text" class="form-control" name="Name" placeholder="" value="@Model.Name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="Category">Thể loại:</label>
+                        <select name="Category" class="form-control" value="@Model.Category">
+                            <option>-Chọn-</option>
+                            @foreach (var item in Model.Categories)
+                            {
+                                <option value="@item.ID_Category">@item.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <hr />
+                    <div class="mb-3">
+                        <div class="">
+                            <button type="submit" class="btn btn-success w-100">Thêm mới</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        @*  }*@
+    </form>
+</div>
+
+<script>
+    $(document).ready(function() {
+    $('#CreateTypeForm').submit(function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        $.ajax({
+            url: '@Url.Action("Create", "TypeManage")',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+
+                alert('Sản phẩm đã được lưu vào cơ sở dữ liệu!');
+                $('#CreateTypeForm').val('');
+                //location.reload();
+                // Thực hiện các thao tác cập nhật giao diện sau khi lưu thành công (nếu cần)
+            },
+            error: function() {
+                alert('Có lỗi xảy ra khi lưu sản phẩm!');
+            }
+        });
+    });
+});
+</script>
