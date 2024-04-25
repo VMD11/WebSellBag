@@ -48,12 +48,12 @@ namespace SellingBags.Areas.Admin.Models.DataContext
             }catch(Exception) { return false; }
         }
 
-        public bool Delete(ProductType productType)
+        public bool Delete(string ID_Type)
         {
             try
             {
-                var query = "delete from Product where ID_Type = '" + productType.ID_Type + "'";
-                var query2 = "delete form ProductType where ID_Type = '" + productType.ID_Type + "'";
+                var query = "delete from Product where ID_Type = '" + ID_Type + "'";
+                var query2 = "delete form ProductType where ID_Type = '" + ID_Type + "'";
                 db.Database.ExecuteSqlCommand(query);
                 db.Database.ExecuteSqlCommand(query2);
                 return true;
@@ -70,11 +70,11 @@ namespace SellingBags.Areas.Admin.Models.DataContext
                 {
                     Type.Name = productType.Name;
                     Type.ID_Category = productType.ID_Category;
-
+                    Type.ImageURL = productType.ImageURL;
+                    db.SaveChanges();
+                    return true;
                 }
-                db.SaveChanges();
-                return true;
-
+                return false;
             }catch (Exception) { return false; }
         }
 

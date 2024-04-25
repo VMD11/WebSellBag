@@ -16,15 +16,19 @@ namespace SellingBags.Areas.Admin.Controllers
     {
         // GET: Admin/Login
         [HttpGet]
-        public ActionResult Login()
+        public ActionResult Index()
         {
+            if (Session[Sessions.ADMIN_SESSION] != null)
+            {
+                return RedirectToAction("Index","Dashboard");
+            }
             LoginVM loginVM = new LoginVM();
             ViewBag.Error_Text = "";
             return View(loginVM);
         }
 
         [HttpPost]
-        public ActionResult Login(LoginVM loginVM)
+        public ActionResult Index(LoginVM loginVM)
         {
             ViewBag.Error_Text = "";
             if (ModelState.IsValid)
@@ -58,5 +62,7 @@ namespace SellingBags.Areas.Admin.Controllers
             }
             return View(loginVM);
         }
+
+
     }
 }

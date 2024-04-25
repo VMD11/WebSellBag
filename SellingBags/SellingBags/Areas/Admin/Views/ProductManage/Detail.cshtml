@@ -1,61 +1,111 @@
-﻿@model SellingBags.Areas.Admin.Models.ViewModel.ProductVM
+﻿@model SellingBags.Models.Product
 
-@using SellingBags.Converter
+@using SellingBags.Common
 @{
     ViewBag.Title = "Detail";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<!-- Begin Page Content -->
 <div class="container-fluid">
 
-    <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Chi tiết sản phẩm</h1>
-    <p class="mb-4">
-    </p>
 
-    <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="w-100 mb-2">
-                @Html.ActionLink("Quay lại", "Index", "ProductManage", null, new { @class = "btn btn-success" })
+                @Html.ActionLink("Tất cả sản phẩm", "Index", "ProductManage", null, new { @class = "btn btn-primary" })
             </div>
             <div class="row">
-                <div class="col-lg-4 col-sm-6 col-md-6">
-                    <img class="w-100" src="~/Assets/images/products/@Model.Product.ImageURL" />
+                <div class="col-lg-4 col-md-6 p-3">
+                    <img id="previewImage" class="w-100" src="~/Assets/images/products/@Model.ImageURL" value="@Model.ImageURL" />
                 </div>
-                <div class="col-lg-8 col-sm-6 col-md-6 p-3">
-                    <h5 class="text-gray-900">@Model.Product.Name</h5>
-                    <p>Giá: @ConvertVND.convertVND(Model.Product.Price)</p>
-                    <p>Màu: @Model.Product.Color <span>|</span> Size: @Model.Product.Size</p>
-                    <p>Số lượng: @Model.Product.Quantity</p>
-                    <p>Thương hiệu: @Model.Brand</p>
-                    <p>Loại sản phẩm: @Model.Type</p>
+                <div class="col-lg-8 col-md-6 p-3">
+                    <div class="row">
+                        <div class="col-lg-6 mb-3">
+                            <label for="ID_Product">Mã sản phẩm:</label>
+                            <input class="form-control" name="ID_Product" value="@Model.ID_Product" readonly />
+                        </div>
+                        <div class="col-lg-6 mb-3">
+                            <label for="DateCreated">Ngày tạo:</label>
+                            <input class="form-control" name="DateCreated" value="@Converts.convertDate(Model.DateCreated)" readonly />
+                        </div>
+                    </div>
 
-                    <p>Mô tả: @Model.Product.Description</p>
+                    <div class="mb-3">
+                        <label for="Name">Tên sản phẩm:</label>
+                        <input type="text" class="form-control" id="Name" name="Name" value="@Model.Name" readonly>
+                    </div>
+
+                    <div class="row">
+                        <div class=" col-lg-4 mb-3">
+                            <label for="Price">Giá:</label>
+                            <input type="number" class="form-control" id="Price" name="Price" value="@Model.Price" readonly>
+                        </div>
+                        <div class="col-lg-4 mb-3">
+                            <label for="Color">Màu sắc:</label>
+                            <input type="text" class="form-control" id="Color" name="Color" value="@Model.Color" readonly>
+                        </div>
+                        <div class=" col-lg-4 mb-3">
+                            <label for="Quantity">Số lượng:</label>
+                            <input type="number" class="form-control" id="Quantity" name="Quantity" value="@Model.Quantity" readonly>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-4 mb-3">
+                            <label for="Size">Size:</label>
+                            <input id="Size" class="form-control" name="Size" value="@Model.Size" readonly>
+                        </div>
+                        <div class="col-lg-4 mb-3">
+                            <label for="Brand">Thương hiệu:</label>
+                            <input id="Brand" name="Brand" class="form-control" value="@ViewBag.Brand" readonly>
+                        </div>
+                        <div class="col-lg-4 mb-3">
+                            <label for="Type">Loại sản phẩm:</label>
+                            <input class="form-control" name="Type" value="@ViewBag.Type" readonly />
+                        </div>
+                    </div>
+                    <div class="mb-3 ">
+                        <label for="Desc">Mô tả</label>
+                        <textarea class="form-control" id="Desc" name="Description" rows="6" readonly>@Model.Description</textarea>
+                    </div>
+
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- Xác nhận xóa Popup -->
-    <div id="deleteConfirmPopup" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Xác nhận xóa</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+            <hr />
+            <div class="row mb-3">
+                <div class="col-3"></div>
+                <div class="col-lg-6">
+                    <a href="@Url.Action("Update", "ProductManage", new {ID_Product = Model.ID_Product.Trim()})" class="btn btn-warning w-100 mb-2">Cập nhật</a>
+                    <button class="btn btn-danger w-100 deleteProduct" data-id="@Model.ID_Product">Xóa</button>
                 </div>
-                <div class="modal-body">
-                    <p>Bạn có chắc muốn xóa sản phẩm này?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
-                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Xóa</button>
-                </div>
+                <div class="col-3"></div>
             </div>
+
         </div>
     </div>
 </div>
 <!-- /.container-fluid -->
+<!-- Xác nhận xóa Popup -->
+<div id="deleteConfirmPopup" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xác nhận xóa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có chắc muốn xóa sản phẩm này?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/Areas/Admin/Assets/js/script.js"></script>

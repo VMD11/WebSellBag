@@ -153,8 +153,8 @@
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
-    <Compile Include="Converter\ConvertVND.cs" />
-    <Compile Include="Converter\Encryptor.cs" />
+    <Compile Include="Common\Converts.cs" />
+    <Compile Include="Common\Encryptor.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -4023,6 +4023,8 @@
     <Content Include="Assets\images\brands\ROGER_FANK.jpg" />
     <Content Include="Assets\images\brands\Vascara.jpg" />
     <Content Include="Assets\images\logo\icon.ico" />
+    <Content Include="Assets\images\logo\ziara-icon.ico" />
+    <Content Include="Assets\images\logo\ziara-logo.png" />
     <Content Include="Assets\images\payment-icon\thanh-toan-bang-vi-momo.png" />
     <Content Include="Assets\images\payment-icon\thanh-toan-bang-vi-shopeepay.png" />
     <Content Include="Assets\images\payment-icon\thanh-toan-bang-vi-vnpay.png" />
@@ -4052,7 +4054,6 @@
     <Content Include="Assets\images\products\tuivuaP02T02.jpg" />
     <Content Include="Assets\images\products\tuixachtayP01T04.jpg" />
     <Content Include="Assets\images\products\tuixachtayP02T04.jpg" />
-    <Content Include="Assets\images\logo\ziara.png" />
     <Content Include="Assets\js\baguetteBox.min.js" />
     <Content Include="Assets\js\bootsnav.js" />
     <Content Include="Assets\js\bootstrap-select.js" />
@@ -4184,7 +4185,7 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Admin\Views\Login\Login.cshtml" />
+    <Content Include="Areas\Admin\Views\Login\Index.cshtml" />
     <Content Include="Areas\Admin\Assets\scss\navs\_global.scss" />
     <Content Include="Areas\Admin\Assets\scss\navs\_sidebar.scss" />
     <Content Include="Areas\Admin\Assets\scss\navs\_topbar.scss" />
@@ -4366,10 +4367,16 @@
     <Content Include="Areas\Admin\Views\TypeManage\Create.cshtml" />
     <Content Include="Areas\Admin\Views\BrandManage\Create.cshtml" />
     <Content Include="Areas\Admin\Views\BrandManage\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ProductManage\Update.cshtml" />
+    <Content Include="Areas\Admin\Views\TypeManage\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\TypeManage\Update.cshtml" />
+    <Content Include="Areas\Admin\Views\BrandManage\Update.cshtml" />
+    <Content Include="Areas\Admin\Views\BrandManage\Detail.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Product\ProductsByCategory.cshtml" />
     <Content Include="Views\Cart\Checkout.cshtml" />
     <Content Include="Views\Product\Search.cshtml" />
+    <Content Include="Views\Product\NewProducts.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

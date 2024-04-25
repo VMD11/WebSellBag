@@ -14,13 +14,15 @@ namespace SellingBags.Areas.Admin.Models.DataContext
             db = new SellingBagsEntities();        
         }
 
+        public Brand GetBrand(string ID_Brand)
+        {
+            return db.Brands.Find(ID_Brand);
+        }
+
         public IEnumerable<Brand> Brands()
         {
             return db.Brands;
         }
-
-       
-
 
         public bool Add(Brand brand)
         {
@@ -57,11 +59,10 @@ namespace SellingBags.Areas.Admin.Models.DataContext
                 {
                     brand.Name = newBrand.Name;
                     brand.ImageURL = newBrand.ImageURL;
-
+                    db.SaveChanges();
+                    return true;
                 }
-                db.SaveChanges();
-                return true;
-
+                return false;
             }
             catch (Exception) { return false; }
         }

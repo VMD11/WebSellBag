@@ -24,6 +24,7 @@
                 <table class="table table-bordered mt-2" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>Ảnh</th>
                             <th>Tên loại sản phẩm</th>
                             <th>Thể loại</th>
                             <th></th>
@@ -34,12 +35,13 @@
                         foreach (var item in Model.ProductTypes)
                         {
                             <tr>
+                                <td><img src="~/Assets/images/prodtypes/@item.ImageURL" alt="@item.Name" width="100" /></td>
                                 <td>@item.Name.Trim()</td>
                                 <td>@Category.GetCategory(item.ID_Category).Name</td>
-                                <td class="justify-content-center d-flex">
-                                    <a href="@Url.Action("Detail", "TypeManage", new {ID_Product = item.ID_Type.Trim()})" class="btn btn-info w-25">Xem</a>
-                                    <a href="@Url.Action("Edit", "TypeManage", new {ID_Product = item.ID_Type.Trim()})" class="btn btn-warning w-25 mr-2 ml-2">Sửa</a>
-                                    <button class="btn btn-danger w-25 deleteBtn" data-id="@item.ID_Type">Xóa</button>
+                                <td class="justify-content-center d-flex border-bottom-0">
+                                    <a href="@Url.Action("Detail", "TypeManage", new {ID_Type = item.ID_Type.Trim()})" class="btn btn-info w-25">Xem</a>
+                                    <a href="@Url.Action("Update", "TypeManage", new {ID_Type = item.ID_Type.Trim()})" class="btn btn-warning w-25 mr-2 ml-2">Sửa</a>
+                                    <button class="btn btn-danger w-25 deleteType" data-id="@item.ID_Type">Xóa</button>
                                 </td>
                             </tr>
                         }
@@ -76,7 +78,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         // Xử lý sự kiện click trên nút "Xóa"
-        $('.deleteBtn').on('click', function () {
+        $('.deleteType').on('click', function () {
             var id = $(this).attr('data-id');
 
             // Hiển thị xác nhận xóa trong modal

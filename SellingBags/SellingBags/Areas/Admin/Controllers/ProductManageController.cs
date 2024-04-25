@@ -4,6 +4,7 @@ using SellingBags.Common;
 using SellingBags.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -19,10 +20,10 @@ namespace SellingBags.Areas.Admin.Controllers
         {
             if (!accountSession())
             {
-                return RedirectToAction("Login","Login");
+                return RedirectToAction("Index","Login");
             }
             ProductVM productVM = new ProductVM();
-            productVM.ProductsAll = productContext.GetProductsAll();
+            productVM.ProductsAll = productContext.GetProducts();
 
             return View(productVM);
         }
@@ -32,12 +33,12 @@ namespace SellingBags.Areas.Admin.Controllers
         {
             if (!accountSession())
             {
-                return RedirectToAction("Login","Login");
+                return RedirectToAction("Index","Login");
             }
             ProductVM productVM = new ProductVM();
-            productVM.Brands = productContext.GetBrands();
-            productVM.Categories = productContext.GetCategories();
-            productVM.ProductTypes = productContext.GetProductTypes();
+            ViewBag.Brands = productContext.GetBrands();
+            ViewBag.Categories = productContext.GetCategories();
+            ViewBag.ProductTypes = productContext.GetProductTypes();
             return View(productVM);
         }
 
@@ -46,9 +47,9 @@ namespace SellingBags.Areas.Admin.Controllers
         {
             ViewBag.Success = "";
             ViewBag.Error = "";
-            productVM.Brands = productContext.GetBrands();
-            productVM.Categories = productContext.GetCategories();
-            productVM.ProductTypes = productContext.GetProductTypes();
+            ViewBag.Brands = productContext.GetBrands();
+            ViewBag.Categories = productContext.GetCategories();
+            ViewBag.ProductTypes = productContext.GetProductTypes();
             if (productVM.ImageFile != null && productVM.ImageFile.ContentLength > 0)
             {
                 Product product = new Product
@@ -91,11 +92,68 @@ namespace SellingBags.Areas.Admin.Controllers
 
         public ActionResult Detail(string ID_Product)
         {
+            if (!accountSession())
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            ViewBag.Brand = productContext.GetBrandName(ID_Product);
+            ViewBag.Type = productContext.GetTypeName(ID_Product);
+            return View(productContext.GetProduct(ID_Product));
+        }
 
+        [HttpGet]
+        public ActionResult Update(string ID_Product)
+        {
+            if (!accountSession())
+            {
+                return RedirectToAction("Index", "Login");
+            }
+            ViewBag.Success = "";
+            ViewBag.Error = "";
             ProductVM productVM = new ProductVM();
             productVM.Product = productContext.GetProduct(ID_Product);
-            productVM.Brand = productContext.GetBrand(ID_Product);
-            productVM.Type = productContext.GetType(ID_Product);
+            productVM.Brands = productContext.GetBrands();
+            productVM.ProductTypes = productContext.GetProductTypes(productContext.GetProductType(productVM.Product.ID_Type).ID_Category);
+            return View(productVM);
+        }
+        [HttpPost]
+        public ActionResult Update(ProductVM productVM)
+        {
+            ViewBag.Success = "";
+            ViewBag.Error = "";
+            productVM.Product = productContext.GetProduct(productVM.ID_Product);
+            productVM.Brands = productContext.GetBrands();
+            productVM.ProductTypes = productContext.GetProductTypes(productContext.GetProductType(productVM.Type).ID_Category);
+            var product = new Product
+            {
+                ID_Product = productVM.ID_Product,
+                Name = productVM.Name,
+                Color = productVM.Color,
+                Size = productVM.Size,
+                Price = productVM.Price,
+                Quantity = productVM.Quantity,
+                Description = productVM.Description,
+                ID_Brand = productVM.Brand,
+                ID_Type = productVM.Type,
+            };
+            Debug.WriteLine(productVM);
+            if (productVM.ImageFile != null && productVM.ImageFile.ContentLength > 0)
+            {
+                product.ImageURL = productVM.ImageFile.FileName;
+                string fileName = Path.GetFileName(productVM.ImageFile.FileName);
+                string imagePath = Path.Combine(Server.MapPath("~/Assets/images/products"), fileName);
+                productVM.ImageFile.SaveAs(imagePath);
+            }
+            else
+            {
+                product.ImageURL = productVM.Product.ImageURL;
+                Debug.WriteLine(product.ImageURL);
+            }
+            if (productContext.Update(product))
+            {
+                ViewBag.Success = "Cập nhật thành công";
+            }
+            else { ViewBag.Error = "Cập nhật thất bại"; }
             return View(productVM);
         }
 

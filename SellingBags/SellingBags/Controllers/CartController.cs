@@ -66,5 +66,7 @@ namespace SellingBags.Controllers
             checkoutVM.PaymentMethods = checkoutContext.GetPaymentMethods();
             return View(checkoutVM);
         }
+
+       
     }
 }

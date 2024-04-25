@@ -1,0 +1,144 @@
+﻿@model SellingBags.Areas.Admin.Models.ViewModel.ProductVM
+
+@using SellingBags.Common
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+
+    <h1 class="h3 mb-2 text-gray-800">Cập nhật sản phẩm</h1>
+
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="w-100 mb-2">
+                @Html.ActionLink("Tất cả sản phẩm", "Index", "ProductManage", null, new { @class = "btn btn-primary" })
+            </div>
+            <div class="row">
+                <div class="col-3">
+                </div>
+                <div class="col-lg-6">
+                    <div>
+                        <h4 class="text-success justify-content-center d-flex">@ViewBag.Success</h4>
+                        <h4 class="text-danger justify-content-center d-flex">@ViewBag.Error</h4>
+                    </div>
+                </div>
+            </div>
+            @using (Html.BeginForm("Update", "ProductManage", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+            {
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 p-3">
+                        <div class="mb-3 ">
+                            <label for="ImageURL">Ảnh</label>
+                            <input type="file" class="form-control mb-1" id="ImageFile" name="ImageFile" value="@Model.Product.ImageURL" accept="image/*">
+                        </div>
+                        <img id="previewImage" class="w-100" src="~/Assets/images/products/@Model.Product.ImageURL"/>
+                    </div>
+                    <div class="col-lg-8 col-md-6 p-3">
+                        <div class="row">
+                            <div class="col-lg-6 mb-3">
+                                <label for="ID_Product">Mã sản phẩm:</label>
+                                <input class="form-control" name="ID_Product" value="@Model.Product.ID_Product" style="pointer-events: none; opacity:0.5" />
+                            </div>
+                            <div class="col-lg-6 mb-3">
+                                <label for="DateCreated">Ngày tạo:</label>
+                                <input type="text" class="form-control" name="DateCreated" value="@Converts.convertDate(Model.Product.DateCreated)" style="pointer-events: none; opacity:0.5" />
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="Name">Tên sản phẩm:</label>
+                            <input type="text" class="form-control" id="Name" name="Name" placeholder="" value="@Model.Product.Name">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-4 mb-3">
+                                <label for="Price">Giá:</label>
+                                <input type="number" class="form-control" id="Price" name="Price" placeholder="" value="@Model.Product.Price" required>
+                            </div>
+                            <div class="col-lg-4 mb-3">
+                                <label for="Color">Màu sắc:</label>
+                                <input type="text" class="form-control" id="Color" name="Color" placeholder="" value="@Model.Product.Color" required>
+                            </div>
+                            <div class=" col-lg-4 mb-3">
+                                <label for="Quantity">Số lượng:</label>
+                                <input type="number" class="form-control" id="Quantity" name="Quantity" placeholder="" value="@Model.Product.Quantity" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-4 mb-3">
+                                <label for="Size">Size:</label>
+                                <select id="Size" class="form-control" name="Size" value="@Model.Product.Size">
+                                    <option>-Chọn-</option>
+                                    <option value="S" @(Model.Product.Size.Trim() == "S" ? "selected" : "")>S</option>
+                                    <option value="M" @(Model.Product.Size.Trim() == "M" ? "selected" : "")>M</option>
+                                    <option value="L" @(Model.Product.Size.Trim() == "L" ? "selected" : "")>L</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-4 mb-3">
+                                <label for="Brand">Thương hiệu:</label>
+                                <select id="Brand" name="Brand" class="form-control" value="@Model.Brand" required>
+                                    @foreach (var item in Model.Brands)
+                                    {
+                                        <option value="@item.ID_Brand" @(Model.Product.ID_Brand == item.ID_Brand ? "selected" : "")>@item.Name</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-lg-4 mb-3">
+                                <label for="Type">Loại sản phẩm:</label>
+                                <select id="Type" name="Type" class="form-control" value="@Model.Type" required>
+                                    <option>-Chọn-</option>
+                                    @foreach (var item in Model.ProductTypes)
+                                    {
+                                        <option value="@item.ID_Type" @(Model.Product.ID_Type == item.ID_Type ? "selected" : "")>@item.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 ">
+                            <label for="Desc">Mô tả</label>
+                            <textarea class="form-control" id="Desc" name="Description" placeholder="" rows="6" required>@Model.Product.Description</textarea>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row mb-3">
+                    <div class="col-3"></div>
+                    <div class="col-lg-6">
+                        <button type="submit" class="btn btn-warning w-100">Cập nhật</button>
+                    </div>
+                    <div class="col-3"></div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var inputElement = document.getElementById('ImageFile');
+        inputElement.addEventListener('change', function () {
+            previewImage(this);
+        });
+    });
+    function previewImage(input) {
+        var previewImage = document.getElementById('previewImage');
+        var previewContainer = document.getElementById('previewContainer');
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                previewImage.src = e.target.result;
+                previewContainer.style.display = 'block';
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            previewImage.src = '';
+            previewContainer.style.display = 'none';
+        }
+    }
+</script>

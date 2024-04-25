@@ -4,13 +4,13 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 <div class="container">
+    <h1 class="h3 text-gray-800">Thêm mới</h1>
     <div class="row">
         <div class="col-3"></div>
         <div class="col-6">
-            <h1 class="h3 text-gray-800">Thêm mới</h1>
-            <div>
-                <h4 class="text-success justify-content-center">@ViewBag.Success</h4>
-                <h4 class="text-danger justify-content-center">@ViewBag.Error</h4>
+            <div id="message">
+                <h4 class="text-success justify-content-center d-flex">@ViewBag.Success</h4>
+                <h4 class="text-danger justify-content-center d-flex">@ViewBag.Error</h4>
             </div>
         </div>
     </div>
@@ -18,7 +18,7 @@
 
     @using (Html.BeginForm("Create", "BrandManage", FormMethod.Post, new { @enctype = "multipart/form-data" }))
     {
-        <div id="formInfo" class="">
+        <div id="formInfo">
 
             <div class="row">
                 <div class="col-3"></div>
@@ -27,14 +27,14 @@
                         <label for="Name">Tên thương hiệu:</label>
                         <input type="text" class="form-control" id="Name" name="Name" placeholder="" value="@Model.Name">
                     </div>
-                    
+
                     <div class="row">
                         <div id="previewContainer" class="col-6 mb-3" style="display: none">
                             <img id="previewImage" name="" src="" alt="" width="200" value="" />
                         </div>
                         <div class="col-6 mb-3 ">
-                            <label for="ImageURL">Ảnh</label>
-                            <input type="file" class="form-control mb-1" id="ImageFile" name="ImageFile" value="" required>
+                            <label for="ImageFile">Ảnh</label>
+                            <input type="file" class="form-control mb-1" id="ImageFile" name="ImageFile" value="" accept="image/*" required>
                         </div>
                     </div>
                     <hr />
@@ -50,6 +50,7 @@
     }
     @*</form>*@
 </div>
+
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function () {
         var inputElement = document.getElementById('ImageFile');
@@ -77,5 +78,6 @@
             previewContainer.style.display = 'none';
         }
     }
+    
 </script>
 

@@ -1,0 +1,100 @@
+﻿@model SellingBags.Areas.Admin.Models.ViewModel.ProductTypeVM
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+
+    <h1 class="h3 mb-2 text-gray-800">Cập nhật loại sản phẩm</h1>
+
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="w-100 mb-2">
+                @Html.ActionLink("Tất cả loại sản phẩm", "Index", "TypeManage", null, new { @class = "btn btn-primary" })
+            </div>
+            <div class="row">
+                <div class="col-3">
+                </div>
+                <div class="col-lg-6">
+                    <div>
+                        <h4 class="text-success justify-content-center d-flex">@ViewBag.Success</h4>
+                        <h4 class="text-danger justify-content-center d-flex">@ViewBag.Error</h4>
+                    </div>
+                </div>
+            </div>
+            @using (Html.BeginForm("Update", "TypeManage", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+            {
+
+                <div class="container row">
+                    <div class="col-lg-5 col-sm-6 col-md-6 p-3">
+                        <div class="mb-3 ">
+                            <label for="ImageFile">Ảnh</label>
+                            <input type="file" class="form-control mb-1" id="ImageFile" name="ImageFile" accept="image/*">
+                        </div>
+                        <div class="mb-3">
+                            <img id="previewImage" class="w-75" src="~/Assets/images/prodtypes/@Model.ProductType.ImageURL" />
+                        </div>
+                    </div>
+                    <div class="col-lg-7 col-sm-6 col-md-6 p-3">
+
+                        <div class="mb-3">
+                            <label for="ID_Type">Mã loại sản phẩm:</label>
+                            <input class="form-control" name="ID_Type" value="@Model.ProductType.ID_Type" style="pointer-events:none; opacity:0.5" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="Name">Tên loại sản phẩm:</label>
+                            <input type="text" class="form-control" id="Name" name="Name" value="@Model.ProductType.Name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="Category">Thể loại:</label>
+                            <select id="Category" name="Category" class="form-control">
+                                @foreach (var item in Model.Categories)
+                                {
+                                    <option @(Model.ProductType.ID_Category == item.ID_Category ? "selected" : "") value="@item.ID_Category">@item.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <hr />
+                        <div class="row mb-3">
+                            <div class="col-3"></div>
+                            <div class="col-lg-6">
+                                <button type="submit" class="btn btn-warning w-100 mb-2">Cập nhật</button>
+                            </div>
+                            <div class="col-3"></div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var inputElement = document.getElementById('ImageFile');
+        inputElement.addEventListener('change', function () {
+            previewImage(this);
+        });
+    });
+    function previewImage(input) {
+        var previewImage = document.getElementById('previewImage');
+        var previewContainer = document.getElementById('previewContainer');
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                previewImage.src = e.target.result;
+                previewContainer.style.display = 'block';
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            previewImage.src = '';
+            previewContainer.style.display = 'none';
+        }
+    }
+</script>

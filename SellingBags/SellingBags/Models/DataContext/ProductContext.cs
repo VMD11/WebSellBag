@@ -89,5 +89,29 @@ namespace SellingBags.Models.DataContext
             var result = db.WishLists.FirstOrDefault(r => r.ID_Account == ID_Account && r.ID_Product == ID_Product);
             return result != null;
         }
+
+        public IEnumerable<Product> GetNewProducts()
+        {
+            var products = new List<Product>();
+            foreach(var product in db.Products)
+            {
+                if(IsNew(product))
+                    products.Add(product);
+            }
+            return products;
+        }
+
+        private bool IsNew(Product product)
+        {
+            if(!product.DateCreated.HasValue)
+                return false;
+
+            var sinceCreate = DateTime.Now - product.DateCreated.Value;
+            if(sinceCreate.TotalDays <= 20)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

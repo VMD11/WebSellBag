@@ -177,10 +177,28 @@ p {
     width: 100%; 
     height: auto; 
     display: block; 
-    max-height: 400px; 
     object-fit: contain;
 }
 
+.loginForm {
+    position: fixed;
+    top: 50%;
+    margin: auto;
+    transform: translate(0, -50% );
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width: 40%;
+}
+@media(max-width: 1200px){
+    .dp-xl-none{
+        display: none !important;
+    }
+    .loginForm{
+        width: 60%;
+    }
+}
 
 /*------------------------------------------------------------------ LOADER -------------------------------------------------------------------*/
 #back-to-top {

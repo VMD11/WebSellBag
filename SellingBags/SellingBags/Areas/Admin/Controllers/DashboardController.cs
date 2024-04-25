@@ -15,14 +15,15 @@ namespace SellingBags.Areas.Admin.Controllers
             var account = Session[Sessions.ADMIN_SESSION] as LoginAccount;
             if (account == null)
             {
-                return RedirectToAction("Login", "Login");
+                return RedirectToAction("Index", "Login");
             }
             return View();
         }
 
         public ActionResult Logout()
         {
-            return RedirectToAction("Login");
+            Session[Sessions.ADMIN_SESSION] = null;
+            return RedirectToAction("Index", "Login");
         }
     }
 }

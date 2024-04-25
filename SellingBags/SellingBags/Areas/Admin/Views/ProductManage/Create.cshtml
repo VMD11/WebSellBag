@@ -4,129 +4,121 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container">
+<div class="container-fluid">
     <h1 class="h3 text-gray-800">Thêm mới</h1>
-    <div class="row">
-        <div class="col-3">
-        </div>
-        <div class="col-6">
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="w-100 mb-2">
+                @Html.ActionLink("Tất cả sản phẩm", "Index", "ProductManage", null, new { @class = "btn btn-primary" })
+            </div>
             <div>
                 <h4 class="text-success justify-content-center d-flex">@ViewBag.Success</h4>
                 <h4 class="text-danger justify-content-center d-flex">@ViewBag.Error</h4>
             </div>
+            @using (Html.BeginForm("Create", "ProductManage", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+            {
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 p-3">
+                        <div class="mb-3 ">
+                            <label for="ImageFile">Ảnh</label>
+                            <input type="file" class="form-control mb-1" id="ImageFile" name="ImageFile" accept="image/*" placeholder="Chọn ảnh..." required>
+                        </div>
+                        <div id="previewContainer" class="mb-3" style="display: none">
+                            <img id="previewImage" src="" class="w-100" />
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-6 p-3">
+                        <div class="mb-3">
+                            <label for="Name">Tên sản phẩm:</label>
+                            <input type="text" class="form-control" id="Name" name="Name" placeholder="Nhập tên...">
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4 mb-3">
+                                <label for="Price">Giá:</label>
+                                <input type="number" class="form-control" id="Price" name="Price" placeholder="Nhập giá..." required>
+                            </div>
+                            <div class="col-lg-4 mb-3">
+                                <label for="Color">Màu sắc:</label>
+                                <input type="text" class="form-control" id="Color" name="Color" placeholder="Nhập màu..." required>
+                            </div>
+                            <div class="col-lg-4 mb-3">
+                                <label for="Quantity">Số lượng:</label>
+                                <input type="number" class="form-control" id="Quantity" name="Quantity" placeholder="Nhập số lượng..." required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 mb-3">
+                                <label for="Size">Size:</label>
+                                <select id="Size" class="form-control" name="Size">
+                                    <option>-Chọn-</option>
+                                    <option value="S">S</option>
+                                    <option value="M">M</option>
+                                    <option value="L">L</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-6 mb-3">
+                                <label for="Brand">Thương hiệu:</label>
+                                <select id="Brand" name="Brand" class="form-control">
+                                    <option>-Chọn-</option>
+                                    @foreach (var item in ViewBag.Brands)
+                                    {
+                                        <option value="@item.ID_Brand">@item.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 mb-3">
+                                <label for="Category">Thể loại:</label>
+                                <select id="Category" class="form-control">
+                                    <option>-Chọn-</option>
+                                    @foreach (var item in ViewBag.Categories)
+                                    {
+                                        <option value="@item.ID_Category">@item.Name</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-lg-6 mb-3">
+                                <label for="Type">Loại sản phẩm:</label>
+                                <select id="Type" name="Type" class="form-control" style="pointer-events:none; opacity:0.5">
+                                    <option>-Chọn-</option>
+                                    @foreach (var item in ViewBag.ProductTypes)
+                                    {
+                                        <option value="@item.ID_Type" data-category="@item.ID_Category">@item.Name</option>
+                                    }
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="mb-3 ">
+                            <label for="Desc">Mô tả</label>
+                            <textarea class="form-control" id="Desc" name="Description" placeholder="Nhập mô tả..." rows="6" required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row mb-3">
+                    <div class="col-3"></div>
+                    <div class="col-6">
+                        <button type="submit" class="btn btn-success w-100">Thêm mới</button>
+                    </div>
+                    <div class="col-3"></div>
+                </div>
+            }
         </div>
     </div>
-    <form id="CreateForm" method="post" enctype="multipart/form-data">
-
-    @*@using (Html.BeginForm("Create", "ProductManage", FormMethod.Post, new { @enctype = "multipart/form-data" }))
-    {*@
-        <div id = "formInfo" class="">
-
-            <div class="row">
-                <div class="col-6">
-                    <div class="mb-3">
-                        <label for="Name">Tên sản phẩm:</label>
-                        <input type="text" class="form-control" id="Name" name="Name" placeholder="" value="@Model.Name">
-                    </div>
-                    <div class="row">
-                        <div class="col-6 mb-3">
-                            <label for="Color">Màu sắc:</label>
-                            <input type="text" class="form-control" id="Color" name="Color" placeholder="" value="@Model.Color" required>
-                        </div>
-                        <div class="col-6 mb-3">
-                            <label for="Size">Size:</label>
-                            <select id="Size" class="form-control" name="Size" value="@Model.Size">
-                                <option>-Chọn-</option>
-                                <option value="S">S</option>
-                                <option value="M">M</option>
-                                <option value="L">L</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6 mb-3">
-                            <label for="Price">Giá:</label>
-                            <input type="number" class="form-control" id="Price" name="Price" placeholder="" value="@Model.Price" required>
-                        </div>
-                        <div class="col-6 mb-3">
-                            <label for="Quantity">Số lượng:</label>
-                            <input type="number" class="form-control" id="Quantity" name="Quantity" placeholder="" value="@Model.Quantity" required>
-                        </div>
-                    </div>
-                    <div class="mb-3 ">
-                        <label for="Desc">Mô tả</label>
-                        <textarea class="form-control" id="Desc" name="Description" placeholder="" rows="6" value="@Model.Description" required></textarea>
-                    </div>
-                </div>
-
-                <div class="col-6">
-                    <div class="mb-3">
-                        <label for="Brand">Thương hiệu:</label>
-                        <select id="Brand" name="Brand" class="form-control" value="@Model.Brand">
-                            @foreach (var item in Model.Brands)
-                            {
-                                <option value="@item.ID_Brand">@item.Name</option>
-                            }
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="Category">Thể loại:</label>
-                        <select id="Category" class="form-control">
-                            <option>-Chọn-</option>
-                            @foreach (var item in Model.Categories)
-                            {
-                                <option value="@item.ID_Category">@item.Name</option>
-                            }
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="Type">Loại sản phẩm:</label>
-                        <select id="Type" name="Type" class="form-control" value="@Model.Type" style="pointer-events:none; opacity:0.5">
-                            <option>-Chọn-</option>
-                            @foreach (var item in Model.ProductTypes)
-                            {
-                                <option value="@item.ID_Type" data-category="@item.ID_Category">@item.Name</option>
-                            }
-                        </select>
-                    </div>
-                    <div class="row">
-                        <div id="previewContainer" class="col-6 mb-3" style="display: none">
-                            <img id="previewImage" name="" src="" alt="" width="200" value="" />
-                        </div>
-                        <div class="col-6 mb-3 ">
-                            <label for="ImageURL">Ảnh</label>
-                            <input type="file" class="form-control mb-1" id="ImageFile" name="ImageFile" value="@Model.ImageFile" required>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr />
-            <div class="row mb-3">
-                <div class="col-3"></div>
-                <div class="col-6">
-                    <button type="submit" class="btn btn-success w-100">Thêm mới</button>
-                </div>
-                <div class="col-3"></div>
-            </div>
-
-        </div>
-    @*}*@
-    </form>
 </div>
 
-<script type="text/javascript">
-
+<script>
     document.addEventListener('DOMContentLoaded', function () {
         var inputElement = document.getElementById('ImageFile');
         inputElement.addEventListener('change', function () {
             previewImage(this);
         });
     });
-
-
     function previewImage(input) {
-        var previewContainer = document.getElementById('previewContainer');
         var previewImage = document.getElementById('previewImage');
+        var previewContainer = document.getElementById('previewContainer');
 
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -144,45 +136,19 @@
     }
 
     document.getElementById('Category').addEventListener('change', function () {
-        var selectedCategory = this.value; // Lấy giá trị của thể loại đã chọn
+        var selectedCategory = this.value;
 
-        // Lấy tất cả các tùy chọn trong select có id="Type"
         var typeOptions = document.querySelectorAll('#Type option');
         document.getElementById('Type').style.pointerEvents = 'auto';
         document.getElementById('Type').style.opacity = 1;
-        // Hiển thị hoặc ẩn các loại sản phẩm dựa trên thể loại đã chọn
         typeOptions.forEach(function (option) {
             var categoryID = option.getAttribute('data-category');
 
             if (categoryID === selectedCategory || selectedCategory === '') {
-                option.style.display = 'block'; // Hiển thị loại sản phẩm tương ứng
+                option.style.display = 'block';
             } else {
-                option.style.display = 'none'; // Ẩn loại sản phẩm không thuộc thể loại đã chọn
+                option.style.display = 'none';
             }
-        });
-    });
-
-    $(document).ready(function() {
-        $('#CreateForm').submit(function(e) {
-            e.preventDefault();
-            var formData = new FormData(this);
-            $.ajax({
-                url: '@Url.Action("Create", "ProductManage")',
-                type: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-
-                    alert('Sản phẩm đã được lưu vào cơ sở dữ liệu!');
-                    $('#CreateForm').val('');
-                    location.reload();
-                    // Thực hiện các thao tác cập nhật giao diện sau khi lưu thành công (nếu cần)
-                },
-                error: function() {
-                    alert('Có lỗi xảy ra khi lưu sản phẩm!');
-                }
-            });
         });
     });
 </script>

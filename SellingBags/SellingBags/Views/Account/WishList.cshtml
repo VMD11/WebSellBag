@@ -1,5 +1,5 @@
 ﻿@model SellingBags.Models.ViewModel.WishListVM
-@using SellingBags.Converter
+@using SellingBags.Common
 @{
     ViewBag.Title = "WishList";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -39,7 +39,7 @@
                                         <p>Size @item.Size</p>
                                     </td>
                                     <td class="price-pr">
-                                        <p>@ConvertVND.convertVND(item.Price)</p>
+                                        <p>@Converts.convertVND(item.Price)</p>
                                     </td>
                                     <td class="add-pr">
                                         <a class="btn hvr-hover" href="@Url.Action("Add", "Cart", new {ID_Product = item.ID_Product.Trim(), Quantity = 1})">Thêm vào giỏ hàng</a>

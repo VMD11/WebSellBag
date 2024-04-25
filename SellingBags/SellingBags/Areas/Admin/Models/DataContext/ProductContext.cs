@@ -20,7 +20,7 @@ namespace SellingBags.Areas.Admin.Models.DataContext
             return db.Products.Find(ID_Product);
         }
 
-        public IEnumerable<Product> GetProductsAll()
+        public IEnumerable<Product> GetProducts()
         {
             return db.Products.ToList();
         }
@@ -46,13 +46,13 @@ namespace SellingBags.Areas.Admin.Models.DataContext
             return db.Products.Where(p => p.Name.Contains(KeyName));
         }
 
-        public string GetBrand(string ID_Product)
+        public string GetBrandName(string ID_Product)
         {
             var ID_Brand = GetProduct(ID_Product).ID_Brand;
             return db.Brands.Find(ID_Brand).Name;
         }
 
-        public string GetType(string ID_Product)
+        public string GetTypeName(string ID_Product)
         {
             var ID_Type = GetProduct(ID_Product).ID_Type;
             return db.ProductTypes.Find(ID_Type).Name;
@@ -83,6 +83,11 @@ namespace SellingBags.Areas.Admin.Models.DataContext
         {
             return db.Brands.ToList();
         }
+
+        public ProductType GetProductType(string ID_Type)
+        {
+            return db.ProductTypes.Find(ID_Type);
+        }
         public IEnumerable<ProductType> GetProductTypes()
         {
             return db.ProductTypes.ToList();
@@ -97,6 +102,8 @@ namespace SellingBags.Areas.Admin.Models.DataContext
         {
             try
             {
+                if (ExistProduct(product))
+                    return false;
                 db.Products.Add(product);
                 db.SaveChanges();
                 return true;
@@ -143,11 +150,18 @@ namespace SellingBags.Areas.Admin.Models.DataContext
                     product.Description = newProduct.Description;
                     product.ID_Type = newProduct.ID_Type;
                     product.ID_Brand = newProduct.ID_Brand;
-
+                    product.ImageURL = newProduct.ImageURL;
+                    db.SaveChanges();
+                    return true;
                 }
-                db.SaveChanges();
-                return true;
+                return false;
             }catch (Exception) { return false; }
+        }
+
+        private bool ExistProduct(Product product)
+        {
+            return db.Products.FirstOrDefault(p => p.Name == product.Name && p.Size == product.Size && p.Color == product.Color) != null;
+            
         }
     }
 }

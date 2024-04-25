@@ -1,0 +1,109 @@
+﻿@model SellingBags.Models.ProductType
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+
+    <h1 class="h3 mb-2 text-gray-800">Chi tiết loại sản phẩm</h1>
+
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="w-100 mb-2">
+                @Html.ActionLink("Tất cả loại sản phẩm", "Index", "TypeManage", null, new { @class = "btn btn-primary" })
+            </div>
+            <div class="container row">
+                <div class="col-lg-4 col-sm-6 col-md-6 p-3">
+                    <img id="previewImage" class="w-100" src="~/Assets/images/prodtypes/@Model.ImageURL" />
+                </div>
+                <div class="col-lg-8 col-sm-6 col-md-6 p-3">
+
+                    <div class="mb-3">
+                        <label for="ID_Product">Mã loại sản phẩm:</label>
+                        <input class="form-control" name="ID_Product" value="@Model.ID_Type" readonly />
+                    </div>
+                    <div class="mb-3">
+                        <label for="Name">Tên sản phẩm:</label>
+                        <input type="text" class="form-control" id="Name" name="Name" value="@Model.Name" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Category">Thể loại:</label>
+                        <input id="Category" name="Category" class="form-control" value="@ViewBag.Category.Name" readonly>
+                    </div>
+                    <hr />
+                    <div class="row mb-3">
+                        <div class="col-3"></div>
+                        <div class="col-lg-6">
+                            <a href="@Url.Action("Update", "TypeManage", new {ID_Type = Model.ID_Type.Trim()})" class="btn btn-warning w-100 mb-2">Cập nhật</a>
+                            <button class="btn btn-danger w-100 deleteType" data-id="@Model.ID_Type">Xóa</button>
+                        </div>
+                        <div class="col-3"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid -->
+<!-- Xác nhận xóa Popup -->
+<div id="deleteConfirmPopup" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Xác nhận xóa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có chắc muốn xóa loại sản phẩm này?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
+                <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Xử lý sự kiện click trên nút "Xóa"
+        $('.deleteType').on('click', function () {
+            var id = $(this).attr('data-id');
+
+            // Hiển thị xác nhận xóa trong modal
+            $('#deleteConfirmPopup').modal('show');
+
+            // Xử lý sự kiện click trên nút xác nhận xóa
+            $('#confirmDeleteBtn').off('click').on('click', function () {
+                // Gửi yêu cầu xóa thông qua AJAX
+                $.ajax({
+                    url: '@Url.Action("Delete", "TypeManage")', // Đường dẫn đến action Delete trong BrandController
+                    type: 'POST',
+                    data: { ID_Type: id }, // Dữ liệu gửi đi (ID_Brand cần xóa)
+                    success: function (response) {
+                        if (response.result) {
+                            alert('Xóa thành công');
+                            // Thực hiện cập nhật giao diện sau khi xóa (nếu cần)
+                            location.reload(); // Tải lại trang sau khi xóa
+                            console.log(id);
+                        } else {
+                            alert('Xóa không thành công: ' + response.message);
+                        }
+                    },
+                    error: function () {
+                        alert('Có lỗi xảy ra khi xóa');
+                    }
+                });
+
+                // Đóng modal xác nhận xóa
+                $('#deleteConfirmPopup').modal('hide');
+            });
+        });
+    });
+</script>
+

@@ -33,9 +33,9 @@
                                 <td><img width="110" src="~/Assets/images/brands/@item.ImageURL" alt="@item.Name"></td>
                                 <td>@item.Name.Trim()</td>
                                 <td class="justify-content-center d-flex border-bottom-0">
-                                    <a href="@Url.Action("Detail", "BrandManage", new {ID_Product = item.ID_Brand.Trim()})" class="btn btn-info w-25">Xem</a>
-                                    <a href="@Url.Action("Edit", "BrandManage", new {ID_Product = item.ID_Brand.Trim()})" class="btn btn-warning w-25 mr-2 ml-2">Sửa</a>
-                                    <button class="btn btn-danger w-25 deleteBtn" data-id="@item.ID_Brand">Xóa</button>
+                                    <a href="@Url.Action("Detail", "BrandManage", new {ID_Brand = item.ID_Brand.Trim()})" class="btn btn-info w-25">Xem</a>
+                                    <a href="@Url.Action("Update", "BrandManage", new {ID_Brand = item.ID_Brand.Trim()})" class="btn btn-warning w-25 mr-2 ml-2">Sửa</a>
+                                    <button class="btn btn-danger w-25 deleteBrand" data-id="@item.ID_Brand">Xóa</button>
                                 </td>
                             </tr>
                         }
@@ -67,11 +67,13 @@
     </div>
 
 </div>
+<!-- /.container-fluid -->
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         // Xử lý sự kiện click trên nút "Xóa"
-        $('.deleteBtn').on('click', function () {
+        $('.deleteBrand').on('click', function () {
             var id = $(this).attr('data-id');
 
             // Hiển thị xác nhận xóa trong modal
@@ -104,4 +106,3 @@
         });
     });
 </script>
-<!-- /.container-fluid -->

@@ -1,5 +1,4 @@
 ﻿@model SellingBags.Models.ViewModel.ProductVM
-@using SellingBags.Converter
 @using SellingBags.Common
 @{
     ViewBag.Title = "ProductsByCategory";
@@ -165,7 +164,7 @@
                                                     <div class="why-text">
                                                         <a href="@Url.Action("Detail","Product",new {ID_Product = item.ID_Product.Trim()})">
                                                             <h4 class="product-name">@item.Name</h4>
-                                                            <h5>@ConvertVND.convertVND(item.Price) <del>@ConvertVND.convertVND(item.Price)</del> </h5>
+                                                            <h5>@Converts.convertVND(item.Price) <del>@Converts.convertVND(item.Price)</del> </h5>
                                                         </a>
                                                     </div>
                                                 </div>

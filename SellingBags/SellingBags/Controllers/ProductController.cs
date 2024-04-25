@@ -5,6 +5,7 @@ using SellingBags.Models.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -29,6 +30,7 @@ namespace SellingBags.Controllers
             productVM.Brand = productContext.GetBrand(ID_Product);
             productVM.Type = productContext.GetBrand(ID_Product);
             productVM.RelativeProductsList = productContext.GetRelatedProductsList(ID_Product);
+            productVM.NewProducts = productContext.GetNewProducts();
             return View(productVM);
         }
 
@@ -61,7 +63,11 @@ namespace SellingBags.Controllers
             return View(productVM);
         }
 
-
+        public ActionResult NewProducts()
+        {
+            productVM.NewProducts = productContext.GetNewProducts();
+            return View(productVM);
+        }
         
     }
 }

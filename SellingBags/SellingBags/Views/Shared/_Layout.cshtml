@@ -1,7 +1,6 @@
 ﻿@using SellingBags.Models.ViewModel
 @using SellingBags.Models.DataContext
 @using SellingBags.Common
-@using SellingBags.Converter
 
 @{
     ProductContext productContext = new ProductContext();
@@ -39,13 +38,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Site Metas -->
-    <title>Ziara</title>
+    <title>Ziara | Thời trang túi xách đẹp</title>
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
 
     <!-- Site Icons -->
-    <link rel="shortcut icon" href="~/Assets/images/logo/icon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="~/Assets/images/logo/ziara-icon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="~/Assets/images/apple-touch-icon.png">
 
     <!-- Bootstrap CSS -->
@@ -74,13 +73,13 @@
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fa fa-bars"></i>
                     </button>
-                    <a class="navbar-brand" href="@Url.Action("Index","Home")"><img src="~/Assets/images/logo/ziara.png" class="logo" alt=""></a>
+                    <a class="navbar-brand" href="@Url.Action("Index","Home")"><img src="~/Assets/images/logo/ziara-logo.png" class="logo" alt=""></a>
                 </div>
                 <!-- End Header Navigation -->
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="navbar-menu">
                     <ul class="nav navbar-nav ml-auto mr-auto" data-in="fadeInDown" data-out="fadeOutUp">
-                        <li class="nav-item"><a class="nav-link" href="">Hàng mới</a></li>
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("NewProducts","Product")">Hàng mới</a></li>
                         <li class="dropdown megamenu-fw">
                             <a class="nav-link dropdown-toggle arrow" data-toggle="dropdown">Sản phẩm </a>
                             <ul class="dropdown-menu megamenu-content" role="menu">
@@ -191,12 +190,12 @@
                                             </div>
                                             <div class="col-9">
                                                 <h6><a href="@Url.Action("Detail","Product",new {ID_Product = item.Product.ID_Product.Trim()})">@item.Product.Name</a></h6>
-                                                <p>@item.Quantity x - <span class="price">@ConvertVND.convertVND(item.Product.Price)</span></p>
+                                                <p>@item.Quantity x - <span class="price">@Converts.convertVND(item.Product.Price)</span></p>
                                             </div>
                                         </div>
                                     </li>
                                 }
-                                <li class="mb-4 pb-4"><span class="float-right"><strong>Tạm tính</strong>: @ConvertVND.convertVND(cart.TotalMoney())</span></li>
+                                <li class="mb-4 pb-4"><span class="float-right"><strong>Tạm tính</strong>: @Converts.convertVND(cart.TotalMoney())</span></li>
                                 <li>
                                     @Html.ActionLink("Xem giỏ hàng", "Index", "Cart", null, new { @class = "btn hvr-hover text-white" })
                                 </li>
@@ -231,17 +230,18 @@
     }
     <!-- End Top Search -->
 
-
-    @RenderBody()
+    <div class="container-fluid">
+        @RenderBody()
+    </div>
 
     <!-- Start Footer  -->
     <footer>
         <div class="footer-main">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <div class="footer-widget">
-                            <h4>About ThewayShop</h4>
+                            <h4>Về Ziara</h4>
                             <p>
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                             </p>

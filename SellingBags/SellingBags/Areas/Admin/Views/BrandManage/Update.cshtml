@@ -1,0 +1,66 @@
+﻿@model SellingBags.Areas.Admin.Models.ViewModel.BrandVM
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+
+    <h1 class="h3 mb-2 text-gray-800">Cập nhật thương hiệu</h1>
+
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <div class="w-100 mb-2">
+                @Html.ActionLink("Tất cả thương hiệu", "Index", "BrandManage", null, new { @class = "btn btn-primary" })
+            </div>
+            <div class="row">
+                <div class="col-3"></div>
+                <div class="col-6">
+                    <div>
+                        <h4 class="text-success justify-content-center d-flex">@ViewBag.Success</h4>
+                        <h4 class="text-danger justify-content-center d-flex">@ViewBag.Error</h4>
+                    </div>
+                </div>
+            </div>
+            @using (Html.BeginForm("Update", "BrandManage", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+            {
+
+                <div class="container row ml-lg-3">
+                    <div class="col-lg-4 col-md-6 p-3">
+                        <div class="mb-3 ">
+                            <label for="ImageFile">Ảnh</label>
+                            <input type="file" class="form-control mb-1" id="ImageFile" name="ImageFile" accept="image/*">
+                        </div>
+                        <div class="mb-3">
+                            <img id="previewImage" class="w-100" src="~/Assets/images/brands/@Model.Brand.ImageURL" />
+                        </div>
+
+                    </div>
+
+                
+                    <div class="col-lg-8 col-md-6 p-3">
+
+                        <div class="mb-3">
+                            <label for="ID_Brand">Mã thương hiệu:</label>
+                            <input class="form-control" name="ID_Brand" value="@Model.Brand.ID_Brand" style="pointer-events:none; opacity:0.5" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="Name">Tên thương hiệu:</label>
+                            <input type="text" class="form-control" id="Name" name="Name" value="@Model.Brand.Name">
+                        </div>
+                        <hr />
+                        <div class="row mb-3">
+                            <div class="col-3"></div>
+                            <div class="col-lg-6">
+                                <button type="submit" class="btn btn-warning w-100 mb-2">Cập nhật</button>
+                            </div>
+                            <div class="col-3"></div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid -->
+<script src="~/Areas/Admin/Assets/js/script.js"></script>

@@ -1,6 +1,6 @@
 ﻿@model SellingBags.Areas.Admin.Models.ViewModel.ProductVM
 
-@using SellingBags.Converter
+@using SellingBags.Common
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -41,11 +41,11 @@
                                     <td>@item.Name.Trim()</td>
                                     <td>Màu @item.Color</td>
                                     <td>Size @item.Size</td>
-                                    <td>@ConvertVND.convertVND(item.Price)</td>
+                                    <td>@Converts.convertVND(item.Price)</td>
                                     <td>
                                         <a href="@Url.Action("Detail", "ProductManage", new {ID_Product = item.ID_Product})" class="btn btn-info w-100">Xem</a><br />
-                                        <a href="@Url.Action("Edit", "ProductManage", new {ID_Product = item.ID_Product})" class="btn btn-warning w-100">Sửa</a><br />
-                                        <button class="btn btn-danger w-100 deleteBtn" data-id="@item.ID_Product">Xóa</button>
+                                        <a href="@Url.Action("Update", "ProductManage", new {ID_Product = item.ID_Product})" class="btn btn-warning w-100">Sửa</a><br />
+                                        <button class="btn btn-danger w-100 deleteProduct" data-id="@item.ID_Product">Xóa</button>
                                     </td>
                                 </tr>
 
@@ -81,10 +81,11 @@
 <!-- /.container-fluid -->
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script type="text/javascript">
     $(document).ready(function () {
         // Xử lý sự kiện click trên nút "Xóa"
-        $('.deleteBtn').on('click', function () {
+        $('.deleteProduct').on('click', function () {
             var id = $(this).attr('data-id');
 
             // Hiển thị xác nhận xóa trong modal

@@ -10,6 +10,8 @@ namespace SellingBags.Areas.Admin.Models.ViewModel
 {
     public class ProductVM
     {
+        [Key]
+        public string ID_Product { get; set; }
         [Required(ErrorMessage = "Vui lòng nhập tên sản phẩm")]
         public string Name { get; set; }
         [Required]
