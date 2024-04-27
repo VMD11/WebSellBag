@@ -16,24 +16,12 @@ namespace SellingBags.Controllers
         private readonly HomeContext homeContext = new HomeContext();
         public ActionResult Index()
         {
+            homeVM.CategoriesAll = homeContext.GetCategoriesAll();
             homeVM.BrandsAll = homeContext.GetBrandsAll();
             homeVM.ProductTypesAll = homeContext.GetProductTypesAll();
             homeVM.ProductsAll = homeContext.GetProductsAll();
             return View(homeVM);
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }

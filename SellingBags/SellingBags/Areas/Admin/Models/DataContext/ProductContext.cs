@@ -22,7 +22,7 @@ namespace SellingBags.Areas.Admin.Models.DataContext
 
         public IEnumerable<Product> GetProducts()
         {
-            return db.Products.ToList();
+            return db.Products.OrderByDescending(p => p.DateCreated);
         }
 
         public IEnumerable<Product> GetRelatedProductsList(string ID_Product)

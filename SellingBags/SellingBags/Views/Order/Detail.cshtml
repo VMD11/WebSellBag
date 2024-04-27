@@ -1,0 +1,119 @@
+﻿@model SellingBags.Models.ViewModel.OrderVM
+
+@using SellingBags.Common
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="cart-box-main">
+    <div class="container-fluid">
+        <div class=" mb-3">
+            <div class="d-flex justify-content-start">
+                <a href="@Url.Action("Index","Order")" class="btn hvr-hover text-white pr-3 pl-3">Trở lại</a>
+            </div>
+            <div class="d-flex justify-content-end"><h3>@ViewBag.Status</h3></div>
+        </div>
+        <div class="row new-account-login">
+                @* Start LeftColumn *@
+                <div class="col-sm-6 col-lg-6 mb-3">
+                    @* Start Info Address *@
+                    <div class="checkout-address">
+                        <div class="title-left ">
+                            <h2>Thông tin đơn hàng</h2>
+                        </div>
+                        <div class="p-2">
+                            <div class="mb-3 p-2">
+                                <h3 class="font-weight-bold">Người nhận</h3>
+                                <p>@Model.Address.LastName @Model.Address.FirstName</p>
+                                <p>@Model.Address.PhoneNumber</p>
+                                <p>@Model.Address.SpecificAddress, @Model.Address.Ward, @Model.Address.District, @Model.Address.City</p>
+                            </div>
+                            <hr />
+                            <div class="mb-3 p-2">
+                                <h3 class="font-weight-bold">Chi tiết đơn hàng</h3>
+                                <p>Mã đơn hàng: @Model.Order.ID_Order</p>
+                                <p>Ngày đặt: @Model.Order.OrderDate</p>
+                                <p>Phương thức thanh toán: @Model.Order.PaymentMethod</p>
+                                <p>Đơn vị giao hàng: @Model.Order.ShippingMethod</p>
+                                @if(Model.Order.ShippingMethod.Contains("Thanh toán khi nhận hàng") && Model.Order.Status != 0)
+                                {
+                                    <p>Thời gian thanh toán: @Model.Order.DeliDate</p>
+                                }
+                                else
+                                {
+                                    <p>Thời gian thanh toán: @Model.Order.OrderDate</p>
+                                }
+                                <p>Ngày vận chuyển: @Model.Order.OrderDate.Value.AddHours(2.5)</p>
+                            </div>
+                        </div>
+                    </div>
+                    @* End Info Address *@
+                </div>
+                @* End LeftColumn *@
+
+                @* Start RightColumn *@
+                <div class="col-sm-6 col-lg-6 mb-3">
+                    @* Start Order Product *@
+                    <div class="odr-box">
+                        <div class="title-left">
+                            <h2>Sản phẩm</h2>
+                        </div>
+                        <div class="rounded p-2 bg-light">
+                            @{ 
+                                decimal? totalMoney = 0;
+                                foreach (var item in Model.OrderDetails)
+                                {
+                                    totalMoney += item.Product.Price * item.Quantity;
+                                    <div class="media mb-2 border-bottom">
+                                        <div class="row media-body">
+                                            <div class="col-4">
+                                                <img class="ml-lg-5 mb-2" src="~/Assets/images/products/@item.Product.ImageURL" alt="@item.Product.Name" width="100" />
+                                            </div>
+                                            <div class="col-8">
+                                                <div class="ml-sm-2 pl-sm-1">
+                                                    <div class="font-weight-bold text-dark">@item.Product.Name</div>
+                                                    <div class="small text-muted pb-0">Màu @item.Product.Color <span>|</span> Size @item.Product.Size</div>
+                                                    <div class="small text-muted pb-0 pt-0">Giá: @Converts.convertVND(item.Product.Price)</div>
+                                                    <div class="small text-muted pt-0">Số lượng: @item.Quantity</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                var cost = Model.Order.TotalMoney - totalMoney;
+                            }
+
+                        </div>
+                    </div>
+                    @* End Order Product *@
+
+                    @* Start Order *@
+                    <div class="order-box mt-5">
+                        <div class="d-flex mt-3">
+                            <h4>Giá trị đơn hàng</h4>
+                            <div class="ml-auto">@Converts.convertVND(totalMoney)</div>
+                        </div>
+                        <div class="d-flex">
+                            <h4>Phí vận chuyển</h4>
+                            <div id="shippingCost" class="ml-auto">@Converts.convertVND(Model.ShippingMethod.Cost)</div>
+                        </div>
+                        <div class="d-flex">
+                            <h4>Giảm giá phí vận chuyển</h4>
+                            <div id="shippingCost" class="ml-auto">@Converts.convertVND(0)</div>
+                        </div>
+                        <hr>
+                        <div class="d-flex gr-total">
+                            <h5>Thành tiền</h5>
+                            <div class="ml-auto" id="totalMoney"><h5>@Converts.convertVND(Model.Order.TotalMoney)</h5></div>
+                        </div>
+                        <hr>
+                    </div>
+                    @* End Order *@
+                    
+                </div>
+                @* End RightColumn *@
+            
+        </div>
+    </div>
+</div>
+

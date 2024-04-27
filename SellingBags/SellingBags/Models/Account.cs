@@ -18,8 +18,8 @@ namespace SellingBags.Models
         public Account()
         {
             this.Carts = new HashSet<Cart>();
-            this.Customers = new HashSet<Customer>();
             this.WishLists = new HashSet<WishList>();
+            this.Customers = new HashSet<Customer>();
         }
     
         public string ID_Account { get; set; }
@@ -31,8 +31,8 @@ namespace SellingBags.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Cart> Carts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Customer> Customers { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WishList> WishLists { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Customer> Customers { get; set; }
     }
 }

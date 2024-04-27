@@ -9,6 +9,20 @@
     <Property Name="Password" Type="nchar" MaxLength="50" Nullable="false" />
     <Property Name="ID_Role" Type="char" MaxLength="10" Nullable="false" />
   </EntityType>
+  <EntityType Name="Address">
+    <Key>
+      <PropertyRef Name="ID_Address" />
+    </Key>
+    <Property Name="ID_Address" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+    <Property Name="PhoneNumber" Type="char" MaxLength="10" />
+    <Property Name="Ward" Type="nvarchar" MaxLength="50" />
+    <Property Name="District" Type="nvarchar" MaxLength="50" />
+    <Property Name="City" Type="nvarchar" MaxLength="50" />
+    <Property Name="ID_Customer" Type="char" MaxLength="10" />
+    <Property Name="SpecificAddress" Type="nvarchar(max)" />
+  </EntityType>
   <EntityType Name="Brand">
     <Key>
       <PropertyRef Name="ID_Brand" />
@@ -32,6 +46,7 @@
     </Key>
     <Property Name="ID_Category" Type="char" MaxLength="10" Nullable="false" />
     <Property Name="Name" Type="nvarchar" MaxLength="30" />
+    <Property Name="ImageURL" Type="nvarchar" MaxLength="20" />
   </EntityType>
   <EntityType Name="Customer">
     <Key>
@@ -44,8 +59,9 @@
     <Property Name="PhoneNumber" Type="nchar" MaxLength="20" />
     <Property Name="Address" Type="nvarchar(max)" />
     <Property Name="City" Type="nvarchar" MaxLength="50" />
-    <Property Name="Country" Type="nvarchar" MaxLength="50" />
     <Property Name="ID_Account" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="Ward" Type="nvarchar" MaxLength="50" />
+    <Property Name="District" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Discount">
     <Key>
@@ -73,10 +89,14 @@
       <PropertyRef Name="ID_Order" />
     </Key>
     <Property Name="ID_Order" Type="char" MaxLength="10" Nullable="false" />
-    <Property Name="Status" Type="nvarchar" MaxLength="50" />
+    <Property Name="Status" Type="int" />
     <Property Name="OrderDate" Type="datetime" />
-    <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="2" />
     <Property Name="ID_Customer" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="DeliDate" Type="date" />
+    <Property Name="TotalMoney" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="ShippingMethod" Type="nvarchar" MaxLength="50" />
+    <Property Name="PaymentMethod" Type="nvarchar" MaxLength="50" />
+    <Property Name="ID_Address" Type="char" MaxLength="10" />
   </EntityType>
   <EntityType Name="Product">
     <Key>
@@ -127,6 +147,18 @@
       </Principal>
       <Dependent Role="Account">
         <PropertyRef Name="ID_Role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Address_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+    <End Role="Address" Type="Self.Address" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="ID_Customer" />
+      </Principal>
+      <Dependent Role="Address">
+        <PropertyRef Name="ID_Customer" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -214,6 +246,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Orders_Address">
+    <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Address">
+        <PropertyRef Name="ID_Address" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="ID_Address" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Product_Brand">
     <End Role="Brand" Type="Self.Brand" Multiplicity="1" />
     <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -281,6 +325,7 @@
   </Function>
   <EntityContainer Name="SellingBagsModelStoreContainer">
     <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Brand" EntityType="Self.Brand" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
@@ -295,6 +340,10 @@
     <AssociationSet Name="FK_Account_Role" Association="Self.FK_Account_Role">
       <End Role="Role" EntitySet="Role" />
       <End Role="Account" EntitySet="Account" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Address_Customer" Association="Self.FK_Address_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Address" EntitySet="Address" />
     </AssociationSet>
     <AssociationSet Name="FK_Cart_Account" Association="Self.FK_Cart_Account">
       <End Role="Account" EntitySet="Account" />
@@ -323,6 +372,10 @@
     <AssociationSet Name="FK_OrderDetail_Product" Association="Self.FK_OrderDetail_Product">
       <End Role="Product" EntitySet="Product" />
       <End Role="OrderDetail" EntitySet="OrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Orders_Address" Association="Self.FK_Orders_Address">
+      <End Role="Address" EntitySet="Address" />
+      <End Role="Orders" EntitySet="Orders" />
     </AssociationSet>
     <AssociationSet Name="FK_Product_Brand" Association="Self.FK_Product_Brand">
       <End Role="Brand" EntitySet="Brand" />

@@ -13,7 +13,7 @@
     <div id="slides-shop" class="cover-slides">
         <ul class="slides-container">
             <li class="text-left">
-                <img src="~/Assets/images/banner/aokang.jpg" class="responsive-image" alt="">
+                <img src="~/Assets/images/banner/17781713145933.jpg" class="responsive-image" alt="">
                 <div class="container">
                     <div class="row">
                         <div class="col-12">
@@ -33,7 +33,7 @@
                 </div>
             </li>
             <li class="text-right">
-                <img src="~/Assets/images/banner/new_arrival.jpg" class="responsive-image" alt="">
+                <img src="~/Assets/images/banner/17561713174309.jpg" class="responsive-image" alt="">
                 <div class="container">
                     <div class="row">
                         <div class="col-12 ">
@@ -53,13 +53,39 @@
         // Đối tượng ảnh
         var imageElement = document.querySelector('.responsive-image');
 
-        var imageWidth = screenWidth; 
+        var imageWidth = screenWidth;
         var imageHeight = (imageWidth * imageElement.naturalHeight) / imageElement.naturalWidth;
 
         // Đặt kích thước mới cho ảnh
         imageElement.style.width = imageWidth + 'px';
         imageElement.style.height = imageHeight + 'px';
     </script>
+    <!-- Start Categories  -->
+    <div class="categories-shop">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="title-all text-center">
+                        <h1>Danh mục</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @{
+                    foreach (var item in Model.CategoriesAll)
+                    {
+                        <div class="col-lg-3 col-md-3 col-sm-6">
+                            <div class="shop-cat-box">
+                                <img class="img" src="~/Assets/images/categories/@item.ImageURL" alt="" />
+                                <a class="btn hvr-hover" href="@Url.Action("ProductsByCategory", "Product", new {ID_Category = item.ID_Category.Trim()})">@item.Name</a>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+    <!-- End Brands -->
     <!-- Start Brands  -->
     <div class="categories-shop">
         <div class="container">
@@ -74,7 +100,7 @@
                 @{
                     foreach (var item in Model.BrandsAll)
                     {
-                        <div class="col-lg-4 col-md-4 col-sm-6">
+                        <div class="col-lg-3 col-md-3 col-sm-6">
                             <div class="shop-cat-box">
                                 <img class="img" src="~/Assets/images/brands/@item.ImageURL" alt="" />
                                 <a class="btn hvr-hover" href="@Url.Action("ProductsByBrand", "Product", new {ID_Brand = item.ID_Brand.Trim()})">@item.Name</a>

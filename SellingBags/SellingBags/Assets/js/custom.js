@@ -235,7 +235,7 @@
 	   ................................................. */
 	$(document).ready(function () {
 		// Xử lý sự kiện khi click vào các radio button
-		$('input[name="shipping-option"]').on('change', function () {
+		$('input[name="ShippingName"]').on('change', function () {
 			// Lấy phí vận chuyển từ thuộc tính data của radio button đã chọn
 			var shippingCost = $(this).data('shipping-cost');
 			var totalMoney = $(this).data('total-money');
@@ -267,26 +267,22 @@
 	});
 
 	$(document).ready(function () {
-		// Xử lý sự kiện khi form đăng nhập được gửi đi
-		$('#loginForm').submit(function (e) {
-			e.preventDefault(); // Ngăn chặn hành động mặc định của form
+		//$('#loginForm').submit(function (e) {
+		//	e.preventDefault();
 
-			// Gửi Ajax request đến action Login
-			$.ajax({
-				url: $(this).attr('action'),
-				type: 'POST',
-				data: $(this).serialize(), // Serialize form data để gửi đi
-				success: function (response) {
-					// Xử lý khi đăng nhập thành công
-					location.reload();
+		//	$.ajax({
+		//		url: '@Url.Action("Login","Account")',
+		//		type: 'POST',
+		//		data: $(this).serialize(),
+		//		success: function (response) {
+		//			location.reload();
 					
-				},
-				error: function () {
-					// Xử lý khi có lỗi trong quá trình đăng nhập
-					alert('Đăng nhập thất bại. Vui lòng thử lại!');
-				}
-			});
-		});
+		//		},
+		//		error: function () {
+		//			alert('Đăng nhập thất bại. Vui lòng thử lại!');
+		//		}
+		//	});
+		//});
 	});
 
 	$(document).ready(function () {
@@ -295,8 +291,12 @@
 			$('#shippingBox').removeClass('frozen');
 			$('#order').addClass('show');
 			$('#placeOrder').removeClass('d-none');
-		})
-	})
+		});
+		$('#addInfo').click(function () {
+			$('#address').removeClass('show');
+			//$('#newaddress').addClass('show');
+		});
+	});
 
 }(jQuery));
 

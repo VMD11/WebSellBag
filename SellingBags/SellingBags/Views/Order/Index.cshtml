@@ -1,0 +1,55 @@
+﻿@model SellingBags.Models.ViewModel.OrderVM
+
+@using SellingBags.Common
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    SellingBags.Models.DataContext.OrderContext context = new SellingBags.Models.DataContext.OrderContext();
+}
+
+<div class="container">
+    <div class="title-left">
+        <h2>Lịch sử mua hàng</h2>
+    </div>
+    @foreach (var order in Model.Orders)
+    {
+        var OrderDetails = context.GetOrderDetails(order.ID_Order);
+        if(order.Status == 0)
+        {
+            ViewBag.Status = "Đang vận chuyển";
+        }
+        else
+        {
+            ViewBag.Status = "Đơn hàng đã hoàn thành";
+        }
+        <div class="order-item mb-3 p-3">
+            <div class="d-flex justify-content-end">@ViewBag.Status</div>
+            <hr />
+            @foreach (var item in OrderDetails)
+            {
+                var quantity = "x" + item.Quantity.ToString();
+                <a href="@Url.Action("Detail", "Order", new {ID_Order = order.ID_Order.Trim()})">
+                    <div class="row p-3">
+                        <div class="col-3 p-3">
+                            <img class="img-fluid" src="~/Assets/images/products/@item.Product.ImageURL" width="200"/>
+                        </div>
+                        <div class="col-9 p-3">
+                            <div class="h5">@item.Product.Name</div>
+                            <div class="h6">Màu @item.Product.Color <span>|</span> Size @item.Product.Size</div>
+                            <div class="h6">@quantity <div class="float-right">@Converts.convertVND(item.Product.Price)</div></div>
+                        </div>
+                    </div>
+                </a>
+                <hr />
+            }
+            <div class="d-flex justify-content-end">
+                <div class="gr-total">
+                    <h5>Thành tiền: @Converts.convertVND(order.TotalMoney)</h5>
+                </div>
+            </div>
+            
+
+        </div>
+    }
+</div>
+

@@ -12,19 +12,26 @@ namespace SellingBags.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Category
+    public partial class Address
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Category()
+        public Address()
         {
-            this.ProductTypes = new HashSet<ProductType>();
+            this.Orders = new HashSet<Order>();
         }
     
-        public string ID_Category { get; set; }
-        public string Name { get; set; }
-        public string ImageURL { get; set; }
+        public string ID_Address { get; set; }
+        public string LastName { get; set; }
+        public string FirstName { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Ward { get; set; }
+        public string District { get; set; }
+        public string City { get; set; }
+        public string ID_Customer { get; set; }
+        public string SpecificAddress { get; set; }
     
+        public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductType> ProductTypes { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

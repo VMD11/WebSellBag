@@ -26,5 +26,9 @@ namespace SellingBags.Models.DataContext
             return db.Products;
         }
 
+        public IEnumerable<Category> GetCategoriesAll()
+        {
+            return db.Categories;
+        }
     }
 }

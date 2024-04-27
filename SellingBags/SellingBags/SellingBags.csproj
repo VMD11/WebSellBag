@@ -152,6 +152,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Common\Converts.cs" />
     <Compile Include="Common\Encryptor.cs" />
@@ -159,6 +160,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Account.cs">
+      <DependentUpon>SellingBags.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Address.cs">
       <DependentUpon>SellingBags.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Brand.cs">
@@ -174,6 +178,7 @@
       <DependentUpon>SellingBags.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataContext\CheckoutContext.cs" />
+    <Compile Include="Models\DataContext\OrderContext.cs" />
     <Compile Include="Models\DataContext\VirtualCartContext.cs" />
     <Compile Include="Models\DataContext\HomeContext.cs" />
     <Compile Include="Models\DataContext\LoginContext.cs" />
@@ -223,6 +228,7 @@
       <DependentUpon>SellingBags.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModel\CheckoutVM.cs" />
+    <Compile Include="Models\ViewModel\OrderVM.cs" />
     <Compile Include="Models\ViewModel\VirtualCartVM.cs" />
     <Compile Include="Models\ViewModel\HomeVM.cs" />
     <Compile Include="Models\ViewModel\LoginVM.cs" />
@@ -4012,10 +4018,7 @@
     <Content Include="Assets\fonts\fontawesome-free-6.5.2\svgs\solid\yen-sign.svg" />
     <Content Include="Assets\fonts\fontawesome-free-6.5.2\svgs\solid\yin-yang.svg" />
     <Content Include="Assets\fonts\fontawesome-free-6.5.2\svgs\solid\z.svg" />
-    <Content Include="Assets\images\banner\aokang.jpg" />
     <Content Include="Assets\images\banner\best_seller.jpg" />
-    <Content Include="Assets\images\banner\new_arrival.jpg" />
-    <Content Include="Assets\images\banner\vascara.jpg" />
     <Content Include="Assets\images\brands\CHAUTFIFTH.jpg" />
     <Content Include="Assets\images\brands\JUNO.jpg" />
     <Content Include="Assets\images\brands\LEE_TEE.jpg" />
@@ -4183,6 +4186,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Assets\images\categories\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\Login\Index.cshtml" />
@@ -4377,6 +4381,8 @@
     <Content Include="Views\Cart\Checkout.cshtml" />
     <Content Include="Views\Product\Search.cshtml" />
     <Content Include="Views\Product\NewProducts.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
+    <Content Include="Views\Order\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

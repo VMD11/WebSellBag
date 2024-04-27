@@ -14,6 +14,20 @@
           <Property Name="Password" Type="nchar" MaxLength="50" Nullable="false" />
           <Property Name="ID_Role" Type="char" MaxLength="10" Nullable="false" />
         </EntityType>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="ID_Address" />
+          </Key>
+          <Property Name="ID_Address" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhoneNumber" Type="char" MaxLength="10" />
+          <Property Name="Ward" Type="nvarchar" MaxLength="50" />
+          <Property Name="District" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="ID_Customer" Type="char" MaxLength="10" />
+          <Property Name="SpecificAddress" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="Brand">
           <Key>
             <PropertyRef Name="ID_Brand" />
@@ -37,6 +51,7 @@
           </Key>
           <Property Name="ID_Category" Type="char" MaxLength="10" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="30" />
+          <Property Name="ImageURL" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -49,8 +64,9 @@
           <Property Name="PhoneNumber" Type="nchar" MaxLength="20" />
           <Property Name="Address" Type="nvarchar(max)" />
           <Property Name="City" Type="nvarchar" MaxLength="50" />
-          <Property Name="Country" Type="nvarchar" MaxLength="50" />
           <Property Name="ID_Account" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="Ward" Type="nvarchar" MaxLength="50" />
+          <Property Name="District" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Discount">
           <Key>
@@ -78,10 +94,14 @@
             <PropertyRef Name="ID_Order" />
           </Key>
           <Property Name="ID_Order" Type="char" MaxLength="10" Nullable="false" />
-          <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="Status" Type="int" />
           <Property Name="OrderDate" Type="datetime" />
-          <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="2" />
           <Property Name="ID_Customer" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="DeliDate" Type="date" />
+          <Property Name="TotalMoney" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="ShippingMethod" Type="nvarchar" MaxLength="50" />
+          <Property Name="PaymentMethod" Type="nvarchar" MaxLength="50" />
+          <Property Name="ID_Address" Type="char" MaxLength="10" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -132,6 +152,18 @@
             </Principal>
             <Dependent Role="Account">
               <PropertyRef Name="ID_Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Address_Customer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Address" Type="Self.Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="ID_Customer" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="ID_Customer" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -219,6 +251,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Orders_Address">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="ID_Address" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ID_Address" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Product_Brand">
           <End Role="Brand" Type="Self.Brand" Multiplicity="1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -286,6 +330,7 @@
         </Function>
         <EntityContainer Name="SellingBagsModelStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Brand" EntityType="Self.Brand" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Cart" EntityType="Self.Cart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
@@ -300,6 +345,10 @@
           <AssociationSet Name="FK_Account_Role" Association="Self.FK_Account_Role">
             <End Role="Role" EntitySet="Role" />
             <End Role="Account" EntitySet="Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Address_Customer" Association="Self.FK_Address_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Address" EntitySet="Address" />
           </AssociationSet>
           <AssociationSet Name="FK_Cart_Account" Association="Self.FK_Cart_Account">
             <End Role="Account" EntitySet="Account" />
@@ -328,6 +377,10 @@
           <AssociationSet Name="FK_OrderDetail_Product" Association="Self.FK_OrderDetail_Product">
             <End Role="Product" EntitySet="Product" />
             <End Role="OrderDetail" EntitySet="OrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Address" Association="Self.FK_Orders_Address">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK_Product_Brand" Association="Self.FK_Product_Brand">
             <End Role="Brand" EntitySet="Brand" />
@@ -362,22 +415,6 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ImageURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Products" Relationship="Self.FK_Product_Brand" FromRole="Brand" ToRole="Product" />
-        </EntityType>
-        <EntityType Name="Customer">
-          <Key>
-            <PropertyRef Name="ID_Customer" />
-          </Key>
-          <Property Name="ID_Customer" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ID_Account" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Orders" Relationship="SellingBagsModel.FK_Order_Customer" FromRole="Customer" ToRole="Order" />
-          <NavigationProperty Name="Account" Relationship="SellingBagsModel.FK_Customer_Account" FromRole="Customer" ToRole="Account" />
         </EntityType>
         <EntityType Name="Discount">
           <Key>
@@ -494,7 +531,6 @@
         </Association>
         <EntityContainer Name="SellingBagsEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Brands" EntityType="Self.Brand" />
-          <EntitySet Name="Customers" EntityType="Self.Customer" />
           <EntitySet Name="Discounts" EntityType="Self.Discount" />
           <EntitySet Name="OrderDetails" EntityType="Self.OrderDetail" />
           <EntitySet Name="Products" EntityType="Self.Product" />
@@ -526,15 +562,6 @@
           <Parameter Name="ID_Category" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spLastCustomer" ReturnType="Collection(String)" />
-          <EntitySet Name="Orders" EntityType="SellingBagsModel.Order" />
-          <AssociationSet Name="FK_Order_Customer" Association="SellingBagsModel.FK_Order_Customer">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="Order" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderDetail_Order" Association="SellingBagsModel.FK_OrderDetail_Order">
-            <End Role="Order" EntitySet="Orders" />
-            <End Role="OrderDetail" EntitySet="OrderDetails" />
-          </AssociationSet>
           <EntitySet Name="Carts" EntityType="SellingBagsModel.Cart" />
           <EntitySet Name="WishLists" EntityType="SellingBagsModel.WishList" />
           <AssociationSet Name="FK_Cart_Product" Association="SellingBagsModel.FK_Cart_Product">
@@ -554,13 +581,32 @@
             <End Role="Account" EntitySet="Accounts" />
             <End Role="Cart" EntitySet="Carts" />
           </AssociationSet>
+          <AssociationSet Name="FK_WishList_Account" Association="SellingBagsModel.FK_WishList_Account">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="WishList" EntitySet="WishLists" />
+          </AssociationSet>
+          <EntitySet Name="Orders" EntityType="SellingBagsModel.Order" />
+          <AssociationSet Name="FK_OrderDetail_Order" Association="SellingBagsModel.FK_OrderDetail_Order">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="OrderDetail" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <EntitySet Name="Customers" EntityType="SellingBagsModel.Customer" />
           <AssociationSet Name="FK_Customer_Account" Association="SellingBagsModel.FK_Customer_Account">
             <End Role="Account" EntitySet="Accounts" />
             <End Role="Customer" EntitySet="Customers" />
           </AssociationSet>
-          <AssociationSet Name="FK_WishList_Account" Association="SellingBagsModel.FK_WishList_Account">
-            <End Role="Account" EntitySet="Accounts" />
-            <End Role="WishList" EntitySet="WishLists" />
+          <AssociationSet Name="FK_Order_Customer" Association="SellingBagsModel.FK_Order_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <EntitySet Name="Addresses" EntityType="SellingBagsModel.Address" />
+          <AssociationSet Name="FK_Address_Customer" Association="SellingBagsModel.FK_Address_Customer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="Address" EntitySet="Addresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Address" Association="SellingBagsModel.FK_Orders_Address">
+            <End Role="Address" EntitySet="Addresses" />
+            <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
           </EntityContainer>
         <ComplexType Name="spLoadAllBrand_Result">
@@ -574,6 +620,7 @@
           <Property Name="ID_Category" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
           <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ProductTypes" Relationship="SellingBagsModel.FK_ProductType_Category" FromRole="Category" ToRole="ProductType" />
+          <Property Name="ImageURL" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_ProductType_Category">
           <End Type="SellingBagsModel.Category" Role="Category" Multiplicity="0..1" />
@@ -602,42 +649,6 @@
           <Property Type="String" Name="ImageURL1" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="ID_Category" Nullable="true" MaxLength="10" />
         </ComplexType>
-        <EntityType Name="Order">
-          <Key>
-            <PropertyRef Name="ID_Order" />
-          </Key>
-          <Property Name="ID_Order" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="OrderDate" Type="DateTime" Precision="3" />
-          <Property Name="TotalAmount" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="ID_Customer" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
-          <NavigationProperty Name="Customer" Relationship="SellingBagsModel.FK_Order_Customer" FromRole="Order" ToRole="Customer" />
-          <NavigationProperty Name="OrderDetails" Relationship="SellingBagsModel.FK_OrderDetail_Order" FromRole="Order" ToRole="OrderDetail" />
-        </EntityType>
-        <Association Name="FK_Order_Customer">
-          <End Type="SellingBagsModel.Customer" Role="Customer" Multiplicity="1" />
-          <End Type="SellingBagsModel.Order" Role="Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="ID_Customer" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="ID_Customer" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderDetail_Order">
-          <End Type="SellingBagsModel.Order" Role="Order" Multiplicity="1" />
-          <End Type="SellingBagsModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="ID_Order" />
-            </Principal>
-            <Dependent Role="OrderDetail">
-              <PropertyRef Name="ID_Order" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Cart">
           <Key>
             <PropertyRef Name="ID_Cart" />
@@ -693,8 +704,8 @@
           <Property Name="ID_Role" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="Role" Relationship="SellingBagsModel.FK_Account_Role" FromRole="Account" ToRole="Role" />
           <NavigationProperty Name="Carts" Relationship="SellingBagsModel.FK_Cart_Account" FromRole="Account" ToRole="Cart" />
-          <NavigationProperty Name="Customers" Relationship="SellingBagsModel.FK_Customer_Account" FromRole="Account" ToRole="Customer" />
           <NavigationProperty Name="WishLists" Relationship="SellingBagsModel.FK_WishList_Account" FromRole="Account" ToRole="WishList" />
+          <NavigationProperty Name="Customers" Relationship="SellingBagsModel.FK_Customer_Account" FromRole="Account" ToRole="Customer" />
         </EntityType>
         <Association Name="FK_Account_Role">
           <End Type="SellingBagsModel.Role" Role="Role" Multiplicity="1" />
@@ -720,6 +731,65 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_WishList_Account">
+          <End Type="SellingBagsModel.Account" Role="Account" Multiplicity="0..1" />
+          <End Type="SellingBagsModel.WishList" Role="WishList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="ID_Account" />
+            </Principal>
+            <Dependent Role="WishList">
+              <PropertyRef Name="ID_Account" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="ID_Order" />
+          </Key>
+          <Property Name="ID_Order" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="OrderDate" Type="DateTime" Precision="3" />
+          <Property Name="ID_Customer" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="DeliDate" Type="DateTime" Precision="0" />
+          <Property Name="TotalMoney" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ShippingMethod" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentMethod" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OrderDetails" Relationship="SellingBagsModel.FK_OrderDetail_Order" FromRole="Order" ToRole="OrderDetail" />
+          <NavigationProperty Name="Customer" Relationship="SellingBagsModel.FK_Order_Customer" FromRole="Order" ToRole="Customer" />
+          <Property Name="ID_Address" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Address" Relationship="SellingBagsModel.FK_Orders_Address" FromRole="Order" ToRole="Address" />
+        </EntityType>
+        <Association Name="FK_OrderDetail_Order">
+          <End Type="SellingBagsModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="SellingBagsModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Order">
+              <PropertyRef Name="ID_Order" />
+            </Principal>
+            <Dependent Role="OrderDetail">
+              <PropertyRef Name="ID_Order" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="ID_Customer" />
+          </Key>
+          <Property Name="ID_Customer" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="30" FixedLength="true" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Account" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Ward" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="District" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Account" Relationship="SellingBagsModel.FK_Customer_Account" FromRole="Customer" ToRole="Account" />
+          <NavigationProperty Name="Orders" Relationship="SellingBagsModel.FK_Order_Customer" FromRole="Customer" ToRole="Order" />
+          <NavigationProperty Name="Addresses" Relationship="SellingBagsModel.FK_Address_Customer" FromRole="Customer" ToRole="Address" />
+        </EntityType>
         <Association Name="FK_Customer_Account">
           <End Type="SellingBagsModel.Account" Role="Account" Multiplicity="1" />
           <End Type="SellingBagsModel.Customer" Role="Customer" Multiplicity="*" />
@@ -732,15 +802,55 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_WishList_Account">
-          <End Type="SellingBagsModel.Account" Role="Account" Multiplicity="0..1" />
-          <End Type="SellingBagsModel.WishList" Role="WishList" Multiplicity="*" />
+        <Association Name="FK_Order_Customer">
+          <End Type="SellingBagsModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="SellingBagsModel.Order" Role="Order" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Account">
-              <PropertyRef Name="ID_Account" />
+            <Principal Role="Customer">
+              <PropertyRef Name="ID_Customer" />
             </Principal>
-            <Dependent Role="WishList">
-              <PropertyRef Name="ID_Account" />
+            <Dependent Role="Order">
+              <PropertyRef Name="ID_Customer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="ID_Address" />
+          </Key>
+          <Property Name="ID_Address" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="Ward" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="District" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ID_Customer" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="SpecificAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Customer" Relationship="SellingBagsModel.FK_Address_Customer" FromRole="Address" ToRole="Customer" />
+          <NavigationProperty Name="Orders" Relationship="SellingBagsModel.FK_Orders_Address" FromRole="Address" ToRole="Order" />
+        </EntityType>
+        <Association Name="FK_Address_Customer">
+          <End Type="SellingBagsModel.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="SellingBagsModel.Address" Role="Address" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="ID_Customer" />
+            </Principal>
+            <Dependent Role="Address">
+              <PropertyRef Name="ID_Customer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Address">
+          <End Type="SellingBagsModel.Address" Role="Address" Multiplicity="0..1" />
+          <End Type="SellingBagsModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="ID_Address" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="ID_Address" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -756,21 +866,6 @@
                 <ScalarProperty Name="ID_Brand" ColumnName="ID_Brand" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Customers">
-            <EntityTypeMapping TypeName="SellingBagsModel.Customer">
-              <MappingFragment StoreEntitySet="Customer">
-                <ScalarProperty Name="ID_Customer" ColumnName="ID_Customer" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="ID_Account" ColumnName="ID_Account" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -843,6 +938,7 @@
           <EntitySetMapping Name="Categories">
             <EntityTypeMapping TypeName="SellingBagsModel.Category">
               <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID_Category" ColumnName="ID_Category" />
               </MappingFragment>
@@ -868,17 +964,6 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="spLastCustomer" FunctionName="SellingBagsModel.Store.spLastCustomer" />
-          <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="SellingBagsModel.Order">
-              <MappingFragment StoreEntitySet="Orders">
-                <ScalarProperty Name="ID_Customer" ColumnName="ID_Customer" />
-                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
-                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="ID_Order" ColumnName="ID_Order" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Carts">
             <EntityTypeMapping TypeName="SellingBagsModel.Cart">
               <MappingFragment StoreEntitySet="Cart">
@@ -905,6 +990,52 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="ID_Account" ColumnName="ID_Account" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="SellingBagsModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="ID_Address" ColumnName="ID_Address" />
+                <ScalarProperty Name="PaymentMethod" ColumnName="PaymentMethod" />
+                <ScalarProperty Name="ShippingMethod" ColumnName="ShippingMethod" />
+                <ScalarProperty Name="TotalMoney" ColumnName="TotalMoney" />
+                <ScalarProperty Name="DeliDate" ColumnName="DeliDate" />
+                <ScalarProperty Name="ID_Customer" ColumnName="ID_Customer" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ID_Order" ColumnName="ID_Order" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="SellingBagsModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="District" ColumnName="District" />
+                <ScalarProperty Name="Ward" ColumnName="Ward" />
+                <ScalarProperty Name="ID_Account" ColumnName="ID_Account" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ID_Customer" ColumnName="ID_Customer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Addresses">
+            <EntityTypeMapping TypeName="SellingBagsModel.Address">
+              <MappingFragment StoreEntitySet="Address">
+                <ScalarProperty Name="SpecificAddress" ColumnName="SpecificAddress" />
+                <ScalarProperty Name="ID_Customer" ColumnName="ID_Customer" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="District" ColumnName="District" />
+                <ScalarProperty Name="Ward" ColumnName="Ward" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="ID_Address" ColumnName="ID_Address" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

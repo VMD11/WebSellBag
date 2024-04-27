@@ -63,9 +63,6 @@ namespace SellingBags.Models.DataContext
                     LastName = registerVM.LastName,
                     Email = registerVM.UserName,
                     PhoneNumber = null,
-                    Address = null,
-                    City = null,
-                    Country = null,
                     ID_Account = account.ID_Account
                 };
             }
@@ -78,9 +75,6 @@ namespace SellingBags.Models.DataContext
                     LastName = registerVM.LastName,
                     Email = null,
                     PhoneNumber = registerVM.UserName,
-                    Address = null,
-                    City = null,
-                    Country = null,
                     ID_Account = account.ID_Account,
                     
                 };

@@ -28,17 +28,18 @@ namespace SellingBags.Models
         }
     
         public virtual DbSet<Brand> Brands { get; set; }
-        public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Discount> Discounts { get; set; }
         public virtual DbSet<OrderDetail> OrderDetails { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductType> ProductTypes { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Cart> Carts { get; set; }
         public virtual DbSet<WishList> WishLists { get; set; }
         public virtual DbSet<Account> Accounts { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<Address> Addresses { get; set; }
     
         public virtual ObjectResult<spLoadAllBrand_Result> spLoadAllBrand()
         {

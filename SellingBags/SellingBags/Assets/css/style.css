@@ -893,6 +893,12 @@ ul.cart-list > li.total > .btn:hover {
     position: relative;
     z-index: 2;
 }
+    .cover-slides .container .responsive-image {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: contain;
+    }
 
     .cover-slides .container > .row {
         -webkit-box-align: center;
@@ -1440,6 +1446,23 @@ ul.cart-list > li.total > .btn:hover {
     bottom: 0;
     opacity: 1;
 }
+
+/*------------------------------------------------------------------ Checkout Main -------------------------------------------------------------------*/
+.address-box {
+    padding: .5rem;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/*------------------------------------------------------------------ Order Main -------------------------------------------------------------------*/
+.order-item {
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
 /*------------------------------------------------------------------ Footer Main -------------------------------------------------------------------*/
 .footer-main {
     padding: 70px 0px;

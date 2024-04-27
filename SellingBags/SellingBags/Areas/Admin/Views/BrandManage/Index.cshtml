@@ -6,7 +6,7 @@
 <div class="container">
 
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Tất cả loại sản phẩm</h1>
+    <h1 class="h3 mb-2 text-gray-800">Tất cả thương hiệu</h1>
     <p class="mb-4">
     </p>
 
@@ -32,10 +32,10 @@
                             <tr>
                                 <td><img width="110" src="~/Assets/images/brands/@item.ImageURL" alt="@item.Name"></td>
                                 <td>@item.Name.Trim()</td>
-                                <td class="justify-content-center d-flex border-bottom-0">
-                                    <a href="@Url.Action("Detail", "BrandManage", new {ID_Brand = item.ID_Brand.Trim()})" class="btn btn-info w-25">Xem</a>
-                                    <a href="@Url.Action("Update", "BrandManage", new {ID_Brand = item.ID_Brand.Trim()})" class="btn btn-warning w-25 mr-2 ml-2">Sửa</a>
-                                    <button class="btn btn-danger w-25 deleteBrand" data-id="@item.ID_Brand">Xóa</button>
+                                <td>
+                                    <a href="@Url.Action("Detail", "BrandManage", new {ID_Brand = item.ID_Brand.Trim()})" class="btn btn-info w-75">Xem</a>
+                                    <a href="@Url.Action("Update", "BrandManage", new {ID_Brand = item.ID_Brand.Trim()})" class="btn btn-warning w-75 mt-2 mb-2">Sửa</a>
+                                    <button class="btn btn-danger w-75 deleteBrand" data-id="@item.ID_Brand">Xóa</button>
                                 </td>
                             </tr>
                         }
