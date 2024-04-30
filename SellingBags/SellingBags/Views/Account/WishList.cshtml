@@ -7,57 +7,75 @@
 <!-- Start Wishlist  -->
 <div class="wishlist-box-main">
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="table-main table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Hình ảnh</th>
-                                <th>Tên sản phẩm</th>
-                                <th>Màu / Size</th>
-                                <th>Giá</th>
-                                <th>Thêm vào giỏ hàng</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        @{ 
-                            foreach(var item in Model.WishLists)
-                            {
+        @if(Model.WishLists.Count() != 0)
+        {
+            <div class="row">
+                <div class="col-12">
+                    <div class="table-main table-responsive">
+                        <table class="table">
+                            <thead>
                                 <tr>
-                                    <td class="thumbnail-img">
-                                        <a href="@Url.Action("Detail", "Product", new {ID_Product = item.ID_Product.Trim()})">
-                                            <img class="img-fluid" src="~/Assets/images/products/@item.ImageURL" alt="" />
-                                        </a>
-                                    </td>
-                                    <td class="name-pr">
-                                        <a href="@Url.Action("Detail", "Product", new {ID_Product = item.ID_Product.Trim()})">@item.Name</a>
-                                    </td>
-                                    <td>
-                                        <p>Màu @item.Color</p>
-                                        <p>Size @item.Size</p>
-                                    </td>
-                                    <td class="price-pr">
-                                        <p>@Converts.convertVND(item.Price)</p>
-                                    </td>
-                                    <td class="add-pr">
-                                        <a class="btn hvr-hover" href="@Url.Action("Add", "Cart", new {ID_Product = item.ID_Product.Trim(), Quantity = 1})">Thêm vào giỏ hàng</a>
-                                    </td>
-                                    <td class="remove-pr">
-                                        <a href="@Url.Action("RemoveToWishList", "Account", new {ID_Product = item.ID_Product.Trim()})">
-                                            <i class="fas fa-times"></i>
-                                        </a>
-                                    </td>
+                                    <th>Hình ảnh</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Màu / Size</th>
+                                    <th>Giá</th>
+                                    <th>Thêm vào giỏ hàng</th>
+                                    <th></th>
                                 </tr>
+                            </thead>
+                            <tbody>
+                            @{ 
+                                foreach(var item in Model.WishLists)
+                                {
+                                    <tr>
+                                        <td class="thumbnail-img">
+                                            <a href="@Url.Action("Detail", "Product", new {ID_Product = item.ID_Product.Trim()})">
+                                                <img class="img-fluid" src="~/Assets/images/products/@item.ImageURL" alt="" />
+                                            </a>
+                                        </td>
+                                        <td class="name-pr">
+                                            <a href="@Url.Action("Detail", "Product", new {ID_Product = item.ID_Product.Trim()})">@item.Name</a>
+                                        </td>
+                                        <td>
+                                            <p>Màu @item.Color</p>
+                                            <p>Size @item.Size</p>
+                                        </td>
+                                        <td class="price-pr">
+                                            <p>@Converts.convertVND(item.Price)</p>
+                                        </td>
+                                        <td class="add-pr">
+                                            <a class="btn hvr-hover" href="@Url.Action("Add", "Cart", new {ID_Product = item.ID_Product.Trim(), Quantity = 1})">Thêm vào giỏ hàng</a>
+                                        </td>
+                                        <td class="remove-pr">
+                                            <a href="@Url.Action("RemoveToWishList", "Account", new {ID_Product = item.ID_Product.Trim()})">
+                                                <i class="fas fa-times"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
                                         
-                            }
-                        }
-                        </tbody>
-                    </table>
+                                }
+
+
+}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
+        }
+        else
+        {
+            <div class="row mb-5">
+                <div class="col-12 mb-4">
+                    <h1>Bạn chưa có sản phẩm nào trong danh sách yêu thích</h1>
+                    <h5>Có nhiều sản phẩm mới đợi bạn thêm sản phẩm vào danh sách yêu thích</h5>
+                </div>
+                <div class="col-12 mb-5">
+                    @Html.ActionLink("Dạo một vòng", "Index", "Home", null, new { @class = "btn hvr-hover text-white", @style = "height: 50px; line-height:36.4px" })
+                </div>
+            </div>
+        }
+            
     </div>
 </div>
 <!-- End Wishlist -->

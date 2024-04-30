@@ -12,8 +12,8 @@ namespace SellingBags.Models.ViewModel
         public VirtualCartContext Cart { get; set; }
         public IEnumerable<Address> Addresses { get; set; }
 
-        public IEnumerable<ShippingMethod> ShippingCost { get; set; }
+        public IEnumerable<Shipping> Shippings { get; set; }
         
-        public IEnumerable<PaymentMethod> PaymentMethods { get; set; }
+        public IEnumerable<Payment> Payments { get; set; }
     }
 }

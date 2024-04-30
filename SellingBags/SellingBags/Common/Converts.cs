@@ -17,12 +17,20 @@ namespace SellingBags.Common
         {
             if (value.HasValue)
             {
-                return value.Value.ToString("dd-MM-yyyy");
+                return value.Value.ToString("dd/MM/yyyy");
             }
             else
             {
                 return string.Empty;
             }
+        }
+
+        public static string convertDateTime(DateTime? value)
+        {
+            if (value.HasValue)
+            {
+                return value.Value.ToString("dd/MM/yyyy HH:mm:ss");
+            }else { return string.Empty; }
         }
     }
 }

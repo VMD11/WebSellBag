@@ -62,8 +62,8 @@ namespace SellingBags.Controllers
             CheckoutVM checkoutVM = new CheckoutVM();
             CheckoutContext checkoutContext = new CheckoutContext();
             checkoutVM.Cart = Session[Sessions.CART] as VirtualCartContext;
-            checkoutVM.ShippingCost = checkoutContext.GetShippingCost();
-            checkoutVM.PaymentMethods = checkoutContext.GetPaymentMethods();
+            checkoutVM.Shippings = checkoutContext.GetShippings();
+            checkoutVM.Payments = checkoutContext.GetPayments();
             return View(checkoutVM);
         }
 

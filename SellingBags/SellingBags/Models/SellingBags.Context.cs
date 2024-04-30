@@ -40,6 +40,8 @@ namespace SellingBags.Models
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Address> Addresses { get; set; }
+        public virtual DbSet<Payment> Payments { get; set; }
+        public virtual DbSet<Shipping> Shippings { get; set; }
     
         public virtual ObjectResult<spLoadAllBrand_Result> spLoadAllBrand()
         {
@@ -58,6 +60,11 @@ namespace SellingBags.Models
         public virtual ObjectResult<string> spLastCustomer()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("spLastCustomer");
+        }
+    
+        public virtual int ReloadOrders()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ReloadOrders");
         }
     }
 }

@@ -32,18 +32,18 @@
                             <div class="mb-3 p-2">
                                 <h3 class="font-weight-bold">Chi tiết đơn hàng</h3>
                                 <p>Mã đơn hàng: @Model.Order.ID_Order</p>
-                                <p>Ngày đặt: @Model.Order.OrderDate</p>
+                                <p>Ngày đặt: @Converts.convertDateTime(Model.Order.OrderDate)</p>
                                 <p>Phương thức thanh toán: @Model.Order.PaymentMethod</p>
                                 <p>Đơn vị giao hàng: @Model.Order.ShippingMethod</p>
                                 @if(Model.Order.ShippingMethod.Contains("Thanh toán khi nhận hàng") && Model.Order.Status != 0)
                                 {
-                                    <p>Thời gian thanh toán: @Model.Order.DeliDate</p>
+                                    <p>Thời gian thanh toán: @Converts.convertDateTime(Model.Order.DeliDate)</p>
                                 }
                                 else
                                 {
-                                    <p>Thời gian thanh toán: @Model.Order.OrderDate</p>
+                            <p>Thời gian thanh toán: @Converts.convertDateTime(Model.Order.OrderDate)</p>
                                 }
-                                <p>Ngày vận chuyển: @Model.Order.OrderDate.Value.AddHours(2.5)</p>
+                                <p>Ngày giao dự kiến: @Converts.convertDate(Model.Order.DeliDate)</p>
                             </div>
                         </div>
                     </div>
@@ -95,7 +95,7 @@
                         </div>
                         <div class="d-flex">
                             <h4>Phí vận chuyển</h4>
-                            <div id="shippingCost" class="ml-auto">@Converts.convertVND(Model.ShippingMethod.Cost)</div>
+                            <div id="shippingCost" class="ml-auto"></div>@*@Converts.convertVND(Model.ShippingMethod.Cost)*@
                         </div>
                         <div class="d-flex">
                             <h4>Giảm giá phí vận chuyển</h4>

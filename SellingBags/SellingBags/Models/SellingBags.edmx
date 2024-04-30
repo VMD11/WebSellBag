@@ -103,6 +103,14 @@
           <Property Name="PaymentMethod" Type="nvarchar" MaxLength="50" />
           <Property Name="ID_Address" Type="char" MaxLength="10" />
         </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="ID_Payment" />
+          </Key>
+          <Property Name="ID_Payment" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="ImageURL" Type="nvarchar(max)" />
+        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="ID_Product" />
@@ -134,6 +142,16 @@
           </Key>
           <Property Name="ID_Role" Type="char" MaxLength="10" Nullable="false" />
           <Property Name="Name" Type="nchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Shipping">
+          <Key>
+            <PropertyRef Name="ID_Shipping" />
+          </Key>
+          <Property Name="ID_Shipping" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="DeliTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="DeliDate" Type="int" />
+          <Property Name="Cost" Type="decimal" Precision="18" Scale="0" />
         </EntityType>
         <EntityType Name="WishList">
           <Key>
@@ -323,6 +341,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="ReloadOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="spLastCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="spLoadAllBrand" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="spProductsByType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -338,9 +357,11 @@
           <EntitySet Name="Discount" EntityType="Self.Discount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductType" EntityType="Self.ProductType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Shipping" EntityType="Self.Shipping" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="WishList" EntityType="Self.WishList" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Account_Role" Association="Self.FK_Account_Role">
             <End Role="Role" EntitySet="Role" />
@@ -608,6 +629,9 @@
             <End Role="Address" EntitySet="Addresses" />
             <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
+          <EntitySet Name="Payments" EntityType="SellingBagsModel.Payment" />
+          <EntitySet Name="Shippings" EntityType="SellingBagsModel.Shipping" />
+          <FunctionImport Name="ReloadOrders" />
           </EntityContainer>
         <ComplexType Name="spLoadAllBrand_Result">
           <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
@@ -854,6 +878,24 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="ID_Payment" />
+          </Key>
+          <Property Name="ID_Payment" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ImageURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Shipping">
+          <Key>
+            <PropertyRef Name="ID_Shipping" />
+          </Key>
+          <Property Name="ID_Shipping" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DeliTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DeliDate" Type="Int32" />
+          <Property Name="Cost" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1039,6 +1081,27 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Payments">
+            <EntityTypeMapping TypeName="SellingBagsModel.Payment">
+              <MappingFragment StoreEntitySet="Payment">
+                <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID_Payment" ColumnName="ID_Payment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Shippings">
+            <EntityTypeMapping TypeName="SellingBagsModel.Shipping">
+              <MappingFragment StoreEntitySet="Shipping">
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="DeliDate" ColumnName="DeliDate" />
+                <ScalarProperty Name="DeliTime" ColumnName="DeliTime" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID_Shipping" ColumnName="ID_Shipping" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ReloadOrders" FunctionName="SellingBagsModel.Store.ReloadOrders" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

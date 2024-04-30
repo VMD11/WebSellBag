@@ -98,6 +98,14 @@
     <Property Name="PaymentMethod" Type="nvarchar" MaxLength="50" />
     <Property Name="ID_Address" Type="char" MaxLength="10" />
   </EntityType>
+  <EntityType Name="Payment">
+    <Key>
+      <PropertyRef Name="ID_Payment" />
+    </Key>
+    <Property Name="ID_Payment" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="ImageURL" Type="nvarchar(max)" />
+  </EntityType>
   <EntityType Name="Product">
     <Key>
       <PropertyRef Name="ID_Product" />
@@ -129,6 +137,16 @@
     </Key>
     <Property Name="ID_Role" Type="char" MaxLength="10" Nullable="false" />
     <Property Name="Name" Type="nchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Shipping">
+    <Key>
+      <PropertyRef Name="ID_Shipping" />
+    </Key>
+    <Property Name="ID_Shipping" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="DeliTime" Type="nvarchar" MaxLength="50" />
+    <Property Name="DeliDate" Type="int" />
+    <Property Name="Cost" Type="decimal" Precision="18" Scale="0" />
   </EntityType>
   <EntityType Name="WishList">
     <Key>
@@ -318,6 +336,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="ReloadOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="spLastCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="spLoadAllBrand" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="spProductsByType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -333,9 +352,11 @@
     <EntitySet Name="Discount" EntityType="Self.Discount" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProductType" EntityType="Self.ProductType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Shipping" EntityType="Self.Shipping" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="WishList" EntityType="Self.WishList" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Account_Role" Association="Self.FK_Account_Role">
       <End Role="Role" EntitySet="Role" />

@@ -26,7 +26,7 @@ namespace SellingBags.Models.ViewModel
         public Customer Customer { get; set; }
         public Order Order { get; set; }
         public OrderDetail OrderDetail { get; set; }
-        public ShippingMethod ShippingMethod { get; set; }
+        public Shipping Shipping { get; set; }
         public IEnumerable<Order> Orders { get; set; }
         public IEnumerable<OrderDetail> OrderDetails { get; set; }
     }

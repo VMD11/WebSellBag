@@ -42,6 +42,8 @@
         <EntityTypeShape EntityType="SellingBagsModel.Address" Width="1.5" PointX="0.875" PointY="8.75" />
         <AssociationConnector Association="SellingBagsModel.FK_Address_Customer" />
         <AssociationConnector Association="SellingBagsModel.FK_Orders_Address" />
+        <EntityTypeShape EntityType="SellingBagsModel.Payment" Width="1.5" PointX="2.375" PointY="13" />
+        <EntityTypeShape EntityType="SellingBagsModel.Shipping" Width="1.5" PointX="4.75" PointY="13.125" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

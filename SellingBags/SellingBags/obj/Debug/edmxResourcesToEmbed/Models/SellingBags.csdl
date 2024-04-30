@@ -201,6 +201,9 @@
       <End Role="Address" EntitySet="Addresses" />
       <End Role="Order" EntitySet="Orders" />
     </AssociationSet>
+    <EntitySet Name="Payments" EntityType="SellingBagsModel.Payment" />
+    <EntitySet Name="Shippings" EntityType="SellingBagsModel.Shipping" />
+    <FunctionImport Name="ReloadOrders" />
   </EntityContainer>
   <ComplexType Name="spLoadAllBrand_Result">
     <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
@@ -447,4 +450,22 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="Payment">
+    <Key>
+      <PropertyRef Name="ID_Payment" />
+    </Key>
+    <Property Name="ID_Payment" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ImageURL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Shipping">
+    <Key>
+      <PropertyRef Name="ID_Shipping" />
+    </Key>
+    <Property Name="ID_Shipping" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DeliTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DeliDate" Type="Int32" />
+    <Property Name="Cost" Type="Decimal" Precision="18" Scale="0" />
+  </EntityType>
 </Schema>

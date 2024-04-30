@@ -243,6 +243,7 @@
 			// Hiển thị phí vận chuyển tương ứng
 			$('#shippingCost').text(convertVND(shippingCost));
 			$('#totalMoney').text(convertVND(result));
+            $('#TotalMoney').val(result);
 		});
 
 		function convertVND(amount) {
@@ -266,23 +267,75 @@
 		});
 	});
 
+	/* ..............................................
+	   Form Checkout
+	   ................................................. */
 	$(document).ready(function () {
-		//$('#loginForm').submit(function (e) {
-		//	e.preventDefault();
+		$('#loginForm').on('submit', function (e) {
+			e.preventDefault();
+			$.ajax({
+				url: $(this).attr('action'),
+				type: 'POST',
+				data: $(this).serialize(),
+				success: function (response) {
+					location.reload();
 
-		//	$.ajax({
-		//		url: '@Url.Action("Login","Account")',
-		//		type: 'POST',
-		//		data: $(this).serialize(),
-		//		success: function (response) {
-		//			location.reload();
-					
-		//		},
-		//		error: function () {
-		//			alert('Đăng nhập thất bại. Vui lòng thử lại!');
-		//		}
-		//	});
-		//});
+				},
+				error: function () {
+					alert('Đăng nhập thất bại. Vui lòng thử lại!');
+					location.reload();
+				}
+			});
+		});
+
+
+
+	});
+
+	$(document).ready(function () {
+		$('#orderForm').on('submit',function (e) {
+			var ID_Address = $('input[name="ID_Address"]:checked').val();
+			if (ID_Address === undefined) {
+				ID_Address = "";
+			}
+			var LastName = $('#lastName').val();
+			var FirstName = $('#firstName').val();
+			var UserName = $('#username').val();
+			var City = $('#city').val();
+			var District = $('#district').val();
+			var Ward = $('#ward').val();
+			var SpecificAddress = $('#specificaddress').val();
+			var ShippingName = $('input[name="ShippingName"]:checked').val();
+			var PaymentName = $('input[name="PaymentName"]:checked').val();
+			var TotalMoney = $('#totalmoney').val();
+			var formData = new FormData();
+			formData.append("ID_Address", ID_Address);
+			formData.append("LastName", LastName);
+			formData.append("FirstName", FirstName);
+			formData.append("UserName", UserName);
+			formData.append("City", City);
+			formData.append("District", District);
+			formData.append("Ward", Ward);
+			formData.append("SpecificAddress", SpecificAddress);
+			formData.append("ShippingName", ShippingName);
+			formData.append("PaymentName", PaymentName);
+			formData.append("TotalMoney", TotalMoney);
+			$.ajax({
+				url: $(this).attr('action'),
+				type: 'POST',
+				data: formData,
+				processData: false,
+				contentType: false,
+				success: function (response) {
+
+				},
+				error: function () {
+					alert('Đặt hàng thất bại. Vui lòng thử lại!');
+					location.reload();
+				}
+			});
+		});
+
 	});
 
 	$(document).ready(function () {

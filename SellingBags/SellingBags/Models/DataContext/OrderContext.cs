@@ -17,38 +17,32 @@ namespace SellingBags.Models.DataContext
         public void AddBill(OrderVM orderVM, string Id_Account)
         {
             var Customer = GetCustomer(Id_Account);
-            var Checkout = new CheckoutContext();
-            var PaymentMethod = Checkout.GetPaymentMethod(orderVM.PaymentName);
-            var ShippingMethod = Checkout.GetShippingMethod(orderVM.ShippingName);
+            var Payment = GetPayment(orderVM.PaymentName);
+            var Shipping = GetShipping(orderVM.ShippingName);
+            var address = new Address();
             if(orderVM.ID_Address == null)
             {
-                var address = new Address
-                {
-                    ID_Address = GenarateRandomID.Execute(),
-                    ID_Customer = Customer.ID_Customer,
-                    PhoneNumber = orderVM.UserName,
-                    FirstName = orderVM.FirstName,
-                    LastName = orderVM.LastName,
-                    Ward = orderVM.Ward,
-                    District = orderVM.District,
-                    City = orderVM.City,
-                    SpecificAddress = orderVM.SpecificAddress
-                };
+                address.ID_Address = GenarateRandomID.Execute();
+                address.ID_Customer = Customer.ID_Customer;
+                address.PhoneNumber = orderVM.UserName;
+                address.FirstName = orderVM.FirstName;
+                address.LastName = orderVM.LastName;
+                address.Ward = orderVM.Ward;
+                address.District = orderVM.District;
+                address.City = orderVM.City;
+                address.SpecificAddress = orderVM.SpecificAddress;
                 db.Addresses.Add(address);
-                orderVM.ID_Address = address.ID_Address;
             }
-            var order = new Order
-            {
-                ID_Order = GenarateRandomID.Execute(),
-                ID_Customer = Customer.ID_Customer,
-                ID_Address = orderVM.ID_Address,
-                OrderDate = DateTime.Now,
-                Status = 0,
-                PaymentMethod = PaymentMethod.Name,
-                ShippingMethod = ShippingMethod.Name,
-                TotalMoney = orderVM.TotalMoney,
-                DeliDate = DateTime.Now.AddDays(ShippingMethod.DeliDate),
-            };
+            var order = new Order();
+            order.ID_Order = GenarateRandomID.Execute();
+            order.ID_Customer = Customer.ID_Customer;
+            order.ID_Address = orderVM.ID_Address == null ? address.ID_Address : orderVM.ID_Address;
+            order.OrderDate = DateTime.Now;
+            order.Status = 0;
+            order.PaymentMethod = orderVM.PaymentName;
+            order.ShippingMethod = orderVM.ShippingName;
+            order.TotalMoney = orderVM.TotalMoney;
+            order.DeliDate = DateTime.Now.AddDays((double)Shipping.DeliDate);
             db.Orders.Add(order);
             db.SaveChanges();
             orderVM.ID_Order = order.ID_Order;
@@ -57,14 +51,12 @@ namespace SellingBags.Models.DataContext
         {
             foreach(var item in Cart.GetList())
             {
-                OrderDetail orderDetail = new OrderDetail
-                {
-                    ID_OrderDetail = GenarateRandomID.Execute(),
-                    ID_Order = ID_Order,
-                    ID_Product = item.Product.ID_Product,
-                    Quantity = item.Quantity,
-                    Price = item.Product.Price
-                };
+                OrderDetail orderDetail = new OrderDetail();
+                orderDetail.ID_OrderDetail = GenarateRandomID.Execute();
+                orderDetail.ID_Order = ID_Order;
+                orderDetail.ID_Product = item.Product.ID_Product;
+                orderDetail.Quantity = item.Quantity;
+                orderDetail.Price = item.Product.Price;
                 db.OrderDetails.Add(orderDetail);
             }
             db.SaveChanges();
@@ -90,6 +82,13 @@ namespace SellingBags.Models.DataContext
         {
             return db.Addresses.Find(ID_Address);
         }
-        
+        public Payment GetPayment(string Name)
+        {
+            return db.Payments.FirstOrDefault(m => m.Name == Name);
+        }
+        public Shipping GetShipping(string Name)
+        {
+            return db.Shippings.FirstOrDefault(m => m.Name == Name);
+        }
     }
 }

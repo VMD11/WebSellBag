@@ -29,28 +29,11 @@ namespace SellingBags.Models.DataContext
         }
         public void Register(RegisterVM registerVM)
         {
-            string ID_Customer = "C0";
-            string lastCustomer = db.spLastCustomer().Last().Trim();
-            //List<string> test = db.spLastCustomer().ToList();
-
-            //Debug.WriteLine(lastCustomer);
-            //foreach(string s in test)
-            //{
-            //    Debug.WriteLine(s);
-            //}
-            if(string.IsNullOrEmpty(lastCustomer))
-            {
-                ID_Customer += 1.ToString();
-            }
-            else
-            {
-                int number = int.Parse(lastCustomer.Substring(2));
-                number++;
-                ID_Customer += number.ToString();
-                
-            }
-
-            Account account = new Account { ID_Account = GenarateRandomID.Execute(), UserName = registerVM.UserName, Password = Encryptor.MD5Hash(registerVM.Password), ID_Role = "R02" };
+            Account account = new Account();
+            account.ID_Account = GenarateRandomID.Execute();
+            account.UserName = registerVM.UserName;
+            account.Password = Encryptor.MD5Hash(registerVM.Password);
+            account.ID_Role = "R02";
             db.Accounts.Add(account);
 
             Customer customer = null;
@@ -70,7 +53,7 @@ namespace SellingBags.Models.DataContext
             {
                 customer = new Customer
                 {
-                    ID_Customer = ID_Customer,
+                    ID_Customer = GenarateRandomID.Execute(),
                     FirstName = registerVM.FirstName,
                     LastName = registerVM.LastName,
                     Email = null,

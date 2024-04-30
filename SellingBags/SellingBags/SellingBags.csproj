@@ -133,14 +133,19 @@
     <Compile Include="Areas\Admin\Controllers\BrandManageController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
+    <Compile Include="Areas\Admin\Controllers\OrderManageController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductManageController.cs" />
     <Compile Include="Areas\Admin\Controllers\TypeManageController.cs" />
     <Compile Include="Areas\Admin\Models\DataContext\BrandContext.cs" />
+    <Compile Include="Areas\Admin\Models\DataContext\DashboardContext.cs" />
     <Compile Include="Areas\Admin\Models\DataContext\LoginContext.cs" />
+    <Compile Include="Areas\Admin\Models\DataContext\OrderContext.cs" />
     <Compile Include="Areas\Admin\Models\DataContext\ProductContext.cs" />
     <Compile Include="Areas\Admin\Models\DataContext\ProductTypeContext.cs" />
     <Compile Include="Areas\Admin\Models\ViewModel\BrandVM.cs" />
+    <Compile Include="Areas\Admin\Models\ViewModel\DashboardVM.cs" />
     <Compile Include="Areas\Admin\Models\ViewModel\LoginVM.cs" />
+    <Compile Include="Areas\Admin\Models\ViewModel\OrderVM.cs" />
     <Compile Include="Areas\Admin\Models\ViewModel\ProductTypeVM.cs" />
     <Compile Include="Areas\Admin\Models\ViewModel\ProductVM.cs" />
     <Compile Include="Common\GenarateDate.cs" />
@@ -197,6 +202,9 @@
     <Compile Include="Models\OrderDetail.cs">
       <DependentUpon>SellingBags.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Payment.cs">
+      <DependentUpon>SellingBags.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Product.cs">
       <DependentUpon>SellingBags.tt</DependentUpon>
     </Compile>
@@ -220,6 +228,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SellingBags.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Shipping.cs">
+      <DependentUpon>SellingBags.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\spLoadAllBrand_Result.cs">
       <DependentUpon>SellingBags.tt</DependentUpon>
@@ -4376,6 +4387,8 @@
     <Content Include="Areas\Admin\Views\TypeManage\Update.cshtml" />
     <Content Include="Areas\Admin\Views\BrandManage\Update.cshtml" />
     <Content Include="Areas\Admin\Views\BrandManage\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\OrderManage\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\OrderManage\Detail.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Product\ProductsByCategory.cshtml" />
     <Content Include="Views\Cart\Checkout.cshtml" />

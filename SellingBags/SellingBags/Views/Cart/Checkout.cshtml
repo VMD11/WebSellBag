@@ -11,8 +11,8 @@
 
 <div class="cart-box-main">
     <div class="container">
-        @using (Html.BeginForm("Add", "Order", FormMethod.Post, new {id="orderForm"})) 
-        { 
+        @*@using (Html.BeginForm("Add", "Order", FormMethod.Post, new { id = "orderForm" }))
+        {*@
             <div class="row new-account-login">
                 @* Start LeftColumn *@
                 <div class="col-sm-6 col-lg-6 mb-3">
@@ -26,7 +26,9 @@
                             <div class="login-res">
                                 <div id="formLogin" class="login-res-wapper ct-wapper collapse show">
                                     <div class="form">
-                                        <form id="loginForm" action="" method="post">
+                                        @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "loginForm" }))
+                                        {
+                                            
                                             <div class="results-error">
                                                 <div class="error">
                                                 </div>
@@ -34,13 +36,13 @@
                                             <div class="form-input">
                                                 <label>Số điện thoại hoặc Email</label>
                                                 <div class="mb-0">
-                                                    <input placeholder="Vd: 0123456789" name="UserName" class="username" value="" />
+                                                    <input placeholder="Vd: 0123456789" name="UserName" class="username" />
                                                 </div>
                                             </div>
                                             <div class="form-input mb-0">
                                                 <label>Mật khẩu</label>
                                                 <div class="input-icon">
-                                                    <input type="password" placeholder="**********" id="passwordInput" name="Password" class="password" value="" />
+                                                    <input type="password" placeholder="**********" id="passwordInput" name="Password" class="password" />
                                                     <div id="icon-showpass" class="icon-showpass p-2" onclick="showPass()">
                                                         <i class="fa fa-eye-slash" id="eyeIcon"></i>
                                                     </div>
@@ -50,72 +52,84 @@
                                             <div class="g-action">
                                                 <button type="submit" class="btn hvr-hover border-0">Đăng nhập</button>
                                             </div>
-                                        </form>
+                                        }
                                     </div>
                                 </div>
                             </div>
-                        } 
-                        else 
+                        }
+                        else
                         {
                             <div class="mb-4">Bạn đã đăng nhập bằng tài khoản <strong>@account.UserName</strong></div>
                             frozen = "";
                             show = "show";
                         }
-                    
+
                     </div>
                     @* End Form Login *@
 
-                
+
                     @* Start Info Address *@
                     <div id="infoAddress" class="checkout-address @frozen">
                         <div class="title-left ">
                             <h2><a data-toggle="collapse" href="#formInfo" aria-expanded="false">Thông tin người nhận</a></h2>
                         </div>
                         <div id="formInfo" class="collapse @show">
-                            <div class="title mb-3"><a data-toggle="collapse" href="#address" aria-expanded="false">Địa chỉ của tôi</a></div>
+                            <div class="title mb-2 p-2">
+                                <a data-toggle="collapse" href="#address" aria-expanded="false"  style="text-decoration:underline !important">Địa chỉ của tôi</a>
+                            </div>
                             <div id="address" class="collapse @show ">
                                 @if (account != null)
                                 {
                                     SellingBags.Models.DataContext.CheckoutContext checkout = new SellingBags.Models.DataContext.CheckoutContext();
                                     var Addresses = checkout.GetAddresses(account.ID_Account);
-                                    foreach (var item in Addresses)
+                                    if (Addresses.Count() != 0)
+                                    {
+                                        foreach (var item in Addresses)
+                                        {
+                                            <div class="address-box">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input id="@item.ID_Address" name="ID_Address" value="@item.ID_Address" class="custom-control-input mt-4" type="checkbox">
+                                                    <label class="custom-control-label" for="@item.ID_Address">@item.LastName @item.FirstName</label>
+                                                    <div class="small text-muted pt-0 pb-0">@item.PhoneNumber</div>
+                                                    <div class="small text-muted pt-0">@item.SpecificAddress, @item.Ward, @item.District, @item.City</div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                    else
                                     {
                                         <div class="address-box">
-                                            <div class="custom-control custom-checkbox">
-                                                <input id="@item.ID_Address" name="ID_Address" value="@item.ID_Address" class="custom-control-input mt-4" type="checkbox">
-                                                <label class="custom-control-label" for="@item.ID_Address">@item.LastName @item.FirstName</label>
-                                                <div class="small text-muted pt-0 pb-0">@item.PhoneNumber</div>
-                                                <div class="small text-muted pt-0">@item.SpecificAddress, @item.Ward, @item.District, @item.City</div>
-                                            </div>
+                                            <div class="p-2">Chưa có địa chỉ</div>
                                         </div>
                                     }
+
                                 }
                             </div>
                             <hr>
-                            <div class="title mb-3 shopping-box">
-                                <a id="addInfo" data-toggle="collapse" href="#newaddress" aria-expanded="false" class="btn hvr-hover w-100">Địa chỉ mới</a>
+                            <div class="title p-2">
+                                <a id="addInfo" data-toggle="collapse" href="#newaddress" aria-expanded="false" style="text-decoration:underline !important">Địa chỉ mới</a>
                             </div>
                             <div id="newaddress" class="collapse">
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label for="lastName">Họ:</label>
-                                        <input type="text" class="form-control" id="lastName" name="LastName" placeholder="Nhập họ..." value="" >
+                                        <input type="text" class="form-control" id="lastName" name="LastName" placeholder="Nhập họ..." value="" required>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label for="firstName">Tên:</label>
-                                        <input type="text" class="form-control" id="firstName" name="FirstName" placeholder="Nhập tên..." value="" >
+                                        <input type="text" class="form-control" id="firstName" name="FirstName" placeholder="Nhập tên..." value="" required>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="username">Số điện thoại:</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="username" name="UserName" placeholder="Nhập số điện thoại..." >
+                                        <input type="text" class="form-control" id="username" name="UserName" placeholder="Nhập số điện thoại..." required>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label for="city">Tỉnh / Thành phố:</label>
                                     <div class="input-group">
-                                        <select id="city" class="form-control" name="City">
+                                        <select id="city" class="form-control" name="City" required>
                                             <option>Hà Nội</option>
                                         </select>
                                     </div>
@@ -123,7 +137,7 @@
                                 <div class="mb-3">
                                     <label for="district">Quận / Huyện:</label>
                                     <div class="input-group">
-                                        <select id="district" class="form-control" name="District">
+                                        <select id="district" class="form-control" name="District" required>
                                             <option>Bắc Từ Liêm</option>
                                             <option>Nam Từ Liêm</option>
                                             <option>Cầu Giấy</option>
@@ -134,7 +148,7 @@
                                 <div class="mb-3">
                                     <label for="ward">Phường / Xã:</label>
                                     <div class="input-group">
-                                        <select id="ward" class="form-control" name="Ward">
+                                        <select id="ward" class="form-control" name="Ward" required>
                                             <option>Minh Khai</option>
                                             <option>Yên Hòa</option>
                                             <option>Mỹ Đình</option>
@@ -145,10 +159,11 @@
                                 <div class="mb-3">
                                     <label for="specificaddress">Địa chỉ:</label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="specificaddress" name="SpecificAddress" placeholder="Nhập địa chỉ..." >
+                                        <input type="text" class="form-control" id="specificaddress" name="SpecificAddress" placeholder="Nhập địa chỉ..." required>
                                     </div>
                                 </div>
                             </div>
+                            <hr>
                             <div class="row ">
                                 <div class="col-12 shopping-box ">
                                     <a id="submitInfoAddress" class="btn hvr-hover text-white border-0 w-100">Đi đến thanh toán</a>
@@ -167,58 +182,42 @@
                             <div class="title mb-3"><a data-toggle="collapse" href="#shipping" aria-expanded="false">Gói vận chuyển</a></div>
                             @* Start Shipping Method *@
                             <div id="shipping" class="mb-4 collapse show">
-                                @{ 
-                                    var index = 1;
-                                    foreach(var item in Model.ShippingCost)
+                                @{
+                                    foreach (var item in Model.Shippings)
                                     {
-                                        var data_id = "shipping" + index;
-                                        var check = (index == 1) ? "checked" : "";
-                                        index++;
+                                        var data_id = "shipping" + item.ID_Shipping;
+                                        var check = (item.ID_Shipping == 1) ? "checked" : "";
                                         <div class="custom-control custom-radio">
-                                            <input id="@data_id" name="ShippingName" value="@item.Name" class="custom-control-input mt-4" type="radio" @check data-shipping-cost="@item.Cost" data-total-money="@Model.Cart.TotalMoney()" >
+                                            <input id="@data_id" name="ShippingName" value="@item.Name" class="custom-control-input mt-4" type="radio" @check data-shipping-cost="@item.Cost" data-total-money="@Model.Cart.TotalMoney()">
                                             <label class="custom-control-label" for="@data_id">@item.Name</label>
                                             <span class="float-right font-weight-bold">@Converts.convertVND(item.Cost)</span>
                                         </div>
                                         <div class="ml-4 mb-2 small">(Giao @item.DeliTime)</div>
                                     }
-                                    var cost = Model.ShippingCost.First().Cost;
+                                    var cost = Model.Shippings.First().Cost;
                                     var totalMoney = Model.Cart.TotalMoney() + cost;
-                                }        
-                            
+                                }
+
                             </div>
                             @* End Shipping Method *@
                             <hr>
                             <div class="title mb-3"><a data-toggle="collapse" href="#oderMethod" aria-expanded="false">Phương thức thanh toán</a></div>
                             @* Start Order Method *@
                             <div id="oderMethod" class="collapse show">
-                                <div class="custom-control custom-radio">
-                                    <input id="order1" name="PaymentName" value="Thanh toán khi nhận hàng" type="radio" class="custom-control-input mt-4" checked required>
-                                    <label class="custom-control-label" for="order1">
-                                        <img src="~/Assets/images/payment-icon/thanh-toan-khi-nhan-hang.png" alt="" width="20"> Thanh toán khi nhận hàng
-                                    </label>
-                                </div>
-                                <div class="custom-control custom-radio">
-                                    <input id="order2" name="PaymentName" value="Thẻ ATM nội địa" type="radio" class="custom-control-input mt-4" required>
-                                    <label class="custom-control-label" for="order2">
-                                        <img src="~/Assets/images/payment-icon/the-atm-noi-dia.png" alt="" width="20"> Thẻ ATM nội địa
-                                    </label>
-                                </div>
-                                <div class="custom-control custom-radio">
-                                    <input id="order3" name="PaymentName" value="Thẻ thanh toán quốc tế (VISA, Master, JCB)" type="radio" class="custom-control-input mt-4" required>
-                                    <label class="custom-control-label" for="order3">
-                                        <img src="~/Assets/images/payment-icon/the-thanh-toan-quoc-te-visa-master-jcb.png" alt="" width="20"> Thẻ thanh toán quốc tế (VISA, Master, JCB)
-                                    </label>
-                                </div>
-                                @{ 
-                                    index = 4;
-                                    foreach(var item in Model.PaymentMethods)
+                                @{
+                                    foreach (var item in Model.Payments)
                                     {
-                                        var data_id = "order" + index;
-                                        index++;
+                                        var data_id = "order" + item.ID_Payment;
+                                        var name = item.Name;
+                                        if (item.ID_Payment > 3)
+                                        {
+                                            name = "Thanh toán bằng " + item.Name;
+                                        }
+                                        var check = (item.ID_Payment == 1) ? "checked" : "";
                                         <div class="custom-control custom-radio">
-                                            <input id="@data_id" name="PaymentName" value="@item.Name" type="radio" class="custom-control-input mt-4" required>
+                                            <input id="@data_id" name="PaymentName" value="@item.Name" type="radio" @check  class="custom-control-input mt-4" >
                                             <label class="custom-control-label" for="@data_id">
-                                                <img src="~/Assets/images/payment-icon/@item.ImageURL" alt="" width="18"> Thanh toán bằng @item.Name
+                                                <img src="~/Assets/images/payment-icon/@item.ImageURL" alt="" width="18"> @name
                                             </label>
                                         </div>
                                     }
@@ -239,7 +238,7 @@
                             <h2>Sản phẩm đang thanh toán</h2>
                         </div>
                         <div class="rounded p-2 bg-light">
-                            @foreach(var item in Model.Cart.GetList())
+                            @foreach (var item in Model.Cart.GetList())
                             {
                                 <div class="media mb-2 border-bottom">
                                     <div class="row media-body">
@@ -254,9 +253,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            
+
                             }
-                        
+
                         </div>
                     </div>
                     @* End Order Product *@
@@ -284,69 +283,24 @@
                         <div class="d-flex gr-total">
                             <h5>Thành tiền</h5>
                             <div class="ml-auto h5" id="totalMoney">@Converts.convertVND(totalMoney)</div>
-                            <input type="number" hidden name="TotalMoney" value="@totalMoney" />
+                            <div class="d-none">
+                                <input type="number" id="totalmoney" name="TotalMoney" value="@totalMoney" />
+                            </div>
                         </div>
                         <hr>
                     </div>
                     @* End Order *@
-                    <div class="row">
-
-                        <div id="placeOrder" class="col-12 shopping-box d-none">
-                            <button type="submit" class="w-100 btn hvr-hover">Đặt hàng</button> 
+                    @using (Html.BeginForm("Add", "Order", FormMethod.Post, new { id = "orderForm" }))
+                    {
+                        <div class="row">
+                            <div id="placeOrder" class="col-12 shopping-box d-none">
+                                <button type="submit" class="w-100 btn hvr-hover">Đặt hàng</button>
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
                 @* End RightColumn *@
             </div>
-        }
+        @*}*@
     </div>
 </div>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        //$('#loginForm').submit(function (e) {
-        //    e.preventDefault();
-        //    $.ajax({
-        //        url: $(this).attr('action'),
-        //        type: 'POST',
-        //        data: $(this).serialize(),
-        //        success: function (response) {
-        //            location.reload();
-        //        },
-        //        error: function () {
-        //            alert('Đăng nhập thất bại. Vui lòng thử lại!');
-        //        }
-        //    });
-        //});
-        $('#loginForm').submit(function (e) {
-	        e.preventDefault();
-
-	        $.ajax({
-		        url: '@Url.Action("Login","Account")',
-		        type: 'POST',
-		        data: $(this).serialize(),
-		        success: function (response) {
-			        location.reload();
-
-		        },
-		        error: function () {
-			        alert('Đăng nhập thất bại. Vui lòng thử lại!');
-		        }
-	        });
-        });
-
-
-        $('input[name="ShippingName"]').on('change', function () {
-            var shippingCost = $(this).data('shipping-cost');
-            var totalMoney = $(this).data('total-money');
-            var result = parseInt(shippingCost) + parseInt(totalMoney);
-            $('#shippingCost').text(convertVND(shippingCost));
-            $('#totalMoney').text(convertVND(result));
-            $('input[name="TotalMoney"]').val = result;
-        });
-
-        function convertVND(amount) {
-            return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
-        }
-    });
-</script>

@@ -1,4 +1,6 @@
-﻿using SellingBags.Common;
+﻿using SellingBags.Areas.Admin.Models.DataContext;
+using SellingBags.Areas.Admin.Models.ViewModel;
+using SellingBags.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,7 @@ namespace SellingBags.Areas.Admin.Controllers
 {
     public class DashboardController : Controller
     {
+        private readonly DashboardContext dashboardContext = new DashboardContext();
         // GET: Admin/Home
         public ActionResult Index()
         {
@@ -17,7 +20,11 @@ namespace SellingBags.Areas.Admin.Controllers
             {
                 return RedirectToAction("Index", "Login");
             }
-            return View();
+            var dashboardVM = new DashboardVM();
+            dashboardVM.MonthlyRevenue = dashboardContext.GetMonthlyRevenue();
+            dashboardVM.YearlyRevenue = dashboardContext.GetYearlyRevenue();
+            //ViewBag.RevenuePerMonth = dashboardContext.GetRevenuePerMonth();
+            return View(dashboardVM);
         }
 
         public ActionResult Logout()

@@ -11,8 +11,8 @@ namespace SellingBags.Controllers
 {
     public class OrderController : Controller
     {
-        private OrderContext orderContext = new OrderContext();
-        private CheckoutContext checkoutContext = new CheckoutContext();
+        private readonly OrderContext orderContext = new OrderContext();
+        private readonly CheckoutContext checkoutContext = new CheckoutContext();
         // GET: Order
         public ActionResult Index(OrderVM orderVM)
         {
@@ -45,7 +45,7 @@ namespace SellingBags.Controllers
                 ViewBag.Status = "Đang vận chuyển";
             }
             orderVM.OrderDetails = orderContext.GetOrderDetails(ID_Order);
-            orderVM.ShippingMethod = checkoutContext.GetShippingMethod(orderVM.Order.ShippingMethod);
+            orderVM.Shipping = orderContext.GetShipping(orderVM.Order.ShippingMethod);
             orderVM.ID_Address = orderVM.Order.ID_Address;
             orderVM.Address = orderContext.GetAddress(orderVM.ID_Address);
             return View(orderVM);
@@ -85,7 +85,6 @@ namespace SellingBags.Controllers
         private LoginAccount Account()
         {
             return Session[Sessions.USER_SESSION] as LoginAccount;
-
         }
         private VirtualCartContext Cart()
         {

@@ -26,6 +26,8 @@
 
     <!-- Custom styles for this template-->
     <link href="~/Areas/Admin/Assets/css/sb-admin-2.min.css" rel="stylesheet">
+    <!-- Custom styles for this page -->
+    <link href="~/Areas/Admin/Assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -121,16 +123,16 @@
 
             <!-- Nav Item - Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-                   aria-expanded="true" aria-controls="collapsePages">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrders"
+                   aria-expanded="true" aria-controls="collapseOrders">
                     <i class="fas fa-fw fa-truck"></i>
                     <span>Đơn hàng</span>
                 </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div id="collapseOrders" class="collapse" aria-labelledby="headingOrders" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Login Screens:</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
+                        <h6 class="collapse-header">Đơn hàng:</h6>
+                        <a class="collapse-item" href="@Url.Action("Index","OrderManage")">Đơn hàng</a>
+                        <a class="collapse-item" href="@Url.Action("","OrderManage")">Thống kê</a>
                         <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
                         <div class="collapse-divider"></div>
                         <h6 class="collapse-header">Other Pages:</h6>

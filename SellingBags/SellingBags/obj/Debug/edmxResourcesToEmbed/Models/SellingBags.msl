@@ -180,5 +180,26 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Payments">
+      <EntityTypeMapping TypeName="SellingBagsModel.Payment">
+        <MappingFragment StoreEntitySet="Payment">
+          <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID_Payment" ColumnName="ID_Payment" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Shippings">
+      <EntityTypeMapping TypeName="SellingBagsModel.Shipping">
+        <MappingFragment StoreEntitySet="Shipping">
+          <ScalarProperty Name="Cost" ColumnName="Cost" />
+          <ScalarProperty Name="DeliDate" ColumnName="DeliDate" />
+          <ScalarProperty Name="DeliTime" ColumnName="DeliTime" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID_Shipping" ColumnName="ID_Shipping" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="ReloadOrders" FunctionName="SellingBagsModel.Store.ReloadOrders" />
   </EntityContainerMapping>
 </Mapping>
