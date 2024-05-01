@@ -109,6 +109,30 @@ namespace SellingBags.Controllers
             }
             return View(registerVM);
         }
+        [HttpGet]
+        public ActionResult Info()
+        {
+            if(Account() == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            AccountVM accountVM = new AccountVM();
+            var ID_Account = Account().ID_Account;
+            accountVM.Account = AccountContext.GetAccountByID(ID_Account);
+            accountVM.Customer = AccountContext.GetCustomerByID(ID_Account);
+            return View(accountVM);
+        }
+
+        [HttpPost]
+        public ActionResult Info(AccountVM accountVM)
+        {
+            if (Account() == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            return View(accountVM);
+        }
 
         private WishListContext wishListContext = new WishListContext();
         public ActionResult WishList(WishListVM wishListVM)

@@ -1,0 +1,75 @@
+﻿@model SellingBags.Models.ViewModel.AccountVM
+@{
+    ViewBag.Title = "Info";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="sidebar-profile">
+        
+    </div>
+
+    <div>
+        <div class="row">
+            <div><h3>Thông tin cá nhân</h3></div>
+            <div class="col-lg-6">
+                <div class="mb-3">
+                    <label for="lastName">Họ:</label>
+                    <input id="lastname" name="LastName" class="form-control" value="@Model.Customer.LastName"/>
+                </div>
+                <div class="mb-3">
+                    <label for="firstName">Tên:</label>
+                    <input id="firstname" name="FirstName" class="form-control" value="@Model.Customer.FirstName"/>
+                </div>
+                <div class="mb-3">
+                    <label for="username">Số điện thoại:</label>
+                    <input id="username" name="UserName" class="form-control" value="@Model.Customer.PhoneNumber"/>
+                </div>
+                <div class="mb-3">
+                    <label for="email">Email:</label>
+                    <input id="email" name="Email" class="form-control" value="@Model.Customer.Email"/>
+                </div>
+                <div class="mb-3">
+                    <label for="birthday">Ngày sinh:</label>
+                    <input id="birthday" name="BirthDay" class="form-control" value="@Model.Customer"/>
+                </div>
+                <div class="mb-3">
+                    <label for="city">Tỉnh / Thành phố:</label>
+                    <input id="city" name="City" class="form-control" value="@Model.Customer.City"/>
+                </div>
+                <div class="mb-3">
+                    <label for="district">Quận / Huyện:</label>
+                    <input id="district" name="District" class="form-control" value="@Model.Customer.District"/>
+                </div>
+                <div class="mb-3">
+                    <label for="ward">Phường / Xã:</label>
+                    <input id="ward" name="Ward" class="form-control" value="@Model.Customer.Ward"/>
+                </div>
+                <div class="mb-3">
+                    <label for="specificaddress">Địa chỉ:</label>
+                    <input id="specificaddress" name="SpecificAddress" class="form-control" value="@Model.Customer.Address"/>
+                </div>
+                <div class="mb-3 d-inline-block">
+                    <label for="Gender">Giới tính:</label>
+                    <div class="custom-control custom-radio">
+                        <input id="male" name="Gender" class="custom-control-input mt-4" type="radio" checked />
+                        <label class="custom-control-label" for="male">Nam</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input id="female" name="Gender" class="custom-control-input mt-4" type="radio" />
+                        <label class="custom-control-label" for="female">Nữ</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input id="other" name="Gender" class="custom-control-input mt-4" type="radio" />
+                        <label class="custom-control-label" for="other">Khác</label>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <a href="@Url.Action("UpdateInfo","Account")" class="btn hvr-hover">Cập nhật</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+

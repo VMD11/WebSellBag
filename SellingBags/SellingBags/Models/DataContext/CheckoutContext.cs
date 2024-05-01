@@ -9,7 +9,6 @@ namespace SellingBags.Models.DataContext
     public class CheckoutContext
     {
         private SellingBagsEntities db = null;
-        private OrderContext orderContext = new OrderContext();
         public CheckoutContext()
         {
             db = new SellingBagsEntities();
@@ -28,7 +27,7 @@ namespace SellingBags.Models.DataContext
         public IEnumerable<Address> GetAddresses(string ID_Account)
         {
             
-            var ID_Customer = orderContext.GetCustomer(ID_Account).ID_Customer;
+            var ID_Customer = OrderContext.GetCustomer(ID_Account).ID_Customer;
             return db.Addresses.Where(a => a.ID_Customer == ID_Customer);
 
         }

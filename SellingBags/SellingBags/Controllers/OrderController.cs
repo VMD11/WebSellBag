@@ -1,4 +1,5 @@
 ﻿using SellingBags.Common;
+using SellingBags.Models;
 using SellingBags.Models.DataContext;
 using SellingBags.Models.ViewModel;
 using System;
@@ -11,7 +12,6 @@ namespace SellingBags.Controllers
 {
     public class OrderController : Controller
     {
-        private readonly OrderContext orderContext = new OrderContext();
         private readonly CheckoutContext checkoutContext = new CheckoutContext();
         // GET: Order
         public ActionResult Index(OrderVM orderVM)
@@ -22,11 +22,12 @@ namespace SellingBags.Controllers
                 return RedirectToAction("Login", "Account");
             }
             var ID_Account = Account().ID_Account;
-            orderVM.Orders = orderContext.GetOrders(ID_Account);
+            orderVM.Orders = OrderContext.GetOrders(ID_Account);
+            int load = OrderContext.GetReloadOrders();
             return View(orderVM);
         }
 
-        [HttpGet]
+        
         public ActionResult Detail(string ID_Order)
         {
             ViewBag.Status = "";
@@ -35,41 +36,29 @@ namespace SellingBags.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
-            orderVM.Order = orderContext.GetOrder(ID_Order);
-            if (orderVM.Order.DeliDate <= DateTime.Now)
+            orderVM.Order = OrderContext.GetOrder(ID_Order);
+            orderVM.OrderDetails = OrderContext.GetOrderDetails(ID_Order);
+            orderVM.Shipping = OrderContext.GetShipping(orderVM.Order.ShippingMethod);
+            orderVM.Address = OrderContext.GetAddress(orderVM.Order.ID_Address);
+            if (orderVM.Order.Status == 0)
             {
-                ViewBag.Status = "Đơn hàng hoàn tất";
+                ViewBag.Status = "Chờ xác nhận";
+            }
+            else if (orderVM.Order.Status == 1)
+            {
+                if (orderVM.Order.DeliDate <= DateTime.Now)
+                    ViewBag.Status = "Đơn hàng đã hoàn thành";
+                else
+                    ViewBag.Status = "Đang vận chuyển";
             }
             else
             {
-                ViewBag.Status = "Đang vận chuyển";
+                ViewBag.Status = "Đã hủy";
             }
-            orderVM.OrderDetails = orderContext.GetOrderDetails(ID_Order);
-            orderVM.Shipping = orderContext.GetShipping(orderVM.Order.ShippingMethod);
-            orderVM.ID_Address = orderVM.Order.ID_Address;
-            orderVM.Address = orderContext.GetAddress(orderVM.ID_Address);
             return View(orderVM);
         }
-
         [HttpPost]
-        public ActionResult Detail(OrderVM orderVM)
-        {
-            ViewBag.Status = "";
-            if (Account() == null)
-            {
-                return RedirectToAction("Login", "Account");
-            }
-            orderVM.Order = orderContext.GetOrder(orderVM.ID_Order);
-            if (orderVM.Order.Status == 1)
-            {
-                ViewBag.Status = "Đơn hàng hoàn tất";
-            }
-            ViewBag.Status = "Đang vận chuyển";
-            orderVM.OrderDetails = orderContext.GetOrderDetails(orderVM.ID_Order);
-            orderVM.Address = orderContext.GetAddress(orderVM.ID_Address);
-            return View(orderVM);
-        }
-        public ActionResult Add(OrderVM orderVM)
+        public ActionResult AddBill(OrderVM orderVM)
         {
             if(Account()  == null)
             {
@@ -77,10 +66,10 @@ namespace SellingBags.Controllers
             }
             orderVM.Cart = Cart();
             var ID_Account = Account().ID_Account;
-            orderContext.AddBill(orderVM, ID_Account);
-            orderContext.AddBillDetail(orderVM.Cart, orderVM.ID_Order);
+            OrderContext.AddBill(orderVM, ID_Account);
             Session[Sessions.CART] = null;
-            return RedirectToAction("Detail",orderVM);
+            
+            return RedirectToAction("Detail", "Order",new { ID_Order = orderVM.ID_Order });
         }
         private LoginAccount Account()
         {

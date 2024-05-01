@@ -182,6 +182,7 @@
     <Compile Include="Models\Customer.cs">
       <DependentUpon>SellingBags.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DataContext\AccountContext.cs" />
     <Compile Include="Models\DataContext\CheckoutContext.cs" />
     <Compile Include="Models\DataContext\OrderContext.cs" />
     <Compile Include="Models\DataContext\VirtualCartContext.cs" />
@@ -238,6 +239,7 @@
     <Compile Include="Models\spProductsByType_Result.cs">
       <DependentUpon>SellingBags.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModel\AccountVM.cs" />
     <Compile Include="Models\ViewModel\CheckoutVM.cs" />
     <Compile Include="Models\ViewModel\OrderVM.cs" />
     <Compile Include="Models\ViewModel\VirtualCartVM.cs" />
@@ -4396,6 +4398,7 @@
     <Content Include="Views\Product\NewProducts.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Order\Detail.cshtml" />
+    <Content Include="Views\Account\Info.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

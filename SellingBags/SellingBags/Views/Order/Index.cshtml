@@ -4,7 +4,6 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    SellingBags.Models.DataContext.OrderContext context = new SellingBags.Models.DataContext.OrderContext();
 }
 
 <div class="container">
@@ -13,14 +12,25 @@
     </div>
     @foreach (var order in Model.Orders)
     {
-        var OrderDetails = context.GetOrderDetails(order.ID_Order);
+        var OrderDetails = SellingBags.Models.DataContext.OrderContext.GetOrderDetails(order.ID_Order);
         if(order.Status == 0)
         {
-            ViewBag.Status = "Đang vận chuyển";
+            ViewBag.Status = "Chờ xác nhận";
+        }
+        else if(order.Status == 1)
+        {
+            if (order.DeliDate <= DateTime.Now)
+            {
+                ViewBag.Status = "Đơn hàng đã hoàn thành";
+            }
+            else
+            {
+                ViewBag.Status = "Đang vận chuyển";
+            }
         }
         else
         {
-            ViewBag.Status = "Đơn hàng đã hoàn thành";
+            ViewBag.Status = "Đã hủy";
         }
         <div class="order-item mb-3 p-3">
             <div class="d-flex justify-content-end">@ViewBag.Status</div>
