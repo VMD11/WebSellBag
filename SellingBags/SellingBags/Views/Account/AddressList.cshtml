@@ -1,0 +1,103 @@
+﻿@model SellingBags.Models.ViewModel.AccountVM
+@{
+    ViewBag.Title = "AddressList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="all-title-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Địa chỉ của tôi</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
+                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Account")">Hồ sơ</a></li>
+                        <li class="breadcrumb-item active">Địa chỉ của tôi</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+
+        <div>
+
+            @if (Model.Addresses.Count() != 0)
+            {
+                foreach (var item in Model.Addresses)
+                {
+                    <div class="address-box mb-2">
+                        <div class="p-2">
+                            <label class="custom-control-label" for="@item.ID_Address">@item.LastName @item.FirstName</label>
+                            <div class="small text-muted pt-0 pb-0">@item.PhoneNumber</div>
+                            <div class="small text-muted pt-0">@item.SpecificAddress, @item.Ward, @item.District, @item.City</div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="address-box">
+                    <div class="p-2">Bạn chưa có địa chỉ</div>
+                </div>
+            }
+
+
+        </div>
+        <hr>
+        <div class="title p-2 mb-4">
+            <a id="addInfo" data-toggle="collapse" href="#newaddress" aria-expanded="false" style="text-decoration:underline !important">Thêm địa chỉ mới</a>
+        </div>
+        <div id="newaddress" class="ml-lg-5 mr-lg-5 collapse">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="lastName">Họ:</label>
+                    <input type="text" class="form-control" id="lastName" name="LastName" placeholder="Nhập họ..." value="" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="firstName">Tên:</label>
+                    <input type="text" class="form-control" id="firstName" name="FirstName" placeholder="Nhập tên..." value="" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="username">Số điện thoại:</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="username" name="UserName" placeholder="Nhập số điện thoại..." required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="city">Tỉnh / Thành phố:</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="city" name="City" placeholder="Nhập tỉnh / thành phố..." required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="district">Quận / Huyện:</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="district" name="District" placeholder="Nhập quận / huyện..." required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="ward">Phường / Xã:</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="ward" name="Ward" placeholder="Nhập phường / xã..." required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="specificaddress">Địa chỉ:</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="specificaddress" name="SpecificAddress" placeholder="Nhập địa chỉ..." required>
+                </div>
+            </div>
+            <hr>
+            <div class="row mb-5">
+                <div class="col-12 shopping-box ">
+                    <button type="submit" id="submitInfoAddress" class="btn hvr-hover text-white border-0 w-100">Thêm địa chỉ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

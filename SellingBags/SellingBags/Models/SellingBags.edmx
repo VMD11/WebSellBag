@@ -67,6 +67,8 @@
           <Property Name="ID_Account" Type="char" MaxLength="10" Nullable="false" />
           <Property Name="Ward" Type="nvarchar" MaxLength="50" />
           <Property Name="District" Type="nvarchar" MaxLength="50" />
+          <Property Name="BirthDay" Type="date" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="5" />
         </EntityType>
         <EntityType Name="Discount">
           <Key>
@@ -813,6 +815,8 @@
           <NavigationProperty Name="Account" Relationship="SellingBagsModel.FK_Customer_Account" FromRole="Customer" ToRole="Account" />
           <NavigationProperty Name="Orders" Relationship="SellingBagsModel.FK_Order_Customer" FromRole="Customer" ToRole="Order" />
           <NavigationProperty Name="Addresses" Relationship="SellingBagsModel.FK_Address_Customer" FromRole="Customer" ToRole="Address" />
+          <Property Name="BirthDay" Type="DateTime" Precision="0" />
+          <Property Name="Gender" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Customer_Account">
           <End Type="SellingBagsModel.Account" Role="Account" Multiplicity="1" />
@@ -1053,6 +1057,8 @@
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="SellingBagsModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="BirthDay" ColumnName="BirthDay" />
                 <ScalarProperty Name="District" ColumnName="District" />
                 <ScalarProperty Name="Ward" ColumnName="Ward" />
                 <ScalarProperty Name="ID_Account" ColumnName="ID_Account" />

@@ -13,22 +13,20 @@
     WishListContext context = new WishListContext();
 }
 
-<!-- Start All Title Box -->
 @*<div class="all-title-box">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2>Shop Detail</h2>
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
-                        <li class="breadcrumb-item active">Shop Detail </li>
-                    </ul>
-                </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Thông tin cá nhân</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Account")">Hồ sơ</a></li>
+                    <li class="breadcrumb-item active">Thông tin cá nhân</li>
+                </ul>
             </div>
         </div>
-    </div>*@
-<!-- End All Title Box -->
-<!-- Start Shop Detail  -->
+    </div>
+</div>*@
 <div class="shop-detail-box-main">
     <div class="container-fluid">
         <div class="w-100 justify-content-center d-flex">
@@ -113,39 +111,47 @@
                 <div class="featured-products-box owl-carousel owl-theme">
 
 
-                        @{
-                            foreach (var item in Model.RelativeProductsList)
-                            {
-                                <div class="item p-2">
-                                    <div class="products-single fix">
-                                        <div class="box-img-hover">
-                                            <div class="type-lb">
-                                                <p class="sale">@Model.Brand</p>
-                                            </div>
-                                            <img src="~/Assets/images/products/@item.ImageURL" class="img-fluid" alt="@item.Name">
-                                            <div class="mask-icon">
-                                                <ul>
-                                                    <li>
-                                                        <a href="@Url.Action("Detail", "Product", new {ID_Product = item.ID_Product.Trim()})" data-toggle="tooltip" data-placement="right" title="Xem chi tiết">
-                                                            <i class="fas fa-eye"></i>
-                                                        </a>
-                                                    </li>
-                                                    <li><a href="@Url.Action("AddToWishList", "Account", new {ID_Product = item.ID_Product.Trim()})" data-toggle="tooltip" data-placement="right" title="Thêm vào yêu thích"><i class="far fa-heart"></i></a></li>
-                                                </ul>
-                                                <a class="cart" href="@Url.Action("Add", "Cart", new {ID_Product = item.ID_Product.Trim(), Quantity = 1})">Thêm vào giỏ hàng</a>
-                                            </div>
+                    @{
+                        foreach (var item in Model.RelativeProductsList)
+                        {
+                            <div class="item p-2">
+                                <div class="products-single fix">
+                                    <div class="box-img-hover">
+                                        <div class="type-lb">
+                                            <p class="sale">@Model.Brand</p>
                                         </div>
-                                        <div class="why-text">
-                                            <a href="@Url.Action("Detail", "Product", new {ID_Product = item.ID_Product.Trim()})">
-                                                <h4>@item.Name</h4>
-                                                <h5>@Converts.convertVND(item.Price) <del>@Converts.convertVND(item.Price)</del> </h5>
-                                            </a>
+                                        <img src="~/Assets/images/products/@item.ImageURL" class="img-fluid" alt="@item.Name">
+                                        <div class="mask-icon">
+                                            <ul>
+                                                <li>
+                                                    <a href="@Url.Action("Detail", "Product", new {ID_Product = item.ID_Product.Trim()})" data-toggle="tooltip" data-placement="right" title="Xem chi tiết">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                </li>
+                                                @if (context.IsWishListed(ID_Account, item.ID_Product))
+                                                {
+                                                    <li><a href="@Url.Action("RemoveToWishList", "Account", new {ID_Product = item.ID_Product.Trim()})" data-toggle="tooltip" data-placement="right" title="Xóa khỏi yêu thích"><i class=" fa fa-heart"></i></a></li>
+
+                                                }
+                                                else
+                                                {
+                                                    <li><a href="@Url.Action("AddToWishList", "Account", new {ID_Product = item.ID_Product.Trim()})" data-toggle="tooltip" data-placement="right" title="Thêm vào yêu thích"><i class="far fa-heart"></i></a></li>
+                                                }
+                                            </ul>
+                                            <a class="cart" href="@Url.Action("Add", "Cart", new {ID_Product = item.ID_Product.Trim(), Quantity = 1})">Thêm vào giỏ hàng</a>
                                         </div>
                                     </div>
-
+                                    <div class="why-text">
+                                        <a href="@Url.Action("Detail", "Product", new {ID_Product = item.ID_Product.Trim()})">
+                                            <h4>@item.Name</h4>
+                                            <h5>@Converts.convertVND(item.Price) <del>@Converts.convertVND(item.Price)</del> </h5>
+                                        </a>
+                                    </div>
                                 </div>
-                            }
+
+                            </div>
                         }
+                    }
                     </div>
                 </div>
             </div>
@@ -174,7 +180,15 @@
                                                         <i class="fas fa-eye"></i>
                                                     </a>
                                                 </li>
-                                                <li><a href="@Url.Action("AddToWishList", "Account", new {ID_Product = item.ID_Product.Trim()})" data-toggle="tooltip" data-placement="right" title="Thêm vào yêu thích"><i class="far fa-heart"></i></a></li>
+                                                @if (context.IsWishListed(ID_Account, item.ID_Product))
+                                                {
+                                                    <li><a href="@Url.Action("RemoveToWishList", "Account", new {ID_Product = item.ID_Product.Trim()})" data-toggle="tooltip" data-placement="right" title="Xóa khỏi yêu thích"><i class=" fa fa-heart"></i></a></li>
+
+                                                }
+                                                else
+                                                {
+                                                    <li><a href="@Url.Action("AddToWishList", "Account", new {ID_Product = item.ID_Product.Trim()})" data-toggle="tooltip" data-placement="right" title="Thêm vào yêu thích"><i class="far fa-heart"></i></a></li>
+                                                }
                                             </ul>
                                             <a class="cart" href="@Url.Action("Add", "Cart", new {ID_Product = item.ID_Product.Trim(), Quantity = 1})">Thêm vào giỏ hàng</a>
                                         </div>

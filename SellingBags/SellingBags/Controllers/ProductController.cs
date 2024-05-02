@@ -52,6 +52,8 @@ namespace SellingBags.Controllers
         {
 
             productVM.ProductsByType = productContext.GetProductsByType(ID_ProductType);
+            ViewBag.ProductType = productContext.GetProductType(ID_ProductType);
+            ViewBag.Category = productContext.GetCategory(ViewBag.ProductType.ID_Category);
             return View(productVM);
         }
 
@@ -60,6 +62,7 @@ namespace SellingBags.Controllers
         {
             
             productVM.ProductsByCategory = productContext.GetProductsByCategory(ID_Category);
+            ViewBag.Category = productContext.GetCategory(ID_Category);
             return View(productVM);
         }
 

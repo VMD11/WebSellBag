@@ -130,6 +130,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AccountManageController.cs" />
     <Compile Include="Areas\Admin\Controllers\BrandManageController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
@@ -240,6 +241,7 @@
       <DependentUpon>SellingBags.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModel\AccountVM.cs" />
+    <Compile Include="Models\ViewModel\AddressVM.cs" />
     <Compile Include="Models\ViewModel\CheckoutVM.cs" />
     <Compile Include="Models\ViewModel\OrderVM.cs" />
     <Compile Include="Models\ViewModel\VirtualCartVM.cs" />
@@ -4189,7 +4191,6 @@
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
-    <Content Include="Views\Product\WishList.cshtml" />
     <Content Include="Views\Product\Detail.cshtml" />
     <Content Include="Views\Product\ProductsByType.cshtml" />
     <Content Include="Views\Product\ProductsByBrand.cshtml" />
@@ -4199,6 +4200,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Views\AccountManage\" />
     <Folder Include="Assets\images\categories\" />
   </ItemGroup>
   <ItemGroup>
@@ -4399,6 +4401,7 @@
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Order\Detail.cshtml" />
     <Content Include="Views\Account\Info.cshtml" />
+    <Content Include="Views\Account\AddressList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

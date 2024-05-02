@@ -9,10 +9,10 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h2>My Account</h2>
+                <h2>Hồ sơ</h2>
                 <ul class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Shop</a></li>
-                    <li class="breadcrumb-item active">My Account</li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
+                    <li class="breadcrumb-item active">Hồ sơ</li>
                 </ul>
             </div>
         </div>
@@ -54,7 +54,7 @@
                     <div class="account-box">
                         <div class="service-box">
                             <div class="service-icon">
-                                <a href="#"> <i class="fa fa-location-arrow"></i> </a>
+                                <a href="@Url.Action("AddressList","Account")"> <i class="fa fa-location-arrow"></i> </a>
                             </div>
                             <div class="service-desc">
                                 <h4>Địa chỉ của tôi</h4>
@@ -67,10 +67,10 @@
                     <div class="account-box">
                         <div class="service-box">
                             <div class="service-icon">
-                                <a href="#"> <i class="fa fa-credit-card"></i> </a>
+                                <a href="@Url.Action("WishList","Account")"> <i class="fa fa-heart"></i> </a>
                             </div>
                             <div class="service-desc">
-                                <h4>Ngân hàng</h4>
+                                <h4>Danh sách yêu thích</h4>
                                 <p></p>
                             </div>
                         </div>

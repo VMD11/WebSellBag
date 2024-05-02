@@ -6,10 +6,21 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container">
-    <div class="title-left">
-        <h2>Lịch sử mua hàng</h2>
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Lịch sử mua hàng</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Account")">Hồ sơ</a></li>
+                    <li class="breadcrumb-item active">Lịch sử mua hàng</li>
+                </ul>
+            </div>
+        </div>
     </div>
+</div>
+<div class="container mt-5">
     @foreach (var order in Model.Orders)
     {
         var OrderDetails = SellingBags.Models.DataContext.OrderContext.GetOrderDetails(order.ID_Order);

@@ -18,6 +18,10 @@ namespace SellingBags.Controllers
         // GET: Account
         public ActionResult Index()
         {
+            if (Account() == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
             return View();
         }
 
@@ -116,6 +120,8 @@ namespace SellingBags.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
+            ViewBag.Success = "";
+            ViewBag.Error = "";
             AccountVM accountVM = new AccountVM();
             var ID_Account = Account().ID_Account;
             accountVM.Account = AccountContext.GetAccountByID(ID_Account);
@@ -130,7 +136,45 @@ namespace SellingBags.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
+            ViewBag.Success = "";
+            ViewBag.Error = "";
+            var newCustomer = new Customer
+            {
+                ID_Customer = accountVM.ID_Customer,
+                LastName = accountVM.LastName,
+                FirstName = accountVM.FirstName,
+                PhoneNumber = accountVM.PhoneNumber,
+                City = accountVM.City,
+                District = accountVM.District,
+                Ward = accountVM.Ward,
+                BirthDay = accountVM.BirthDay,
+                Address = accountVM.Address,
+                Gender = accountVM.Gender,
+                ID_Account = Account().ID_Account,
+            };
+            if (AccountContext.UpdateInfo(newCustomer))
+            {
+                ViewBag.Success = "Cập nhật thành công";
+            }
+            else
+            {
+                ViewBag.Error = "Cập nhật thất bại";
+            }
+            accountVM.Customer = AccountContext.GetCustomerByID(Account().ID_Account);
+            return View(accountVM);
+        }
 
+        [HttpGet]
+        public ActionResult AddressList()
+        {
+            if (Account() == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            ViewBag.Success = "";
+            ViewBag.Error = "";
+            var accountVM = new AccountVM();
+            accountVM.Addresses = AccountContext.GetAddressesByID(Account().ID_Account);
             return View(accountVM);
         }
 

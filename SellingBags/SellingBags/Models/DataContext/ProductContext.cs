@@ -75,6 +75,15 @@ namespace SellingBags.Models.DataContext
              
         }
 
+        public Category GetCategory(string ID_Category)
+        {
+            return db.Categories.FirstOrDefault(c => c.ID_Category == ID_Category);
+        }
+        public ProductType GetProductType(string ID_Type)
+        {
+            return db.ProductTypes.FirstOrDefault(p => p.ID_Type == ID_Type);
+        }
+        
         public IEnumerable<Category> GetCategories()
         {
             return db.Categories.ToList();

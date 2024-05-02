@@ -1907,6 +1907,24 @@ form {
         color: #010101;
     }
 
+.breadcrumb{
+    background-color: #fff;
+}
+    .breadcrumb ul {
+        font-size: .875rem;
+        line-height: 1.375rem;
+        letter-spacing: .0063rem;
+        padding: .5rem 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+        .breadcrumb ul li {
+            padding-right: .5rem;
+            display: inline;
+            color: #757575;
+        }
+
 .about-box-main {
     padding: 70px 0px;
 }

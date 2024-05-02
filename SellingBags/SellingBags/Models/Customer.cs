@@ -31,6 +31,8 @@ namespace SellingBags.Models
         public string ID_Account { get; set; }
         public string Ward { get; set; }
         public string District { get; set; }
+        public Nullable<System.DateTime> BirthDay { get; set; }
+        public string Gender { get; set; }
     
         public virtual Account Account { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

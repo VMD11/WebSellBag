@@ -385,6 +385,8 @@
     <NavigationProperty Name="Account" Relationship="SellingBagsModel.FK_Customer_Account" FromRole="Customer" ToRole="Account" />
     <NavigationProperty Name="Orders" Relationship="SellingBagsModel.FK_Order_Customer" FromRole="Customer" ToRole="Order" />
     <NavigationProperty Name="Addresses" Relationship="SellingBagsModel.FK_Address_Customer" FromRole="Customer" ToRole="Address" />
+    <Property Name="BirthDay" Type="DateTime" Precision="0" />
+    <Property Name="Gender" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
   </EntityType>
   <Association Name="FK_Customer_Account">
     <End Type="SellingBagsModel.Account" Role="Account" Multiplicity="1" />
