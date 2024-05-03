@@ -5,6 +5,7 @@ using SellingBags.Models.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -57,6 +58,7 @@ namespace SellingBags.Controllers
             }
             return View(orderVM);
         }
+
         [HttpPost]
         public ActionResult AddBill(OrderVM orderVM)
         {
@@ -64,12 +66,55 @@ namespace SellingBags.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
-            orderVM.Cart = Cart();
             var ID_Account = Account().ID_Account;
-            OrderContext.AddBill(orderVM, ID_Account);
-            Session[Sessions.CART] = null;
+            var Customer = OrderContext.GetCustomer(ID_Account);
+            var Shipping = OrderContext.GetShipping(orderVM.ShippingName);
+            var address = new Address();
+            if (orderVM.ID_Address == null)
+            {
+                address.ID_Address = GenarateRandomID.Execute();
+                address.ID_Customer = Customer.ID_Customer;
+                address.PhoneNumber = orderVM.UserName;
+                address.FirstName = orderVM.FirstName;
+                address.LastName = orderVM.LastName;
+                address.Ward = orderVM.Ward;
+                address.District = orderVM.District;
+                address.City = orderVM.City;
+                address.SpecificAddress = orderVM.SpecificAddress;
+            }
+            var order = new Order()
+            {
+                ID_Order = GenarateRandomID.Execute(),
+                ID_Customer = Customer.ID_Customer,
+                ID_Address = orderVM.ID_Address == null ? address.ID_Address : orderVM.ID_Address,
+                OrderDate = DateTime.Now,
+                Status = 0,
+                PaymentMethod = orderVM.PaymentName,
+                ShippingMethod = Shipping.Name,
+                TotalMoney = orderVM.TotalMoney,
+                DeliDate = DateTime.Now.AddDays((double)Shipping.DeliDate),
+            };
+            orderVM.Cart = Cart();
+            var orderDetails = new List<OrderDetail>();
+            foreach (var item in orderVM.Cart.GetList())
+            {
+                var orderDetail = new OrderDetail()
+                {
+                    ID_OrderDetail = GenarateRandomID.Execute(),
+                    ID_Order = order.ID_Order,
+                    ID_Product = item.Product.ID_Product,
+                    Quantity = item.Quantity,
+                    Price = item.Product.Price,
+                };
+                orderDetails.Add(orderDetail);
+            }
+            if(OrderContext.AddBill(address, order, orderDetails))
+            {
+                Session[Sessions.CART] = null;
+                return RedirectToAction("Index", "Order");
+            }
+            return RedirectToAction("Checkout", "Cart");
             
-            return RedirectToAction("Detail", "Order",new { ID_Order = orderVM.ID_Order });
         }
         private LoginAccount Account()
         {

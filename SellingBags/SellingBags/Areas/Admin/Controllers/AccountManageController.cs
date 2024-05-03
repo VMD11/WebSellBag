@@ -1,4 +1,7 @@
-﻿using System;
+﻿using SellingBags.Areas.Admin.Models.DataContext;
+using SellingBags.Areas.Admin.Models.ViewModel;
+using SellingBags.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +14,17 @@ namespace SellingBags.Areas.Admin.Controllers
         // GET: Admin/AccountManage
         public ActionResult Index()
         {
-            return View();
+            if(Account() == null)
+                return RedirectToAction("Index","Login");
+            AccountVM accountVM = new AccountVM();
+            accountVM.Accounts = AccountContext.GetAccounts();
+            accountVM.Customers = AccountContext.GetCustomers();
+            return View(accountVM);
+        }
+
+        private LoginAccount Account()
+        {
+            return Session[Sessions.ADMIN_SESSION] as LoginAccount;
         }
     }
 }

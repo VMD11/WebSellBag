@@ -344,10 +344,19 @@
           </ReferentialConstraint>
         </Association>
         <Function Name="ReloadOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spDaylyRevenue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="today" Type="date" Mode="In" />
+        </Function>
         <Function Name="spLastCustomer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="spLoadAllBrand" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spMonthlyRevenue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="month" Type="int" Mode="In" />
+        </Function>
         <Function Name="spProductsByType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID_Category" Type="char" Mode="In" />
+        </Function>
+        <Function Name="spYearlyRevenue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="year" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="SellingBagsModelStoreContainer">
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
@@ -634,6 +643,15 @@
           <EntitySet Name="Payments" EntityType="SellingBagsModel.Payment" />
           <EntitySet Name="Shippings" EntityType="SellingBagsModel.Shipping" />
           <FunctionImport Name="ReloadOrders" />
+          <FunctionImport Name="spMonthlyRevenue" ReturnType="Collection(Decimal)">
+          <Parameter Name="month" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spYearlyRevenue" ReturnType="Collection(Decimal)">
+          <Parameter Name="year" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spDaylyRevenue" ReturnType="Collection(Decimal)">
+            <Parameter Name="today" Mode="In" Type="DateTime" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="spLoadAllBrand_Result">
           <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
@@ -1108,6 +1126,9 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="ReloadOrders" FunctionName="SellingBagsModel.Store.ReloadOrders" />
+          <FunctionImportMapping FunctionImportName="spMonthlyRevenue" FunctionName="SellingBagsModel.Store.spMonthlyRevenue" />
+          <FunctionImportMapping FunctionImportName="spYearlyRevenue" FunctionName="SellingBagsModel.Store.spYearlyRevenue" />
+          <FunctionImportMapping FunctionImportName="spDaylyRevenue" FunctionName="SellingBagsModel.Store.spDaylyRevenue" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -137,12 +137,14 @@
     <Compile Include="Areas\Admin\Controllers\OrderManageController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProductManageController.cs" />
     <Compile Include="Areas\Admin\Controllers\TypeManageController.cs" />
+    <Compile Include="Areas\Admin\Models\DataContext\AccountContext.cs" />
     <Compile Include="Areas\Admin\Models\DataContext\BrandContext.cs" />
     <Compile Include="Areas\Admin\Models\DataContext\DashboardContext.cs" />
     <Compile Include="Areas\Admin\Models\DataContext\LoginContext.cs" />
     <Compile Include="Areas\Admin\Models\DataContext\OrderContext.cs" />
     <Compile Include="Areas\Admin\Models\DataContext\ProductContext.cs" />
     <Compile Include="Areas\Admin\Models\DataContext\ProductTypeContext.cs" />
+    <Compile Include="Areas\Admin\Models\ViewModel\AccountVM.cs" />
     <Compile Include="Areas\Admin\Models\ViewModel\BrandVM.cs" />
     <Compile Include="Areas\Admin\Models\ViewModel\DashboardVM.cs" />
     <Compile Include="Areas\Admin\Models\ViewModel\LoginVM.cs" />
@@ -4200,7 +4202,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Views\AccountManage\" />
     <Folder Include="Assets\images\categories\" />
   </ItemGroup>
   <ItemGroup>
@@ -4393,6 +4394,7 @@
     <Content Include="Areas\Admin\Views\BrandManage\Detail.cshtml" />
     <Content Include="Areas\Admin\Views\OrderManage\Index.cshtml" />
     <Content Include="Areas\Admin\Views\OrderManage\Detail.cshtml" />
+    <Content Include="Areas\Admin\Views\AccountManage\Index.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Product\ProductsByCategory.cshtml" />
     <Content Include="Views\Cart\Checkout.cshtml" />

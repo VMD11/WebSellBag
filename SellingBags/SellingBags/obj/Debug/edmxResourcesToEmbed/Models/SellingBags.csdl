@@ -204,6 +204,15 @@
     <EntitySet Name="Payments" EntityType="SellingBagsModel.Payment" />
     <EntitySet Name="Shippings" EntityType="SellingBagsModel.Shipping" />
     <FunctionImport Name="ReloadOrders" />
+    <FunctionImport Name="spMonthlyRevenue" ReturnType="Collection(Decimal)">
+      <Parameter Name="month" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spYearlyRevenue" ReturnType="Collection(Decimal)">
+      <Parameter Name="year" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spDaylyRevenue" ReturnType="Collection(Decimal)">
+      <Parameter Name="today" Mode="In" Type="DateTime" />
+    </FunctionImport>
   </EntityContainer>
   <ComplexType Name="spLoadAllBrand_Result">
     <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />

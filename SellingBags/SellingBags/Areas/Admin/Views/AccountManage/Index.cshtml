@@ -1,0 +1,75 @@
+﻿@model SellingBags.Areas.Admin.Models.ViewModel.AccountVM
+
+@using SellingBags.Common
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h5 class="m-0 font-weight-bold">Tất cả người dùng</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered mt-2" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Họ tên</th>
+                            <th>Điện thoại</th>
+                            <th>Địa chỉ</th>
+                            <th>Ngày sinh</th>
+                            <th>Giới tính</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var item in Model.Customers)
+                            {
+                                <tr>
+                                    <td>@item.LastName @item.FirstName
+                                    </td>
+                                    <td>@item.PhoneNumber</td>
+                                    <td>@item.Address, @item.Ward, @item.District, @item.City</td>
+                                    <td>@Converts.convertDate(item.BirthDay)</td>
+                                    <td>@item.Gender</td>
+                                    <td>
+                                        <a href="@Url.Action("", "AccountManage", new {ID_Account = item.ID_Account})" class="btn btn-danger w-100 mb-2">Khóa</a><br>
+                                    </td>
+                                    @*<td>
+                                            <a href="@Url.Action("Detail", "OrderManage", new {ID_Order = item.ID_Order})" class="btn btn-info w-100">Xem</a><br />
+                                        </td>*@
+                                </tr>
+
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Xác nhận xóa Popup -->
+    <div id="deleteConfirmPopup" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Xác nhận xóa</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Bạn có chắc muốn xóa sản phẩm này?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Xóa</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /.container-fluid -->

@@ -66,5 +66,32 @@ namespace SellingBags.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ReloadOrders");
         }
+    
+        public virtual ObjectResult<Nullable<decimal>> spMonthlyRevenue(Nullable<int> month)
+        {
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("month", month) :
+                new ObjectParameter("month", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("spMonthlyRevenue", monthParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> spYearlyRevenue(Nullable<int> year)
+        {
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("spYearlyRevenue", yearParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> spDaylyRevenue(Nullable<System.DateTime> today)
+        {
+            var todayParameter = today.HasValue ?
+                new ObjectParameter("today", today) :
+                new ObjectParameter("today", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("spDaylyRevenue", todayParameter);
+        }
     }
 }

@@ -11,50 +11,18 @@ namespace SellingBags.Models.DataContext
     {
         private static SellingBagsEntities db = new SellingBagsEntities();
        
-        public static void AddBill(OrderVM orderVM, string Id_Account)
+        public static bool AddBill(Address address, Order order, List<OrderDetail> orderDetails)
         {
-            var Customer = GetCustomer(Id_Account);
-            var Shipping = GetShipping(orderVM.ShippingName);
-            var address = new Address();
-            if(orderVM.ID_Address == null)
-            {
-                address.ID_Address = GenarateRandomID.Execute();
-                address.ID_Customer = Customer.ID_Customer;
-                address.PhoneNumber = orderVM.UserName;
-                address.FirstName = orderVM.FirstName;
-                address.LastName = orderVM.LastName;
-                address.Ward = orderVM.Ward;
-                address.District = orderVM.District;
-                address.City = orderVM.City;
-                address.SpecificAddress = orderVM.SpecificAddress;
+            if(order == null &&  orderDetails == null) return false;
+            if(address.ID_Address != null)
                 db.Addresses.Add(address);
-            }
-            var order = new Order() {
-                ID_Order = GenarateRandomID.Execute(),
-                ID_Customer = Customer.ID_Customer,
-                ID_Address = orderVM.ID_Address == null ? address.ID_Address : orderVM.ID_Address,
-                OrderDate = DateTime.Now,
-                Status = 0,
-                PaymentMethod = orderVM.PaymentName,
-                ShippingMethod = orderVM.ShippingName,
-                TotalMoney = orderVM.TotalMoney,
-                DeliDate = DateTime.Now.AddDays((double)Shipping.DeliDate),
-            
-            };
             db.Orders.Add(order);
-            foreach(var item in orderVM.Cart.GetList())
+            foreach(var item in orderDetails)
             {
-                var orderDetail = new OrderDetail();
-                orderDetail.ID_OrderDetail = GenarateRandomID.Execute();
-                orderDetail.ID_Order = order.ID_Order;
-                orderDetail.ID_Product = item.Product.ID_Product;
-                orderDetail.Quantity = item.Quantity;
-                orderDetail.Price = item.Product.Price;
-                db.OrderDetails.Add(orderDetail);
+                db.OrderDetails.Add(item);
             }
             db.SaveChanges();
-            orderVM.ID_Order = order.ID_Order;
-            
+            return true;
         }
         
         public static IEnumerable<OrderDetail> GetOrderDetails(string ID_Order)
@@ -68,7 +36,7 @@ namespace SellingBags.Models.DataContext
         }
         public static Order GetOrder(string ID_Order)
         {
-            return db.Orders.Find(ID_Order);
+            return db.Orders.FirstOrDefault(o => o.ID_Order == ID_Order);
         }
         public static Customer GetCustomer(string ID_Account)
         {
@@ -76,7 +44,7 @@ namespace SellingBags.Models.DataContext
         }
         public static Address GetAddress(string ID_Address)
         {
-            return db.Addresses.Find(ID_Address);
+            return db.Addresses.FirstOrDefault(a => a.ID_Address == ID_Address);
         }
         public Payment GetPayment(string Name)
         {

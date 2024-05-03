@@ -10,31 +10,34 @@ namespace SellingBags.Areas.Admin.Models.DataContext
 {
     public class DashboardContext
     {
-        private SellingBagsEntities db = null;
-        private OrderContext orderContext = null;
-        private OrderVM orderVM = null;
-        public DashboardContext()
-        {
-            db = new SellingBagsEntities();
-            orderVM = new OrderVM();
-            orderContext = new OrderContext();
-        }
-
+        private SellingBagsEntities db = new SellingBagsEntities();
+        
+       
         public decimal GetMonthlyRevenue()
         {
-            return db.Orders.Where(o => o.OrderDate.Value.Month == DateTime.Now.Month && o.Status == 1).Sum(o => o.TotalMoney.Value);
+            var revenue = db.spMonthlyRevenue(DateTime.Now.Month).Last();
+            return revenue.HasValue ? revenue.Value : 0;
         }
         public decimal GetYearlyRevenue()
         {
-            return db.Orders.Where(o => o.OrderDate.Value.Year == DateTime.Now.Year && o.Status == 1).Sum(o => o.TotalMoney.Value);
+            var revenue = db.spYearlyRevenue(DateTime.Now.Year).Last();
+            return revenue.HasValue ? revenue.Value : 0;
+        }
+
+        public decimal GetDaylyRevenue()
+        {
+            var revenue = db.spDaylyRevenue(DateTime.Now).Last();
+            return revenue.HasValue ? revenue.Value : 0;
         }
 
         private decimal RevenuePerMonth(int month)
         {
-            var revenue = db.Orders.Where(o => o.OrderDate.HasValue && o.OrderDate.Value.Month == month && o.Status == 0);
-            return revenue.Sum(o => o.TotalMoney.Value) == null  ? 0 : revenue.Sum(o => o.TotalMoney.Value);
+            var revenue = db.spMonthlyRevenue(month).Last();
+            return revenue.HasValue ? revenue.Value : 0;
 
         }
+
+
 
         public List<decimal> GetRevenuePerMonth()
         {

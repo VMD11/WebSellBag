@@ -203,5 +203,8 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="ReloadOrders" FunctionName="SellingBagsModel.Store.ReloadOrders" />
+    <FunctionImportMapping FunctionImportName="spMonthlyRevenue" FunctionName="SellingBagsModel.Store.spMonthlyRevenue" />
+    <FunctionImportMapping FunctionImportName="spYearlyRevenue" FunctionName="SellingBagsModel.Store.spYearlyRevenue" />
+    <FunctionImportMapping FunctionImportName="spDaylyRevenue" FunctionName="SellingBagsModel.Store.spDaylyRevenue" />
   </EntityContainerMapping>
 </Mapping>

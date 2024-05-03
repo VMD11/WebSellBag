@@ -1,0 +1,27 @@
+﻿using SellingBags.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace SellingBags.Areas.Admin.Models.DataContext
+{
+    public class AccountContext
+    {
+        private static SellingBagsEntities db = new SellingBagsEntities();
+
+        public static IEnumerable<Account> GetAccounts()
+        {
+            return db.Accounts;
+        }
+        public static IEnumerable<Customer> GetCustomers()
+        {
+            return db.Customers;
+        }
+
+        public static Customer GetCustomer(string ID_Account)
+        {
+            return db.Customers.FirstOrDefault(a => a.ID_Account == ID_Account);
+        }
+    }
+}

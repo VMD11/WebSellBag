@@ -21,9 +21,10 @@ namespace SellingBags.Areas.Admin.Controllers
                 return RedirectToAction("Index", "Login");
             }
             var dashboardVM = new DashboardVM();
+            dashboardVM.DaylyRevenue = dashboardContext.GetDaylyRevenue();
             dashboardVM.MonthlyRevenue = dashboardContext.GetMonthlyRevenue();
             dashboardVM.YearlyRevenue = dashboardContext.GetYearlyRevenue();
-            //ViewBag.RevenuePerMonth = dashboardContext.GetRevenuePerMonth();
+            ViewBag.RevenuePerMonth = dashboardContext.GetRevenuePerMonth();
             return View(dashboardVM);
         }
 

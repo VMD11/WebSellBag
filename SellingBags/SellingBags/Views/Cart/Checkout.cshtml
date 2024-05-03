@@ -87,8 +87,8 @@
                                         foreach (var item in Addresses)
                                         {
                                             <div class="address-box">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input id="@item.ID_Address" name="ID_Address" value="@item.ID_Address" class="custom-control-input mt-4" type="checkbox">
+                                                <div class="custom-control custom-radio">
+                                                    <input id="@item.ID_Address" name="ID_Address" value="@item.ID_Address" class="custom-control-input mt-4" type="radio">
                                                     <label class="custom-control-label" for="@item.ID_Address">@item.LastName @item.FirstName</label>
                                                     <div class="small text-muted pt-0 pb-0">@item.PhoneNumber</div>
                                                     <div class="small text-muted pt-0">@item.SpecificAddress, @item.Ward, @item.District, @item.City</div>
@@ -201,9 +201,8 @@
                                         {
                                             name = "Thanh toán bằng " + item.Name;
                                         }
-                                        var check = (item.ID_Payment == 1) ? "checked" : "";
                                         <div class="custom-control custom-radio">
-                                            <input id="@data_id" name="PaymentName" value="@item.Name" type="radio" @check  class="custom-control-input mt-4" >
+                                            <input id="@data_id" name="PaymentName" value="@item.Name" type="radio"  class="custom-control-input mt-4" >
                                             <label class="custom-control-label" for="@data_id">
                                                 <img src="~/Assets/images/payment-icon/@item.ImageURL" alt="" width="18"> @name
                                             </label>
