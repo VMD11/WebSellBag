@@ -23,7 +23,7 @@ namespace SellingBags.Areas.Admin.Models.DataContext
         }
         public IEnumerable<Order> GetOrders()
         {
-            return db.Orders;
+            return db.Orders.OrderByDescending(o => o.OrderDate);
         }
         public Order GetOrderById(string ID_Order)
         {
@@ -42,5 +42,24 @@ namespace SellingBags.Areas.Admin.Models.DataContext
             return db.ReloadOrders();
         }
         
+        public bool ConfirmOrder(string ID_Order)
+        {
+            try
+            {
+                var query = "update Orders set Status = 1 where ID_Order = '" + ID_Order + "'";
+                db.Database.ExecuteSqlCommand(query);
+                return true;
+            }catch(Exception) { return false; }
+        }
+        public bool CancelOrder(string ID_Order)
+        {
+            try
+            {
+                var query = "update Orders set Status = -1 where ID_Order = '" + ID_Order + "'";
+                db.Database.ExecuteSqlCommand(query);
+                return true;
+            }
+            catch (Exception) { return false; }
+        }
     }
 }

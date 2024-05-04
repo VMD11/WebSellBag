@@ -22,9 +22,9 @@ namespace SellingBags.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
+            int load = OrderContext.GetReloadOrders();
             var ID_Account = Account().ID_Account;
             orderVM.Orders = OrderContext.GetOrders(ID_Account);
-            int load = OrderContext.GetReloadOrders();
             return View(orderVM);
         }
 

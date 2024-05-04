@@ -213,6 +213,10 @@
     <FunctionImport Name="spDaylyRevenue" ReturnType="Collection(Decimal)">
       <Parameter Name="today" Mode="In" Type="DateTime" />
     </FunctionImport>
+    <FunctionImport Name="spBestSeller" ReturnType="Collection(SellingBagsModel.spBestSeller_Result)">
+      <Parameter Name="month" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spNewProduct" ReturnType="Collection(SellingBagsModel.spNewProduct_Result)" />
   </EntityContainer>
   <ComplexType Name="spLoadAllBrand_Result">
     <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
@@ -311,6 +315,7 @@
     <NavigationProperty Name="Carts" Relationship="SellingBagsModel.FK_Cart_Account" FromRole="Account" ToRole="Cart" />
     <NavigationProperty Name="WishLists" Relationship="SellingBagsModel.FK_WishList_Account" FromRole="Account" ToRole="WishList" />
     <NavigationProperty Name="Customers" Relationship="SellingBagsModel.FK_Customer_Account" FromRole="Account" ToRole="Customer" />
+    <Property Name="Status" Type="Int32" />
   </EntityType>
   <Association Name="FK_Account_Role">
     <End Type="SellingBagsModel.Role" Role="Role" Multiplicity="1" />
@@ -479,4 +484,21 @@
     <Property Name="DeliDate" Type="Int32" />
     <Property Name="Cost" Type="Decimal" Precision="18" Scale="0" />
   </EntityType>
+  <ComplexType Name="spBestSeller_Result">
+    <Property Type="String" Name="ID_Product" Nullable="false" MaxLength="10" />
+    <Property Type="Int32" Name="TotalOrders" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="spNewProduct_Result">
+    <Property Type="String" Name="ID_Product" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Size" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="Color" Nullable="true" MaxLength="30" />
+    <Property Type="Decimal" Name="Price" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="String" Name="Description" Nullable="true" />
+    <Property Type="String" Name="ID_Type" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="ID_Brand" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="ImageURL" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="Quantity" Nullable="true" />
+    <Property Type="DateTime" Name="DateCreated" Nullable="true" />
+  </ComplexType>
 </Schema>

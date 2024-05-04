@@ -1,7 +1,8 @@
 ﻿@model SellingBags.Models.ViewModel.ProductVM
+
 @using SellingBags.Common
 @{
-    ViewBag.Title = "NewProducts";
+    ViewBag.Title = "BestSeller";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -9,10 +10,10 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h2>Sản phẩm mới</h2>
+                <h2>Sản phẩm bán chạy</h2>
                 <ul class="breadcrumb">
                     <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
-                    <li class="breadcrumb-item active">Sản phẩm mới</li>
+                    <li class="breadcrumb-item active">Sản phẩm bán chạy</li>
                 </ul>
             </div>
         </div>
@@ -51,14 +52,14 @@
                                             ID_Account = (Session[Sessions.USER_SESSION] as LoginAccount).ID_Account;
                                         }
                                         SellingBags.Models.DataContext.WishListContext context = new SellingBags.Models.DataContext.WishListContext();
-                                        foreach (var item in Model.NewProducts)
+                                        foreach (var item in Model.BestSellerProducts)
                                         {
 
                                             <div class="col-lg-3 col-md-4 col-6">
                                                 <div class="products-single fix">
                                                     <div class="box-img-hover">
                                                         <div class="type-lb">
-                                                            <p class="new">Mới</p>
+                                                            <p class="sale">Hot</p>
                                                         </div>
                                                         <img src="~/Assets/images/products/@item.ImageURL" class="img-fluid" alt="@item.Name">
                                                         <div class="mask-icon">
@@ -98,5 +99,7 @@
         </div>
     </div>
 </div>
+
+
 
 

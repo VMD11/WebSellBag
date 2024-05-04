@@ -36,7 +36,15 @@
                                     <td>@Converts.convertDate(item.BirthDay)</td>
                                     <td>@item.Gender</td>
                                     <td>
-                                        <a href="@Url.Action("", "AccountManage", new {ID_Account = item.ID_Account})" class="btn btn-danger w-100 mb-2">Khóa</a><br>
+                                        @if(Model.Accounts.FirstOrDefault(a => a.ID_Account == item.ID_Account).Status == 1)
+                                        {
+                                            <a href="@Url.Action("Lock", "AccountManage", new {ID_Account = item.ID_Account})" class="btn btn-danger w-100 mb-2">Khóa</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="@Url.Action("UnLock", "AccountManage", new {ID_Account = item.ID_Account})" class="btn btn-success w-100 mb-2">Mở khóa</a>
+                                        }
+                                            
                                     </td>
                                     @*<td>
                                             <a href="@Url.Action("Detail", "OrderManage", new {ID_Order = item.ID_Order})" class="btn btn-info w-100">Xem</a><br />

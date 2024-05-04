@@ -1,5 +1,6 @@
 ﻿@model SellingBags.Models.ViewModel.HomeVM
 
+@using SellingBags.Models.DataContext
 @using SellingBags.Common
 @{
     ViewBag.Title = "Home";
@@ -74,7 +75,7 @@
                 @{
                     foreach (var item in Model.CategoriesAll)
                     {
-                        <div class="col-lg-3 col-md-3 col-sm-6">
+                        <div class="col-lg-3 col-md-3 col-6">
                             <div class="shop-cat-box">
                                 <img class="img" src="~/Assets/images/categories/@item.ImageURL" alt="" />
                                 <a class="btn hvr-hover" href="@Url.Action("ProductsByCategory", "Product", new {ID_Category = item.ID_Category.Trim()})">@item.Name</a>
@@ -127,7 +128,7 @@
                     <div class="special-menu text-center">
                         <div class="button-group filter-button-group w-100">
                             <button class="active w-25" data-filter="*">Tất cả</button>
-                            <button class="w-25" data-filter=".top-featured">Mới</button>
+                            <button class="w-25" data-filter=".new">Mới</button>
                             <button class="w-25" data-filter=".best-seller">Bán chạy</button>
                         </div>
                     </div>
@@ -141,21 +142,37 @@
                     {
                         ID_Account = (Session[Sessions.USER_SESSION] as LoginAccount).ID_Account;
                     }
-                    SellingBags.Models.DataContext.WishListContext context = new SellingBags.Models.DataContext.WishListContext();
-                    var menu = "";
-                    foreach (var item in Model.ProductsAll)
+                    WishListContext wishListContext = new WishListContext();
+                    HomeContext homeContext = new HomeContext();
+                    var filter = "";
+                    var type = "";
+                    var typeName = "";
+                    foreach (var item in Model.FeaturedProducts)
                     {
-                        <div class="col-lg-3 col-md-6 special-grid @menu">
+
+                        if (homeContext.IsBestSeller(item))
+                        {
+                            filter = "best-seller";
+                            type = "sale";
+                            typeName = "Hot";
+                        }
+                        else
+                        {
+                            filter = "new";
+                            type = "new";
+                            typeName = "Mới";
+                        }
+                        <div class="col-lg-3 col-md-4 col-6 special-grid @filter">
                             <div class="products-single fix">
                                 <div class="box-img-hover">
                                     <div class="type-lb">
-                                        <p class="sale">Sale</p>
+                                        <p class="@type">@typeName</p>
                                     </div>
                                     <img src="~/Assets/images/products/@item.ImageURL" class="img-fluid" alt="@item.Name">
                                     <div class="mask-icon">
                                         <ul>
                                             <li><a href="@Url.Action("Detail","Product",new {ID_Product = item.ID_Product.Trim()})" data-toggle="tooltip" data-placement="right" title="Xem chi tiết"><i class="fas fa-eye"></i></a></li>
-                                            @if (context.IsWishListed(ID_Account, item.ID_Product))
+                                            @if (wishListContext.IsWishListed(ID_Account, item.ID_Product))
                                             {
                                                 <li><a href="@Url.Action("RemoveToWishList", "Account", new {ID_Product = item.ID_Product.Trim()})" data-toggle="tooltip" data-placement="right" title="Xóa khỏi yêu thích"><i class=" fa fa-heart"></i></a></li>
 

@@ -30,10 +30,26 @@
                         <h6>Ngày đặt: @Converts.convertDateTime(Model.Order.OrderDate)</h6>
                         <h6>Phương thức thanh toán: @Model.Order.PaymentMethod</h6>
                         <h6>Đơn vị giao hàng: @Model.Order.ShippingMethod</h6>
+                        <h6>@ViewBag.DeliDate</h6>
                     </div>
                     <div class="pt-3">
-                        <a href="@Url.Action("", "OrderManage", new {ID_Order = Model.Order.ID_Order})" class="btn btn-success w-50 mb-2">Duyệt</a>
-                        <a href="@Url.Action("", "OrderManage", new {ID_Order = Model.Order.ID_Order})" class="btn btn-danger w-50">Hủy</a>
+                        @if (Model.Order.Status == 0)
+                        {
+                            <button id="confirmOrder" data-id="@Model.Order.ID_Order" class="btn btn-success w-50 mb-2">Duyệt</button><br>
+                            <button id="cancelOrder"  data-id="@Model.Order.ID_Order" class="btn btn-danger w-50 mb-2">Hủy</button>
+                        }
+                        else if (Model.Order.Status == -1)
+                        {
+                            <p class="text-danger">Đã hủy</p>
+                        }
+                        else if (Model.Order.Status == 1)
+                        {
+                            <p class="text-warning">Đang vận chuyển</p>
+                        }
+                        else
+                        {
+                            <p class="text-success">Đã hoàn thành</p>
+                        }
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -77,4 +93,32 @@
         </div>
     </div>
 </div>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#confirmOrder').on('click', function (e) {
+            e.preventDefault();
+            var id = $(this).attr('data-id');
+            $.ajax({
+                url: '@Url.Action("Confirm", "OrderManage")',
+                type: 'POST',
+                data: {ID_Order = id},
+                success: function (response) {
+                    location.reload();
+                }
+            });
+        });
+        $('#cancelOrder').on('click', function (e) {
+            e.preventDefault();
+            var id = $(this).attr('data-id');
+            $.ajax({
+                url: '@Url.Action("Cancel", "OrderManage")',
+                type: 'POST',
+                data: { ID_Order = id },
+                success: function (response) {
+                    location.reload();
+                }
+            });
+        });
+    });
+</script>

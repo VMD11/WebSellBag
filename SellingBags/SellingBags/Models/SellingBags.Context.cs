@@ -93,5 +93,19 @@ namespace SellingBags.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("spDaylyRevenue", todayParameter);
         }
+    
+        public virtual ObjectResult<spBestSeller_Result> spBestSeller(Nullable<int> month)
+        {
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("month", month) :
+                new ObjectParameter("month", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spBestSeller_Result>("spBestSeller", monthParameter);
+        }
+    
+        public virtual ObjectResult<spNewProduct_Result> spNewProduct()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spNewProduct_Result>("spNewProduct");
+        }
     }
 }

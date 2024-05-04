@@ -107,20 +107,33 @@ namespace SellingBags.Models.DataContext
                 if(IsNew(product))
                     products.Add(product);
             }
+            if(products.Count < 12)
+            {
+
+                foreach (var product in db.Products.OrderByDescending(p => p.DateCreated.Value).Take(12 - products.Count).ToList())
+                    products.Add(product);
+            }
+            return products;
+        }
+
+        public IEnumerable<Product> GetBestSellerProducts()
+        {
+            var products = new List<Product>();
+            foreach(var item in db.spBestSeller(DateTime.Now.Month))
+            {
+                products.Add(GetProduct(item.ID_Product));
+            }
             return products;
         }
 
         private bool IsNew(Product product)
         {
-            if(!product.DateCreated.HasValue)
-                return false;
+            return db.spNewProduct().FirstOrDefault(p => p.ID_Product == product.ID_Product) != null;
+        }
 
-            var sinceCreate = DateTime.Now - product.DateCreated.Value;
-            if(sinceCreate.TotalDays <= 20)
-            {
-                return true;
-            }
-            return false;
+        private bool IsBestSeller(Product product)
+        {
+            return db.spBestSeller(DateTime.Now.Month).FirstOrDefault(p => p.ID_Product == product.ID_Product) != null;
         }
     }
 }

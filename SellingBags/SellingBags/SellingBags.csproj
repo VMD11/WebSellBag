@@ -236,7 +236,13 @@
     <Compile Include="Models\Shipping.cs">
       <DependentUpon>SellingBags.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\spBestSeller_Result.cs">
+      <DependentUpon>SellingBags.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\spLoadAllBrand_Result.cs">
+      <DependentUpon>SellingBags.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\spNewProduct_Result.cs">
       <DependentUpon>SellingBags.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\spProductsByType_Result.cs">
@@ -4404,6 +4410,7 @@
     <Content Include="Views\Order\Detail.cshtml" />
     <Content Include="Views\Account\Info.cshtml" />
     <Content Include="Views\Account\AddressList.cshtml" />
+    <Content Include="Views\Product\BestSeller.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

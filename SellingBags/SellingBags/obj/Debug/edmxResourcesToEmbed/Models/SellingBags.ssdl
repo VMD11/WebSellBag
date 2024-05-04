@@ -8,6 +8,7 @@
     <Property Name="UserName" Type="nchar" MaxLength="50" Nullable="false" />
     <Property Name="Password" Type="nchar" MaxLength="50" Nullable="false" />
     <Property Name="ID_Role" Type="char" MaxLength="10" Nullable="false" />
+    <Property Name="Status" Type="int" />
   </EntityType>
   <EntityType Name="Address">
     <Key>
@@ -339,6 +340,9 @@
     </ReferentialConstraint>
   </Association>
   <Function Name="ReloadOrders" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="spBestSeller" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="month" Type="int" Mode="In" />
+  </Function>
   <Function Name="spDaylyRevenue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="today" Type="date" Mode="In" />
   </Function>
@@ -347,6 +351,7 @@
   <Function Name="spMonthlyRevenue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="month" Type="int" Mode="In" />
   </Function>
+  <Function Name="spNewProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="spProductsByType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="ID_Category" Type="char" Mode="In" />
   </Function>

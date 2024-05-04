@@ -48,7 +48,8 @@
             <hr />
             @foreach (var item in OrderDetails)
             {
-                var quantity = "x" + item.Quantity.ToString();
+                SellingBags.Areas.Admin.Models.DataContext.ProductContext context = new SellingBags.Areas.Admin.Models.DataContext.ProductContext();
+                item.Product = context.GetProduct(item.ID_Product);
                 <a href="@Url.Action("Detail", "Order", new {ID_Order = order.ID_Order.Trim()})">
                     <div class="row p-3">
                         <div class="col-3 p-3">
@@ -57,7 +58,7 @@
                         <div class="col-9 p-3">
                             <div class="h5">@item.Product.Name</div>
                             <div class="h6">Màu @item.Product.Color <span>|</span> Size @item.Product.Size</div>
-                            <div class="h6">@quantity <div class="float-right">@Converts.convertVND(item.Product.Price)</div></div>
+                            <div class="h6">Số lượng: @item.Quantity <div class="float-right">@Converts.convertVND(item.Product.Price)</div></div>
                         </div>
                     </div>
                 </a>

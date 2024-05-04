@@ -23,5 +23,25 @@ namespace SellingBags.Areas.Admin.Models.DataContext
         {
             return db.Customers.FirstOrDefault(a => a.ID_Account == ID_Account);
         }
+
+        public static bool LockAccount(string ID_Account)
+        {
+            try
+            {
+                var query = "update Account set Status = 0 where ID_Account = '" + ID_Account + "'";
+                db.Database.ExecuteSqlCommand(query);
+                return true;
+            }catch(Exception) { return false; }
+        }
+        public static bool UnLockAccount(string ID_Account)
+        {
+            try
+            {
+                var query = "update Account set Status = 1 where ID_Account = '" + ID_Account + "'";
+                db.Database.ExecuteSqlCommand(query);
+                return true;
+            }catch(Exception) { return false; }
+        }
+
     }
 }

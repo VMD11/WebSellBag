@@ -71,6 +71,12 @@ namespace SellingBags.Controllers
             productVM.NewProducts = productContext.GetNewProducts();
             return View(productVM);
         }
+
+        public ActionResult BestSeller()
+        {
+            productVM.BestSellerProducts = productContext.GetBestSellerProducts();
+            return View(productVM);
+        }
         
     }
 }

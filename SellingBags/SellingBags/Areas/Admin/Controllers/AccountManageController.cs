@@ -22,6 +22,19 @@ namespace SellingBags.Areas.Admin.Controllers
             return View(accountVM);
         }
 
+        public ActionResult Lock(string ID_Account) 
+        {
+            if (AccountContext.LockAccount(ID_Account))
+                return RedirectToAction("Index","AccountManage");
+            return RedirectToAction("Index","AccountManage");
+        }
+        public ActionResult UnLock(string ID_Account) 
+        {
+            if (AccountContext.UnLockAccount(ID_Account))
+                return RedirectToAction("Index","AccountManage");
+            return RedirectToAction("Index","AccountManage");
+        }
+
         private LoginAccount Account()
         {
             return Session[Sessions.ADMIN_SESSION] as LoginAccount;

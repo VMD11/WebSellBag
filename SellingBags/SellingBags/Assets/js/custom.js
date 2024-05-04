@@ -256,14 +256,28 @@
 	   Fix product name
 	   ................................................. */
 	$(document).ready(function () {
-		$('.product-name').each(function () {
-			var maxLength = 32; // Độ dài tối đa của tên sản phẩm
-			var text = $(this).text();
+		function resize() {
+			// Lấy chiều rộng của cửa sổ
+			var windowWidth = $(window).width();
 
-			if (text.length > maxLength) {
-				var trimmedText = text.substring(0, maxLength - 3) + '...';
-				$(this).text(trimmedText);
+			var maxLength;
+			if (windowWidth > 1200) {
+				maxLength = 32; // Độ dài tối đa của tên sản phẩm khi cửa sổ rộng hơn 1200px
+			} else {
+				maxLength = 24; // Độ dài tối đa của tên sản phẩm khi cửa sổ nhỏ hơn hoặc bằng 1200px
 			}
+			$('.product-name').each(function () {
+				var text = $(this).text();
+
+				if (text.length > maxLength) {
+					var trimmedText = text.substring(0, maxLength - 3) + '...';
+					$(this).text(trimmedText);
+				}
+			});
+			console.log(windowWidth +': ' + maxLength);
+		};
+		$(window).resize(function () {
+			resize();
 		});
 	});
 
@@ -293,7 +307,8 @@
 	});
 
 	$(document).ready(function () {
-		$('#orderForm').on('submit',function (e) {
+		$('#orderForm').on('submit', function (e) {
+			e.preventDefault();
 			var ID_Address = $('input[name="ID_Address"]:checked').val();
 			if (ID_Address === undefined) {
 				ID_Address = "";
@@ -396,4 +411,6 @@ function showPass() {
 		eyeIcon.classList.add("fa-eye-slash");
 	}
 }
+
+
 

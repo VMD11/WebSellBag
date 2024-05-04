@@ -127,6 +127,7 @@
     <EntitySetMapping Name="Accounts">
       <EntityTypeMapping TypeName="SellingBagsModel.Account">
         <MappingFragment StoreEntitySet="Account">
+          <ScalarProperty Name="Status" ColumnName="Status" />
           <ScalarProperty Name="ID_Role" ColumnName="ID_Role" />
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="UserName" ColumnName="UserName" />
@@ -206,5 +207,30 @@
     <FunctionImportMapping FunctionImportName="spMonthlyRevenue" FunctionName="SellingBagsModel.Store.spMonthlyRevenue" />
     <FunctionImportMapping FunctionImportName="spYearlyRevenue" FunctionName="SellingBagsModel.Store.spYearlyRevenue" />
     <FunctionImportMapping FunctionImportName="spDaylyRevenue" FunctionName="SellingBagsModel.Store.spDaylyRevenue" />
+    <FunctionImportMapping FunctionImportName="spBestSeller" FunctionName="SellingBagsModel.Store.spBestSeller">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SellingBagsModel.spBestSeller_Result">
+          <ScalarProperty Name="ID_Product" ColumnName="ID_Product" />
+          <ScalarProperty Name="TotalOrders" ColumnName="TotalOrders" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spNewProduct" FunctionName="SellingBagsModel.Store.spNewProduct">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SellingBagsModel.spNewProduct_Result">
+          <ScalarProperty Name="ID_Product" ColumnName="ID_Product" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Size" ColumnName="Size" />
+          <ScalarProperty Name="Color" ColumnName="Color" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="ID_Type" ColumnName="ID_Type" />
+          <ScalarProperty Name="ID_Brand" ColumnName="ID_Brand" />
+          <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>
