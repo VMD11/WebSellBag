@@ -13,15 +13,16 @@ namespace SellingBags.Controllers
 {
     public class OrderController : Controller
     {
-        private readonly CheckoutContext checkoutContext = new CheckoutContext();
+        //private readonly CheckoutContext checkoutContext = new CheckoutContext();
         // GET: Order
-        public ActionResult Index(OrderVM orderVM)
+        public ActionResult Index()
         {
             ViewBag.Status = "";
             if (Account() == null)
             {
                 return RedirectToAction("Login", "Account");
             }
+            OrderVM orderVM = new OrderVM();
             int load = OrderContext.GetReloadOrders();
             var ID_Account = Account().ID_Account;
             orderVM.Orders = OrderContext.GetOrders(ID_Account);
@@ -41,81 +42,16 @@ namespace SellingBags.Controllers
             orderVM.OrderDetails = OrderContext.GetOrderDetails(ID_Order);
             orderVM.Shipping = OrderContext.GetShipping(orderVM.Order.ShippingMethod);
             orderVM.Address = OrderContext.GetAddress(orderVM.Order.ID_Address);
-            if (orderVM.Order.Status == 0)
-            {
-                ViewBag.Status = "Chờ xác nhận";
-            }
-            else if (orderVM.Order.Status == 1)
-            {
-                if (orderVM.Order.DeliDate <= DateTime.Now)
-                    ViewBag.Status = "Đơn hàng đã hoàn thành";
-                else
-                    ViewBag.Status = "Đang vận chuyển";
-            }
-            else
-            {
-                ViewBag.Status = "Đã hủy";
-            }
+            if (orderVM.Order.Status == 0) ViewBag.Status = "Chờ xác nhận";
+            else if (orderVM.Order.Status == 1) ViewBag.Status = "Đang vận chuyển";
+            else if(orderVM.Order.Status == 2) ViewBag.Status = "Đơn hàng đã hoàn thành";
+            else ViewBag.Status = "Đã hủy";
+            
             return View(orderVM);
         }
 
-        [HttpPost]
-        public ActionResult AddBill(OrderVM orderVM)
-        {
-            if(Account()  == null)
-            {
-                return RedirectToAction("Login", "Account");
-            }
-            var ID_Account = Account().ID_Account;
-            var Customer = OrderContext.GetCustomer(ID_Account);
-            var Shipping = OrderContext.GetShipping(orderVM.ShippingName);
-            var address = new Address();
-            if (orderVM.ID_Address == null)
-            {
-                address.ID_Address = GenarateRandomID.Execute();
-                address.ID_Customer = Customer.ID_Customer;
-                address.PhoneNumber = orderVM.UserName;
-                address.FirstName = orderVM.FirstName;
-                address.LastName = orderVM.LastName;
-                address.Ward = orderVM.Ward;
-                address.District = orderVM.District;
-                address.City = orderVM.City;
-                address.SpecificAddress = orderVM.SpecificAddress;
-            }
-            var order = new Order()
-            {
-                ID_Order = GenarateRandomID.Execute(),
-                ID_Customer = Customer.ID_Customer,
-                ID_Address = orderVM.ID_Address == null ? address.ID_Address : orderVM.ID_Address,
-                OrderDate = DateTime.Now,
-                Status = 0,
-                PaymentMethod = orderVM.PaymentName,
-                ShippingMethod = Shipping.Name,
-                TotalMoney = orderVM.TotalMoney,
-                DeliDate = DateTime.Now.AddDays((double)Shipping.DeliDate),
-            };
-            orderVM.Cart = Cart();
-            var orderDetails = new List<OrderDetail>();
-            foreach (var item in orderVM.Cart.GetList())
-            {
-                var orderDetail = new OrderDetail()
-                {
-                    ID_OrderDetail = GenarateRandomID.Execute(),
-                    ID_Order = order.ID_Order,
-                    ID_Product = item.Product.ID_Product,
-                    Quantity = item.Quantity,
-                    Price = item.Product.Price,
-                };
-                orderDetails.Add(orderDetail);
-            }
-            if(OrderContext.AddBill(address, order, orderDetails))
-            {
-                Session[Sessions.CART] = null;
-                return RedirectToAction("Index", "Order");
-            }
-            return RedirectToAction("Checkout", "Cart");
-            
-        }
+        //[HttpPost]
+        
         private LoginAccount Account()
         {
             return Session[Sessions.USER_SESSION] as LoginAccount;

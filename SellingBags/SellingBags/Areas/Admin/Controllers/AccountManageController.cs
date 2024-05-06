@@ -25,8 +25,8 @@ namespace SellingBags.Areas.Admin.Controllers
         public ActionResult Lock(string ID_Account) 
         {
             if (AccountContext.LockAccount(ID_Account))
-                return RedirectToAction("Index","AccountManage");
-            return RedirectToAction("Index","AccountManage");
+                return Json(new {result = true});
+            return Json(new {result = false});
         }
         public ActionResult UnLock(string ID_Account) 
         {

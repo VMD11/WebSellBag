@@ -53,7 +53,7 @@ namespace SellingBags.Areas.Admin.Models.DataContext
             try
             {
                 var query = "delete from Product where ID_Type = '" + ID_Type + "'";
-                var query2 = "delete form ProductType where ID_Type = '" + ID_Type + "'";
+                var query2 = "delete from ProductType where ID_Type = '" + ID_Type + "'";
                 db.Database.ExecuteSqlCommand(query);
                 db.Database.ExecuteSqlCommand(query2);
                 return true;

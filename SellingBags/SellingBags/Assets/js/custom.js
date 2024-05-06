@@ -257,14 +257,13 @@
 	   ................................................. */
 	$(document).ready(function () {
 		function resize() {
-			// Lấy chiều rộng của cửa sổ
 			var windowWidth = $(window).width();
 
 			var maxLength;
 			if (windowWidth > 1200) {
-				maxLength = 32; // Độ dài tối đa của tên sản phẩm khi cửa sổ rộng hơn 1200px
+				maxLength = 32; 
 			} else {
-				maxLength = 24; // Độ dài tối đa của tên sản phẩm khi cửa sổ nhỏ hơn hoặc bằng 1200px
+				maxLength = 24; 
 			}
 			$('.product-name').each(function () {
 				var text = $(this).text();
@@ -274,7 +273,6 @@
 					$(this).text(trimmedText);
 				}
 			});
-			console.log(windowWidth +': ' + maxLength);
 		};
 		$(window).resize(function () {
 			resize();
@@ -309,10 +307,10 @@
 	$(document).ready(function () {
 		$('#orderForm').on('submit', function (e) {
 			e.preventDefault();
-			var ID_Address = $('input[name="ID_Address"]:checked').val();
-			if (ID_Address === undefined) {
-				ID_Address = "";
-			}
+			var ID_Address = $('input[name="ID_Address"]:checked').val() || "";
+			//if (ID_Address === undefined) {
+			//	ID_Address = "";
+			//}
 			var LastName = $('#lastName').val();
 			var FirstName = $('#firstName').val();
 			var UserName = $('#username').val();
@@ -341,8 +339,14 @@
 				data: formData,
 				processData: false,
 				contentType: false,
+				dataType:'json',
 				success: function (response) {
-
+					if (response.result) {
+						window.location.href = '/Order/Index';
+					} else {
+						alert('Đặt hàng thất bại. Vui lòng thử lại!');
+						location.reload();
+					}
 				},
 				error: function () {
 					alert('Đặt hàng thất bại. Vui lòng thử lại!');
@@ -362,7 +366,6 @@
 		});
 		$('#addInfo').click(function () {
 			$('#address').removeClass('show');
-			//$('#newaddress').addClass('show');
 		});
 	});
 

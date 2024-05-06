@@ -14,10 +14,23 @@
             <h5 class="m-0 font-weight-bold">Tất cả đơn hàng</h5>
         </div>
         <div class="card-body">
+            <div class="row">
+                <div class="col-md-3 col-6">
+                    <label>Lọc</label>
+                    <select id="filterSelect" class="custom-select form-control-sm mb-3">
+                        <option value="*">Tất cả</option>
+                        <option value=".wait">Chờ xác nhận</option>
+                        <option value=".ship">Đang vận chuyển</option>
+                        <option value=".done">Đã hoàn thành</option>
+                        <option value=".cancel">Đã hủy</option>
+                    </select>
+                </div>
+            </div>
             <div class="table-responsive">
                 <table class="table table-bordered mt-2" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th class="d-none"></th>
                             <th>Khách hàng</th>
                             <th>Điện thoại</th>
                             <th>Địa chỉ</th>
@@ -30,10 +43,27 @@
                     </thead>
                     <tbody>
                         @{
-                            foreach (var item in Model.Orders)
+                            var filter = "";
+
+                            foreach (var item in Model.Orders.OrderByDescending(o => o.OrderDate))
                             {
+                                if(item.Status == 0)
+                                {
+                                    filter = "wait";
+                                }else if(item.Status == 1)
+                                {
+                                    filter = "ship";
+                                }else if(item.Status == 2)
+                                {
+                                    filter = "done";
+                                }
+                                else
+                                {
+                                    filter = "cancel";
+                                }
                                 var Address = context.GetAddressByID(item.ID_Address);
-                                <tr>
+                                <tr class="@filter">
+                                    <td class="d-none"></td>    
                                     <td>
                                         <a href="@Url.Action("Detail", "OrderManage", new {ID_Order = item.ID_Order})">
 
@@ -46,29 +76,31 @@
                                     <td>@Converts.convertDateTime(item.OrderDate)</td>
                                     <td>@Converts.convertVND(item.TotalMoney)</td>
                                     <td>
-                                        @if(item.Status == 0)
+                                        @if (item.Status == 0)
                                         {
                                             <p>Chờ xác nhận</p>
-                                        }else if(item.Status == -1)
-                                        {
+                                        }
+                                        else if (item.Status == -1)
+                                            {
                                             <p class="text-danger">Đã hủy</p>
-                                        }else if(item.Status == 1)
+                                        }
+                                        else if (item.Status == 1)
                                         {
                                             <p class="text-warning">Đang vận chuyển</p>
-                                        }
+                            }
                                         else
-                                        {
+                            {
                                             <p class="text-success">Đã hoàn thành</p>
                                         }
                                     </td>
                                     <td>
-                                        @if(item.Status == 0)
+                                        @if (item.Status == 0)
                                         {
                                             <a href="@Url.Action("Confirm", "OrderManage", new {ID_Order = item.ID_Order})" class="btn btn-success w-100 mb-2">Duyệt</a><br>
                                             <a href="@Url.Action("Cancel", "OrderManage", new {ID_Order = item.ID_Order})" class="btn btn-danger w-100">Hủy</a>
                                         }
                                         else
-                                        {
+                            {
                                             <a href="@Url.Action("Detail", "OrderManage", new {ID_Order = item.ID_Order})" class="btn btn-info w-100">Xem</a><br />
                                         }
                                     </td>
@@ -84,3 +116,23 @@
     </div>
 </div>
 <!-- /.container-fluid -->
+<script type="text/javascript">
+    //$(document).ready(function () {
+    //    // Xử lý sự kiện khi người dùng thay đổi lựa chọn trong dropdown
+    //    $('#filterSelect').change(function () {
+    //        var selectedFilter = $(this).val(); // Lấy giá trị của lựa chọn được chọn
+
+    //        // Ẩn tất cả các hàng trong bảng trước khi áp dụng bộ lọc
+    //        $('#dataTable tbody tr').hide();
+
+    //        // Hiển thị các hàng có lớp CSS tương ứng với lựa chọn được chọn
+    //        if (selectedFilter === '*') {
+    //            $('#dataTable tbody tr').show(); // Hiển thị tất cả nếu chọn 'Tất cả'
+    //        } else {
+    //            $('#dataTable tbody tr' + selectedFilter).show(); // Hiển thị hàng có lớp CSS tương ứng
+    //        }
+    //    });
+
+    //    $('#filterSelect').val('*').change();
+    //});
+</script>

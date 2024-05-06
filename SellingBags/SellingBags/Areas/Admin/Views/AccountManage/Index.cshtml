@@ -1,5 +1,6 @@
 ﻿@model SellingBags.Areas.Admin.Models.ViewModel.AccountVM
 
+@using SellingBags.Areas.Admin.Models.DataContext
 @using SellingBags.Common
 @{
     ViewBag.Title = "Index";
@@ -12,6 +13,7 @@
             <h5 class="m-0 font-weight-bold">Tất cả người dùng</h5>
         </div>
         <div class="card-body">
+            
             <div class="table-responsive">
                 <table class="table table-bordered mt-2" id="dataTable" width="100%" cellspacing="0">
                     <thead>
@@ -28,56 +30,87 @@
                         @{
                             foreach (var item in Model.Customers)
                             {
+                                var acc = AccountContext.GetAccount(item.ID_Account);
                                 <tr>
-                                    <td>@item.LastName @item.FirstName
+                                    <td>
+                                        @item.LastName @item.FirstName
                                     </td>
                                     <td>@item.PhoneNumber</td>
                                     <td>@item.Address, @item.Ward, @item.District, @item.City</td>
                                     <td>@Converts.convertDate(item.BirthDay)</td>
                                     <td>@item.Gender</td>
                                     <td>
-                                        @if(Model.Accounts.FirstOrDefault(a => a.ID_Account == item.ID_Account).Status == 1)
+                                        @if (acc.Status == 1)
                                         {
-                                            <a href="@Url.Action("Lock", "AccountManage", new {ID_Account = item.ID_Account})" class="btn btn-danger w-100 mb-2">Khóa</a>
+                                            <button data-id="@item.ID_Account" class="btn btn-danger w-100 mb-2 lockBtn">Khóa</button>
                                         }
                                         else
                                         {
                                             <a href="@Url.Action("UnLock", "AccountManage", new {ID_Account = item.ID_Account})" class="btn btn-success w-100 mb-2">Mở khóa</a>
                                         }
-                                            
+
                                     </td>
-                                    @*<td>
-                                            <a href="@Url.Action("Detail", "OrderManage", new {ID_Order = item.ID_Order})" class="btn btn-info w-100">Xem</a><br />
-                                        </td>*@
                                 </tr>
 
                             }
                         }
-
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
-    <!-- Xác nhận xóa Popup -->
-    <div id="deleteConfirmPopup" class="modal fade" tabindex="-1" role="dialog">
+    <!-- Xác nhận khóa Popup -->
+    <div id="lockConfirmPopup" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Xác nhận xóa</h5>
+                    <h5 class="modal-title">Xác nhận khóa</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Bạn có chắc muốn xóa sản phẩm này?</p>
+                    <p>Bạn có chắc muốn khóa người dùng này?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
-                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Xóa</button>
+                    <button type="button" class="btn btn-danger" id="confirmLockBtn">Khóa</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <!-- /.container-fluid -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.lockBtn').on('click', function () {
+            var id = $(this).attr('data-id');
+
+            $('#lockConfirmPopup').modal('show');
+
+            $('#confirmLockBtn').off('click').on('click', function () {
+                $.ajax({
+                    url: '@Url.Action("Lock", "AccountManage")', 
+                    type: 'POST',
+                    data: { ID_Account: id }, 
+                    success: function (response) {
+                        if (response.result) {
+                            alert('Khóa thành công');
+                            location.reload(); 
+                            console.log(id);
+                        } else {
+                            alert('Khóa không thành công: ' + response.message);
+                        }
+                    },
+                    error: function () {
+                        alert('Có lỗi xảy ra khi khóa');
+                    }
+                });
+
+                $('#lockConfirmPopup').modal('hide');
+            });
+        });
+    });
+</script>

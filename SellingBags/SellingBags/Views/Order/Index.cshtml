@@ -27,19 +27,13 @@
         if(order.Status == 0)
         {
             ViewBag.Status = "Chờ xác nhận";
-        }
-        else if(order.Status == 1)
+        }else if(order.Status == 1)
         {
-            if (order.DeliDate <= DateTime.Now)
-            {
-                ViewBag.Status = "Đơn hàng đã hoàn thành";
-            }
-            else
-            {
-                ViewBag.Status = "Đang vận chuyển";
-            }
-        }
-        else
+            ViewBag.Status = "Đơn hàng đã hoàn thành";
+        }else if(order.Status == 2)
+        {
+            ViewBag.Status = "Đang vận chuyển";
+        }else
         {
             ViewBag.Status = "Đã hủy";
         }

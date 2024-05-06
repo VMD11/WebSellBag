@@ -13,16 +13,20 @@ namespace SellingBags.Models.DataContext
        
         public static bool AddBill(Address address, Order order, List<OrderDetail> orderDetails)
         {
-            if(order == null &&  orderDetails == null) return false;
-            if(address.ID_Address != null)
-                db.Addresses.Add(address);
-            db.Orders.Add(order);
-            foreach(var item in orderDetails)
+            try
             {
-                db.OrderDetails.Add(item);
-            }
-            db.SaveChanges();
-            return true;
+                if(order == null || orderDetails == null) return false;
+                using (var database = new SellingBagsEntities())
+                {
+                    if(address != null)
+                        database.Addresses.Add(address);
+                    database.Orders.Add(order);
+                    database.OrderDetails.AddRange(orderDetails);
+                    database.SaveChanges();
+                    return true;
+                }
+
+            }catch(Exception) { return false; }
         }
         
         public static IEnumerable<OrderDetail> GetOrderDetails(string ID_Order)

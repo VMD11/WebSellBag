@@ -9,15 +9,14 @@
 <!-- Begin Page Content -->
 <div class="container">
 
-    <!-- Page Heading -->
-    <h1 class="h3 mb-2 text-gray-800">Tất cả loại sản phẩm</h1>
-    <p class="mb-4">
-    </p>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        <div class="card-body mt-2">
-            <div class="w-100 mb-2">
+        <div class="card-header py-3">
+            <h5 class="m-0 font-weight-bold">Tất cả loại sản phẩm</h5>
+        </div>
+        <div class="card-body">
+            <div class="w-100 mb-3">
                 @Html.ActionLink("Thêm mới", "Create", "TypeManage", null, new { @class = "btn btn-success" })
             </div>
             <div class="table-responsive">
@@ -31,21 +30,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @{
-                        foreach (var item in Model.ProductTypes)
-                        {
-                            <tr>
-                                <td><img src="~/Assets/images/prodtypes/@item.ImageURL" alt="@item.Name" width="100" /></td>
-                                <td>@item.Name.Trim()</td>
-                                <td>@Category.GetCategory(item.ID_Category).Name</td>
-                                <td >
-                                    <a href="@Url.Action("Detail", "TypeManage", new {ID_Type = item.ID_Type.Trim()})" class="btn btn-info w-100">Xem</a><br />
-                                    <a href="@Url.Action("Update", "TypeManage", new {ID_Type = item.ID_Type.Trim()})" class="btn btn-warning w-100 mt-2">Sửa</a><br />
-                                    <button class="btn btn-danger w-100 mt-2 deleteType" data-id="@item.ID_Type">Xóa</button>
-                                </td>
-                            </tr>
+                        @{
+                            foreach (var item in Model.ProductTypes)
+                            {
+                                <tr>
+                                    <td><img src="~/Assets/images/prodtypes/@item.ImageURL" alt="@item.Name" width="100" /></td>
+                                    <td>@item.Name.Trim()</td>
+                                    <td>@Category.GetCategory(item.ID_Category).Name</td>
+                                    <td>
+                                        <a href="@Url.Action("Detail", "TypeManage", new {ID_Type = item.ID_Type.Trim()})" class="btn btn-info w-100">Xem</a><br />
+                                        <a href="@Url.Action("Update", "TypeManage", new {ID_Type = item.ID_Type.Trim()})" class="btn btn-warning w-100 mt-2">Sửa</a><br />
+                                        <button class="btn btn-danger w-100 mt-2 deleteType" data-id="@item.ID_Type">Xóa</button>
+                                    </td>
+                                </tr>
+                            }
                         }
-                    }
 
                     </tbody>
                 </table>
@@ -77,25 +76,20 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        // Xử lý sự kiện click trên nút "Xóa"
         $('.deleteType').on('click', function () {
             var id = $(this).attr('data-id');
 
-            // Hiển thị xác nhận xóa trong modal
             $('#deleteConfirmPopup').modal('show');
 
-            // Xử lý sự kiện click trên nút xác nhận xóa
             $('#confirmDeleteBtn').off('click').on('click', function () {
-                // Gửi yêu cầu xóa thông qua AJAX
                 $.ajax({
-                    url: '@Url.Action("Delete", "TypeManage")', // Đường dẫn đến action Delete trong BrandController
+                    url: '@Url.Action("Delete", "TypeManage")', 
                     type: 'POST',
-                    data: { ID_Type: id }, // Dữ liệu gửi đi (ID_Brand cần xóa)
+                    data: { ID_Type: id }, 
                     success: function (response) {
                         if (response.result) {
                             alert('Xóa thành công');
-                            // Thực hiện cập nhật giao diện sau khi xóa (nếu cần)
-                            location.reload(); // Tải lại trang sau khi xóa
+                            location.reload(); 
                         } else {
                             alert('Xóa không thành công: ' + response.message);
                         }
@@ -105,7 +99,6 @@
                     }
                 });
 
-                // Đóng modal xác nhận xóa
                 $('#deleteConfirmPopup').modal('hide');
             });
         });

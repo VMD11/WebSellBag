@@ -12,7 +12,7 @@ namespace SellingBags.Areas.Admin.Models.DataContext
 
         public static IEnumerable<Account> GetAccounts()
         {
-            return db.Accounts;
+            return db.Accounts.Where(a => a.ID_Role == "R02");
         }
         public static IEnumerable<Customer> GetCustomers()
         {
@@ -21,7 +21,12 @@ namespace SellingBags.Areas.Admin.Models.DataContext
 
         public static Customer GetCustomer(string ID_Account)
         {
-            return db.Customers.FirstOrDefault(a => a.ID_Account == ID_Account);
+            return db.Customers.FirstOrDefault(c => c.ID_Account == ID_Account);
+        }
+
+        public static Account GetAccount(string ID_Account)
+        {
+            return db.Accounts.FirstOrDefault(a => a.ID_Account == ID_Account);
         }
 
         public static bool LockAccount(string ID_Account)

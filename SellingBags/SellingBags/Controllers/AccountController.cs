@@ -69,6 +69,7 @@ namespace SellingBags.Controllers
         public ActionResult Logout()
         {
             Session[Sessions.USER_SESSION] = null;
+            Session[Sessions.CART] = null;
             return RedirectToAction("Index","Home");
         }
 

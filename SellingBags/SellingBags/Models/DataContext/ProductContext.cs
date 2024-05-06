@@ -110,10 +110,16 @@ namespace SellingBags.Models.DataContext
             if(products.Count < 12)
             {
 
-                foreach (var product in db.Products.OrderByDescending(p => p.DateCreated.Value).Take(12 - products.Count).ToList())
-                    products.Add(product);
+                foreach (var product in db.Products.OrderByDescending(p => p.DateCreated.Value))
+                {
+                    if(products.FirstOrDefault(p => p.ID_Product == product.ID_Product) == null)
+                        products.Add(product);
+                    if (products.Count == 12)
+                        break;
+
+                }
             }
-            return products;
+            return products.OrderByDescending(p => p.DateCreated);
         }
 
         public IEnumerable<Product> GetBestSellerProducts()
