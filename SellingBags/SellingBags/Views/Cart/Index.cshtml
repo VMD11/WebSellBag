@@ -73,6 +73,7 @@
                                                             <div class="plus" data-id="@data_id"><i class="fa-solid fa-plus"></i></div>
                                                         </div>
                                                     </div>
+                                                    <div id="error"></div>
                                                 </td>
                                                 <td class="remove-pr delete">
                                                     <a href="@Url.Action("Delete","Cart",new {ID_Product = item.Product.ID_Product.Trim()})">
@@ -182,12 +183,15 @@
                     ID_Product: id,
                     Quantity: quantity
                 }, // Dữ liệu gửi đi (số lượng mới)
-			    success: function (response) {
-				    // Cập nhật số lượng và tổng tiền từ kết quả trả về
-				    $('#TotalQuantity').text(response.TotalQuantity);
-				    $('#TotalMoney').text(convertVND(response.TotalMoney));
-                    $('#GrandTotal').text(convertVND(response.TotalMoney));
-                    $('#countCart').text(response.TotalQuantity);
+                success: function (response) {
+                    if (response.result) {
+                        $('#TotalQuantity').text(response.TotalQuantity);
+                        $('#TotalMoney').text(convertVND(response.TotalMoney));
+                        $('#GrandTotal').text(convertVND(response.TotalMoney));
+                        $('#countCart').text(response.TotalQuantity);
+                    } else {
+                        $('#error').text(response.message);
+                    }
 			    },
 			    error: function () {
 				    alert('Có lỗi xảy ra khi cập nhật giỏ hàng.');

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SellingBags.Models.DataContext;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -23,5 +24,6 @@ namespace SellingBags.Models.ViewModel
         public IEnumerable<Product> WishList { get; set; }
         public IEnumerable<Product> NewProducts { get; set; }
         public IEnumerable<Product> BestSellerProducts { get; set; }
+        public IEnumerable<ProductContext.QuantitySold> QuantitySold { get; set; }
     }
 }

@@ -19,6 +19,12 @@ namespace SellingBags
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
 
+            //routes.MapRoute(
+            //    name: "CartAdd",
+            //    url: "Cart/Add",
+            //    defaults: new { controller = "Cart", action = "Add", id = UrlParameter.Optional }
+            //);
+
             routes.MapRoute(
             name: "Admin",
             url: "admin/{controller}/{action}/{id}",

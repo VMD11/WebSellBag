@@ -27,13 +27,11 @@ namespace SellingBags.Models.DataContext
                 if (customer == null) return false;
                 customer.LastName = newCustomer.LastName;
                 customer.FirstName = newCustomer.FirstName;
-                customer.PhoneNumber = newCustomer.PhoneNumber;
-                customer.Email = newCustomer.Email;
                 customer.City = newCustomer.City;
                 customer.District = newCustomer.District;
                 customer.Ward = newCustomer.Ward;
                 customer.Address = newCustomer.Address;
-                customer.BirthDay = newCustomer.BirthDay.HasValue ? DateTime.ParseExact(newCustomer.BirthDay.Value.ToString("MM-dd-yyyy"),"MM-dd-yyyy",CultureInfo.InvariantCulture) : DateTime.Now;
+                customer.BirthDay = newCustomer.BirthDay.HasValue ? DateTime.ParseExact(newCustomer.BirthDay.Value.ToString("dd-MM-yyyy"),"yyyy-MM-dd",CultureInfo.InvariantCulture) : DateTime.Now;
                 customer.Gender = newCustomer.Gender;
                 db.SaveChanges();
                 return true;

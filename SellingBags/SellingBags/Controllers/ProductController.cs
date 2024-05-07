@@ -31,6 +31,7 @@ namespace SellingBags.Controllers
             productVM.Type = productContext.GetBrand(ID_Product);
             productVM.RelativeProductsList = productContext.GetRelatedProductsList(ID_Product);
             productVM.NewProducts = productContext.GetNewProducts();
+            productVM.QuantitySold = productContext.GetQuantitySold();
             return View(productVM);
         }
 

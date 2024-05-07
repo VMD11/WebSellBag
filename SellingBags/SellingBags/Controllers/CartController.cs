@@ -20,7 +20,6 @@ namespace SellingBags.Controllers
             {
                 cart = new VirtualCartContext();
             }
-
             Session[Sessions.CART] = cart;
             return View(Session[Sessions.CART] as VirtualCartContext);
         }
@@ -32,21 +31,30 @@ namespace SellingBags.Controllers
             {
                 cart = new VirtualCartContext();
             }
-            cart.AddProduct(ID_Product, Quantity);
-            Session[Sessions.CART] = cart;
-
-            return RedirectToAction("Index");
+            if(cart.CheckQuantity(ID_Product, Quantity))
+            {
+                cart.AddProduct(ID_Product, Quantity);
+                Session[Sessions.CART] = cart;
+                return Json(new {result = true});
+            }
+            ViewBag.Message = "Số lượng sản phẩm không đủ";
+            return Json(new {result = false, message = ViewBag.Message});
+            
         }
 
         [HttpPost]
         public ActionResult Update(string ID_Product, int Quantity)
         {
             VirtualCartContext cart = Session[Sessions.CART] as VirtualCartContext;
+            if(cart.CheckQuantity(ID_Product, Quantity))
+            {
+                cart.UpdateProduct(ID_Product, Quantity);
+                Session[Sessions.CART] = cart;
             
-            cart.UpdateProduct(ID_Product, Quantity);
-            Session[Sessions.CART] = cart;
-            
-            return Json(new { TotalMoney = cart.TotalMoney(), TotalQuantity = cart.TotaQuantity() });
+                return Json(new { result = true, TotalMoney = cart.TotalMoney(), TotalQuantity = cart.TotaQuantity() });
+            }
+            ViewBag.Message = "Số lượng sản phẩm không đủ";
+            return Json(new { result = false, message = ViewBag.Message, TotalMoney = cart.TotalMoney(), TotalQuantity = cart.TotaQuantity() });
         }
 
         public ActionResult Delete(string ID_Product)

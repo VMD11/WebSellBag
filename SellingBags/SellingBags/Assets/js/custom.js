@@ -230,6 +230,7 @@
 		});
 	});
 	
+	
 	/* ..............................................
 	   Update Shipping Cost
 	   ................................................. */
@@ -414,6 +415,32 @@ function showPass() {
 		eyeIcon.classList.add("fa-eye-slash");
 	}
 }
+
+//document.addEventListener('DOMContentLoaded', function () {
+//	var addButton = document.getElementById('addButton');
+//	addButton.addEventListener('click', function (e) {
+//		e.preventDefault();
+//		var id_product = addButton.getAttribute('data-id');
+//		var quantity = addButton.getAttribute('data-quantity');
+
+//		var xhr = new XMLHttpRequest();
+
+//		xhr.open('POST', addButton.getAttribute('href'), true);
+//		xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+//		xhr.onload = function () {
+//			if (xhr.status >= 200 && xhr.status < 300) {
+
+//				location.reload();
+//			} else {
+//				console.log('Đã xảy ra lỗi khi gửi yêu cầu.');
+//			}
+//		};
+//		xhr.onerror = function () {
+//			console.log('Đã xảy ra lỗi khi gửi yêu cầu.');
+//		};
+//		xhr.send('ID_Product=' + id_product + '&Quantity=' + quantity);
+//	});
+//});
 
 
 

@@ -26,8 +26,10 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-12">
-                <p class="text-success">@ViewBag.Success</p>
-                <p class="text-danger">@ViewBag.Error</p>
+                <div class="d-flex justify-content-center">
+                    <h2 class="text-success">@ViewBag.Success</h2>
+                    <h2 class="text-danger">@ViewBag.Error</h2>
+                </div>
             </div>
             <div class="col-3"></div>
             <div class="col-6">
@@ -44,15 +46,15 @@
                     </div>
                     <div class="mb-3">
                         <label for="phoneNumber">Số điện thoại:</label>
-                        <input id="phoneNumber" name="PhoneNumber" class="form-control" value="@Model.Customer.PhoneNumber" />
+                        <input id="phoneNumber" name="PhoneNumber" class="form-control" value="@Model.Customer.PhoneNumber" readonly/>
                     </div>
                     <div class="mb-3">
                         <label for="email">Email:</label>
-                        <input id="email" name="Email" class="form-control" value="@Model.Customer.Email" />
+                        <input id="email" name="Email" class="form-control" value="@Model.Customer.Email" readonly/>
                     </div>
                     <div class="mb-3">
                         <label for="birthday">Ngày sinh:</label>
-                        <input id="birthday" name="BirthDay" class="form-control" value="@Converts.convertDate(Model.Customer.BirthDay)">
+                        <input id="birthday" name="BirthDay" class="form-control" value="@Converts.convertDate(Model.Customer.BirthDay.Value)">
                     </div>
                     <div class="mb-3">
                         <label for="city">Tỉnh / Thành phố:</label>
@@ -70,7 +72,7 @@
                         <label for="address">Địa chỉ:</label>
                         <input id="address" name="Address" class="form-control" value="@Model.Customer.Address" />
                     </div>
-                    <div class="mb-3 d-inline-block">
+                    <div class="mb-3">
                         <label for="Gender">Giới tính:</label>
                         <div class="custom-control custom-radio">
                             <input id="male" name="Gender" class="custom-control-input mt-4" type="radio" value="Nam" checked />
@@ -86,7 +88,7 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <button type="submit" class="btn hvr-hover">Cập nhật</button>
+                        <button type="submit" class="btn hvr-hover text-white w-100 border-0">Cập nhật</button>
                     </div>
                 }
             </div>

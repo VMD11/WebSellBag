@@ -112,7 +112,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="dropdown ">
+                        @*<li class="dropdown ">
                             <a class="nav-link dropdown-toggle arrow" data-toggle="dropdown">Shop</a>
                             <ul class="dropdown-menu left-auto">
                                 <li>@Html.ActionLink("Giỏ hàng", "Index", "Cart")</li>
@@ -121,7 +121,7 @@
                                 <li>@Html.ActionLink("Danh sách yêu thích", "WishList", "Account")</li>
                                 <li>@Html.ActionLink("Sản phẩm", "Index", "Product")</li>
                             </ul>
-                        </li>
+                        </li>*@
                         @*<li class="dropdown">
                             <a class="nav-link dropdown-toggle arrow" data-toggle="dropdown">Bộ sưu tập</a>
                             <ul class="dropdown-menu">
@@ -165,7 +165,7 @@
 
 
                         <li class="side-menu">
-                            <a href="@Url.Action("Index","Cart")">
+                            <a href="">
                                 <i class="fa fa-shopping-bag"></i>
                                 <span class="badge" id="countCart">@countCart</span>
                             </a>
@@ -175,7 +175,7 @@
                 <!-- End Atribute Navigation -->
             </div>
             <!-- Start Side Menu -->
-            <div class="side">
+            <div id="sideMenu" class="side">
                 <a class="close-side"><i class="fa fa-times"></i></a>
                 <li class="cart-box">
                     <ul class="cart-list my-5">

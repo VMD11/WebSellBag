@@ -17,7 +17,7 @@ namespace SellingBags.Models.DataContext
 
         public Product GetProduct(string ID_Product)
         {
-            return db.Products.Find(ID_Product);
+            return db.Products.FirstOrDefault( p => p.ID_Product == ID_Product);
         }
 
         public IEnumerable<Product> GetProductsAll()
@@ -131,6 +131,24 @@ namespace SellingBags.Models.DataContext
             }
             return products;
         }
+
+        public class QuantitySold
+        {
+            public string ID_Product { get; set; }
+            public int? Quantity { get; set; }
+        }
+        public IEnumerable<QuantitySold> GetQuantitySold()
+        {
+            var query = from o in db.OrderDetails
+                        group o by o.ID_Product into groups
+                        select new QuantitySold
+                        {
+                            ID_Product = groups.Key,
+                            Quantity = groups.Sum(q => q.Quantity)
+                        };
+            return query;            
+        }
+
 
         private bool IsNew(Product product)
         {

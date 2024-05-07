@@ -19,10 +19,14 @@ namespace SellingBags.Models.DataContext
         {
             return VirtualCartList;
         }
+        public bool CheckQuantity(string ID_Product, int Quantity)
+        {
+            return GetProductByID(ID_Product).Quantity > Quantity;
+        }
 
         public void AddProduct(string ID_Product, int Quantity)
         {
-            var newProduct = Product(ID_Product);
+            var newProduct = GetProductByID(ID_Product);
             if (newProduct == null)
             {
                 return;
@@ -42,7 +46,7 @@ namespace SellingBags.Models.DataContext
 
         public void UpdateProduct(string ID_Product, int Quantity)
         {
-            var newProduct = Product(ID_Product);
+            var newProduct = GetProductByID(ID_Product);
             if (newProduct == null)
             {
                 return;
@@ -56,7 +60,7 @@ namespace SellingBags.Models.DataContext
         }
         public void DeleteProduct(string ID_Product)
         {
-            var newProduct = Product(ID_Product);
+            var newProduct = GetProductByID(ID_Product);
             if (newProduct == null)
             {
                 return;
@@ -83,7 +87,8 @@ namespace SellingBags.Models.DataContext
             }
             return result;
         }
-        private Product Product(string ID_Product)
+
+        private Product GetProductByID(string ID_Product)
         {
             return db.Products.FirstOrDefault(p => p.ID_Product == ID_Product);
         }

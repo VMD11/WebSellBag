@@ -74,7 +74,7 @@
                                                                     <li><a href="@Url.Action("AddToWishList", "Account", new {ID_Product = item.ID_Product.Trim().Trim()})" data-toggle="tooltip" data-placement="right" title="Thêm vào yêu thích"><i class="far fa-heart"></i></a></li>
                                                                 }
                                                             </ul>
-                                                            <a class="cart" href="@Url.Action("Add","Cart",new { ID_Product = item.ID_Product.Trim(), Quantity = 1 })">Thêm vào giỏ hàng</a>
+                                                            <a class="cart" id="addButton" href="@Url.Action("Add","Cart")" data-id="@item.ID_Product" data-quantity="1">Thêm vào giỏ hàng</a>
                                                         </div>
                                                     </div>
                                                     <div class="why-text">
@@ -100,6 +100,34 @@
     </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var addButton = document.getElementById('addButton');
+        addButton.addEventListener('click', function (e) {
+            e.preventDefault();
+            var id_product = addButton.getAttribute('data-id');
+            var quantity = addButton.getAttribute('data-quantity');
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('POST', addButton.getAttribute('href'), true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onload = function () {
+                if (xhr.status >= 200 && xhr.status < 300) {
+
+                    location.reload();
+                } else {
+                    alert('Đã xảy ra lỗi khi gửi yêu cầu.');
+                }
+            };
+            xhr.onerror = function () {
+                alert('Đã xảy ra lỗi khi gửi yêu cầu.');
+            };
+            xhr.send('ID_Product=' + id_product + '&Quantity=' + quantity);
+        });
+    });
+</script>
 
 

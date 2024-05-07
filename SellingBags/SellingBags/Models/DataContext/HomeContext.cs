@@ -36,7 +36,8 @@ namespace SellingBags.Models.DataContext
                 products.Add(GetProduct(item.ID_Product));
                 
             }
-            return products;
+            var random = new Random();
+            return products.OrderBy(x => random.Next());
         }
 
         public IEnumerable<Category> GetCategoriesAll()
