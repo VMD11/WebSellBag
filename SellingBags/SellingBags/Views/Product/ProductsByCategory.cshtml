@@ -1,8 +1,10 @@
 ﻿@model SellingBags.Models.ViewModel.ProductVM
+@using SellingBags.Models.DataContext
 @using SellingBags.Common
 @{
     ViewBag.Title = "ProductsByCategory";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var productContext = new ProductContext();
 }
 <div class="container-fluid">
     <div class="all-title-box">
@@ -21,88 +23,7 @@
     <div class="shop-box-inner">
         <div class="container">
             <div class="row">
-                @*<div class="col-xl-3 col-lg-3 col-sm-12 col-xs-12 sidebar-shop-left">
-                        <div class="product-categori">
-                            <div class="search-product">
-                                <form action="#">
-                                    <input class="form-control" placeholder="Search here..." type="text">
-                                    <button type="submit"> <i class="fa fa-search"></i> </button>
-                                </form>
-                            </div>
-                            <div class="filter-sidebar-left">
-                                <div class="title-left">
-                                    <h3>Categories</h3>
-                                </div>
-                                <div class="list-group list-group-collapse list-group-sm list-group-tree" id="list-group-men" data-children=".sub-men">
-                                    <div class="list-group-collapse sub-men">
-                                        <a class="list-group-item list-group-item-action" href="#sub-men1" data-toggle="collapse" aria-expanded="true" aria-controls="sub-men1">
-                                            Clothing <small class="text-muted">(100)</small>
-                                        </a>
-                                        <div class="collapse show" id="sub-men1" data-parent="#list-group-men">
-                                            <div class="list-group">
-                                                <a href="#" class="list-group-item list-group-item-action active">T-Shirts <small class="text-muted">(50)</small></a>
-                                                <a href="#" class="list-group-item list-group-item-action">Polo T-Shirts <small class="text-muted">(10)</small></a>
-                                                <a href="#" class="list-group-item list-group-item-action">Round Neck T-Shirts <small class="text-muted">(10)</small></a>
-                                                <a href="#" class="list-group-item list-group-item-action">V Neck T-Shirts <small class="text-muted">(10)</small></a>
-                                                <a href="#" class="list-group-item list-group-item-action">Hooded T-Shirts <small class="text-muted">(20)</small></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="list-group-collapse sub-men">
-                                        <a class="list-group-item list-group-item-action" href="#sub-men2" data-toggle="collapse" aria-expanded="false" aria-controls="sub-men2">
-                                            Footwear
-                                            <small class="text-muted">(50)</small>
-                                        </a>
-                                        <div class="collapse" id="sub-men2" data-parent="#list-group-men">
-                                            <div class="list-group">
-                                                <a href="#" class="list-group-item list-group-item-action">Sports Shoes <small class="text-muted">(10)</small></a>
-                                                <a href="#" class="list-group-item list-group-item-action">Sneakers <small class="text-muted">(20)</small></a>
-                                                <a href="#" class="list-group-item list-group-item-action">Formal Shoes <small class="text-muted">(20)</small></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="list-group-item list-group-item-action"> Men  <small class="text-muted">(150) </small></a>
-                                    <a href="#" class="list-group-item list-group-item-action">Accessories <small class="text-muted">(11)</small></a>
-                                    <a href="#" class="list-group-item list-group-item-action">Bags <small class="text-muted">(22)</small></a>
-                                </div>
-                            </div>
-                            <div class="filter-price-left">
-                                <div class="title-left">
-                                    <h3>Price</h3>
-                                </div>
-                                <div class="price-box-slider">
-                                    <div id="slider-range"></div>
-                                    <p>
-                                        <input type="text" id="amount" readonly style="border:0; color:#fbb714; font-weight:bold;">
-                                        <button class="btn hvr-hover" type="submit">Filter</button>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="filter-brand-left">
-                                <div class="title-left">
-                                    <h3>Brand</h3>
-                                </div>
-                                <div class="brand-box">
-                                    <ul>
-                                        @{
-                                            int i = 1;
-                                            foreach(var item in Model.Brands)
-                                            {
-                                                <li>
-                                                    <div class="radio radio-danger">
-                                                        <input name="survey" id="Radios1" value="Yes" type="radio">
-                                                        <label for="Radios@i">@item.Name</label>
-                                                    </div>
-                                                </li>
-                                                i++;
-                                            }
-                                        }
-                                    </ul>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>*@
+               
                 <div class="col-xl-12 col-lg-12 col-sm-12 col-xs-12 ">
                     <div class="right-product-box">
                         <div class="product-item-filter row">
@@ -135,12 +56,12 @@
                                             SellingBags.Models.DataContext.WishListContext context = new SellingBags.Models.DataContext.WishListContext();
                                             foreach (var item in Model.ProductsByCategory)
                                             {
-
+                                                var brandName = productContext.GetBrandName(item.ID_Product);
                                                 <div class="col-lg-3 col-md-4 col-6">
                                                     <div class="products-single fix">
                                                         <div class="box-img-hover">
                                                             <div class="type-lb">
-                                                                <p class="new">New</p>
+                                                                <p class="sale">@brandName</p>
                                                             </div>
                                                             <img src="~/Assets/images/products/@item.ImageURL" class="img-fluid" alt="@item.Name">
                                                             <div class="mask-icon">
@@ -156,7 +77,7 @@
                                                                         <li><a href="@Url.Action("AddToWishList", "Account", new {ID_Product = item.ID_Product.Trim()})" data-toggle="tooltip" data-placement="right" title="Thêm vào yêu thích"><i class="far fa-heart"></i></a></li>
                                                                     }
                                                                 </ul>
-                                                                <a class="cart" id="addButton" href="@Url.Action("Add","Cart")" data-id="@item.ID_Product" data-quantity="1">Thêm vào giỏ hàng</a>
+                                                                <a class="cart" id="@GenarateRandomID.Execute()" href="@Url.Action("Add","Cart")" data-id="@item.ID_Product" data-quantity="1">Thêm vào giỏ hàng</a>
                                                             </div>
                                                         </div>
                                                         <div class="why-text">
@@ -183,32 +104,33 @@
     </div>
     <!-- End Shop Page -->
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        var addButton = document.getElementById('addButton');
-        addButton.addEventListener('click', function (e) {
-            e.preventDefault();
-            var id_product = addButton.getAttribute('data-id');
-            var quantity = addButton.getAttribute('data-quantity');
+        var addCartButtons = document.querySelectorAll('.cart');
+        addCartButtons.forEach(function (addButton) {
+            addButton.addEventListener('click', function (e) {
+                e.preventDefault();
+                var id_product = addButton.getAttribute('data-id');
+                var quantity = addButton.getAttribute('data-quantity');
 
-            var xhr = new XMLHttpRequest();
+                var xhr = new XMLHttpRequest();
 
-            xhr.open('POST', addButton.getAttribute('href'), true);
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.onload = function () {
-                if (xhr.status >= 200 && xhr.status < 300) {
-
-                    location.reload();
-                } else {
+                xhr.open('POST', addButton.getAttribute('href'), true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onload = function () {
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        alert('Thêm thành công');
+                        location.reload();
+                    } else {
+                        alert('Đã xảy ra lỗi khi gửi yêu cầu.');
+                    }
+                };
+                xhr.onerror = function () {
                     alert('Đã xảy ra lỗi khi gửi yêu cầu.');
-                }
-            };
-            xhr.onerror = function () {
-                alert('Đã xảy ra lỗi khi gửi yêu cầu.');
-            };
-            xhr.send('ID_Product=' + id_product + '&Quantity=' + quantity);
-        });
+                };
+                xhr.send('ID_Product=' + id_product + '&Quantity=' + quantity);
+            });
+        })
     });
 </script>

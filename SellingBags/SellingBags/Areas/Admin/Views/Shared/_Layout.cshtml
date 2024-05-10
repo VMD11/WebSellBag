@@ -123,20 +123,20 @@
 
             <!-- Nav Item - Collapse Menu -->
             @*<li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrders"
-                   aria-expanded="true" aria-controls="collapseOrders">
-                    <i class="fas fa-fw fa-truck"></i>
-                    <span>Đơn hàng</span>
-                </a>
-                <div id="collapseOrders" class="collapse" aria-labelledby="headingOrders" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Đơn hàng:</h6>
-                        <a class="collapse-item" href="@Url.Action("Index","OrderManage")">Đơn hàng</a>
-                        <a class="collapse-item" href="@Url.Action("","OrderManage")">Thống kê</a>
-                        
-                    </div>
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrders"
+               aria-expanded="true" aria-controls="collapseOrders">
+                <i class="fas fa-fw fa-truck"></i>
+                <span>Đơn hàng</span>
+            </a>
+            <div id="collapseOrders" class="collapse" aria-labelledby="headingOrders" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Đơn hàng:</h6>
+                    <a class="collapse-item" href="@Url.Action("Index","OrderManage")">Đơn hàng</a>
+                    <a class="collapse-item" href="@Url.Action("","OrderManage")">Thống kê</a>
+
                 </div>
-            </li>*@
+            </div>
+        </li>*@
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
@@ -164,6 +164,12 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
+                <a class="nav-link" href="@Url.Action("Index","AccountManage")">
+                    <i class="fas fa-fw fa-house-user"></i>
+                    <span>Tài khoản</span>
+                </a>
+            </li>
+            @*<li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                    aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-house-user"></i>
@@ -175,7 +181,7 @@
                         <a class="collapse-item" href="@Url.Action("Index","AccountManage")">Tất cả người dùng</a>
                     </div>
                 </div>
-            </li>
+            </li>*@
 
 
 
@@ -203,7 +209,7 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    @*<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
                             <input type="text" class="form-control bg-light border-0 small" placeholder="Tìm kiếm..."
                                    aria-label="Search" aria-describedby="basic-addon2">
@@ -213,19 +219,19 @@
                                 </button>
                             </div>
                         </div>
-                    </form>
+                    </form>*@
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                        <li class="nav-item dropdown no-arrow d-sm-none">
+                        <!--<li class="nav-item dropdown no-arrow d-sm-none">
                             <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-search fa-fw"></i>
-                            </a>
+                            </a>-->
                             <!-- Dropdown - Messages -->
-                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                            <!--<div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
                                  aria-labelledby="searchDropdown">
                                 <form class="form-inline mr-auto w-100 navbar-search">
                                     <div class="input-group">
@@ -240,18 +246,18 @@
                                     </div>
                                 </form>
                             </div>
-                        </li>
+                        </li>-->
 
                         <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
+                        <!--<li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
+                                <i class="fas fa-bell fa-fw"></i>-->
                                 <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
+                                <!--<span class="badge badge-danger badge-counter">3+</span>
+                            </a>-->
                             <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                            <!--<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                  aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">
                                     Thông báo
@@ -291,7 +297,7 @@
                                 </a>
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
                             </div>
-                        </li>
+                        </li>-->
 
                         <!-- Nav Item - Messages -->
                         <!--<li class="nav-item dropdown no-arrow mx-1">

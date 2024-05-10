@@ -87,9 +87,9 @@
                                         else if (item.Status == 1)
                                         {
                                             <p class="text-warning">Đang vận chuyển</p>
-                            }
+                                        }
                                         else
-                            {
+                                        {
                                             <p class="text-success">Đã hoàn thành</p>
                                         }
                                     </td>
@@ -100,7 +100,7 @@
                                             <a href="@Url.Action("Cancel", "OrderManage", new {ID_Order = item.ID_Order})" class="btn btn-danger w-100">Hủy</a>
                                         }
                                         else
-                            {
+                                        {
                                             <a href="@Url.Action("Detail", "OrderManage", new {ID_Order = item.ID_Order})" class="btn btn-info w-100">Xem</a><br />
                                         }
                                     </td>
@@ -108,7 +108,6 @@
 
                             }
                         }
-
                     </tbody>
                 </table>
             </div>
@@ -116,23 +115,19 @@
     </div>
 </div>
 <!-- /.container-fluid -->
+
 <script type="text/javascript">
-    //$(document).ready(function () {
-    //    // Xử lý sự kiện khi người dùng thay đổi lựa chọn trong dropdown
-    //    $('#filterSelect').change(function () {
-    //        var selectedFilter = $(this).val(); // Lấy giá trị của lựa chọn được chọn
+    $(document).ready(function () {
+        $('#filterSelect').change(function () {
+            var selectedFilter = $(this).val(); 
+            console.log(selectedFilter);
+            $('#dataTable tbody tr').hide();
 
-    //        // Ẩn tất cả các hàng trong bảng trước khi áp dụng bộ lọc
-    //        $('#dataTable tbody tr').hide();
-
-    //        // Hiển thị các hàng có lớp CSS tương ứng với lựa chọn được chọn
-    //        if (selectedFilter === '*') {
-    //            $('#dataTable tbody tr').show(); // Hiển thị tất cả nếu chọn 'Tất cả'
-    //        } else {
-    //            $('#dataTable tbody tr' + selectedFilter).show(); // Hiển thị hàng có lớp CSS tương ứng
-    //        }
-    //    });
-
-    //    $('#filterSelect').val('*').change();
-    //});
+            if (selectedFilter === '*') {
+                $('#dataTable tbody tr').show(); 
+            } else {
+                $('#dataTable tbody tr' + selectedFilter).show();
+            }
+        });
+    });
 </script>

@@ -27,6 +27,8 @@ namespace SellingBags.Models.DataContext
             }
             else
             {
+                if (result.Status == 0)
+                    return -1;
                 return 1;
             }
         }

@@ -46,16 +46,22 @@ namespace SellingBags.Models.DataContext
             return db.Products.Where(p => p.Name.Contains(KeyName));
         }
 
-        public string GetBrand(string ID_Product)
+        public string GetBrandName(string ID_Product)
         {
             var ID_Brand = GetProduct(ID_Product).ID_Brand;
-            return db.Brands.Find(ID_Brand).Name;
+            return db.Brands.FirstOrDefault(b => b.ID_Brand == ID_Brand).Name;
         }
 
-        public string GetType(string ID_Product)
+        public string GetTypeName(string ID_Product)
         {
             var ID_Type = GetProduct(ID_Product).ID_Type;
-            return db.ProductTypes.Find(ID_Type).Name;
+            return db.ProductTypes.FirstOrDefault(p => p.ID_Type == ID_Type).Name;
+        }
+
+        public string GetCategoryName(string ID_Product)
+        {
+            var ID_Category = GetProductType(GetProduct(ID_Product).ID_Type).ID_Category;
+            return db.Categories.FirstOrDefault(c => ID_Category == c.ID_Category).Name;
         }
 
         public IEnumerable<Product> GetProductsByType(string ID_ProductType)
@@ -83,6 +89,10 @@ namespace SellingBags.Models.DataContext
         {
             return db.ProductTypes.FirstOrDefault(p => p.ID_Type == ID_Type);
         }
+        public Brand GetBrand(string ID_Brand)
+        {
+            return db.Brands.FirstOrDefault(b => b.ID_Brand == ID_Brand);
+        }
         
         public IEnumerable<Category> GetCategories()
         {
@@ -93,6 +103,8 @@ namespace SellingBags.Models.DataContext
         {
             return db.ProductTypes.Where(p => p.ID_Category == ID_Category);
         }
+
+
         public bool IsWishListed(string ID_Account, string ID_Product)
         {
             var result = db.WishLists.FirstOrDefault(r => r.ID_Account == ID_Account && r.ID_Product == ID_Product);

@@ -52,6 +52,10 @@ namespace SellingBags.Controllers
                         Session.Add(Sessions.USER_SESSION, user_session);
                         return RedirectToAction("Index","Home");
                     }
+                    else if(result == -1)
+                    {
+                        ViewBag.Error_Text += "Tài khoản này đã bị khóa";
+                    }
                     else
                     {
                         ViewBag.Error_Text += "Thông tin đăng nhập không chính xác, vui lòng thử lại";
@@ -190,7 +194,6 @@ namespace SellingBags.Controllers
             else
             {
                 return RedirectToAction("Login");
-                
             }
         }
 
@@ -216,7 +219,6 @@ namespace SellingBags.Controllers
         private LoginAccount Account()
         {
             return Session[Sessions.USER_SESSION] as LoginAccount;
-             
         }
 
     }

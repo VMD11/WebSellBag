@@ -27,8 +27,8 @@ namespace SellingBags.Controllers
         public ActionResult Detail(string ID_Product)
         {
             productVM.Product = productContext.GetProduct(ID_Product);
-            productVM.Brand = productContext.GetBrand(ID_Product);
-            productVM.Type = productContext.GetBrand(ID_Product);
+            productVM.Brand = productContext.GetBrandName(ID_Product);
+            productVM.Type = productContext.GetTypeName(ID_Product);
             productVM.RelativeProductsList = productContext.GetRelatedProductsList(ID_Product);
             productVM.NewProducts = productContext.GetNewProducts();
             productVM.QuantitySold = productContext.GetQuantitySold();
@@ -45,6 +45,7 @@ namespace SellingBags.Controllers
         public ActionResult ProductsByBrand(string ID_Brand)
         {
             productVM.ProductsByBrand = productContext.GetProductsByBrand(ID_Brand);
+            ViewBag.Brand = productContext.GetBrand(ID_Brand);
             return View(productVM);
         }
 
@@ -64,6 +65,7 @@ namespace SellingBags.Controllers
             
             productVM.ProductsByCategory = productContext.GetProductsByCategory(ID_Category);
             ViewBag.Category = productContext.GetCategory(ID_Category);
+            
             return View(productVM);
         }
 
