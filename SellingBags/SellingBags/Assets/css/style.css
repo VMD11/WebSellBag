@@ -1182,6 +1182,81 @@ ul.cart-list > li.total > .btn:hover {
     animation: bounceY 0.9s linear;
 }
 
+.shop-box-inner .sidefilter {
+    position: fixed;
+    top: 0;
+    left: -350px; 
+    width: 350px;
+    height: 100%;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: left 0.3s ease;
+    z-index: 1000;
+}
+    .shop-box-inner .sidefilter.show{
+        left:0;
+    }
+    .sidefilter .close {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        cursor: pointer;
+        font-size: 24px;
+        z-index:auto;
+    }
+    .sidefilter .buttonfilter {
+        position:absolute;
+        bottom: 20px;
+    }
+        .sidefilter .buttonfilter .btn{
+            border-radius: 0;
+            padding: 10px;
+        }
+        
+.sort-section .sort-options {
+    display: none;
+    position: absolute;
+    top: 44px;
+    left:12.5%;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+    .sort-section .sort-options ul {
+        list-style-type: none;
+        padding: 0 16px;
+        margin: 0;
+    }
+
+        .sort-section .sort-options ul li {
+            padding: 8px;
+            border-bottom: #ccc solid 1px;
+            text-align:left;
+        }
+
+            .sort-section .sort-options ul li a {
+                display:block;
+                color: #000;
+                width:100%;
+            }
+                .sort-section .sort-options ul li a:hover{
+                    color: #d33b33;
+                }
+                .sort-section .sort-options ul li a.active::before {
+                    content: "\f00c";
+                    font-family: FontAwesome;
+                    margin-left: 5px;
+                    margin-top: 2px;
+                    border: none;
+                    text-decoration: inherit;
+                    position: absolute;
+                    right: 30px;
+                    display: inline-block;
+                }
+                
+
 @keyframes bounceY {
     0% {
         transform: translateY(-205px);
@@ -2306,8 +2381,8 @@ form {
 }
 
 .product-item-filter {
-    border-bottom: 1px solid #010101;
-    border-top: 1px solid #010101;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
     display: -webkit-box;
     display: -ms-flexbox;
     display: -webkit-flex;
@@ -2317,6 +2392,7 @@ form {
     -webkit-justify-content: space-between;
     justify-content: space-between;
     padding: 5px 0;
+    color: #000;
 }
 
 .nice-select.wide {

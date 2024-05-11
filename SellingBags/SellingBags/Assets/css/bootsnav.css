@@ -353,7 +353,7 @@ body.on-side{
     margin-left: -280px;
 }
 
-.side{
+.side {
     position: fixed;
     overflow-y: auto;
     top: 0;
@@ -362,12 +362,13 @@ body.on-side{
     padding: 25px 15px;
     height: 100%;
     display: block;
-    background-color: #010101;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     -webkit-transition: all 0.3s ease-in-out;
-	-moz-transition: all 0.3s ease-in-out;
-	-o-transition: all 0.3s ease-in-out;
-	-ms-transition: all 0.3s ease-in-out;
-	transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
     z-index: 9;
 }
 

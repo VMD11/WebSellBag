@@ -19,25 +19,55 @@
     </div>
 </div>
 <div class="shop-box-inner">
-    <div class="sidefilter">
-        <h3>Lọc sản phẩm</h3>
+    <div id="sidefilter" class="sidefilter">
+        <h3 class="text-center">Bộ lọc</h3>
+        <div id="closefilter" class="close"><i class="fa fa-arrow-left"></i></div>
         <form id="filterForm">
-            <div class="filter-section">
-                <h4>Giá</h4>
-                <input type="number" id="minPrice" placeholder="Từ giá" />
-                <input type="number" id="maxPrice" placeholder="Đến giá" />
+            <div class="row">
+                <div class="col-12">
+                    <div class="h5">Giá:</div>
+                    <div class="ml-3">
+                        <div class="custom-control custom-radio">
+                            <input id="price1" name="Price" value="" type="radio" class="custom-control-input mt-4">
+                            <label class="custom-control-label" for="price1">
+                                < 400.000
+                            </label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="price2" name="Price" value="" type="radio" class="custom-control-input mt-4">
+                            <label class="custom-control-label" for="price2">
+                                400.000 - 600.000
+                            </label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="price3" name="Price" value="" type="radio" class="custom-control-input mt-4">
+                            <label class="custom-control-label" for="price3">
+                                600.000 - 900.000
+                            </label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input id="price4" name="Price" value="" type="radio" class="custom-control-input mt-4">
+                            <label class="custom-control-label" for="price4">
+                                > 900.000
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="h5">Màu sắc:</div>
+                    <select id="colorFilter" name="Color" class="form-control">
+                        <option value="">Tất cả</option>
+                        <option value="red">Đỏ</option>
+                        <option value="blue">Xanh</option>
+                        <option value="green">Xanh lá</option>
+                        <option value="yellow">Vàng</option>
+                    </select>
+                </div>
+                <div class="col-12 buttonfilter">
+                    <button type="button" id="applyFilter" class="btn hvr-hover text-white w-100">Hoàn tất</button>
+                    <button type="button" id="clearFilter" class="btn btn-theme w-100 mt-2">Xóa bộ lọc</button>
+                </div>
             </div>
-            <div class="filter-section">
-                <h4>Màu sắc</h4>
-                <select id="colorFilter">
-                    <option value="red">Đỏ</option>
-                    <option value="blue">Xanh</option>
-                    <option value="green">Xanh lá</option>
-                    <option value="yellow">Vàng</option>
-                </select>
-            </div>
-            <button type="button" id="applyFilter">Lọc</button>
-            <button type="button" id="clearFilter">Xóa bộ lọc</button>
         </form>
     </div>
     <div class="container">
@@ -45,22 +75,24 @@
             <div class="col-xl-12 col-lg-12 col-sm-12 col-xs-12 ">
                 <div class="right-product-box">
                     <div class="product-item-filter row">
-                        <div class="col-12 col-sm-8 text-center text-sm-left">
-                            <div class="toolbar-sorter-right">
-                                <span>Sắp xếp</span>
-                                <select id="basic" class="selectpicker show-tick form-control" data-placeholder="$ USD">
-                                    <option data-display="Select">Mặc định</option>
-                                    <option value="1"></option>
-                                    <option value="2">High Price → High Price</option>
-                                    <option value="3">Low Price → High Price</option>
-                                    <option value="4">Best Selling</option>
-                                </select>
+                        <div class="col-6 text-center border-right">
+                            <div id="filterBtn" class="btn bg-white w-100 "><i class="fa fa-filter"></i> Bộ lọc</div>
+                        </div>
+                        <div class="col-6 text-center">
+                            <div class="sort-section">
+                                <div id="sortBtn" class="btn bg-white w-100"><i class="fa fa-sort-amount-asc"></i> Sắp xếp</div>
+                                <div id="sortOptions" class="sort-options w-75">
+                                    <ul>
+                                        <li><a href="#" class="active">Mặc định</a></li>
+                                        <li><a href="#">Giá tăng dần</a></li>
+                                        <li><a href="#">Giá giảm dần</a></li>
+                                        <li><a href="#">Bán chạy</a></li>
+                                    </ul>
+                                </div>
                             </div>
-                            <p>Showing all 4 results</p>
                         </div>
 
                     </div>
-
                     <div class="row product-categorie-box">
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane fade show active" id="grid-view">
@@ -149,5 +181,42 @@
             });
         })
     });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var filterBtn = document.getElementById('filterBtn');
+        var sidefilter = document.getElementById('sidefilter');
+        var closeBtn = document.getElementById('closefilter');
+        var sortBtn = document.getElementById('sortBtn');
+        var sortOptions = document.getElementById('sortOptions');
+        filterBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            sidefilter.classList.toggle('show');
+            togglesidefilter(sidefilter);
+        });
+
+        closeBtn.addEventListener('click', function () {
+            sidefilter.classList.remove('show');
+            togglesidefilter(sidefilter);
+        });
+
+        document.body.addEventListener('click', function (e) {
+            var target = e.target;
+            if (!sidefilter.contains(target)) {
+                sidefilter.classList.remove('show');
+            }
+            togglesidefilter(sidefilter);
+        });
+
+        sortBtn.addEventListener('click', function () {
+            var isOpen = sortOptions.style.display === 'block';
+            sortOptions.style.display = isOpen ? 'none' : 'block';
+        });
+
+        function togglesidefilter(sidefilter) {
+            var isOpen = sidefilter.classList.contains('show');
+            document.body.style.overflow = isOpen ? 'hidden' : 'auto';
+        }
+    });
+
 </script>
 
