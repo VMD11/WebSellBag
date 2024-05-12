@@ -348,6 +348,7 @@
         <Function Name="spBestSeller" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="month" Type="int" Mode="In" />
         </Function>
+        <Function Name="spColor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="spDaylyRevenue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="today" Type="date" Mode="In" />
         </Function>
@@ -661,6 +662,7 @@
           <Parameter Name="month" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spNewProduct" ReturnType="Collection(SellingBagsModel.spNewProduct_Result)" />
+          <FunctionImport Name="spColor" ReturnType="Collection(String)" />
           </EntityContainer>
         <ComplexType Name="spLoadAllBrand_Result">
           <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
@@ -1182,6 +1184,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spColor" FunctionName="SellingBagsModel.Store.spColor" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

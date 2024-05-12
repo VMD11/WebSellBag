@@ -25,5 +25,6 @@ namespace SellingBags.Models.ViewModel
         public IEnumerable<Product> NewProducts { get; set; }
         public IEnumerable<Product> BestSellerProducts { get; set; }
         public IEnumerable<ProductContext.QuantitySold> QuantitySold { get; set; }
+        public IEnumerable<string> Colors { get; set; }
     }
 }

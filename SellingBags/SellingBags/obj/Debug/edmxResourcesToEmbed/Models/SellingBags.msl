@@ -232,5 +232,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spColor" FunctionName="SellingBagsModel.Store.spColor" />
   </EntityContainerMapping>
 </Mapping>

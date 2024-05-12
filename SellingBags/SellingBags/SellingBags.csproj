@@ -4411,6 +4411,7 @@
     <Content Include="Views\Account\Info.cshtml" />
     <Content Include="Views\Account\AddressList.cshtml" />
     <Content Include="Views\Product\BestSeller.cshtml" />
+    <Content Include="Views\Shared\_ProductsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

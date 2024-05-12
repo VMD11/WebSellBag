@@ -107,5 +107,10 @@ namespace SellingBags.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spNewProduct_Result>("spNewProduct");
         }
+    
+        public virtual ObjectResult<string> spColor()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("spColor");
+        }
     }
 }

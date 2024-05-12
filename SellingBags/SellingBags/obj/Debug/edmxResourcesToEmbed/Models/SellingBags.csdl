@@ -217,6 +217,7 @@
       <Parameter Name="month" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="spNewProduct" ReturnType="Collection(SellingBagsModel.spNewProduct_Result)" />
+    <FunctionImport Name="spColor" ReturnType="Collection(String)" />
   </EntityContainer>
   <ComplexType Name="spLoadAllBrand_Result">
     <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />

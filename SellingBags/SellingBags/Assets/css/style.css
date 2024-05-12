@@ -1240,6 +1240,7 @@ ul.cart-list > li.total > .btn:hover {
                 display:block;
                 color: #000;
                 width:100%;
+                cursor:pointer;
             }
                 .sort-section .sort-options ul li a:hover{
                     color: #d33b33;
@@ -2380,6 +2381,28 @@ form {
     position: relative;
 }
 
+
+.control-select {
+    width: 100%;
+    border: 1px solid #d33b33;
+    height: 42px;
+    padding: 0 16px;
+    overflow-y: auto;
+}
+
+    .control-select option {
+        height: 24px; 
+        padding: 4px 8px; 
+        background-color: white;
+        color: black; 
+    }
+
+        .control-select option:hover {
+            background-color: #d33b33; 
+            color: white; 
+        }
+
+
 .product-item-filter {
     border-bottom: 1px solid #ccc;
     border-top: 1px solid #ccc;
@@ -2406,7 +2429,7 @@ form {
 }
 
 .product-item-filter .toolbar-sorter-right {
-    width: 65%;
+    width: 100%;
 }
 
 .toolbar-sorter-right {
@@ -2414,7 +2437,7 @@ form {
 }
 
     .toolbar-sorter-right .bootstrap-select.form-control:not([class*="col-"]) {
-        width: 77%;
+        width: 100%;
         float: right;
     }
 

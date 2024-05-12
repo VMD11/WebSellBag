@@ -24,53 +24,54 @@
         <div id="sidefilter" class="sidefilter">
             <h3 class="text-center">Bộ lọc</h3>
             <div id="closefilter" class="close"><i class="fa fa-arrow-left"></i></div>
-            <form id="filterForm">
+            <div id="filterForm">
                 <div class="row">
                     <div class="col-12">
                         <div class="h5">Giá:</div>
                         <div class="ml-3">
                             <div class="custom-control custom-radio">
-                                <input id="price1" name="Price" value="" type="radio" class="custom-control-input mt-4">
+                                <input id="price1" name="Price" value="0-400000" type="radio" class="custom-control-input mt-4">
                                 <label class="custom-control-label" for="price1">
                                     < 400.000
                                 </label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input id="price2" name="Price" value="" type="radio" class="custom-control-input mt-4">
+                                <input id="price2" name="Price" value="400000-600000" type="radio" class="custom-control-input mt-4">
                                 <label class="custom-control-label" for="price2">
                                     400.000 - 600.000
                                 </label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input id="price3" name="Price" value="" type="radio" class="custom-control-input mt-4">
+                                <input id="price3" name="Price" value="600000-900000" type="radio" class="custom-control-input mt-4">
                                 <label class="custom-control-label" for="price3">
                                     600.000 - 900.000
                                 </label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input id="price4" name="Price" value="" type="radio" class="custom-control-input mt-4">
+                                <input id="price4" name="Price" value="900000+" type="radio" class="custom-control-input mt-4">
                                 <label class="custom-control-label" for="price4">
                                     > 900.000
                                 </label>
                             </div>
                         </div>
                     </div>
-                    <div class="col-12">
+                    <div class="col-12 ">
                         <div class="h5">Màu sắc:</div>
-                        <select id="colorFilter" name="Color" class="form-control">
-                            <option value="">Tất cả</option>
-                            <option value="red">Đỏ</option>
-                            <option value="blue">Xanh</option>
-                            <option value="green">Xanh lá</option>
-                            <option value="yellow">Vàng</option>
+                        <select id="colorFilter" name="Color" class="control-select">
+                            <option value="*">Tất cả</option>
+                            @foreach (var item in Model.Colors)
+                            {
+                                <option value="@item">@item</option>
+                            }
+
                         </select>
                     </div>
                     <div class="col-12 buttonfilter">
-                        <button type="button" id="applyFilter" class="btn hvr-hover text-white w-100">Hoàn tất</button>
-                        <button type="button" id="clearFilter" class="btn btn-theme w-100 mt-2">Xóa bộ lọc</button>
+                        <button id="applyFilter" class="btn hvr-hover text-white w-100">Hoàn tất</button>
+                        <button id="clearFilter" class="btn btn-theme w-100 mt-2">Xóa bộ lọc</button>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
         <div class="container">
             <div class="row">
@@ -86,10 +87,9 @@
                                     <div id="sortBtn" class="btn bg-white w-100"><i class="fa fa-sort-amount-asc"></i> Sắp xếp</div>
                                     <div id="sortOptions" class="sort-options w-75">
                                         <ul>
-                                            <li><a href="#" class="active">Mặc định</a></li>
-                                            <li><a href="#">Giá tăng dần</a></li>
-                                            <li><a href="#">Giá giảm dần</a></li>
-                                            <li><a href="#">Bán chạy</a></li>
+                                            <li><a data-value="" class="active">Mặc định</a></li>
+                                            <li><a data-value="priceasc">Giá tăng dần</a></li>
+                                            <li><a data-value="pricedesc">Giá giảm dần</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -100,53 +100,7 @@
                         <div class="row product-categorie-box">
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane fade show active" id="grid-view">
-                                    <div class="row">
-                                        @{
-                                            var ID_Account = "";
-                                            if (Session[Sessions.USER_SESSION] != null)
-                                            {
-                                                ID_Account = (Session[Sessions.USER_SESSION] as LoginAccount).ID_Account;
-                                            }
-                                            SellingBags.Models.DataContext.WishListContext context = new SellingBags.Models.DataContext.WishListContext();
-                                            foreach (var item in Model.ProductsByCategory)
-                                            {
-                                                var brandName = productContext.GetBrandName(item.ID_Product);
-                                                <div class="col-lg-3 col-md-4 col-6">
-                                                    <div class="products-single fix">
-                                                        <div class="box-img-hover">
-                                                            <div class="type-lb">
-                                                                <p class="sale">@brandName</p>
-                                                            </div>
-                                                            <img src="~/Assets/images/products/@item.ImageURL" class="img-fluid" alt="@item.Name">
-                                                            <div class="mask-icon">
-                                                                <ul>
-                                                                    <li><a href="@Url.Action("Detail", "Product", new {ID_Product = item.ID_Product.Trim()})" data-toggle="tooltip" data-placement="right" title="Xem nhanh"><i class="fas fa-eye"></i></a></li>
-                                                                    @if (context.IsWishListed(ID_Account, item.ID_Product))
-                                                                    {
-                                                                        <li><a href="@Url.Action("RemoveToWishList", "Account", new {ID_Product = item.ID_Product.Trim()})" data-toggle="tooltip" data-placement="right" title="Xóa khỏi yêu thích"><i class=" fa fa-heart"></i></a></li>
-
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        <li><a href="@Url.Action("AddToWishList", "Account", new {ID_Product = item.ID_Product.Trim()})" data-toggle="tooltip" data-placement="right" title="Thêm vào yêu thích"><i class="far fa-heart"></i></a></li>
-                                                                    }
-                                                                </ul>
-                                                                <a class="cart" id="@GenarateRandomID.Execute()" href="@Url.Action("Add","Cart")" data-id="@item.ID_Product" data-quantity="1">Thêm vào giỏ hàng</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="why-text">
-                                                            <a href="@Url.Action("Detail","Product",new {ID_Product = item.ID_Product.Trim()})">
-                                                                <h4 class="product-name">@item.Name</h4>
-                                                                <h5>@Converts.convertVND(item.Price) <del>@Converts.convertVND(item.Price)</del> </h5>
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            }
-                                        }
-
-                                    </div>
+                                    @Html.Partial("_ProductsPartial", Model.ProductsByCategory)
                                 </div>
                             </div>
                         </div>
@@ -158,8 +112,59 @@
     </div>
     <!-- End Shop Page -->
 </div>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+    $(document).ready(function() {
+        $('#applyFilter').click(function() {
+            var price = $('input[name="Price"]:checked').val();
+            var color = $('#colorFilter').val();
+            var sort = $('#sortOptions a.active').data('value');
+            $.urlParam = function (name) {
+                var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+                return results !== null ? results[1] || 0 : null;
+            };
+            var id = $.urlParam('ID_Category');
+
+
+            $.get('@Url.Action("FilterProductsByCategory", "Product")', {id: id, price: price, color: color, sort: sort})
+                .done(function(result) {
+                    $('#grid-view').html(result);
+                    $('#sidefilter').removeClass('show');
+                    console.log(id);
+                })
+                .fail(function(error) {
+                    console.error('Error applying filter:', error);
+                });
+        });
+        $('#clearFilter').click(function () {
+            $('input[name="Price"]').prop('checked', false);
+            $('#colorFilter').val('*');
+            var sort = $('#sortOptions a.active').data('value');
+            $.urlParam = function (name) {
+                var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+                return results !== null ? results[1] || 0 : null;
+            };
+            var id = $.urlParam('ID_Category');
+
+            $.get('@Url.Action("FilterProductsByCategory", "Product")', {id: id sort: sort })
+                .done(function (result) {
+                    $('#grid-view').html(result);
+                    $('#sidefilter').removeClass('show');
+                })
+                .fail(function (error) {
+                    console.error('Error applying filter:', error);
+                });
+        });
+
+        $('#sortOptions a').click(function (e) {
+            e.preventDefault();
+
+            $('#sortOptions a').removeClass('active');
+            $(this).addClass('active');
+            $('#applyFilter').trigger('click');
+            $('#sortOptions').toggle();
+        });
+    });
     document.addEventListener('DOMContentLoaded', function () {
         var addCartButtons = document.querySelectorAll('.cart');
         addCartButtons.forEach(function (addButton) {
