@@ -12,8 +12,8 @@
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        <div class="card-body mt-2">
-            <div class="w-100 mb-2">
+        <div class="card-body">
+            <div class="w-100 mb-3">
                 @Html.ActionLink("Thêm mới", "Create", "BrandManage", null, new { @class = "btn btn-success" })
             </div>
             <div class="table-responsive">
@@ -72,25 +72,19 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-        // Xử lý sự kiện click trên nút "Xóa"
         $('.deleteBrand').on('click', function () {
             var id = $(this).attr('data-id');
-
-            // Hiển thị xác nhận xóa trong modal
             $('#deleteConfirmPopup').modal('show');
 
-            // Xử lý sự kiện click trên nút xác nhận xóa
             $('#confirmDeleteBtn').off('click').on('click', function () {
-                // Gửi yêu cầu xóa thông qua AJAX
                 $.ajax({
-                    url: '@Url.Action("Delete", "BrandManage")', // Đường dẫn đến action Delete trong BrandController
+                    url: '@Url.Action("Delete", "BrandManage")', 
                     type: 'POST',
-                    data: { ID_Brand: id }, // Dữ liệu gửi đi (ID_Brand cần xóa)
+                    data: { ID_Brand: id }, 
                     success: function (response) {
                         if (response.result) {
                             alert('Xóa thành công');
-                            // Thực hiện cập nhật giao diện sau khi xóa (nếu cần)
-                            location.reload(); // Tải lại trang sau khi xóa
+                            location.reload();
                         } else {
                             alert('Xóa không thành công: ' + response.message);
                         }
@@ -99,8 +93,6 @@
                         alert('Có lỗi xảy ra khi xóa');
                     }
                 });
-
-                // Đóng modal xác nhận xóa
                 $('#deleteConfirmPopup').modal('hide');
             });
         });

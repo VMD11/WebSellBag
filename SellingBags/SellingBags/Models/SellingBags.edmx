@@ -361,6 +361,9 @@
         <Function Name="spProductsByType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID_Category" Type="char" Mode="In" />
         </Function>
+        <Function Name="spUpdateQuantityAfterOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID_Order" Type="char" Mode="In" />
+        </Function>
         <Function Name="spYearlyRevenue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="year" Type="int" Mode="In" />
         </Function>
@@ -663,6 +666,9 @@
           </FunctionImport>
           <FunctionImport Name="spNewProduct" ReturnType="Collection(SellingBagsModel.spNewProduct_Result)" />
           <FunctionImport Name="spColor" ReturnType="Collection(String)" />
+          <FunctionImport Name="spUpdateQuantityAfterOrder">
+            <Parameter Name="ID_Order" Mode="In" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="spLoadAllBrand_Result">
           <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
@@ -1185,6 +1191,7 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="spColor" FunctionName="SellingBagsModel.Store.spColor" />
+          <FunctionImportMapping FunctionImportName="spUpdateQuantityAfterOrder" FunctionName="SellingBagsModel.Store.spUpdateQuantityAfterOrder" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

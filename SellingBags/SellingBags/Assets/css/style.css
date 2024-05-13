@@ -2612,16 +2612,12 @@ form {
     flex-wrap: nowrap;
     margin-bottom: 1.25rem;
     width: 5.5625rem;
+    border: 1px solid #E7E4E4;
 }
 
-    .quantity-box .book-number .minus {
-        border-left: 1px solid #E7E4E4;
-    }
-
-    .quantity-box .book-number .plus {
-        border-right: 1px solid #E7E4E4;
-    }
-    .quantity-box .book-number .minus, .quantity-box .book-number .plus {
+    
+    .quantity-box .book-number .minus, .quantity-box .book-number .plus,
+    .quantity-box .book-number .minuss, .quantity-box .book-number .pluss {
         width: 2rem;
         height: 2rem;
         text-align: center;
@@ -2638,10 +2634,6 @@ form {
         -ms-flex-pack: center;
         justify-content: center;
         cursor: pointer;
-    }
-    .quantity-box .book-number .minus, .quantity-box .book-number .plus, .quantity-box .book-number .input-number {
-        border-top: 1px solid #E7E4E4;
-        border-bottom: 1px solid #E7E4E4;
     }
 
     .quantity-box .book-number .input-number {
@@ -2674,7 +2666,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 input[type="number"] {
-    -moz-appearance: textfield; /* Firefox */
+    -moz-appearance: textfield;
 }
 
 .name-pr a {

@@ -1,11 +1,9 @@
 ﻿@model SellingBags.Areas.Admin.Models.ViewModel.OrderVM
 
-@using SellingBags.Areas.Admin.Models.DataContext
 @using SellingBags.Common
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
-    var context = new OrderContext();
 }
 
 <div class="container-fluid">
@@ -18,116 +16,40 @@
                 <div class="col-md-3 col-6">
                     <label>Lọc</label>
                     <select id="filterSelect" class="custom-select form-control-sm mb-3">
-                        <option value="*">Tất cả</option>
-                        <option value=".wait">Chờ xác nhận</option>
-                        <option value=".ship">Đang vận chuyển</option>
-                        <option value=".done">Đã hoàn thành</option>
-                        <option value=".cancel">Đã hủy</option>
+                        <option value="">Tất cả</option>
+                        <option value="wait">Chờ xác nhận</option>
+                        <option value="ship">Đang vận chuyển</option>
+                        <option value="done">Đã hoàn thành</option>
+                        <option value="cancel">Đã hủy</option>
                     </select>
                 </div>
             </div>
-            <div class="table-responsive">
-                <table class="table table-bordered mt-2" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th class="d-none"></th>
-                            <th>Khách hàng</th>
-                            <th>Điện thoại</th>
-                            <th>Địa chỉ</th>
-                            <th>Mã ĐH</th>
-                            <th>Ngày đặt</th>
-                            <th>Giá trị</th>
-                            <th>Trạng thái</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @{
-                            var filter = "";
-
-                            foreach (var item in Model.Orders.OrderByDescending(o => o.OrderDate))
-                            {
-                                if(item.Status == 0)
-                                {
-                                    filter = "wait";
-                                }else if(item.Status == 1)
-                                {
-                                    filter = "ship";
-                                }else if(item.Status == 2)
-                                {
-                                    filter = "done";
-                                }
-                                else
-                                {
-                                    filter = "cancel";
-                                }
-                                var Address = context.GetAddressByID(item.ID_Address);
-                                <tr class="@filter">
-                                    <td class="d-none"></td>    
-                                    <td>
-                                        <a href="@Url.Action("Detail", "OrderManage", new {ID_Order = item.ID_Order})">
-
-                                            @Address.LastName @Address.FirstName
-                                        </a>
-                                    </td>
-                                    <td>@Address.PhoneNumber</td>
-                                    <td>@Address.SpecificAddress, @Address.Ward, @Address.District, @Address.City</td>
-                                    <td>@item.ID_Order</td>
-                                    <td>@Converts.convertDateTime(item.OrderDate)</td>
-                                    <td>@Converts.convertVND(item.TotalMoney)</td>
-                                    <td>
-                                        @if (item.Status == 0)
-                                        {
-                                            <p>Chờ xác nhận</p>
-                                        }
-                                        else if (item.Status == -1)
-                                            {
-                                            <p class="text-danger">Đã hủy</p>
-                                        }
-                                        else if (item.Status == 1)
-                                        {
-                                            <p class="text-warning">Đang vận chuyển</p>
-                                        }
-                                        else
-                                        {
-                                            <p class="text-success">Đã hoàn thành</p>
-                                        }
-                                    </td>
-                                    <td>
-                                        @if (item.Status == 0)
-                                        {
-                                            <a href="@Url.Action("Confirm", "OrderManage", new {ID_Order = item.ID_Order})" class="btn btn-success w-100 mb-2">Duyệt</a><br>
-                                            <a href="@Url.Action("Cancel", "OrderManage", new {ID_Order = item.ID_Order})" class="btn btn-danger w-100">Hủy</a>
-                                        }
-                                        else
-                                        {
-                                            <a href="@Url.Action("Detail", "OrderManage", new {ID_Order = item.ID_Order})" class="btn btn-info w-100">Xem</a><br />
-                                        }
-                                    </td>
-                                </tr>
-
-                            }
-                        }
-                    </tbody>
-                </table>
+            <div id="table" class="table-responsive">
+                @Html.Partial("_OrdersPartial",Model.Orders)
+                
             </div>
         </div>
     </div>
 </div>
 <!-- /.container-fluid -->
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $('#filterSelect').change(function () {
-            var selectedFilter = $(this).val(); 
-            console.log(selectedFilter);
-            $('#dataTable tbody tr').hide();
-
-            if (selectedFilter === '*') {
-                $('#dataTable tbody tr').show(); 
-            } else {
-                $('#dataTable tbody tr' + selectedFilter).show();
-            }
+            var sort = $(this).val();
+            console.log(sort);
+            $.ajax({
+                url: '@Url.Action("FilterOrders", "OrderManage")',
+                type: 'GET',
+                data: { sort: sort },
+                success: function(result) {
+                    $('#table').html(result);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error applying filter:', error);
+                    alert('An error occurred while applying filter.');
+                }
+            });
         });
     });
 </script>

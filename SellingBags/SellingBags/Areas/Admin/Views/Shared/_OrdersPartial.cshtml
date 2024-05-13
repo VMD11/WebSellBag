@@ -1,0 +1,75 @@
+﻿@model IEnumerable<SellingBags.Models.Order>
+@using SellingBags.Areas.Admin.Models.DataContext
+
+@using SellingBags.Common
+
+@{var context = new OrderContext(); }
+
+<table class="table table-bordered mt-2" id="dataTable" width="100%" cellspacing="0">
+    <thead>
+        <tr>
+            <th class="d-none"></th>
+            <th>Khách hàng</th>
+            <th>Điện thoại</th>
+            <th>Địa chỉ</th>
+            <th>Mã ĐH</th>
+            <th>Ngày đặt</th>
+            <th>Giá trị</th>
+            <th>Trạng thái</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            var Address = context.GetAddressByID(item.ID_Address);
+            <tr>
+                <td class="d-none"></td>
+                <td>
+                    <a href="@Url.Action("Detail", "OrderManage", new {ID_Order = item.ID_Order})">
+
+                        @Address.LastName @Address.FirstName
+                    </a>
+                </td>
+                <td>@Address.PhoneNumber</td>
+                <td>@Address.SpecificAddress, @Address.Ward, @Address.District, @Address.City</td>
+                <td>@item.ID_Order</td>
+                <td>@Converts.convertDateTime(item.OrderDate)</td>
+                <td>@Converts.convertVND(item.TotalMoney)</td>
+                <td>
+                    @if (item.Status == 0)
+                    {
+                        <p>Chờ xác nhận</p>
+                    }
+                    else if (item.Status == -1)
+                    {
+                        <p class="text-danger">Đã hủy</p>
+                    }
+                    else if (item.Status == 1)
+                    {
+                        <p class="text-warning">Đang vận chuyển</p>
+                    }
+                    else
+                    {
+                        <p class="text-success">Đã hoàn thành</p>
+                    }
+                </td>
+                <td>
+                    @if (item.Status == 0)
+                    {
+                        <a href="@Url.Action("Confirm", "OrderManage", new {ID_Order = item.ID_Order})" class="btn btn-success w-100 mb-2">Duyệt</a><br>
+                        <a href="@Url.Action("Cancel", "OrderManage", new {ID_Order = item.ID_Order})" class="btn btn-danger w-100">Hủy</a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Detail", "OrderManage", new {ID_Order = item.ID_Order})" class="btn btn-info w-100">Xem</a><br />
+                    }
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+<script src="~/Areas/Admin/Assets/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="~/Areas/Admin/Assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="~/Areas/Admin/Assets/js/demo/datatables-demo.js"></script>

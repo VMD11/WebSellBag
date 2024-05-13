@@ -56,7 +56,7 @@
                     <div class="mb-4">
                         @foreach (var item in Model.OrderDetails)
                         {
-                            totalMoney += item.Product.Price;
+                            totalMoney += item.Product.Price * item.Quantity;
                             <div class="row shadow mb-2 p-2">
                                 <div class="col-4">
                                     <img src="~/Assets/images/products/@item.Product.ImageURL" width="100">
@@ -76,7 +76,7 @@
                         </div>
                         <div class="d-flex">
                             <h6>Phí vận chuyển</h6>
-                            <div id="shippingCost" class="ml-auto">@Converts.convertVND(Model.Order.TotalMoney - totalMoney)</div>
+                            <div id="shippingCost" class="ml-auto">@Converts.convertVND(Model.Shipping.Cost)</div>
                         </div>
                         <div class="d-flex">
                             <h6>Giảm giá phí vận chuyển</h6>

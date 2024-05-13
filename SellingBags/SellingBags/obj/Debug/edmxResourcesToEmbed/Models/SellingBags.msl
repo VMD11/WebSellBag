@@ -233,5 +233,6 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="spColor" FunctionName="SellingBagsModel.Store.spColor" />
+    <FunctionImportMapping FunctionImportName="spUpdateQuantityAfterOrder" FunctionName="SellingBagsModel.Store.spUpdateQuantityAfterOrder" />
   </EntityContainerMapping>
 </Mapping>

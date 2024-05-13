@@ -146,7 +146,7 @@
             };
             var id = $.urlParam('ID_Category');
 
-            $.get('@Url.Action("FilterProductsByCategory", "Product")', {id: id sort: sort })
+            $.get('@Url.Action("FilterProductsByCategory", "Product")', {id: id, sort: sort })
                 .done(function (result) {
                     $('#grid-view').html(result);
                     $('#sidefilter').removeClass('show');
@@ -202,12 +202,10 @@
         filterBtn.addEventListener('click', function (e) {
             e.stopPropagation();
             sidefilter.classList.toggle('show');
-            togglesidefilter(sidefilter);
         });
 
         closeBtn.addEventListener('click', function () {
             sidefilter.classList.remove('show');
-            togglesidefilter(sidefilter);
         });
 
         document.body.addEventListener('click', function (e) {
@@ -215,7 +213,6 @@
             if (!sidefilter.contains(target)) {
                 sidefilter.classList.remove('show');
             }
-            togglesidefilter(sidefilter);
         });
 
         sortBtn.addEventListener('click', function () {
@@ -223,9 +220,6 @@
             sortOptions.style.display = isOpen ? 'none' : 'block';
         });
 
-        function togglesidefilter(sidefilter) {
-            var isOpen = sidefilter.classList.contains('show');
-            document.body.style.overflow = isOpen ? 'hidden' : 'auto';
-        }
+        
     });
 </script>

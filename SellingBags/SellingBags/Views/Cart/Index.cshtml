@@ -47,7 +47,6 @@
                                         int TotalQuantity = 0;
                                         foreach (var item in Model.GetList())
                                         {
-                                            var data_id = item.Product.ID_Product;
                                             TotalQuantity += item.Quantity;
                                             <tr>
                                                 <td class="thumbnail-img">
@@ -68,9 +67,9 @@
                                                 <td>
                                                     <div class="quantity-box mt-3">
                                                         <div class="book-number">
-                                                            <div class="minus" data-id="@data_id"><i class="fa-solid fa-minus"></i></div>
+                                                            <div class="minus" data-id="@item.Product.ID_Product"><i class="fa-solid fa-minus"></i></div>
                                                             <div class="input-number"><input type="number" name="Quantity" value="@item.Quantity" min="1" class="quantity"></div>
-                                                            <div class="plus" data-id="@data_id"><i class="fa-solid fa-plus"></i></div>
+                                                            <div class="plus" data-id="@item.Product.ID_Product" data-quantity="@item.Product.Quantity"><i class="fa-solid fa-plus"></i></div>
                                                         </div>
                                                     </div>
                                                     <div id="error"></div>
@@ -152,7 +151,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script type="text/javascript">
-    $(document).ready(function () {
+    @*$(document).ready(function () {
         $('.minus').on('click', function () {
             var id = $(this).data('id'); 
             var input = $(this).siblings('.input-number').find('.quantity'); 
@@ -167,6 +166,7 @@
             var id = $(this).data('id'); 
             var input = $(this).siblings('.input-number').find('.quantity'); 
             var currentValue = parseInt(input.val());
+            var 
 		    input.val(currentValue + 1);
 		    updateCart(id,input.val());
 	    });
@@ -198,5 +198,5 @@
         function convertVND(amount) {
             return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
         }
-    });
+    });*@
 </script>

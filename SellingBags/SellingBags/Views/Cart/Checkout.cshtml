@@ -8,7 +8,20 @@
     var frozen = "frozen";
     var show = "";
 }
-
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Thanh toán</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Cart")">Giỏ hàng</a></li>
+                    <li class="breadcrumb-item active">Thanh toán</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="cart-box-main">
     <div class="container">
             <div class="row new-account-login">
@@ -251,6 +264,7 @@
                         <div class="d-flex mt-3">
                             <h4>Giá trị đơn hàng</h4>
                             <div class="ml-auto font-weight-bold">@Converts.convertVND(Model.Cart.TotalMoney())</div>
+                            
                         </div>
                         <div class="d-flex">
                             <h4>Giảm giá</h4>
@@ -268,9 +282,6 @@
                         <div class="d-flex gr-total">
                             <h5>Thành tiền</h5>
                             <div class="ml-auto h5" id="totalMoney">@Converts.convertVND(totalMoney)</div>
-                            <div class="d-none">
-                                <input type="number" id="totalmoney" name="TotalMoney" value="@totalMoney" />
-                            </div>
                         </div>
                         <hr>
                     </div>

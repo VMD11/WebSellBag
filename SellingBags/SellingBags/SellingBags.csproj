@@ -4401,6 +4401,7 @@
     <Content Include="Areas\Admin\Views\OrderManage\Index.cshtml" />
     <Content Include="Areas\Admin\Views\OrderManage\Detail.cshtml" />
     <Content Include="Areas\Admin\Views\AccountManage\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_OrdersPartial.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Product\ProductsByCategory.cshtml" />
     <Content Include="Views\Cart\Checkout.cshtml" />

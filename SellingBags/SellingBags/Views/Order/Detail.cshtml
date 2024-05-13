@@ -8,20 +8,31 @@
     SellingBags.Models.DataContext.ProductContext context = new ProductContext();
 
 }
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Chi tiết đơn hàng</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Account")">Hồ sơ</a></li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Order")">Đơn mua</a></li>
+                    <li class="breadcrumb-item active">Chi tiết đơn hàng</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="cart-box-main">
     <div class="container-fluid">
         <div class=" mb-3">
-            <div class="d-flex justify-content-start">
-                <a href="@Url.Action("Index","Order")" class="btn hvr-hover text-white pr-3 pl-3">Trở lại</a>
-            </div>
-            <div class="d-flex justify-content-end"><h3>@ViewBag.Status</h3></div>
+            <div class="d-flex justify-content-end font-weight-bold"><h2>@ViewBag.Status</h2></div>
         </div>
         <div class="row new-account-login">
                 <!-- Start LeftColumn -->
                 <div class="col-sm-6 col-lg-6 mb-3">
                     <!-- Start Info Address -->
                     <div class="checkout-address">
-                        <div class="title-left ">
+                        <div class="title-left border-bottom">
                             <h2>Thông tin đơn hàng</h2>
                         </div>
                         <div class="p-2">
@@ -38,13 +49,13 @@
                                 <p>Ngày đặt: @Converts.convertDateTime(Model.Order.OrderDate)</p>
                                 <p>Phương thức thanh toán: @Model.Order.PaymentMethod</p>
                                 <p>Đơn vị giao hàng: @Model.Order.ShippingMethod</p>
-                                @if(Model.Order.ShippingMethod.Contains("Thanh toán khi nhận hàng") && Model.Order.Status != 0)
+                                @if(Model.Order.ShippingMethod.Contains("Thanh toán khi nhận hàng") && Model.Order.Status == 2)
                                 {
                                     <p>Thời gian thanh toán: @Converts.convertDateTime(Model.Order.DeliDate)</p>
                                 }
                                 else
                                 {
-                            <p>Thời gian thanh toán: @Converts.convertDateTime(Model.Order.OrderDate)</p>
+                                    <p>Thời gian thanh toán: @Converts.convertDateTime(Model.Order.OrderDate)</p>
                                 }
                                 <p>Ngày giao dự kiến: @Converts.convertDate(Model.Order.DeliDate)</p>
                             </div>
@@ -58,7 +69,7 @@
                 <div class="col-sm-6 col-lg-6 mb-3">
                     <!-- Start Order Product -->
                     <div class="odr-box">
-                        <div class="title-left">
+                        <div class="title-left border-bottom">
                             <h2>Sản phẩm</h2>
                         </div>
                         <div class="rounded p-2 bg-light">
@@ -84,7 +95,6 @@
                                         </div>
                                     </div>
                                 }
-                                var cost = Model.Order.TotalMoney - totalMoney;
                             }
 
                         </div>
