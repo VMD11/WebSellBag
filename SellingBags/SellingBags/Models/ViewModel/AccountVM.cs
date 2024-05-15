@@ -15,11 +15,12 @@ namespace SellingBags.Models.ViewModel
         public string City { get; set; }
         public string District { get; set; }
         public string Ward { get; set; }
-        public string Address { get; set; }
+        public string SpecificAddress { get; set; }
         public DateTime BirthDay { get; set; }
         public string Gender { get; set; }
         public Account Account { get; set; }
         public Customer Customer { get; set; }
+        public Address Address { get; set; }
         public IEnumerable<Address> Addresses { get; set; }
     }
 }

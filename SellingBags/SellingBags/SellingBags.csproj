@@ -4048,9 +4048,8 @@
     <Content Include="Assets\images\brands\NEYUH_Leather.jpg" />
     <Content Include="Assets\images\brands\ROGER_FANK.jpg" />
     <Content Include="Assets\images\brands\Vascara.jpg" />
-    <Content Include="Assets\images\logo\icon.ico" />
-    <Content Include="Assets\images\logo\ziara-icon.ico" />
-    <Content Include="Assets\images\logo\ziara-logo.png" />
+    <Content Include="Assets\images\logo\zuma-icon.ico" />
+    <Content Include="Assets\images\logo\zuma-logo.png" />
     <Content Include="Assets\images\payment-icon\thanh-toan-bang-vi-momo.png" />
     <Content Include="Assets\images\payment-icon\thanh-toan-bang-vi-shopeepay.png" />
     <Content Include="Assets\images\payment-icon\thanh-toan-bang-vi-vnpay.png" />
@@ -4413,6 +4412,8 @@
     <Content Include="Views\Account\AddressList.cshtml" />
     <Content Include="Views\Product\BestSeller.cshtml" />
     <Content Include="Views\Shared\_ProductsPartial.cshtml" />
+    <Content Include="Views\Account\UpdateAddress.cshtml" />
+    <Content Include="Views\Shared\_AddressPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

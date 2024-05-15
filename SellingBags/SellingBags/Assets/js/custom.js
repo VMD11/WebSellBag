@@ -425,6 +425,38 @@
 		});
 	});
 
+
+	$(document).ready(function () {
+		$('.deleteBtn').on('click', function (e) {
+			e.preventDefault();
+			var id = $(this).attr('data-id');
+			var url = $(this).attr('href');
+			$('#delConfirmPopup').modal('show');
+			console.log(url + id);
+			$('#confirmDelBtn').off('click').on('click', function () {
+				$.ajax({
+					url: url,
+					type: 'POST',
+					data: { ID_Address: id },
+					dataType: 'json',
+					success: function (response) {
+						if (response.result) {
+							alert(response.message);
+							location.reload();
+							console.log('id: ' + id);
+						} else {
+							alert(response.message);
+						}
+					},
+					error: function () {
+						alert('Có lỗi xảy ra khi xóa');
+					}
+				});
+
+				$('#delConfirmPopup').modal('hide');
+			});
+		});
+	});
 }(jQuery));
 
 
@@ -530,4 +562,36 @@ document.addEventListener('DOMContentLoaded', function () {
 			xhr.send('ID_Product=' + id_product + '&Quantity=' + parseInt(quantity));
 		});
 	});
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+	var updateBtn = document.querySelectorAll('.updateBtn');
+	var view = document.getElementById('update-address-view');
+	updateBtn.forEach(function (btn) {
+		btn.addEventListener('click', function (e) {
+			e.preventDefault();
+			var id_address = btn.getAttribute('data-id');
+			console.log(id_address);
+			var xhr = new XMLHttpRequest();
+			xhr.open('GET', btn.getAttribute('href') + '?ID_Address=' + id_address, true); 
+			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+			xhr.onload = function () {
+				if (xhr.status >= 200 && xhr.status < 300) {
+					view.innerHTML = xhr.responseText; 
+					view.classList.remove('d-none'); 
+					var closeBtn = document.getElementById('closeBtn');
+					closeBtn.addEventListener('click', function () {
+						view.classList.add('d-none');
+					});
+				} else {
+					alert('Đã xảy ra lỗi khi gửi yêu cầu.');
+				}
+			};
+			xhr.onerror = function () {
+				alert('Đã xảy ra lỗi khi gửi yêu cầu.');
+			};
+			xhr.send(); 
+		});
+	});
+	
 });

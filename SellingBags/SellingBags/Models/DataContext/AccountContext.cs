@@ -43,5 +43,45 @@ namespace SellingBags.Models.DataContext
             var ID_Customer = GetCustomerByID(ID_Account).ID_Customer;
             return db.Addresses.Where(a => a.ID_Customer == ID_Customer);
         }
+        public static Address GetAddressByID(string ID_Address)
+        {
+            return db.Addresses.FirstOrDefault(a => a.ID_Address == ID_Address);
+        }
+
+        public static bool AddAddress(Address address)
+        {
+            try
+            {
+                db.Addresses.Add(address);
+                db.SaveChanges();
+                return true;
+            }catch (Exception) { return false; }
+        }
+        public static bool UpdateAddress(Address address)
+        {
+            try
+            {
+                var oldAddress = GetAddressByID(address.ID_Address);
+                if (oldAddress == null) return false;
+                oldAddress.FirstName = address.FirstName;
+                oldAddress.LastName = address.LastName;
+                oldAddress.PhoneNumber = address.PhoneNumber;
+                oldAddress.City = address.City;
+                oldAddress.District = address.District;
+                oldAddress.Ward = address.Ward;
+                oldAddress.SpecificAddress = address.SpecificAddress;
+                db.SaveChanges();
+                return true;
+            }catch (Exception) { return false; }
+        }
+        public static bool DeleteAddress(string ID_Address)
+        {
+            try
+            {
+                var query = "delete Address where ID_Address = '" + ID_Address + "'";
+                db.Database.ExecuteSqlCommand(query);
+                return true;
+            }catch (Exception) { return false; }
+        }
     }
 }
