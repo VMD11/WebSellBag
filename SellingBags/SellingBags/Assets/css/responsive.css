@@ -76,7 +76,7 @@
 /* mobile or only mobile */
  @media (max-width: 767px) {
      nav.navbar.bootsnav .navbar-header{
-         width: 80%;
+         width: 90%;
     }
      .navbar-light .navbar-toggler{
          border-color: #d33b33;
@@ -86,7 +86,7 @@
          padding-top: 6px;
          padding-top: 6px;
          float: left;
-         margin-top: 20px;
+         margin-top: 10px;
     }
      nav.navbar.bootsnav ul.nav > li > a{
          padding: 5px 15px;
@@ -108,7 +108,7 @@
          font-size: 18px;
     }
      .offer-box li{
-         font-size: 12px;
+         font-size: 14px;
     }
      .custom-select-box{
          display: none;
@@ -217,10 +217,10 @@
          font-size: 18px;
     }
      .offer-box li i{
-         font-size: 11px;
+         font-size: 18px;
     }
      .offer-box li{
-         font-size: 9px;
+         font-size: 14px;
     }
      .custom-select-box{
          display: none;

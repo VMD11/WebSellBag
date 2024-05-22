@@ -185,7 +185,7 @@ namespace SellingBags.Controllers
             return View(accountVM);
         }
         [HttpPost]
-        public ActionResult AddressList(Address address)
+        public ActionResult AddAddress(Address address)
         {
             if (Account() == null)
             {
@@ -194,16 +194,13 @@ namespace SellingBags.Controllers
             ViewBag.Success = "";
             ViewBag.Error = "";
             address.ID_Address = GenarateRandomID.Execute();
-            var accountVM = new AccountVM();
             if (AccountContext.AddAddress(address))
             {
                 ViewBag.Success = "Thêm thành công";
-                accountVM.Addresses = AccountContext.GetAddressesByID(Account().ID_Account);
-                return View(accountVM);
+                return RedirectToAction("AddressList");
             }
             ViewBag.Error = "Thêm không thành công";
-            accountVM.Addresses = AccountContext.GetAddressesByID(Account().ID_Account);
-            return View(accountVM);
+            return RedirectToAction("AddressList");
         }
 
         [HttpGet]

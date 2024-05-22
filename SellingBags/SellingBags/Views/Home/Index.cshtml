@@ -98,17 +98,21 @@
                 </div>
             </div>
             <div class="row">
-                @{
-                    foreach (var item in Model.BrandsAll)
-                    {
-                        <div class="col-lg-3 col-md-3 col-6">
-                            <div class="shop-cat-box">
-                                <img class="img" src="~/Assets/images/brands/@item.ImageURL" alt="" />
-                                <a class="btn hvr-hover" href="@Url.Action("ProductsByBrand", "Product", new {ID_Brand = item.ID_Brand.Trim()})">@item.Name</a>
+                <div class="col-lg-12">
+                    <div class="featured-products-box owl-carousel owl-theme">
+                        @foreach (var item in Model.BrandsAll)
+                        {
+                            <div class="item p-2">
+                                <div class="products-single fix">
+                                    <div class="shop-cat-box">
+                                        <img class="img" src="~/Assets/images/brands/@item.ImageURL" alt="" />
+                                        <a class="btn hvr-hover" href="@Url.Action("ProductsByBrand", "Product", new {ID_Brand = item.ID_Brand.Trim()})">@item.Name</a>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    }
-                }
+                        }
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -200,33 +204,3 @@
         </div>
     </div>
 </div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var addCartButtons = document.querySelectorAll('.cart');
-        addCartButtons.forEach(function (addButton) {
-            addButton.addEventListener('click', function (e) {
-                e.preventDefault();
-                var id_product = addButton.getAttribute('data-id');
-                var quantity = addButton.getAttribute('data-quantity');
-
-                var xhr = new XMLHttpRequest();
-
-                xhr.open('POST', addButton.getAttribute('href'), true);
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xhr.onload = function () {
-                    if (xhr.status >= 200 && xhr.status < 300) {
-                        alert('Thêm thành công');
-                        location.reload();
-                    } else {
-                        alert('Đã xảy ra lỗi khi gửi yêu cầu.');
-                    }
-                };
-                xhr.onerror = function () {
-                    alert('Đã xảy ra lỗi khi gửi yêu cầu.');
-                };
-                xhr.send('ID_Product=' + id_product + '&Quantity=' + quantity);
-            });
-        })
-    });
-</script>

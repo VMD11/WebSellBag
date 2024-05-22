@@ -81,7 +81,7 @@
             <a id="addInfo" data-toggle="collapse" href="#newaddress" aria-expanded="false" style="text-decoration:underline !important">Thêm địa chỉ mới</a>
         </div>
         <div id="newaddress" class="ml-lg-5 mr-lg-5 collapse">
-            @using (Html.BeginForm("AddressList", "Account", FormMethod.Post))
+            @using (Html.BeginForm("AddAddress", "Account", FormMethod.Post))
             {
                 <input hidden name="ID_Customer" value="@Model.ID_Customer">
                 <div class="row">

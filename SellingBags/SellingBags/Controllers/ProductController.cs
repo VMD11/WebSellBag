@@ -116,7 +116,11 @@ namespace SellingBags.Controllers
             productVM.SearchProductsByName = productContext.GetFilterProduct(productContext.SearchProductsByName(id), price, color, sort);
             return PartialView("_ProductsPartial", productVM.SearchProductsByName);
         }
-
+        public ActionResult FilterProductsByBrand(string id, string price, string color, string sort)
+        {
+            productVM.ProductsByBrand = productContext.GetFilterProduct(productContext.GetProductsByBrand(id), price, color, sort);
+            return PartialView("_ProductsPartial", productVM.ProductsByBrand);
+        }
 
     }
 }

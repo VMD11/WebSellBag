@@ -31,13 +31,15 @@ namespace SellingBags.Controllers
             {
                 cart = new VirtualCartContext();
             }
-            if(cart.CheckQuantity(ID_Product, Quantity))
+            var productCart = cart.GetList().FirstOrDefault(c => c.Product.ID_Product == ID_Product);
+            var existQty = productCart != null ? productCart.Quantity + Quantity : Quantity;
+            if(cart.CheckQuantity(ID_Product, existQty))
             {
                 cart.AddProduct(ID_Product, Quantity);
                 Session[Sessions.CART] = cart;
                 return Json(new {result = true});
             }
-            ViewBag.Message = "Số lượng sản phẩm không đủ";
+            ViewBag.Message = "Số lượng sản phẩm chỉ còn " + cart.GetList().FirstOrDefault(c => c.Product.ID_Product == ID_Product).Product.Quantity;
             return Json(new {result = false, message = ViewBag.Message});
             
         }

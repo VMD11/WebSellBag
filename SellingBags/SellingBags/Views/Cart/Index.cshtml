@@ -68,7 +68,7 @@
                                                     <div class="quantity-box mt-3">
                                                         <div class="book-number">
                                                             <div class="minus" data-id="@item.Product.ID_Product"><i class="fa-solid fa-minus"></i></div>
-                                                            <div class="input-number"><input type="number" name="Quantity" value="@item.Quantity" min="1" class="quantity"></div>
+                                                            <div class="input-number"><input type="number" name="Quantity" value="@item.Quantity" data-quantity="@item.Product.Quantity" data-name="@item.Product.Name" min="1" class="quantity"></div>
                                                             <div class="plus" data-id="@item.Product.ID_Product" data-quantity="@item.Product.Quantity"><i class="fa-solid fa-plus"></i></div>
                                                         </div>
                                                     </div>
@@ -127,7 +127,7 @@
                     </div>
                     <div class="col-lg-9 col-sm-12"></div>
                     <div class="col-lg-3 col-sm-12 shopping-box d-flex">
-                        @Html.ActionLink("Đi đến thanh toán", "Checkout", "Cart", null, new { @class = "ml-auto btn hvr-hover text-white" })
+                        @Html.ActionLink("Đi đến thanh toán", "Checkout", "Cart", null, new { id="checkout", @class = "ml-auto btn hvr-hover text-white" })
                     </div>
                 </div>
             }
@@ -148,55 +148,5 @@
     </div>
     <!-- End Cart -->
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<script type="text/javascript">
-    @*$(document).ready(function () {
-        $('.minus').on('click', function () {
-            var id = $(this).data('id'); 
-            var input = $(this).siblings('.input-number').find('.quantity'); 
-            var currentValue = parseInt(input.val());
-		    if (currentValue > 1) {
-			    input.val(currentValue - 1);
-			    updateCart(id,input.val());
-		    }
-	    });
 
-        $('.plus').on('click', function () {
-            var id = $(this).data('id'); 
-            var input = $(this).siblings('.input-number').find('.quantity'); 
-            var currentValue = parseInt(input.val());
-            var 
-		    input.val(currentValue + 1);
-		    updateCart(id,input.val());
-	    });
-
-	    function updateCart(id,quantity) {
-		    $.ajax({
-			    url: '@Url.Action("Update","Cart")', 
-			    type: 'POST',
-                data: {
-                    ID_Product: id,
-                    Quantity: quantity
-                }, 
-                success: function (response) {
-                    if (response.result) {
-                        $('#TotalQuantity').text(response.TotalQuantity);
-                        $('#TotalMoney').text(convertVND(response.TotalMoney));
-                        $('#GrandTotal').text(convertVND(response.TotalMoney));
-                        $('#countCart').text(response.TotalQuantity);
-                    } else {
-                        $('#error').text(response.message);
-                    }
-			    },
-			    error: function () {
-				    alert('Có lỗi xảy ra khi cập nhật giỏ hàng.');
-			    }
-		    });
-        }
-
-        function convertVND(amount) {
-            return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
-        }
-    });*@
-</script>

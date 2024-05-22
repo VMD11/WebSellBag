@@ -25,8 +25,8 @@ namespace SellingBags.Areas.Admin.Controllers
         public ActionResult Lock(string ID_Account) 
         {
             if (AccountContext.LockAccount(ID_Account))
-                return Json(new {result = true});
-            return Json(new {result = false});
+                return Json(new {result = true, message = "Khóa thành công"});
+            return Json(new {result = false, message = "Khóa không thành công"});
         }
         public ActionResult UnLock(string ID_Account) 
         {

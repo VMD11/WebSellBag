@@ -9,11 +9,7 @@
     WishListContext wishListContext = new WishListContext();
     var account = (LoginAccount)Session[Sessions.USER_SESSION];
     var countWishList = 0;
-    if(account != null)
-    {
-        countWishList = wishListContext.GetWishLists(account.ID_Account).Count();
-        
-    }
+    
 
     var countCart = 0;
     if(cart != null)
@@ -64,6 +60,53 @@
 
 <body>
     <!-- Start Main Top -->
+    <div class="main-top">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="text-slid-box">
+                        <div id="offer-box" class="carouselTicker">
+                            <ul class="offer-box">
+                                <li>
+                                    <i class="fab fa-opencart"></i> Giảm 10%! Mua ngay
+                                </li>
+                                <li>
+                                    <i class="fab fa-opencart"></i> Giảm 50% - 80% cho Thời trang
+                                </li>
+                                <li>
+                                    <i class="fab fa-opencart"></i> Giảm 50%! Mua ngay
+                                </li>
+                                <li>
+                                    <i class="fab fa-opencart"></i> Giảm 50% - 80% cho Thời trang
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                    <div class="our-link">
+                        <ul>
+                            @{
+                                if (Session[Sessions.USER_SESSION] != null)
+                                {
+                                    <li><a href="@Url.Action("Index","Account")"><i class="fa fa-user"></i>&ensp; @account.UserName </a></li>
+                                    <li><a href="@Url.Action("Logout","Account")">Đăng xuất</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@Url.Action("Login","Account")">Đăng nhập</a></li>
+                                    <li><a href="@Url.Action("Register","Account")">Đăng ký</a></li>
+                                }
+
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Main Top -->
+    <!-- Start Main Top -->
     <header class="main-header">
         <!-- Start Navigation -->
         <nav class="navbar navbar-expand-lg navbar-light navbar-default bootsnav">
@@ -112,56 +155,37 @@
                                 </li>
                             </ul>
                         </li>
-                        @*<li class="dropdown ">
-                            <a class="nav-link dropdown-toggle arrow" data-toggle="dropdown">Shop</a>
-                            <ul class="dropdown-menu left-auto">
-                                <li>@Html.ActionLink("Giỏ hàng", "Index", "Cart")</li>
-                                <li>@Html.ActionLink("Thanh toán", "Index", "Checkout")</li>
-                                <li>@Html.ActionLink("Tài khoản của tôi", "Index", "Account")</li>
-                                <li>@Html.ActionLink("Danh sách yêu thích", "WishList", "Account")</li>
-                                <li>@Html.ActionLink("Sản phẩm", "Index", "Product")</li>
-                            </ul>
-                        </li>*@
-                        @*<li class="dropdown">
-                            <a class="nav-link dropdown-toggle arrow" data-toggle="dropdown">Bộ sưu tập</a>
-                            <ul class="dropdown-menu">
-                            </ul>
-                        </li>*@
+                            
                         <li class="nav-item"><a class="nav-link" href="@Url.Action("","")">Về chúng tôi</a></li>
-                    </ul>
+                        @if (account != null)
+                        {
+                            <li class="dropdown ">
+                                <a class="nav-link dropdown-toggle arrow" data-toggle="dropdown">Tài khoản</a>
+                                <ul class="dropdown-menu left-auto">
+                                    <li>@Html.ActionLink("Hồ sơ", "Index", "Account")</li>
+                                    <li>@Html.ActionLink("Lịch sử mua hàng", "Index", "Order")</li>
+                                    <li>@Html.ActionLink("Đăng xuất", "Logout", "Account")</li>
+                                </ul>
+                            </li>
+                        }
+                        </ul>
                 </div>
                 <!-- /.navbar-collapse -->
                 <!-- Start Atribute Navigation -->
                 <div class="attr-nav">
                     <ul>
                         <li class="search"><a href="#"><i class="fa fa-search"></i></a></li>
-                        
-                        @{
-                            if (Session[Sessions.USER_SESSION] != null)
-                            {
-                                <li class="user dropdown">
-                                    <a href="" class="nav-link dropdown-toggle arrow" data-toggle="dropdown"><i class="fa fa-user"></i></a>
-                                    <ul class="dropdown-menu  border-bottom">
-                                        <li class="pt-3 pb-3">@Html.ActionLink("Thông tin tài khoản", "", "Account")</li>
-                                        <li class="pb-3">@Html.ActionLink("Lịch sử mua hàng", "Index", "Order")</li>
-                                        <li class="pb-2">@Html.ActionLink("Đăng xuất", "Logout", "Account")</li>
-                                    </ul>
-                                </li>
-                            }
-                            else
-                            {
-                                <li class="user">
-                                    <a href="@Url.Action("Login","Account")"><i class="fa fa-user"></i></a>
-                                </li>
-                            }
 
+                        @if(account != null)
+                        {
+                            countWishList = wishListContext.GetWishLists(account.ID_Account).Count();
+                            <li class="wishlist">
+                                <a href="@Url.Action("WishList","Account")">
+                                    <i class="fa fa-heart"></i>
+                                    <span class="badge">@countWishList</span>
+                                </a>
+                            </li>
                         }
-                        <li class="wishlist">
-                            <a href="@Url.Action("WishList","Account")">
-                                <i class="fa fa-heart"></i>
-                                <span class="badge">@countWishList</span>
-                            </a>
-                        </li>
 
 
                         <li class="side-menu">
@@ -287,11 +311,11 @@
     <!-- End Footer  -->
     <!-- Start copyright  -->
     @*<div class="footer-copyright">
-        <p class="footer-company">
-            All Rights Reserved. &copy; 2024 <a href="#">Ziara</a> Design By :
-            <a href="https://html.design/">html design</a>
-        </p>
-    </div>*@
+            <p class="footer-company">
+                All Rights Reserved. &copy; 2024 <a href="#">Ziara</a> Design By :
+                <a href="https://html.design/">html design</a>
+            </p>
+        </div>*@
     <!-- End copyright  -->
 
     <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>

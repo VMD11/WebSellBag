@@ -228,7 +228,7 @@
 			var currentValue = parseInt(input.val());
 			console.log(currentValue + '/' + quantity);
 			if (quantity == currentValue) {
-				alert("Số lượng sản phẩm không đủ");
+				alert("Số lượng sản phẩm này chỉ còn " + quantity);
 			} else {
 				input.val(currentValue + 1);
 			}
@@ -246,11 +246,11 @@
 		$('.plus').on('click', function () {
 			var id = $(this).data('id');
 			var input = $(this).siblings('.input-number').find('.quantity');
-			var quantity =  parseInt($(this).data('quantity'));
+			var quantity = parseInt($(this).data('quantity'));
 			var currentValue = parseInt(input.val());
 			console.log(currentValue + '/' + quantity);
 			if (quantity == currentValue) {
-				alert("Số lượng sản phẩm không đủ");
+				alert('Số lượng sản phẩm này chỉ còn ' + quantity);
 			} else {
 				input.val(currentValue + 1);
 				updateCart(id, input.val());
@@ -283,6 +283,7 @@
 			return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
 		}
 	});
+
 	
 	/* ..............................................
 	   Update Shipping Cost
@@ -309,29 +310,6 @@
 	/* ..............................................
 	   Fix product name
 	   ................................................. */
-	//$(document).ready(function () {
-	//	function resize() {
-	//		var windowWidth = $(window).width();
-
-	//		var maxLength;
-	//		if (windowWidth > 1200) {
-	//			maxLength = 32; 
-	//		} else {
-	//			maxLength = 24; 
-	//		}
-	//		$('.product-name').each(function () {
-	//			var text = $(this).text();
-
-	//			if (text.length > maxLength) {
-	//				var trimmedText = text.substring(0, maxLength - 3) + '...';
-	//				$(this).text(trimmedText);
-	//			}
-	//		});
-	//	};
-	//	$(window).resize(function () {
-	//		resize();
-	//	});
-	//});
 
 	/* ..............................................
 	   Form Checkout
@@ -550,8 +528,14 @@ document.addEventListener('DOMContentLoaded', function () {
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 			xhr.onload = function () {
 				if (xhr.status >= 200 && xhr.status < 300) {
-					alert('Thêm thành công');
-					location.reload();
+					var response = JSON.parse(xhr.responseText);
+					if (response.result) {
+						alert('Thêm thành công');
+						location.reload();
+					}
+					else {
+						alert(response.message);
+					}
 				} else {
 					alert('Đã xảy ra lỗi khi gửi yêu cầu.');
 				}
@@ -577,7 +561,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 			xhr.onload = function () {
 				if (xhr.status >= 200 && xhr.status < 300) {
-					view.innerHTML = xhr.responseText; 
+					var response = JSON.parse(xhr.responseText);
 					view.classList.remove('d-none'); 
 					var closeBtn = document.getElementById('closeBtn');
 					closeBtn.addEventListener('click', function () {

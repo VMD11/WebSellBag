@@ -249,10 +249,15 @@
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xhr.onload = function() {
                     if (xhr.status >= 200 && xhr.status < 300) {
-                        alert('Thêm thành công');
-                        location.reload();
+                        var response = JSON.parse(xhr.responseText);
+                        if (response.result) {
+                            alert('Thêm thành công');
+                            location.reload();
+                        } else {
+                            alert(response.message);
+                        }
                     } else {
-                        alert('Đã xảy ra lỗi khi gửi yêu cầu.');
+                        alert('Đã xảy ra lỗi');
                     }
                 };
                 xhr.onerror = function () {
@@ -270,10 +275,15 @@
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
                 xhr.onload = function() {
                     if (xhr.status >= 200 && xhr.status < 300) {
-                        var cartUrl = '@Url.Action("Index", "Cart")';
-                        window.location.href = cartUrl;
+                        var response = JSON.parse(xhr.responseText);
+                        if (response.result) {
+                            var cartUrl = '@Url.Action("Index", "Cart")';
+                            window.location.href = cartUrl;
+                        } else {
+                            alert(response.message);
+                        }
                     } else {
-                        alert('Đã xảy ra lỗi khi gửi yêu cầu.');
+                        alert(xhr.statusText);
                     }
                 };
                 xhr.onerror = function () {

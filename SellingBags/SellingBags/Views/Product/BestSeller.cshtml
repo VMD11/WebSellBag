@@ -149,33 +149,7 @@
             $('#sortOptions').toggle();
         });
     });
-    document.addEventListener('DOMContentLoaded', function () {
-        var addCartButtons = document.querySelectorAll('.cart');
-        addCartButtons.forEach(function (addButton) {
-            addButton.addEventListener('click', function (e) {
-                e.preventDefault();
-                var id_product = addButton.getAttribute('data-id');
-                var quantity = addButton.getAttribute('data-quantity');
-
-                var xhr = new XMLHttpRequest();
-
-                xhr.open('POST', addButton.getAttribute('href'), true);
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xhr.onload = function () {
-                    if (xhr.status >= 200 && xhr.status < 300) {
-                        alert('Thêm thành công');
-                        location.reload();
-                    } else {
-                        alert('Đã xảy ra lỗi khi gửi yêu cầu.');
-                    }
-                };
-                xhr.onerror = function () {
-                    alert('Đã xảy ra lỗi khi gửi yêu cầu.');
-                };
-                xhr.send('ID_Product=' + id_product + '&Quantity=' + quantity);
-            });
-        })
-    });
+    
     document.addEventListener('DOMContentLoaded', function () {
         var filterBtn = document.getElementById('filterBtn');
         var sidefilter = document.getElementById('sidefilter');
