@@ -47,11 +47,11 @@
                                 <td>
                                     @if (acc.Status == 1)
                                     {
-                                        <button data-id="@item.ID_Account.Trim()" class="btn btn-danger w-100 mb-2 lockBtn">Khóa</button>
+                                        <button data-id="@item.ID_Account.Trim()" class="btn btn-danger w-100 mb-2 lockBtn"><i class="fas fa-lock"></i></button>
                                     }
                                     else
                                     {
-                                        <a href="@Url.Action("UnLock", "AccountManage", new {ID_Account = item.ID_Account.Trim()})" class="btn btn-success w-100 mb-2">Mở khóa</a>
+                                        <a href="@Url.Action("UnLock", "AccountManage", new {ID_Account = item.ID_Account.Trim()})" class="btn btn-success w-100 mb-2"><i class="fas fa-unlock"</a>
                                     }
 
                                 </td>

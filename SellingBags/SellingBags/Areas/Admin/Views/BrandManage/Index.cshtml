@@ -33,9 +33,9 @@
                                 <td><img width="110" src="~/Assets/images/brands/@item.ImageURL" alt="@item.Name"></td>
                                 <td>@item.Name.Trim()</td>
                                 <td>
-                                    <a href="@Url.Action("Detail", "BrandManage", new {ID_Brand = item.ID_Brand.Trim()})" class="btn btn-info w-75">Xem</a>
-                                    <a href="@Url.Action("Update", "BrandManage", new {ID_Brand = item.ID_Brand.Trim()})" class="btn btn-warning w-75 mt-2 mb-2">Sửa</a>
-                                    <button class="btn btn-danger w-75 deleteBrand" data-id="@item.ID_Brand">Xóa</button>
+                                    <a href="@Url.Action("Detail", "BrandManage", new {ID_Brand = item.ID_Brand.Trim()})" class="btn btn-info"><i class="fas fa-eye"></i></a><br />
+                                    <a href="@Url.Action("Update", "BrandManage", new {ID_Brand = item.ID_Brand.Trim()})" class="btn btn-warning mt-2 mb-2"><i class="fas fa-edit"></i></a><br />
+                                    <button class="btn btn-danger pr-3 deleteBrand" data-id="@item.ID_Brand"><i class="fas fa-trash"></i></button>
                                 </td>
                             </tr>
                         }

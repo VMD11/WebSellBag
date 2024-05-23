@@ -343,7 +343,6 @@
 		$('#orderForm').on('submit', function (e) {
 			e.preventDefault();
 			var ID_Address = $('input[name="ID_Address"]:checked').val() || "";
-			
 			var LastName = $('#lastName').val();
 			var FirstName = $('#firstName').val();
 			var UserName = $('#username').val();
@@ -354,7 +353,10 @@
 			var PaymentName = $('input[name="PaymentName"]:checked').val();
 			var Shipping = $('input[name="ShippingName"]:checked');
 			var ShippingName = Shipping.val();
-			var TotalMoney = parseInt(Shipping.data('total-money').val()) + parseInt(Shipping.data('shipping-cost').val());
+			var Money = parseInt(Shipping.attr('data-total-money'));
+			var Cost = parseInt(Shipping.attr('data-shipping-cost'));
+			var TotalMoney = Money + Cost;
+			console.log(ShippingName + TotalMoney);
 			var formData = new FormData();
 			formData.append("ID_Address", ID_Address);
 			formData.append("LastName", LastName);

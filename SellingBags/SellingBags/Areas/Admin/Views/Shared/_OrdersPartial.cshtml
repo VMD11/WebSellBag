@@ -57,12 +57,12 @@
                 <td>
                     @if (item.Status == 0)
                     {
-                        <a href="@Url.Action("Confirm", "OrderManage", new {ID_Order = item.ID_Order})" class="btn btn-success w-100 mb-2">Duyệt</a><br>
-                        <a href="@Url.Action("Cancel", "OrderManage", new {ID_Order = item.ID_Order})" class="btn btn-danger w-100">Hủy</a>
+                        <a href="@Url.Action("Confirm", "OrderManage", new {ID_Order = item.ID_Order})" class="btn btn-success w-100 mb-2"><i class="fas fa-check"></i></a><br>
+                        <a href="@Url.Action("Cancel", "OrderManage", new {ID_Order = item.ID_Order})" class="btn btn-danger w-100"><i class="fas fa-times"></i></a>
                     }
                     else
                     {
-                        <a href="@Url.Action("Detail", "OrderManage", new {ID_Order = item.ID_Order})" class="btn btn-info w-100">Xem</a><br />
+                        <a href="@Url.Action("Detail", "OrderManage", new {ID_Order = item.ID_Order})" class="btn btn-info w-100"><i class="fas fa-eye"></i></a><br />
                     }
                 </td>
             </tr>

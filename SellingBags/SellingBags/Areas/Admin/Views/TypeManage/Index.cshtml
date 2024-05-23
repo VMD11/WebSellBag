@@ -38,9 +38,9 @@
                                     <td>@item.Name.Trim()</td>
                                     <td>@Category.GetCategory(item.ID_Category).Name</td>
                                     <td>
-                                        <a href="@Url.Action("Detail", "TypeManage", new {ID_Type = item.ID_Type.Trim()})" class="btn btn-info w-100">Xem</a><br />
-                                        <a href="@Url.Action("Update", "TypeManage", new {ID_Type = item.ID_Type.Trim()})" class="btn btn-warning w-100 mt-2">Sửa</a><br />
-                                        <button class="btn btn-danger w-100 mt-2 deleteType" data-id="@item.ID_Type">Xóa</button>
+                                        <a href="@Url.Action("Detail", "TypeManage", new {ID_Type = item.ID_Type.Trim()})" class="btn btn-info "><i class="fas fa-eye"></i></a><br />
+                                        <a href="@Url.Action("Update", "TypeManage", new {ID_Type = item.ID_Type.Trim()})" class="btn btn-warning mt-2 mb-2"><i class="fas fa-edit"></i></a><br />
+                                        <button class="btn btn-danger pr-3 deleteType" data-id="@item.ID_Type"><i class="fas fa-trash"></i></button>
                                     </td>
                                 </tr>
                             }
