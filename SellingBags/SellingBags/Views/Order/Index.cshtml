@@ -20,54 +20,94 @@
         </div>
     </div>
 </div>
-<div class="container mt-5">
-    @foreach (var order in Model.Orders)
-    {
-        var OrderDetails = SellingBags.Models.DataContext.OrderContext.GetOrderDetails(order.ID_Order);
-        if(order.Status == 0)
+<div class="container-fluid">
+    <div class="container mt-5">
+        @foreach (var order in Model.Orders)
         {
-            ViewBag.Status = "Chờ xác nhận";
-        }else if(order.Status == 1)
-        {
-            ViewBag.Status = "Đang vận chuyển";
-        }else if(order.Status == 2)
-        {
-            ViewBag.Status = "Đơn hàng đã hoàn thành";
-        }else
-        {
-            ViewBag.Status = "Đã hủy";
-        }
-        <div class="order-item mb-3 p-3">
-            <div class="d-flex justify-content-end">@ViewBag.Status</div>
-            <hr />
-            @foreach (var item in OrderDetails)
+            var OrderDetails = SellingBags.Models.DataContext.OrderContext.GetOrderDetails(order.ID_Order);
+            var style = "";
+            if (order.Status == 0)
             {
-                SellingBags.Areas.Admin.Models.DataContext.ProductContext context = new SellingBags.Areas.Admin.Models.DataContext.ProductContext();
-                item.Product = context.GetProduct(item.ID_Product);
-                <a href="@Url.Action("Detail", "Order", new {ID_Order = order.ID_Order.Trim()})">
-                    <div class="row">
-                        <div class="col-3 p-3">
-                            <div class="d-flex justify-content-center">
-                                <img class="img-fluid " src="~/Assets/images/products/@item.Product.ImageURL" width="120" />
+                ViewBag.Status = "Chờ xác nhận";
+            }
+            else if (order.Status == 1)
+            {
+                style = "text-warning";
+                ViewBag.Status = "Đang vận chuyển";
+            }
+            else if (order.Status == 2)
+            {
+                style = "text-success";
+                ViewBag.Status = "Đã hoàn thành";
+            }
+            else
+            {
+                style = "text-danger";
+                ViewBag.Status = "Đã hủy";
+            }
+            <div class="order-item mb-3 p-3">
+                <div class="row">
+                    <div class="col-6">
+                        @if (order.Status == 0 || order.Status == 1)
+                        {
+                            <div class="float-left mt-0">
+                                <button class="btn hvr-hover text-white border-0 cancelOrder" data-id="@order.ID_Order">Hủy đơn hàng</button>
+                            </div>
+                        }
+                    </div>
+                    <div class="col-6">
+                        <div class="float-right font-weight-bold @style">@ViewBag.Status</div>
+                    </div>
+                </div>
+                <hr />
+                @foreach (var item in OrderDetails)
+                {
+                    SellingBags.Areas.Admin.Models.DataContext.ProductContext context = new SellingBags.Areas.Admin.Models.DataContext.ProductContext();
+                    item.Product = context.GetProduct(item.ID_Product);
+                    <a href="@Url.Action("Detail", "Order", new {ID_Order = order.ID_Order.Trim()})">
+                        <div class="row">
+                            <div class="col-3 p-3">
+                                <div class="d-flex justify-content-center">
+                                    <img class="img-fluid " src="~/Assets/images/products/@item.Product.ImageURL" width="120" />
+                                </div>
+                            </div>
+                            <div class="col-9 p-3">
+                                <div class="h5">@item.Product.Name</div>
+                                <div class="h6">Màu @item.Product.Color <span>|</span> Size @item.Product.Size</div>
+                                <div class="h6">Số lượng: @item.Quantity <div class="float-right">@Converts.convertVND(item.Product.Price)</div></div>
                             </div>
                         </div>
-                        <div class="col-9 p-3">
-                            <div class="h5">@item.Product.Name</div>
-                            <div class="h6">Màu @item.Product.Color <span>|</span> Size @item.Product.Size</div>
-                            <div class="h6">Số lượng: @item.Quantity <div class="float-right">@Converts.convertVND(item.Product.Price)</div></div>
-                        </div>
+                    </a>
+                    <hr />
+                }
+                <div class="d-flex justify-content-end">
+                    <div class="gr-total">
+                        <h5>Thành tiền: @Converts.convertVND(order.TotalMoney)</h5>
                     </div>
-                </a>
-                <hr />
-            }
-            <div class="d-flex justify-content-end">
-                <div class="gr-total">
-                    <h5>Thành tiền: @Converts.convertVND(order.TotalMoney)</h5>
+                </div>
+
+
+            </div>
+        }
+    </div>
+    <!-- Xác nhận xóa Popup -->
+    <div id="cancelConfirmPopup" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Xác nhận xóa</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Bạn có chắc muốn hủy đơn hàng này?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
+                    <button type="button" class="btn btn-danger" id="confirmCancelBtn">Đồng ý</button>
                 </div>
             </div>
-            
-
         </div>
-    }
+    </div>
 </div>
-

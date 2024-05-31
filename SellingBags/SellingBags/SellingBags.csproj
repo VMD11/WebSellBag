@@ -157,6 +157,7 @@
     <Compile Include="Common\LoginAccount.cs" />
     <Compile Include="Common\RegexAccount.cs" />
     <Compile Include="Common\Sessions.cs" />
+    <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -4414,6 +4415,7 @@
     <Content Include="Views\Shared\_ProductsPartial.cshtml" />
     <Content Include="Views\Account\UpdateAddress.cshtml" />
     <Content Include="Views\Shared\_AddressPartial.cshtml" />
+    <Content Include="Views\About\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

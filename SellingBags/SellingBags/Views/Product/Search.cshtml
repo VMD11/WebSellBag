@@ -21,91 +21,93 @@
     </div>
 </div>
 <!-- End All Title Box -->
-<!-- Start Shop Page  -->
-<div class="shop-box-inner">
-    <div id="sidefilter" class="sidefilter">
-        <h3 class="text-center">Bộ lọc</h3>
-        <div id="closefilter" class="close"><i class="fa fa-arrow-left"></i></div>
-        <div id="filterForm">
-            <div class="row">
-                <div class="col-12">
-                    <div class="h5">Giá:</div>
-                    <div class="ml-3">
-                        <div class="custom-control custom-radio">
-                            <input id="price1" name="Price" value="0-400000" type="radio" class="custom-control-input mt-4">
-                            <label class="custom-control-label" for="price1">
-                                < 400.000
-                            </label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                            <input id="price2" name="Price" value="400000-600000" type="radio" class="custom-control-input mt-4">
-                            <label class="custom-control-label" for="price2">
-                                400.000 - 600.000
-                            </label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                            <input id="price3" name="Price" value="600000-900000" type="radio" class="custom-control-input mt-4">
-                            <label class="custom-control-label" for="price3">
-                                600.000 - 900.000
-                            </label>
-                        </div>
-                        <div class="custom-control custom-radio">
-                            <input id="price4" name="Price" value="900000+" type="radio" class="custom-control-input mt-4">
-                            <label class="custom-control-label" for="price4">
-                                > 900.000
-                            </label>
+<div class="container-fluid">
+    <!-- Start Shop Page  -->
+    <div class="shop-box-inner">
+        <div id="sidefilter" class="sidefilter">
+            <h3 class="text-center">Bộ lọc</h3>
+            <div id="closefilter" class="close"><i class="fa fa-arrow-left"></i></div>
+            <div id="filterForm">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="h5">Giá:</div>
+                        <div class="ml-3">
+                            <div class="custom-control custom-radio">
+                                <input id="price1" name="Price" value="0-400000" type="radio" class="custom-control-input mt-4">
+                                <label class="custom-control-label" for="price1">
+                                    < 400.000
+                                </label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input id="price2" name="Price" value="400000-600000" type="radio" class="custom-control-input mt-4">
+                                <label class="custom-control-label" for="price2">
+                                    400.000 - 600.000
+                                </label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input id="price3" name="Price" value="600000-900000" type="radio" class="custom-control-input mt-4">
+                                <label class="custom-control-label" for="price3">
+                                    600.000 - 900.000
+                                </label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input id="price4" name="Price" value="900000+" type="radio" class="custom-control-input mt-4">
+                                <label class="custom-control-label" for="price4">
+                                    > 900.000
+                                </label>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-12 ">
-                    <div class="h5">Màu sắc:</div>
-                    <select id="colorFilter" name="Color" class="control-select">
-                        <option value="*">Tất cả</option>
-                        @foreach (var item in Model.Colors)
-                        {
-                            <option value="@item">@item</option>
-                        }
+                    <div class="col-12 ">
+                        <div class="h5">Màu sắc:</div>
+                        <select id="colorFilter" name="Color" class="control-select">
+                            <option value="*">Tất cả</option>
+                            @foreach (var item in Model.Colors)
+                            {
+                                <option value="@item">@item</option>
+                            }
 
-                    </select>
-                </div>
-                <div class="col-12 buttonfilter">
-                    <button id="applyFilter" class="btn hvr-hover text-white w-100">Hoàn tất</button>
-                    <button id="clearFilter" class="btn btn-theme w-100 mt-2">Xóa bộ lọc</button>
+                        </select>
+                    </div>
+                    <div class="col-12 buttonfilter">
+                        <button id="applyFilter" class="btn hvr-hover text-white w-100">Hoàn tất</button>
+                        <button id="clearFilter" class="btn btn-theme w-100 mt-2">Xóa bộ lọc</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="container">
-        <div class="row">
+        <div class="container">
+            <div class="row">
 
-            <div class="col-xl-12 col-lg-12 col-sm-12 col-xs-12 ">
-                <div class="right-product-box">
-                    <div class="product-item-filter row">
-                        <div class="col-6 text-center border-right">
-                            <div id="filterBtn" class="btn bg-white w-100 "><i class="fa fa-filter"></i> Bộ lọc</div>
+                <div class="col-xl-12 col-lg-12 col-sm-12 col-xs-12 ">
+                    <div class="right-product-box">
+                        <div class="product-item-filter row">
+                            <div class="col-6 text-center border-right">
+                                <div id="filterBtn" class="btn bg-white w-100 "><i class="fa fa-filter"></i> Bộ lọc</div>
+                            </div>
+                            <div class="col-6 text-center">
+                                <div class="sort-section">
+                                    <div id="sortBtn" class="btn bg-white w-100"><i class="fa fa-sort-amount-asc"></i> Sắp xếp</div>
+                                    <div id="sortOptions" class="sort-options w-75">
+                                        <ul>
+                                            <li><a data-value="" class="active">Mặc định</a></li>
+                                            <li><a data-value="priceasc">Giá tăng dần</a></li>
+                                            <li><a data-value="pricedesc">Giá giảm dần</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
-                        <div class="col-6 text-center">
-                            <div class="sort-section">
-                                <div id="sortBtn" class="btn bg-white w-100"><i class="fa fa-sort-amount-asc"></i> Sắp xếp</div>
-                                <div id="sortOptions" class="sort-options w-75">
-                                    <ul>
-                                        <li><a data-value="" class="active">Mặc định</a></li>
-                                        <li><a data-value="priceasc">Giá tăng dần</a></li>
-                                        <li><a data-value="pricedesc">Giá giảm dần</a></li>
-                                    </ul>
+                        <div class="row product-categorie-box">
+                            <div class="tab-content">
+                                <div role="tabpanel" class="tab-pane fade show active" id="grid-view">
+                                    @Html.Partial("_ProductsPartial", Model.SearchProductsByName)
                                 </div>
                             </div>
                         </div>
 
                     </div>
-                    <div class="row product-categorie-box">
-                        <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane fade show active" id="grid-view">
-                                @Html.Partial("_ProductsPartial", Model.SearchProductsByName)
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </div>

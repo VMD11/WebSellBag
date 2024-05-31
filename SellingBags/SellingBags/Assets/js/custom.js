@@ -323,6 +323,10 @@
 				data: $(this).serialize(),
 				success: function (response) {
 					location.reload();
+					//if (response.result) {
+					//} else {
+					//	alert('Thông tin tài khoản hoặc mật khẩu không chính xác');
+					//}
 
 				},
 				error: function () {
@@ -378,7 +382,7 @@
 				dataType:'json',
 				success: function (response) {
 					if (response.result) {
-						window.location.href = '/Order/Index';
+						window.location.href = response.redirectUrl;
 					} else {
 						alert('Đặt hàng thất bại. Vui lòng thử lại!');
 						location.reload();
@@ -580,4 +584,42 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	});
 	
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+	var cancelOrder = document.querySelectorAll('.cancelOrder');
+	cancelOrder.forEach(function (btn) {
+		btn.addEventListener('click', function () {
+			var id = this.getAttribute('data-id');
+			var url = '/Order/CancelOrder';
+			console.log(id);
+			$('#cancelConfirmPopup').modal('show');
+
+			var confirmButton = document.getElementById('confirmCancelBtn');
+			var newConfirmButton = confirmButton.cloneNode(true);
+			confirmButton.parentNode.replaceChild(newConfirmButton, confirmButton);
+
+			newConfirmButton.addEventListener('click', function () {
+				var xhr = new XMLHttpRequest();
+				xhr.open('POST', url, true);
+				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+				xhr.onload = function () {
+					if (xhr.status >= 200 && xhr.status < 300) {
+						var response = JSON.parse(xhr.responseText);
+						alert(response.message + response.url);
+						if (response.result) {
+							location.reload();
+							//location.href = response.url;
+						}
+					}
+				};
+				xhr.onerror = function () {
+					alert('Đã xảy ra lỗi khi gửi yêu cầu.');
+				};
+				xhr.send('ID_Order=' + encodeURIComponent(id));
+				console.log(xhr.responseURL);
+				$('#cancelConfirmPopup').modal('hide');
+			});
+		});
+	});
 });

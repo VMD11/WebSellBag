@@ -198,8 +198,10 @@ namespace SellingBags.Models.DataContext
         }
         public IEnumerable<QuantitySold> GetQuantitySold()
         {
-            var query = from o in db.OrderDetails
-                        group o by o.ID_Product into groups
+            var query = from od in db.OrderDetails
+                        join o in db.Orders on od.ID_Order equals o.ID_Order
+                        where o.Status != -1
+                        group od by od.ID_Product into groups
                         select new QuantitySold
                         {
                             ID_Product = groups.Key,

@@ -23,16 +23,16 @@ namespace SellingBags.Controllers
                 return RedirectToAction("Login", "Account");
             }
             OrderVM orderVM = new OrderVM();
-            int load = OrderContext.GetReloadOrders();
+            OrderContext.GetReloadOrders();
             var ID_Account = Account().ID_Account;
             orderVM.Orders = OrderContext.GetOrders(ID_Account);
             return View(orderVM);
         }
-
         
         public ActionResult Detail(string ID_Order)
         {
             ViewBag.Status = "";
+            ViewBag.Style = "";
             OrderVM orderVM = new OrderVM();
             if (Account() == null)
             {
@@ -42,12 +42,36 @@ namespace SellingBags.Controllers
             orderVM.OrderDetails = OrderContext.GetOrderDetails(ID_Order);
             orderVM.Shipping = OrderContext.GetShipping(orderVM.Order.ShippingMethod);
             orderVM.Address = OrderContext.GetAddress(orderVM.Order.ID_Address);
-            if (orderVM.Order.Status == 0) ViewBag.Status = "Chờ xác nhận";
-            else if (orderVM.Order.Status == 1) ViewBag.Status = "Đang vận chuyển";
-            else if(orderVM.Order.Status == 2) ViewBag.Status = "Đơn hàng đã hoàn thành";
-            else ViewBag.Status = "Đã hủy";
+            if (orderVM.Order.Status == 0)
+                ViewBag.Status = "Chờ xác nhận";
+            else if (orderVM.Order.Status == 1)
+            {
+                ViewBag.Status = "Đang vận chuyển";
+                ViewBag.Style = "text-warning";
+            }
+            else if (orderVM.Order.Status == 2)
+            {
+                ViewBag.Status = "Đã hoàn thành";
+                ViewBag.Style = "text-success";
+            }
+            else
+            {
+                ViewBag.Status = "Đã hủy";
+                ViewBag.Style = "text-danger";
+            }
             
             return View(orderVM);
+        }
+
+        [HttpPost]
+        public ActionResult CancelOrder(string ID_Order)
+        {
+            if (ID_Order != null)
+            {
+                if (OrderContext.IsCancelOrder(ID_Order))
+                    return Json(new { result = true, message = "Đơn hàng " + ID_Order + " đã được hủy", url = Url.Action("Index", "Order") });
+            }
+            return Json(new { result = false, message = "Hủy không thành công"});
         }
 
         //[HttpPost]

@@ -2,6 +2,7 @@
 using SellingBags.Models.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -22,6 +23,13 @@ namespace SellingBags.Models.DataContext
                         database.Addresses.Add(address);
                     database.Orders.Add(order);
                     database.OrderDetails.AddRange(orderDetails);
+                    foreach(var item in orderDetails)
+                    {
+                        var product = GetProduct(item.ID_Product);
+                        product.Quantity -= item.Quantity;
+                        var query = "update Product set Quantity = " + product.Quantity + " where ID_Product = '" + product.ID_Product + "'";
+                        database.Database.ExecuteSqlCommand(query);
+                    }
                     database.SaveChanges();
                     return true;
                 }
@@ -29,6 +37,25 @@ namespace SellingBags.Models.DataContext
             }catch(Exception) { return false; }
         }
         
+        public static bool IsCancelOrder(string ID_Order)
+        {
+            try
+            {
+                if(ID_Order == null) return false;
+                var q = "update Orders set Status = -1 where ID_Order = '" + ID_Order + "'";
+                db.Database.ExecuteSqlCommand(q);
+                foreach (var item in GetOrderDetails(ID_Order))
+                {
+                    var product = GetProduct(item.ID_Product);
+                    product.Quantity += item.Quantity;
+                    var query = "update Product set Quantity = " + product.Quantity + " where ID_Product = '" + product.ID_Product + "'";
+                    db.Database.ExecuteSqlCommand(query);
+                }
+                db.SaveChanges();
+                return true;
+            }catch(Exception) { return false; }
+        }
+
         public static IEnumerable<OrderDetail> GetOrderDetails(string ID_Order)
         {
             return db.OrderDetails.Where(o => o.ID_Order == ID_Order);
@@ -57,6 +84,10 @@ namespace SellingBags.Models.DataContext
         public static Shipping GetShipping(string Name)
         {
             return db.Shippings.FirstOrDefault(m => m.Name == Name);
+        }
+        public static Product GetProduct(string ID_Product)
+        {
+            return db.Products.FirstOrDefault(p => p.ID_Product == ID_Product);
         }
         public static int GetReloadOrders()
         {

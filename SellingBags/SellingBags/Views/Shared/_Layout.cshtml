@@ -155,8 +155,8 @@
                                 </li>
                             </ul>
                         </li>
-                            
-                        <li class="nav-item"><a class="nav-link" href="@Url.Action("","")">Về chúng tôi</a></li>
+
+                        <li class="nav-item"><a class="nav-link" href="@Url.Action("Index","About")">Về chúng tôi</a></li>
                         @if (account != null)
                         {
                             <li class="dropdown ">
@@ -168,7 +168,7 @@
                                 </ul>
                             </li>
                         }
-                        </ul>
+                    </ul>
                 </div>
                 <!-- /.navbar-collapse -->
                 <!-- Start Atribute Navigation -->
@@ -176,7 +176,7 @@
                     <ul>
                         <li class="search"><a href="#"><i class="fa fa-search"></i></a></li>
 
-                        @if(account != null)
+                        @if (account != null)
                         {
                             countWishList = wishListContext.GetWishLists(account.ID_Account).Count();
                             <li class="wishlist">
@@ -256,9 +256,7 @@
     }
     <!-- End Top Search -->
 
-    <div class="container-fluid">
-        @RenderBody()
-    </div>
+    @RenderBody()
 
     <!-- Start Footer  -->
     <footer>
@@ -266,7 +264,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-4 col-md-12 col-sm-12">
-                        <div class="footer-widget">
+                        <div class="footer-widget mt-3">
                             <h4>Giới thiệu</h4>
                             <ul>
                                 <div class="text-white mb-2">Zuma - Túi xách thời trang đẹp</div>
@@ -280,7 +278,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12">
-                        <div class="footer-link">
+                        <div class="footer-link mt-3">
                             <h4>Hỗ trợ</h4>
                             <ul>
                                 <li><a href="#"> Chính sách khách hàng</a></li>
@@ -292,7 +290,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12">
-                        <div class="footer-link-contact">
+                        <div class="footer-link-contact mt-3">
                             <h4>Kết nối với Zuma</h4>
                             <ul>
                                 <li>
@@ -309,14 +307,6 @@
         </div>
     </footer>
     <!-- End Footer  -->
-    <!-- Start copyright  -->
-    @*<div class="footer-copyright">
-            <p class="footer-company">
-                All Rights Reserved. &copy; 2024 <a href="#">Ziara</a> Design By :
-                <a href="https://html.design/">html design</a>
-            </p>
-        </div>*@
-    <!-- End copyright  -->
 
     <a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
 

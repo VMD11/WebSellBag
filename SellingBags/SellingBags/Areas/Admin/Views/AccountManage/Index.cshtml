@@ -90,7 +90,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('.lockBtn').on('click', function () {
-            var id = $(this).attr('data-id');
+            var id = $(this).data('id');
 
             $('#lockConfirmPopup').modal('show');
 
@@ -102,14 +102,14 @@
                     success: function (response) {
                         if (response.result) {
                             alert(response.message);
-                            location.reload(); 
+                            window.location.href = response.redirectUrl; 
                             console.log(id);
                         } else {
                             alert(response.message);
                         }
                     },
                     error: function () {
-                        alert('Có lỗi xảy ra khi khóa');
+                        alert('Có lỗi xảy ra');
                     }
                 });
 

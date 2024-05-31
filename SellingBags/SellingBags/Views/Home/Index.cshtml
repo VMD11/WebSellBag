@@ -8,59 +8,54 @@
 }
 
 <!-- Start Slider -->
+<div id="slides-shop" class="cover-slides">
+    <ul class="slides-container">
+        <li class="text-left">
+            <img src="~/Assets/images/banner/17781713145933.jpg" class="responsive-image" alt="">
+            <div class="container">
+                @*<div class="row">
+                        <div class="col-12">
+                            <p style="margin-top:50%">@Html.ActionLink("Xem thêm", "Index", "Product", null, new { @class = "btn hvr-hover" })</p>
+                        </div>
+                    </div>*@
+            </div>
+        </li>
+        <li class="text-center">
+            <img src="~/Assets/images/banner/best_seller.jpg" class="responsive-image" alt="">
+            <div class="container">
+                @*<div class="row">
+                        <div class="col-12">
+                            <p style="margin-top:80%">@Html.ActionLink("Xem thêm", "Index", "Product", null, new { @class = "btn hvr-hover" })</p>
+                        </div>
+                    </div>*@
+            </div>
+        </li>
+        <li class="text-right">
+            <img src="~/Assets/images/banner/17561713174309.jpg" class="responsive-image" alt="">
+            <div class="container">
+            </div>
+        </li>
+
+    </ul>
+</div>
+<!-- End Slider -->
+<script>
+    var screenWidth = window.innerWidth;
+    var screenHeight = window.innerHeight;
+
+    // Đối tượng ảnh
+    var imageElement = document.querySelector('.responsive-image');
+
+    var imageWidth = screenWidth;
+    var imageHeight = (imageWidth * imageElement.naturalHeight) / imageElement.naturalWidth;
+
+    // Đặt kích thước mới cho ảnh
+    imageElement.style.width = imageWidth + 'px';
+    imageElement.style.height = imageHeight + 'px';
+</script>
 <div class="container-fluid">
 
 
-    <div id="slides-shop" class="cover-slides">
-        <ul class="slides-container">
-            <li class="text-left">
-                <img src="~/Assets/images/banner/17781713145933.jpg" class="responsive-image" alt="">
-                <div class="container">
-                    @*<div class="row">
-                            <div class="col-12">
-                                <p style="margin-top:50%">@Html.ActionLink("Xem thêm", "Index", "Product", null, new { @class = "btn hvr-hover" })</p>
-                            </div>
-                        </div>*@
-                </div>
-            </li>
-            <li class="text-center">
-                <img src="~/Assets/images/banner/best_seller.jpg" class="responsive-image" alt="">
-                <div class="container">
-                    @*<div class="row">
-                            <div class="col-12">
-                                <p style="margin-top:80%">@Html.ActionLink("Xem thêm", "Index", "Product", null, new { @class = "btn hvr-hover" })</p>
-                            </div>
-                        </div>*@
-                </div>
-            </li>
-            <li class="text-right">
-                <img src="~/Assets/images/banner/17561713174309.jpg" class="responsive-image" alt="">
-                <div class="container">
-                    @*<div class="row">
-                            <div class="col-12 ">
-                                <p style="margin: 6rem 6rem 0 0; ">@Html.ActionLink("Xem thêm", "Index", "Product", null, new { @class = "btn hvr-hover pl-5 pr-5" })</p>
-                            </div>
-                        </div>*@
-                </div>
-            </li>
-
-        </ul>
-    </div>
-    <!-- End Slider -->
-    <script>
-        var screenWidth = window.innerWidth;
-        var screenHeight = window.innerHeight;
-
-        // Đối tượng ảnh
-        var imageElement = document.querySelector('.responsive-image');
-
-        var imageWidth = screenWidth;
-        var imageHeight = (imageWidth * imageElement.naturalHeight) / imageElement.naturalWidth;
-
-        // Đặt kích thước mới cho ảnh
-        imageElement.style.width = imageWidth + 'px';
-        imageElement.style.height = imageHeight + 'px';
-    </script>
     <!-- Start Categories  -->
     <div class="categories-shop">
         <div class="container">
@@ -133,7 +128,7 @@
                         <div class="button-group filter-button-group w-100">
                             <button class="active w-25" data-filter="*">Tất cả</button>
                             <button class="w-25" data-filter=".new">Mới</button>
-                            <button class="w-25" data-filter=".best-seller">Bán chạy</button>
+                            <button class="w-25" data-filter=".best-seller">Hot</button>
                         </div>
                     </div>
                 </div>

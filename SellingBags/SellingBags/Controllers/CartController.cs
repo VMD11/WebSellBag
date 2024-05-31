@@ -130,7 +130,7 @@ namespace SellingBags.Controllers
                 if(OrderContext.AddBill(address, order, orderDetails))
                 {
                     Session[Sessions.CART] = null;
-                    return Json( new {result = true});
+                    return Json( new {result = true, redirectUrl = Url.Action("Index","Order")});
                 }
                 return Json( new {result = false});
             }catch (Exception ex) {

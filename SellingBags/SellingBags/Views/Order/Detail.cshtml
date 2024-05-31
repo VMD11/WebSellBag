@@ -24,8 +24,18 @@
 </div>
 <div class="cart-box-main">
     <div class="container-fluid">
-        <div class=" mb-3">
-            <div class="d-flex justify-content-end font-weight-bold"><h2>@ViewBag.Status</h2></div>
+        <div class="row mb-3">
+            <div class="col-6">
+                @if (Model.Order.Status == 0 || Model.Order.Status == 1)
+                {
+                    <div class="float-left mt-0 ml-3">
+                        <button class="btn hvr-hover text-white border-0 cancelOrder" data-id="@Model.Order.ID_Order">Hủy đơn hàng</button>
+                    </div>
+                }
+            </div>
+            <div class="col-6">
+                <div class="float-right font-weight-bold h3 @ViewBag.Style">@ViewBag.Status</div>
+            </div>
         </div>
         <div class="row new-account-login">
                 <!-- Start LeftColumn -->
