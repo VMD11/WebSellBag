@@ -174,7 +174,6 @@
     <Compile Include="Common\LoginAccount.cs" />
     <Compile Include="Common\RegexAccount.cs" />
     <Compile Include="Common\Sessions.cs" />
-    <Compile Include="Common\ZaloPayHelper.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />

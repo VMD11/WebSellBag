@@ -47,12 +47,20 @@ namespace SellingBags.Models.DataContext
             var ID_Customer = GetCustomerByID(ID_Account).ID_Customer;
             return db.Addresses.Where(a => a.ID_Customer == ID_Customer);
         }
+<<<<<<< HEAD
         public  Address GetAddressByID(string ID_Address)
+=======
+        public static Address GetAddressByID(string ID_Address)
+>>>>>>> f6f221431dafb1528938c0a5812fa6d099abbec0
         {
             return db.Addresses.FirstOrDefault(a => a.ID_Address == ID_Address);
         }
 
+<<<<<<< HEAD
         public  bool AddAddress(Address address)
+=======
+        public static bool AddAddress(Address address)
+>>>>>>> f6f221431dafb1528938c0a5812fa6d099abbec0
         {
             try
             {
@@ -61,8 +69,12 @@ namespace SellingBags.Models.DataContext
                 return true;
             }catch (Exception) { return false; }
         }
+<<<<<<< HEAD
 
         public  bool UpdateAddress(Address address)
+=======
+        public static bool UpdateAddress(Address address)
+>>>>>>> f6f221431dafb1528938c0a5812fa6d099abbec0
         {
             try
             {
@@ -79,7 +91,11 @@ namespace SellingBags.Models.DataContext
                 return true;
             }catch (Exception) { return false; }
         }
+<<<<<<< HEAD
         public  bool DeleteAddress(string ID_Address)
+=======
+        public static bool DeleteAddress(string ID_Address)
+>>>>>>> f6f221431dafb1528938c0a5812fa6d099abbec0
         {
             try
             {
