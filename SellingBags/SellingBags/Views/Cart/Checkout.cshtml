@@ -8,9 +8,23 @@
     var frozen = "frozen";
     var show = "";
 }
-
-<div class="cart-box-main">
+<div class="all-title-box">
     <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Thanh toán</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Cart")">Giỏ hàng</a></li>
+                    <li class="breadcrumb-item active">Thanh toán</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="cart-box-main">
+        <div class="container">
             <div class="row new-account-login">
                 <!-- Start LeftColumn -->
                 <div class="col-sm-6 col-lg-6 mb-3">
@@ -26,7 +40,7 @@
                                     <div class="form">
                                         @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "loginForm" }))
                                         {
-                                            
+
                                             <div class="results-error">
                                                 <div class="error">
                                                 </div>
@@ -64,8 +78,6 @@
 
                     </div>
                     <!-- End Form Login -->
-
-
                     <!-- Start Info Address -->
                     <div id="infoAddress" class="checkout-address @frozen">
                         <div class="title-left ">
@@ -73,7 +85,7 @@
                         </div>
                         <div id="formInfo" class="collapse @show">
                             <div class="title mb-2 p-2">
-                                <a data-toggle="collapse" href="#address" aria-expanded="false"  style="text-decoration:underline !important">Địa chỉ của tôi</a>
+                                <a data-toggle="collapse" href="#address" aria-expanded="false" style="text-decoration:underline !important">Địa chỉ của tôi</a>
                             </div>
                             <div id="address" class="collapse @show ">
                                 @if (account != null)
@@ -158,7 +170,6 @@
                         </div>
                     </div>
                     <!-- End Info Address -->
-
                     <!-- Start Shipping Box -->
                     <div id="shippingBox" class="frozen shipping-method-box ">
                         <div class="title-left">
@@ -200,7 +211,7 @@
                                             name = "Thanh toán bằng " + item.Name;
                                         }
                                         <div class="custom-control custom-radio">
-                                            <input id="@data_id" name="PaymentName" value="@item.Name" type="radio"  class="custom-control-input mt-4" >
+                                            <input id="@data_id" name="PaymentName" value="@item.Name" type="radio" class="custom-control-input mt-4">
                                             <label class="custom-control-label" for="@data_id">
                                                 <img src="~/Assets/images/payment-icon/@item.ImageURL" alt="" width="18"> @name
                                             </label>
@@ -214,7 +225,6 @@
                     <!-- End Shipping Box -->
                 </div>
                 <!-- End LeftColumn -->
-
                 <!-- Start RightColumn -->
                 <div class="col-sm-6 col-lg-6 mb-3">
                     <!-- Start Order Product -->
@@ -244,13 +254,13 @@
                         </div>
                     </div>
                     <!-- End Order Product -->
-
                     <!-- Start Order -->
                     <div class="order-box mt-5">
                         <div class="title-left"><h2>Đặt hàng</h2></div>
                         <div class="d-flex mt-3">
                             <h4>Giá trị đơn hàng</h4>
                             <div class="ml-auto font-weight-bold">@Converts.convertVND(Model.Cart.TotalMoney())</div>
+
                         </div>
                         <div class="d-flex">
                             <h4>Giảm giá</h4>
@@ -268,9 +278,6 @@
                         <div class="d-flex gr-total">
                             <h5>Thành tiền</h5>
                             <div class="ml-auto h5" id="totalMoney">@Converts.convertVND(totalMoney)</div>
-                            <div class="d-none">
-                                <input type="number" id="totalmoney" name="TotalMoney" value="@totalMoney" />
-                            </div>
                         </div>
                         <hr>
                     </div>
@@ -285,5 +292,6 @@
                 </div>
                 <!-- End RightColumn -->
             </div>
+        </div>
     </div>
 </div>

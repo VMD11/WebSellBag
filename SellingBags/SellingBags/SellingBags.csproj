@@ -53,6 +53,23 @@
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.7.1\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -157,6 +174,8 @@
     <Compile Include="Common\LoginAccount.cs" />
     <Compile Include="Common\RegexAccount.cs" />
     <Compile Include="Common\Sessions.cs" />
+    <Compile Include="Common\ZaloPayHelper.cs" />
+    <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -4048,9 +4067,8 @@
     <Content Include="Assets\images\brands\NEYUH_Leather.jpg" />
     <Content Include="Assets\images\brands\ROGER_FANK.jpg" />
     <Content Include="Assets\images\brands\Vascara.jpg" />
-    <Content Include="Assets\images\logo\icon.ico" />
-    <Content Include="Assets\images\logo\ziara-icon.ico" />
-    <Content Include="Assets\images\logo\ziara-logo.png" />
+    <Content Include="Assets\images\logo\zuma-icon.ico" />
+    <Content Include="Assets\images\logo\zuma-logo.png" />
     <Content Include="Assets\images\payment-icon\thanh-toan-bang-vi-momo.png" />
     <Content Include="Assets\images\payment-icon\thanh-toan-bang-vi-shopeepay.png" />
     <Content Include="Assets\images\payment-icon\thanh-toan-bang-vi-vnpay.png" />
@@ -4401,6 +4419,7 @@
     <Content Include="Areas\Admin\Views\OrderManage\Index.cshtml" />
     <Content Include="Areas\Admin\Views\OrderManage\Detail.cshtml" />
     <Content Include="Areas\Admin\Views\AccountManage\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_OrdersPartial.cshtml" />
     <None Include="packages.config" />
     <Content Include="Views\Product\ProductsByCategory.cshtml" />
     <Content Include="Views\Cart\Checkout.cshtml" />
@@ -4411,6 +4430,10 @@
     <Content Include="Views\Account\Info.cshtml" />
     <Content Include="Views\Account\AddressList.cshtml" />
     <Content Include="Views\Product\BestSeller.cshtml" />
+    <Content Include="Views\Shared\_ProductsPartial.cshtml" />
+    <Content Include="Views\Account\UpdateAddress.cshtml" />
+    <Content Include="Views\Shared\_AddressPartial.cshtml" />
+    <Content Include="Views\About\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

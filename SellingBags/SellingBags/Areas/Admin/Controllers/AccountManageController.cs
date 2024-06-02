@@ -12,25 +12,30 @@ namespace SellingBags.Areas.Admin.Controllers
     public class AccountManageController : Controller
     {
         // GET: Admin/AccountManage
+        private readonly AccountContext accountContext;
+        public AccountManageController()
+        {
+            accountContext = new AccountContext();
+        }
         public ActionResult Index()
         {
             if(Account() == null)
                 return RedirectToAction("Index","Login");
             AccountVM accountVM = new AccountVM();
-            accountVM.Accounts = AccountContext.GetAccounts();
-            accountVM.Customers = AccountContext.GetCustomers();
+            accountVM.Accounts = accountContext.GetAccounts();
+            accountVM.Customers = accountContext.GetCustomers();
             return View(accountVM);
         }
 
         public ActionResult Lock(string ID_Account) 
         {
-            if (AccountContext.LockAccount(ID_Account))
-                return Json(new {result = true});
-            return Json(new {result = false});
+            if (accountContext.LockAccount(ID_Account))
+                return Json(new { result = true, message = "Khóa thành công", redirectUrl = Url.Action("Index", "AccountManage"), JsonRequestBehavior.AllowGet });
+            return Json(new {result = false, message = "Khóa không thành công", JsonRequestBehavior.AllowGet });
         }
         public ActionResult UnLock(string ID_Account) 
         {
-            if (AccountContext.UnLockAccount(ID_Account))
+            if (accountContext.UnLockAccount(ID_Account))
                 return RedirectToAction("Index","AccountManage");
             return RedirectToAction("Index","AccountManage");
         }

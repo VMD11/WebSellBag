@@ -21,6 +21,10 @@ namespace SellingBags.Areas.Admin.Controllers
                 return RedirectToAction("Index", "Login");
             }
             var dashboardVM = new DashboardVM();
+            dashboardVM.ProductsCount = dashboardContext.GetProductsCount();
+            dashboardVM.TypesCount = dashboardContext.GetTypesCount();
+            dashboardVM.BrandsCount = dashboardContext.GetBrandsCount();
+            dashboardVM.OrdersCount = dashboardContext.GetOrdersCount();
             dashboardVM.DaylyRevenue = dashboardContext.GetDaylyRevenue();
             dashboardVM.MonthlyRevenue = dashboardContext.GetMonthlyRevenue();
             dashboardVM.YearlyRevenue = dashboardContext.GetYearlyRevenue();

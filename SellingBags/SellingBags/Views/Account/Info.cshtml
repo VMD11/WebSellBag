@@ -8,21 +8,21 @@
 
 }
 
-<div class="container-fluid">
-    <div class="all-title-box">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2>Thông tin cá nhân</h2>
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
-                        <li class="breadcrumb-item"><a href="@Url.Action("Index","Account")">Hồ sơ</a></li>
-                        <li class="breadcrumb-item active">Thông tin cá nhân</li>
-                    </ul>
-                </div>
+<div class="all-title-box">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2>Thông tin cá nhân</h2>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="@Url.Action("Index","Account")">Hồ sơ</a></li>
+                    <li class="breadcrumb-item active">Thông tin cá nhân</li>
+                </ul>
             </div>
         </div>
     </div>
+</div>
+<div class="container-fluid">
     <div class="container mt-5">
         <div class="row">
             <div class="col-12">
@@ -70,7 +70,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="address">Địa chỉ:</label>
-                        <input id="address" name="Address" class="form-control" value="@Model.Customer.Address" />
+                        <input id="address" name="SpecificAddress" class="form-control" value="@Model.Customer.Address" />
                     </div>
                     <div class="mb-3">
                         <label for="Gender">Giới tính:</label>

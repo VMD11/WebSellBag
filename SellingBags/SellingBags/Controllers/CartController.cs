@@ -31,13 +31,15 @@ namespace SellingBags.Controllers
             {
                 cart = new VirtualCartContext();
             }
-            if(cart.CheckQuantity(ID_Product, Quantity))
+            var productCart = cart.GetList().FirstOrDefault(c => c.Product.ID_Product == ID_Product);
+            var existQty = productCart != null ? productCart.Quantity + Quantity : Quantity;
+            if(cart.CheckQuantity(ID_Product, existQty))
             {
                 cart.AddProduct(ID_Product, Quantity);
                 Session[Sessions.CART] = cart;
                 return Json(new {result = true});
             }
-            ViewBag.Message = "Số lượng sản phẩm không đủ";
+            ViewBag.Message = "Số lượng sản phẩm chỉ còn " + cart.GetList().FirstOrDefault(c => c.Product.ID_Product == ID_Product).Product.Quantity;
             return Json(new {result = false, message = ViewBag.Message});
             
         }
@@ -128,7 +130,7 @@ namespace SellingBags.Controllers
                 if(OrderContext.AddBill(address, order, orderDetails))
                 {
                     Session[Sessions.CART] = null;
-                    return Json( new {result = true});
+                    return Json( new {result = true, redirectUrl = Url.Action("Index","Order")});
                 }
                 return Json( new {result = false});
             }catch (Exception ex) {

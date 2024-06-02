@@ -21,7 +21,7 @@ namespace SellingBags.Models.DataContext
         }
         public bool CheckQuantity(string ID_Product, int Quantity)
         {
-            return GetProductByID(ID_Product).Quantity > Quantity;
+            return GetProductByID(ID_Product).Quantity >= Quantity;
         }
 
         public void AddProduct(string ID_Product, int Quantity)

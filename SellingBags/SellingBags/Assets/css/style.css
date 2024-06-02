@@ -304,7 +304,7 @@ p {
 
 .offer-box, .slide {
     color: #FFFFFF;
-    font-size: 13px;
+    font-size: 14px;
     padding: 2px 15px;
     font-family: 'Roboto', sans-serif;
 }
@@ -1182,6 +1182,82 @@ ul.cart-list > li.total > .btn:hover {
     animation: bounceY 0.9s linear;
 }
 
+.shop-box-inner .sidefilter {
+    position: fixed;
+    top: 0;
+    left: -350px; 
+    width: 350px;
+    height: 100%;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: left 0.3s ease;
+    z-index: 1000;
+}
+    .shop-box-inner .sidefilter.show{
+        left:0;
+    }
+    .sidefilter .close {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        cursor: pointer;
+        font-size: 24px;
+        z-index:auto;
+    }
+    .sidefilter .buttonfilter {
+        position:absolute;
+        bottom: 20px;
+    }
+        .sidefilter .buttonfilter .btn{
+            border-radius: 0;
+            padding: 10px;
+        }
+        
+.sort-section .sort-options {
+    display: none;
+    position: absolute;
+    top: 44px;
+    left:12.5%;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+    .sort-section .sort-options ul {
+        list-style-type: none;
+        padding: 0 16px;
+        margin: 0;
+    }
+
+        .sort-section .sort-options ul li {
+            padding: 8px;
+            border-bottom: #ccc solid 1px;
+            text-align:left;
+        }
+
+            .sort-section .sort-options ul li a {
+                display:block;
+                color: #000;
+                width:100%;
+                cursor:pointer;
+            }
+                .sort-section .sort-options ul li a:hover{
+                    color: #d33b33;
+                }
+                .sort-section .sort-options ul li a.active::before {
+                    content: "\f00c";
+                    font-family: FontAwesome;
+                    margin-left: 5px;
+                    margin-top: 2px;
+                    border: none;
+                    text-decoration: inherit;
+                    position: absolute;
+                    right: 30px;
+                    display: inline-block;
+                }
+                
+
 @keyframes bounceY {
     0% {
         transform: translateY(-205px);
@@ -1465,7 +1541,7 @@ ul.cart-list > li.total > .btn:hover {
 
 /*------------------------------------------------------------------ Footer Main -------------------------------------------------------------------*/
 .footer-main {
-    padding: 70px 0px;
+    padding: 50px 0px;
     background: #202020;
 }
 
@@ -2305,9 +2381,31 @@ form {
     position: relative;
 }
 
+
+.control-select {
+    width: 100%;
+    border: 1px solid #d33b33;
+    height: 42px;
+    padding: 0 16px;
+    overflow-y: auto;
+}
+
+    .control-select option {
+        height: 24px; 
+        padding: 4px 8px; 
+        background-color: white;
+        color: black; 
+    }
+
+        .control-select option:hover {
+            background-color: #d33b33; 
+            color: white; 
+        }
+
+
 .product-item-filter {
-    border-bottom: 1px solid #010101;
-    border-top: 1px solid #010101;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
     display: -webkit-box;
     display: -ms-flexbox;
     display: -webkit-flex;
@@ -2317,6 +2415,7 @@ form {
     -webkit-justify-content: space-between;
     justify-content: space-between;
     padding: 5px 0;
+    color: #000;
 }
 
 .nice-select.wide {
@@ -2330,7 +2429,7 @@ form {
 }
 
 .product-item-filter .toolbar-sorter-right {
-    width: 65%;
+    width: 100%;
 }
 
 .toolbar-sorter-right {
@@ -2338,7 +2437,7 @@ form {
 }
 
     .toolbar-sorter-right .bootstrap-select.form-control:not([class*="col-"]) {
-        width: 77%;
+        width: 100%;
         float: right;
     }
 
@@ -2513,16 +2612,12 @@ form {
     flex-wrap: nowrap;
     margin-bottom: 1.25rem;
     width: 5.5625rem;
+    border: 1px solid #E7E4E4;
 }
 
-    .quantity-box .book-number .minus {
-        border-left: 1px solid #E7E4E4;
-    }
-
-    .quantity-box .book-number .plus {
-        border-right: 1px solid #E7E4E4;
-    }
-    .quantity-box .book-number .minus, .quantity-box .book-number .plus {
+    
+    .quantity-box .book-number .minus, .quantity-box .book-number .plus,
+    .quantity-box .book-number .minuss, .quantity-box .book-number .pluss {
         width: 2rem;
         height: 2rem;
         text-align: center;
@@ -2539,10 +2634,6 @@ form {
         -ms-flex-pack: center;
         justify-content: center;
         cursor: pointer;
-    }
-    .quantity-box .book-number .minus, .quantity-box .book-number .plus, .quantity-box .book-number .input-number {
-        border-top: 1px solid #E7E4E4;
-        border-bottom: 1px solid #E7E4E4;
     }
 
     .quantity-box .book-number .input-number {
@@ -2575,7 +2666,7 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 input[type="number"] {
-    -moz-appearance: textfield; /* Firefox */
+    -moz-appearance: textfield;
 }
 
 .name-pr a {
@@ -3212,4 +3303,18 @@ input[type="number"] {
 .table-responsive .table td, .table-responsive .table th {
     vertical-align: middle;
     white-space: nowrap;
+}
+
+.update-address-view {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    background-color: white;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
+    z-index: 1000;
+    padding: 20px;
 }

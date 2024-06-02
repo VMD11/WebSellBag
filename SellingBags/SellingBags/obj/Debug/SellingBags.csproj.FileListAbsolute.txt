@@ -81,3 +81,22 @@ D:\Visual Studio 22\ĐATN\WebSellBag\SellingBags\SellingBags\bin\EntityFramework
 D:\Visual Studio 22\ĐATN\WebSellBag\SellingBags\SellingBags\bin\EntityFramework.SqlServer.dll
 D:\Visual Studio 22\ĐATN\WebSellBag\SellingBags\SellingBags\bin\EntityFramework.xml
 D:\Visual Studio 22\ĐATN\WebSellBag\SellingBags\SellingBags\bin\EntityFramework.SqlServer.xml
+<<<<<<< HEAD
+D:\Visual Studio 22\ĐATN\WebSellBag\SellingBags\SellingBags\bin\System.Buffers.dll
+D:\Visual Studio 22\ĐATN\WebSellBag\SellingBags\SellingBags\bin\System.Memory.dll
+D:\Visual Studio 22\ĐATN\WebSellBag\SellingBags\SellingBags\bin\System.Numerics.Vectors.dll
+D:\Visual Studio 22\ĐATN\WebSellBag\SellingBags\SellingBags\bin\System.Runtime.CompilerServices.Unsafe.dll
+D:\Visual Studio 22\ĐATN\WebSellBag\SellingBags\SellingBags\bin\System.Text.Encodings.Web.dll
+D:\Visual Studio 22\ĐATN\WebSellBag\SellingBags\SellingBags\bin\System.Text.Json.dll
+D:\Visual Studio 22\ĐATN\WebSellBag\SellingBags\SellingBags\bin\System.Threading.Tasks.Extensions.dll
+D:\Visual Studio 22\ĐATN\WebSellBag\SellingBags\SellingBags\bin\System.ValueTuple.dll
+D:\Visual Studio 22\ĐATN\WebSellBag\SellingBags\SellingBags\bin\System.Buffers.xml
+D:\Visual Studio 22\ĐATN\WebSellBag\SellingBags\SellingBags\bin\System.Memory.xml
+D:\Visual Studio 22\ĐATN\WebSellBag\SellingBags\SellingBags\bin\System.Numerics.Vectors.xml
+D:\Visual Studio 22\ĐATN\WebSellBag\SellingBags\SellingBags\bin\System.Runtime.CompilerServices.Unsafe.xml
+D:\Visual Studio 22\ĐATN\WebSellBag\SellingBags\SellingBags\bin\System.Text.Encodings.Web.xml
+D:\Visual Studio 22\ĐATN\WebSellBag\SellingBags\SellingBags\bin\System.Text.Json.xml
+D:\Visual Studio 22\ĐATN\WebSellBag\SellingBags\SellingBags\bin\System.Threading.Tasks.Extensions.xml
+D:\Visual Studio 22\ĐATN\WebSellBag\SellingBags\SellingBags\bin\System.ValueTuple.xml
+=======
+>>>>>>> parent of 659e476 (update)

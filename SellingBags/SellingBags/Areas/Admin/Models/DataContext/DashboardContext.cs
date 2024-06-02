@@ -12,7 +12,23 @@ namespace SellingBags.Areas.Admin.Models.DataContext
     {
         private SellingBagsEntities db = new SellingBagsEntities();
         
-       
+        public int GetProductsCount()
+        {
+            return db.Products.Count();
+        }
+        public int GetTypesCount()
+        {
+            return db.ProductTypes.Count();
+        }
+        public int GetBrandsCount()
+        {
+            return db.Brands.Count();
+        }
+        public int GetOrdersCount()
+        {
+            return db.Orders.Count();
+        }
+
         public decimal GetMonthlyRevenue()
         {
             var revenue = db.spMonthlyRevenue(DateTime.Now.Month).Last();

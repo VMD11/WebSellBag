@@ -6,6 +6,7 @@ using SellingBags.Models.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
@@ -15,7 +16,12 @@ namespace SellingBags.Controllers
 {
     public class AccountController : Controller
     {
-        // GET: Account
+        
+        private readonly AccountContext accountContext;
+        public AccountController()
+        {
+            accountContext = new AccountContext();
+        }
         public ActionResult Index()
         {
             if (Account() == null)
@@ -129,8 +135,8 @@ namespace SellingBags.Controllers
             ViewBag.Error = "";
             AccountVM accountVM = new AccountVM();
             var ID_Account = Account().ID_Account;
-            accountVM.Account = AccountContext.GetAccountByID(ID_Account);
-            accountVM.Customer = AccountContext.GetCustomerByID(ID_Account);
+            accountVM.Account = accountContext.GetAccountByID(ID_Account);
+            accountVM.Customer = accountContext.GetCustomerByID(ID_Account);
             return View(accountVM);
         }
 
@@ -153,11 +159,11 @@ namespace SellingBags.Controllers
                 District = accountVM.District,
                 Ward = accountVM.Ward,
                 BirthDay = accountVM.BirthDay,
-                Address = accountVM.Address,
+                Address = accountVM.SpecificAddress,
                 Gender = accountVM.Gender,
                 ID_Account = Account().ID_Account,
             };
-            if (AccountContext.UpdateInfo(newCustomer))
+            if (accountContext.UpdateInfo(newCustomer))
             {
                 ViewBag.Success = "Cập nhật thành công";
             }
@@ -165,7 +171,7 @@ namespace SellingBags.Controllers
             {
                 ViewBag.Error = "Cập nhật thất bại";
             }
-            accountVM.Customer = AccountContext.GetCustomerByID(Account().ID_Account);
+            accountVM.Customer = accountContext.GetCustomerByID(Account().ID_Account);
             return View(accountVM);
         }
 
@@ -179,8 +185,72 @@ namespace SellingBags.Controllers
             ViewBag.Success = "";
             ViewBag.Error = "";
             var accountVM = new AccountVM();
-            accountVM.Addresses = AccountContext.GetAddressesByID(Account().ID_Account);
+            accountVM.Addresses = accountContext.GetAddressesByID(Account().ID_Account);
+            accountVM.ID_Customer = accountContext.GetCustomerByID(Account().ID_Account).ID_Customer;
             return View(accountVM);
+        }
+        [HttpPost]
+        public ActionResult AddAddress(Address address)
+        {
+            if (Account() == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            ViewBag.Success = "";
+            ViewBag.Error = "";
+            address.ID_Address = GenarateRandomID.Execute();
+            if (accountContext.AddAddress(address))
+            {
+                ViewBag.Success = "Thêm thành công";
+                return RedirectToAction("AddressList");
+            }
+            ViewBag.Error = "Thêm không thành công";
+            return RedirectToAction("AddressList");
+        }
+
+        [HttpGet]
+        public ActionResult UpdateAddress(string ID_Address)
+        {
+            if (Account() == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            ViewBag.Success = "";
+            ViewBag.Error = "";
+            var accountVM = new AccountVM();
+            accountVM.Address = accountContext.GetAddressByID(ID_Address);
+            return PartialView("_AddressPartial",accountVM);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateAddress(Address address)
+        {
+            if (Account() == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            ViewBag.Success = "";
+            ViewBag.Error = "";
+            var accountVM = new AccountVM();
+            accountVM.Address = address;
+            if (accountContext.UpdateAddress(address))
+            {
+                ViewBag.Success = "Cập nhật thành công";
+                return RedirectToAction("AddressList");
+            }
+            ViewBag.Error = "Cập nhật không thành công";
+            return RedirectToAction("AddressList");
+        }
+        [HttpPost]
+        public ActionResult DeleteAddress(string ID_Address)
+        {
+            if (accountContext.DeleteAddress(ID_Address))
+            {
+                ViewBag.Success = "Xóa thành công";
+                return Json(new { result = true, message = ViewBag.Success });
+            }
+            ViewBag.Error = "Xóa thất bại";
+            return Json(new { result = false, message = ViewBag.Error });
         }
 
         private WishListContext wishListContext = new WishListContext();

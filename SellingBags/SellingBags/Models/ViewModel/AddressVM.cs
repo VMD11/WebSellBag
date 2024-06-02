@@ -14,5 +14,7 @@ namespace SellingBags.Models.ViewModel
         public string City { get; set; }
         public string District { get; set; }
         public string Ward { get; set; }
+        public string SpecificAddress { get; set; }
+        public Address Address { get; set; }
     }
 }

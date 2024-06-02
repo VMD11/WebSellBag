@@ -1,0 +1,47 @@
+﻿@model IEnumerable<SellingBags.Models.Product>
+@using SellingBags.Common
+
+<div class="row">
+    @{
+        var ID_Account = "";
+        if (Session[Sessions.USER_SESSION] != null)
+        {
+            ID_Account = (Session[Sessions.USER_SESSION] as LoginAccount).ID_Account;
+        }
+        SellingBags.Models.DataContext.WishListContext context = new SellingBags.Models.DataContext.WishListContext();
+        foreach (var item in Model)
+        {
+
+            <div class="col-lg-3 col-md-4 col-6">
+                <div class="products-single fix">
+                    <div class="box-img-hover">
+                        
+                        <img src="~/Assets/images/products/@item.ImageURL" class="img-fluid" alt="@item.Name">
+                        <div class="mask-icon">
+                            <ul>
+                                <li><a href="@Url.Action("Detail", "Product", new {ID_Product = item.ID_Product.Trim()})" data-toggle="tooltip" data-placement="right" title="View"><i class="fas fa-eye"></i></a></li>
+                                @if (context.IsWishListed(ID_Account, item.ID_Product))
+                                {
+                                    <li><a href="@Url.Action("RemoveToWishList", "Account", new {ID_Product = item.ID_Product.Trim().Trim()})" data-toggle="tooltip" data-placement="right" title="Xóa khỏi yêu thích"><i class=" fa fa-heart"></i></a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@Url.Action("AddToWishList", "Account", new {ID_Product = item.ID_Product.Trim().Trim()})" data-toggle="tooltip" data-placement="right" title="Thêm vào yêu thích"><i class="far fa-heart"></i></a></li>
+                                }
+                            </ul>
+                            <a class="cart" id="@GenarateRandomID.Execute()" href="@Url.Action("Add","Cart")" data-id="@item.ID_Product" data-quantity="1">Thêm vào giỏ hàng</a>
+                        </div>
+                    </div>
+                    <div class="why-text">
+                        <a href="@Url.Action("Detail", "Product", new {ID_Product = item.ID_Product.Trim()})">
+                            <h4 class="product-name">@item.Name</h4>
+                            <h5>@Converts.convertVND(item.Price)</h5>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        }
+    }
+
+</div>

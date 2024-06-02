@@ -133,6 +133,53 @@ namespace SellingBags.Models.DataContext
             }
             return products.OrderByDescending(p => p.DateCreated);
         }
+        public IEnumerable<Product> GetFilterProduct(IEnumerable<Product> products, string price, string color, string sort)
+        {
+
+            if (!string.IsNullOrEmpty(price))
+            {
+                switch (price)
+                {
+                    case "0-400000":
+                        products = products.Where(p => p.Price <= 400000);
+                        break;
+                    case "400000-600000":
+                        products = products.Where(p => p.Price > 400000 && p.Price <= 600000);
+                        break;
+                    case "600000-900000":
+                        products = products.Where(p => p.Price > 600000 && p.Price <= 900000);
+                        break;
+                    case "900000+":
+                        products = products.Where(p => p.Price > 900000);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(color) && color != "*")
+            {
+                products = products.Where(p => p.Color == color);
+            }
+
+            if (!string.IsNullOrEmpty(sort))
+            {
+                switch (sort)
+                {
+                    case "pricedesc":
+                        products = products.OrderByDescending(p => p.Price);
+                        break;
+                    case "priceasc":
+                        products = products.OrderBy(p => p.Price);
+                        break;
+                    default:
+                        break;
+
+                }
+            }
+            return products;
+        }
+    
 
         public IEnumerable<Product> GetBestSellerProducts()
         {
@@ -151,8 +198,10 @@ namespace SellingBags.Models.DataContext
         }
         public IEnumerable<QuantitySold> GetQuantitySold()
         {
-            var query = from o in db.OrderDetails
-                        group o by o.ID_Product into groups
+            var query = from od in db.OrderDetails
+                        join o in db.Orders on od.ID_Order equals o.ID_Order
+                        where o.Status != -1
+                        group od by od.ID_Product into groups
                         select new QuantitySold
                         {
                             ID_Product = groups.Key,
@@ -161,6 +210,10 @@ namespace SellingBags.Models.DataContext
             return query;            
         }
 
+        public IEnumerable<string> GetColors()
+        {
+            return db.spColor();
+        }
 
         private bool IsNew(Product product)
         {

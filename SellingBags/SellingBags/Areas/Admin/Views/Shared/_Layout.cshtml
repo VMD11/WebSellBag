@@ -17,12 +17,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Admin - Ziara</title>
+    <title>Admin - Zuma</title>
+    <link rel="shortcut icon" href="~/Assets/images/logo/zuma-icon.ico" type="image/x-icon">
 
     <!-- Custom fonts for this template-->
     <link href="~/Areas/Admin/Assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="~/Areas/Admin/Assets/css/sb-admin-2.min.css" rel="stylesheet">
@@ -43,7 +43,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-user-alt"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">@account.UserName</div>
+                <div class="sidebar-brand-text mx-2">@account.UserName - zuma</div>
             </a>
 
             <!-- Divider -->
@@ -85,7 +85,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseType"
                    aria-expanded="true" aria-controls="collapse">
-                    <i class="fas fa-fw fa-cubes"></i>
+                    <i class="fas fa-fw fa-layer-group"></i>
                     <span>Loại sản phẩm</span>
                 </a>
                 <div id="collapseType" class="collapse" aria-labelledby="headingType" data-parent="#accordionSidebar">
@@ -101,7 +101,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBrand"
                    aria-expanded="true" aria-controls="collapse">
-                    <i class="fas fa-fw fa-box"></i>
+                    <i class="fas fa-fw fa-trademark"></i>
                     <span>Thương hiệu</span>
                 </a>
                 <div id="collapseBrand" class="collapse" aria-labelledby="headingBrand" data-parent="#accordionSidebar">
@@ -141,18 +141,18 @@
             <!-- Nav Item - Charts -->
             <li class="nav-item">
                 <a class="nav-link" href="@Url.Action("Index","OrderManage")">
-                    <i class="fas fa-fw fa-truck"></i>
+                    <i class="fas fa-fw fa-receipt"></i>
                     <span>Đơn hàng</span>
                 </a>
             </li>
 
             <!-- Nav Item - Tables -->
-            <li class="nav-item">
+            @*<li class="nav-item">
                 <a class="nav-link" href="">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Thống kê</span>
                 </a>
-            </li>
+            </li>*@
 
             <!-- Divider -->
             <hr class="sidebar-divider">

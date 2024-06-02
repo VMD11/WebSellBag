@@ -107,5 +107,19 @@ namespace SellingBags.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spNewProduct_Result>("spNewProduct");
         }
+    
+        public virtual ObjectResult<string> spColor()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("spColor");
+        }
+    
+        public virtual int spUpdateQuantityAfterOrder(string iD_Order)
+        {
+            var iD_OrderParameter = iD_Order != null ?
+                new ObjectParameter("ID_Order", iD_Order) :
+                new ObjectParameter("ID_Order", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spUpdateQuantityAfterOrder", iD_OrderParameter);
+        }
     }
 }

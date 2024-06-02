@@ -1,0 +1,69 @@
+﻿@model SellingBags.Models.ViewModel.AccountVM
+
+
+
+<div class="container-fluid">
+    <div>
+        <div id="closeBtn" class="close" style="cursor:pointer"><i class="fa fa-times"></i></div>
+        <div class="h2 d-flex justify-content-center">Chi tiết địa chỉ</div>
+    </div>
+    <div class="p-3">
+        <div class="d-flex justify-content-center">
+            <h2 class="text-success">@ViewBag.Success</h2>
+            <h2 class="text-danger">@ViewBag.Error</h2>
+        </div>
+    </div>
+    @using (Html.BeginForm("UpdateAddress", "Account", FormMethod.Post, new {id="update-fotm"}))
+    {
+
+        <div id="address" class="ml-lg-5 mr-lg-5">
+            <div class="row">
+                <input hidden name="ID_Address" value="@Model.Address.ID_Address">
+                <div class="col-md-6 mb-3">
+                    <label for="lastName">Họ:</label>
+                    <input type="text" class="form-control" id="lastName" name="LastName" placeholder="Nhập họ..." value="@Model.Address.LastName" required>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="firstName">Tên:</label>
+                    <input type="text" class="form-control" id="firstName" name="FirstName" placeholder="Nhập tên..." value="@Model.Address.FirstName" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="username">Số điện thoại:</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="username" name="PhoneNumber" placeholder="Nhập số điện thoại..." value="@Model.Address.PhoneNumber" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="city">Tỉnh / Thành phố:</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="city" name="City" placeholder="Nhập tỉnh / thành phố..." value="@Model.Address.City" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="district">Quận / Huyện:</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="district" name="District" placeholder="Nhập quận / huyện..." value="@Model.Address.District" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="ward">Phường / Xã:</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="ward" name="Ward" placeholder="Nhập phường / xã..." value="@Model.Address.Ward" required>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="specificaddress">Địa chỉ:</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="specificaddress" name="SpecificAddress" placeholder="Nhập địa chỉ..." value="@Model.Address.SpecificAddress" required>
+                </div>
+            </div>
+            <hr>
+            <div class="row mb-5">
+                <div class="col-12 shopping-box mb-2">
+                    <button type="submit" id="submitInfoAddress" class="btn hvr-hover text-white border-0 w-100">Cập nhật</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>

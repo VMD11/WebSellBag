@@ -8,18 +8,22 @@ namespace SellingBags.Models.DataContext
 {
     public class AccountContext
     {
-        private static SellingBagsEntities db = new SellingBagsEntities();
-        public static Account GetAccountByID(string ID_Account)
+        private SellingBagsEntities db;
+        public AccountContext()
+        {
+            db = new SellingBagsEntities();
+        }
+        public  Account GetAccountByID(string ID_Account)
         {
             return db.Accounts.FirstOrDefault(a => a.ID_Account == ID_Account);
         }
 
-        public static Customer GetCustomerByID(string ID_Account)
+        public  Customer GetCustomerByID(string ID_Account)
         {
             return db.Customers.FirstOrDefault(c => c.ID_Account == ID_Account);
         }
 
-        public static bool UpdateInfo(Customer newCustomer)
+        public  bool UpdateInfo(Customer newCustomer)
         {
             try
             {
@@ -38,10 +42,51 @@ namespace SellingBags.Models.DataContext
             }catch(Exception) { return false; }
         }
 
-        public static IEnumerable<Address> GetAddressesByID(string ID_Account)
+        public  IEnumerable<Address> GetAddressesByID(string ID_Account)
         {
             var ID_Customer = GetCustomerByID(ID_Account).ID_Customer;
             return db.Addresses.Where(a => a.ID_Customer == ID_Customer);
+        }
+        public  Address GetAddressByID(string ID_Address)
+        {
+            return db.Addresses.FirstOrDefault(a => a.ID_Address == ID_Address);
+        }
+
+        public  bool AddAddress(Address address)
+        {
+            try
+            {
+                db.Addresses.Add(address);
+                db.SaveChanges();
+                return true;
+            }catch (Exception) { return false; }
+        }
+
+        public  bool UpdateAddress(Address address)
+        {
+            try
+            {
+                var oldAddress = GetAddressByID(address.ID_Address);
+                if (oldAddress == null) return false;
+                oldAddress.FirstName = address.FirstName;
+                oldAddress.LastName = address.LastName;
+                oldAddress.PhoneNumber = address.PhoneNumber;
+                oldAddress.City = address.City;
+                oldAddress.District = address.District;
+                oldAddress.Ward = address.Ward;
+                oldAddress.SpecificAddress = address.SpecificAddress;
+                db.SaveChanges();
+                return true;
+            }catch (Exception) { return false; }
+        }
+        public  bool DeleteAddress(string ID_Address)
+        {
+            try
+            {
+                var query = "delete Address where ID_Address = '" + ID_Address + "'";
+                db.Database.ExecuteSqlCommand(query);
+                return true;
+            }catch (Exception) { return false; }
         }
     }
 }

@@ -11,6 +11,7 @@ namespace SellingBags.Areas.Admin.Controllers
 {
     public class OrderManageController : Controller
     {
+        private readonly OrderVM orderVM = new OrderVM();
         private readonly OrderContext orderContext = new OrderContext();
         // GET: Admin/OrderManage
         public ActionResult Index()
@@ -19,10 +20,14 @@ namespace SellingBags.Areas.Admin.Controllers
             {
                 return RedirectToAction("Index", "Login");
             }
-            var orderVM = new OrderVM();
-            orderVM.Addresses = orderContext.GetAddresses();
             orderVM.Orders = orderContext.GetOrders();
+            orderContext.GetReLoadOrders();
             return View(orderVM);
+        }
+        public ActionResult FilterOrders(string sort)
+        {
+            orderVM.Orders = orderContext.GetFilterOrders(sort);
+            return PartialView("_OrdersPartial",orderVM.Orders);
         }
 
         public ActionResult Detail(string ID_Order)
@@ -32,16 +37,17 @@ namespace SellingBags.Areas.Admin.Controllers
                 return RedirectToAction("Index", "Login");
             }
             ViewBag.DeliDate = "";
-            var orderVM = new OrderVM();
             orderVM.Order = orderContext.GetOrderById(ID_Order);
             orderVM.Address = orderContext.GetAddressByID(orderVM.Order.ID_Address);
             orderVM.OrderDetails = orderContext.GetOrderDetails(ID_Order);
+            orderVM.Shipping = orderContext.GetShippingByID(ID_Order);
             if(orderVM.Order.Status == 2)
             {
-                ViewBag.DeliDate = "Ngày giao hàng: " + Converts.convertDateTime(orderVM.Order.DeliDate);
+                ViewBag.DeliDate = "Ngày giao hàng: " + Converts.convertDate(orderVM.Order.DeliDate);
             }
             return View(orderVM);
         }
+
 
         public ActionResult Confirm(string ID_Order)
         {

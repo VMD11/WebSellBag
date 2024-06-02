@@ -55,7 +55,7 @@
                     <div class="single-product-details">
                         <input id="id_product" hidden value="@Model.Product.ID_Product">
                         <h2>@Model.Product.Name</h2>
-                        <h5>@Converts.convertVND(Model.Product.Price) <del>@Converts.convertVND(Model.Product.Price)</del></h5>
+                        <h5>@Converts.convertVND(Model.Product.Price)</h5>
                         <p class="available-stock"><span> @Model.Product.Quantity sản phẩm / <a>@Qty đã bán </a></span></p>
                         <div>
                             <div class="form-group size-st w-25">
@@ -66,9 +66,9 @@
                             <div class="form-group quantity-box">
                                 <strong>Số lượng</strong>
                                 <div class="book-number">
-                                    <div class="minus" id="minus"><i class="fa fa-minus"></i></div>
+                                    <div class="minuss" id="minus"><i class="fa fa-minus"></i></div>
                                     <div class="input-number"><input type="number" name="Quantity" value="1" min="1" class="quantity" id="quantityInput"></div>
-                                    <div class="plus" id="plus"><i class="fa fa-plus"></i></div>
+                                    <div class="pluss" id="plus" data-quantity="@Model.Product.Quantity"><i class="fa fa-plus"></i></div>
                                 </div>
                             </div>
                         </div>
@@ -79,28 +79,34 @@
                             <strong>Mô tả sản phẩm:</strong><br />
                             @Model.Product.Description
                         <p>
-
-                            <div class="price-box-bar">
-                                <div class="cart-and-bay-btn">
-                                    <a class="btn hvr-hover text-white" id="orderButton">Mua ngay</a>
-                                    <a id="addToCartButton" class="btn hvr-hover text-white">Thêm vào giỏ hàng</a>
+                            @if (Model.Product.Quantity > 0)
+                            {
+                                <div class="price-box-bar">
+                                    <div class="cart-and-bay-btn">
+                                        <a id="orderButton" class="btn hvr-hover text-white">Mua ngay</a>
+                                        <a id="addToCartButton" class="btn hvr-hover text-white">Thêm vào giỏ hàng</a>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="add-to-btn">
-                                <div class="add-comp">
-                                    @if (context.IsWishListed(ID_Account, Model.Product.ID_Product))
-                                    {
-                                        <a class="btn hvr-hover" href="@Url.Action("RemoveToWishList", "Account", new {ID_Product = Model.Product.ID_Product.Trim()})"><i class="fa fa-heart"></i> Xóa khỏi yêu thích</a>
+                                <div class="add-to-btn">
+                                    <div class="add-comp">
+                                        @if (context.IsWishListed(ID_Account, Model.Product.ID_Product))
+                                        {
+                                            <a class="btn hvr-hover" href="@Url.Action("RemoveToWishList", "Account", new {ID_Product = Model.Product.ID_Product.Trim()})"><i class="fa fa-heart"></i> Xóa khỏi yêu thích</a>
 
-                                    }
-                                    else
-                                    {
-                                        <a class="btn hvr-hover" href="@Url.Action("AddToWishList", "Account", new {ID_Product = Model.Product.ID_Product.Trim()})"><i class="far fa-heart"></i> Thêm vào yêu thích</a>
+                                        }
+                                        else
+                                        {
+                                            <a class="btn hvr-hover" href="@Url.Action("AddToWishList", "Account", new {ID_Product = Model.Product.ID_Product.Trim()})"><i class="far fa-heart"></i> Thêm vào yêu thích</a>
 
-                                    }
+                                        }
+                                    </div>
                                 </div>
-                            </div>
+                            }
+                            else
+                            {
+                                <div><h5 style="font-size:24px">Hết hàng</h5></div>
+                            }
                     </div>
                 </div>
             </div>
@@ -125,29 +131,36 @@
                                         </div>
                                         <img src="~/Assets/images/products/@item.ImageURL" class="img-fluid" alt="@item.Name">
                                         <div class="mask-icon">
-                                            <ul>
-                                                <li>
-                                                    <a href="@Url.Action("Detail", "Product", new {ID_Product = item.ID_Product.Trim()})" data-toggle="tooltip" data-placement="right" title="Xem chi tiết">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
-                                                </li>
-                                                @if (context.IsWishListed(ID_Account, item.ID_Product))
-                                                {
-                                                    <li><a href="@Url.Action("RemoveToWishList", "Account", new {ID_Product = item.ID_Product.Trim()})" data-toggle="tooltip" data-placement="right" title="Xóa khỏi yêu thích"><i class=" fa fa-heart"></i></a></li>
+                                            @if (item.Quantity > 0)
+                                            {
+                                                <ul>
+                                                    <li>
+                                                        <a href="@Url.Action("Detail", "Product", new {ID_Product = item.ID_Product.Trim()})" data-toggle="tooltip" data-placement="right" title="Xem chi tiết">
+                                                            <i class="fas fa-eye"></i>
+                                                        </a>
+                                                    </li>
+                                                    @if (context.IsWishListed(ID_Account, item.ID_Product))
+                                                    {
+                                                        <li><a href="@Url.Action("RemoveToWishList", "Account", new {ID_Product = item.ID_Product.Trim()})" data-toggle="tooltip" data-placement="right" title="Xóa khỏi yêu thích"><i class=" fa fa-heart"></i></a></li>
 
-                                                }
-                                                else
-                                                {
-                                                    <li><a href="@Url.Action("AddToWishList", "Account", new {ID_Product = item.ID_Product.Trim()})" data-toggle="tooltip" data-placement="right" title="Thêm vào yêu thích"><i class="far fa-heart"></i></a></li>
-                                                }
-                                            </ul>
-                                            <a class="cart" id="@GenarateRandomID.Execute()" href="@Url.Action("Add", "Cart")" data-id="@item.ID_Product" data-quantity="1">Thêm vào giỏ hàng</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <li><a href="@Url.Action("AddToWishList", "Account", new {ID_Product = item.ID_Product.Trim()})" data-toggle="tooltip" data-placement="right" title="Thêm vào yêu thích"><i class="far fa-heart"></i></a></li>
+                                                    }
+                                                </ul>
+                                                <a class="cart" id="@GenarateRandomID.Execute()" href="@Url.Action("Add", "Cart")" data-id="@item.ID_Product" data-quantity="1">Thêm vào giỏ hàng</a>
+                                            }
+                                            else
+                                            {
+                                                <div class="d-flex align-items-center justify-content-center text-white h-100 w-100 h2">Hết hàng</div>
+                                            }
                                         </div>
                                     </div>
                                     <div class="why-text">
                                         <a href="@Url.Action("Detail", "Product", new {ID_Product = item.ID_Product.Trim()})">
-                                            <h4>@item.Name</h4>
-                                            <h5>@Converts.convertVND(item.Price) <del>@Converts.convertVND(item.Price)</del> </h5>
+                                            <h4 class="product-name">@item.Name</h4>
+                                            <h5>@Converts.convertVND(item.Price) </h5>
                                         </a>
                                     </div>
                                 </div>
@@ -177,29 +190,37 @@
                                     </div>
                                     <img src="~/Assets/images/products/@item.ImageURL" class="img-fluid" alt="@item.Name">
                                     <div class="mask-icon">
-                                        <ul>
-                                            <li>
-                                                <a href="@Url.Action("Detail", "Product", new {ID_Product = item.ID_Product.Trim()})" data-toggle="tooltip" data-placement="right" title="Xem chi tiết">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>
-                                            </li>
-                                            @if (context.IsWishListed(ID_Account, item.ID_Product))
-                                            {
-                                                <li><a href="@Url.Action("RemoveToWishList", "Account", new {ID_Product = item.ID_Product.Trim()})" data-toggle="tooltip" data-placement="right" title="Xóa khỏi yêu thích"><i class=" fa fa-heart"></i></a></li>
+                                        @if(item.Quantity > 0)
+                                        {
+                                            <ul>
+                                                <li>
+                                                    <a href="@Url.Action("Detail", "Product", new {ID_Product = item.ID_Product.Trim()})" data-toggle="tooltip" data-placement="right" title="Xem chi tiết">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                </li>
+                                                @if (context.IsWishListed(ID_Account, item.ID_Product))
+                                                {
+                                                    <li><a href="@Url.Action("RemoveToWishList", "Account", new {ID_Product = item.ID_Product.Trim()})" data-toggle="tooltip" data-placement="right" title="Xóa khỏi yêu thích"><i class=" fa fa-heart"></i></a></li>
 
-                                            }
-                                            else
-                                            {
-                                                <li><a href="@Url.Action("AddToWishList", "Account", new {ID_Product = item.ID_Product.Trim()})" data-toggle="tooltip" data-placement="right" title="Thêm vào yêu thích"><i class="far fa-heart"></i></a></li>
-                                            }
-                                        </ul>
-                                        <a class="cart" id="@GenarateRandomID.Execute()" href="@Url.Action("Add", "Cart")" data-id="@item.ID_Product" data-quantity="1">Thêm vào giỏ hàng</a>
+                                                }
+                                                else
+                                                {
+                                                    <li><a href="@Url.Action("AddToWishList", "Account", new {ID_Product = item.ID_Product.Trim()})" data-toggle="tooltip" data-placement="right" title="Thêm vào yêu thích"><i class="far fa-heart"></i></a></li>
+                                                }
+                                            </ul>
+                                            <a class="cart" id="@GenarateRandomID.Execute()" href="@Url.Action("Add", "Cart")" data-id="@item.ID_Product" data-quantity="1">Thêm vào giỏ hàng</a>
+                                        }
+                                        else
+                                        {
+                                            <div class="d-flex align-items-center justify-content-center text-white h-100 w-100 h2">Hết hàng</div>
+                                        }
+                                            
                                     </div>
                                 </div>
                                 <div class="why-text">
                                     <a href="@Url.Action("Detail", "Product", new {ID_Product = item.ID_Product.Trim()})">
-                                        <h4>@item.Name</h4>
-                                        <h5>@Converts.convertVND(item.Price) <del>@Converts.convertVND(item.Price)</del> </h5>
+                                        <h4 class="product-name">@item.Name</h4>
+                                        <h5>@Converts.convertVND(item.Price)</h5>
                                     </a>
                                 </div>
                             </div>
@@ -212,88 +233,31 @@
     </div>
 </div>
 <!-- End Cart -->
-
-<script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function() {
-        var addToCartButton = document.getElementById('addToCartButton');
-        addToCartButton.addEventListener('click', function(e) {
-            e.preventDefault();
-
+@if (Model.Product.Quantity > 0)
+{
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            var orderButton = document.getElementById('orderButton');
+            var addToCartButton = document.getElementById('addToCartButton');
             var id_product = document.getElementById('id_product').value;
-            var quantity = document.getElementById('quantityInput').value;
 
-            var xhr = new XMLHttpRequest();
-
-            xhr.open('POST', '@Url.Action("Add", "Cart")', true);
-
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-            xhr.onload = function() {
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    alert('Thêm thành công');
-                    location.reload();
-                } else {
-                    alert('Đã xảy ra lỗi khi gửi yêu cầu.');
-                }
-            };
-
-            xhr.onerror = function () {
-                alert('Đã xảy ra lỗi khi gửi yêu cầu.');
-            };
-
-            xhr.send('ID_Product=' + id_product + '&Quantity=' + quantity);
-        });
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        var orderButton = document.getElementById('orderButton');
-        orderButton.addEventListener('click', function(e) {
-            e.preventDefault();
-
-            var id_product = document.getElementById('id_product').value;
-            var quantity = document.getElementById('quantityInput').value;
-
-            var xhr = new XMLHttpRequest();
-
-            xhr.open('POST', '@Url.Action("Add", "Cart")', true);
-
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-            xhr.onload = function() {
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    var cartUrl = '@Url.Action("Index", "Cart")';
-                    window.location.href = cartUrl;
-                } else {
-                    alert('Đã xảy ra lỗi khi gửi yêu cầu.');
-                }
-            };
-
-            xhr.onerror = function () {
-                alert('Đã xảy ra lỗi khi gửi yêu cầu.');
-            };
-
-            xhr.send('ID_Product=' + id_product + '&Quantity=' + quantity);
-        });
-    });
-
-    document.addEventListener('DOMContentLoaded', function () {
-        var addCartButtons = document.querySelectorAll('.cart');
-        addCartButtons.forEach(function (addButton) {
-            addButton.addEventListener('click', function (e) {
+            addToCartButton.addEventListener('click', function(e) {
                 e.preventDefault();
-                var id_product = addButton.getAttribute('data-id');
-                var quantity = addButton.getAttribute('data-quantity');
-
+                var quantity = parseInt(document.getElementById('quantityInput').value);
                 var xhr = new XMLHttpRequest();
-
-                xhr.open('POST', addButton.getAttribute('href'), true);
+                xhr.open('POST', '@Url.Action("Add", "Cart")', true);
                 xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                xhr.onload = function () {
+                xhr.onload = function() {
                     if (xhr.status >= 200 && xhr.status < 300) {
-                        alert('Thêm thành công');
-                        location.reload();
+                        var response = JSON.parse(xhr.responseText);
+                        if (response.result) {
+                            alert('Thêm thành công');
+                            location.reload();
+                        } else {
+                            alert(response.message);
+                        }
                     } else {
-                        alert('Đã xảy ra lỗi khi gửi yêu cầu.');
+                        alert('Đã xảy ra lỗi');
                     }
                 };
                 xhr.onerror = function () {
@@ -301,6 +265,32 @@
                 };
                 xhr.send('ID_Product=' + id_product + '&Quantity=' + quantity);
             });
-        })
-    });
-</script>
+
+            orderButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                var quantity = parseInt(document.getElementById('quantityInput').value);
+
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', '@Url.Action("Add", "Cart")', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                xhr.onload = function() {
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        var response = JSON.parse(xhr.responseText);
+                        if (response.result) {
+                            var cartUrl = '@Url.Action("Index", "Cart")';
+                            window.location.href = cartUrl;
+                        } else {
+                            alert(response.message);
+                        }
+                    } else {
+                        alert(xhr.statusText);
+                    }
+                };
+                xhr.onerror = function () {
+                    alert('Đã xảy ra lỗi khi gửi yêu cầu.');
+                };
+                xhr.send('ID_Product=' + id_product + '&Quantity=' + quantity);
+            });
+        });
+    </script>
+}

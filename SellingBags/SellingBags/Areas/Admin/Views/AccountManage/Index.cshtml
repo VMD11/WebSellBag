@@ -5,6 +5,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    AccountContext accountContext = new AccountContext();
 }
 
 <div class="container-fluid">
@@ -13,7 +14,6 @@
             <h5 class="m-0 font-weight-bold">Tất cả người dùng</h5>
         </div>
         <div class="card-body">
-            
             <div class="table-responsive">
                 <table class="table table-bordered mt-2" id="dataTable" width="100%" cellspacing="0">
                     <thead>
@@ -27,32 +27,37 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @{
-                            foreach (var item in Model.Customers)
-                            {
-                                var acc = AccountContext.GetAccount(item.ID_Account);
-                                <tr>
-                                    <td>
-                                        @item.LastName @item.FirstName
-                                    </td>
-                                    <td>@item.PhoneNumber</td>
-                                    <td>@item.Address, @item.Ward, @item.District, @item.City</td>
-                                    <td>@Converts.convertDate(item.BirthDay)</td>
-                                    <td>@item.Gender</td>
-                                    <td>
-                                        @if (acc.Status == 1)
-                                        {
-                                            <button data-id="@item.ID_Account" class="btn btn-danger w-100 mb-2 lockBtn">Khóa</button>
-                                        }
-                                        else
-                                        {
-                                            <a href="@Url.Action("UnLock", "AccountManage", new {ID_Account = item.ID_Account})" class="btn btn-success w-100 mb-2">Mở khóa</a>
-                                        }
+                        @foreach (var item in Model.Customers)
+                        {
+                            var acc = accountContext.GetAccount(item.ID_Account);
+                            <tr>
+                                <td>
+                                    @item.LastName @item.FirstName
+                                </td>
+                                <td>@item.PhoneNumber</td>
+                                @if (!string.IsNullOrEmpty(item.Address))
+                                {
+                                <td>@item.Address, @item.Ward, @item.District, @item.City </td>
+                                }
+                                else
+                                {
+                                    <td></td>
+                                }
+                                <td>@Converts.convertDate(item.BirthDay)</td>
+                                <td>@item.Gender</td>
+                                <td>
+                                    @if (acc.Status == 1)
+                                    {
+                                        <button data-id="@item.ID_Account.Trim()" class="btn btn-danger w-100 mb-2 lockBtn"><i class="fas fa-lock"></i></button>
+                                    }
+                                    else
+                                    {
+                                        <a href="@Url.Action("UnLock", "AccountManage", new {ID_Account = item.ID_Account.Trim()})" class="btn btn-success w-100 mb-2"><i class="fas fa-unlock"</a>
+                                    }
 
-                                    </td>
-                                </tr>
+                                </td>
+                            </tr>
 
-                            }
                         }
                     </tbody>
                 </table>
@@ -86,7 +91,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('.lockBtn').on('click', function () {
-            var id = $(this).attr('data-id');
+            var id = $(this).data('id');
 
             $('#lockConfirmPopup').modal('show');
 
@@ -97,15 +102,15 @@
                     data: { ID_Account: id }, 
                     success: function (response) {
                         if (response.result) {
-                            alert('Khóa thành công');
-                            location.reload(); 
+                            alert(response.message);
+                            window.location.href = response.redirectUrl; 
                             console.log(id);
                         } else {
-                            alert('Khóa không thành công: ' + response.message);
+                            alert(response.message);
                         }
                     },
                     error: function () {
-                        alert('Có lỗi xảy ra khi khóa');
+                        alert('Có lỗi xảy ra');
                     }
                 });
 
